@@ -14,6 +14,7 @@ use App\Http\Controllers\FormsController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
+use App\Http\Controllers\V1\Sites\StradieSiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,8 @@ use App\Http\Controllers\ChartsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/', [DashboardController::class, 'index']);
+Route::resource('/', StradieSiteController::class);
+// Route::get('/', [DashboardController::class, 'index']);
 Route::get('index', [DashboardController::class, 'index']);
 
 Route::get('profile', [PagesController::class, 'profile']);

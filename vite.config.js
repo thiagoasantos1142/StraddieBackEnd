@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import path from 'path';
 
 export default defineConfig({
     plugins: [
@@ -10,7 +11,9 @@ export default defineConfig({
                 // Resources paths
                 'resources/css/app.css',
                 'resources/sass/app.scss',
+                'resources/v1/site/css/app.css',
                 'resources/js/app.js',
+                'resources/v1/site/js/app.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
@@ -113,6 +116,12 @@ export default defineConfig({
     build: {
         chunkSizeWarningLimit: 1600,
     },
+    resolve: {
+        alias: {
+            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap/dist'),
+            '~resources': path.resolve(__dirname, 'resources'),
+        },
+    }
 });
 
 
