@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/sass/app.scss',
                 'resources/v1/site/css/app.css',
                 'resources/js/app.js',
+                'resources/js/my-app.js',
                 'resources/v1/site/js/app.js',
 
                 // Resources assets js file paths

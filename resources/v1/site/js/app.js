@@ -12,16 +12,8 @@ import {
   arrow
 } from '@floating-ui/dom';
 
-import.meta.glob([
-  '../images/**',
-  '../fonts/**',
-  '../icons/**'
-]);
-
 window.jQuery = window.$ = jQuery;
 window.Swiper = Swiper;
-
-
 
 
 const swiper = new Swiper('#swiper-one', {
@@ -154,6 +146,7 @@ async function saveForm(form) {
 
 
 // teste de toutlip
+// const { computePosition, flip, shift, offset, arrow } = Floating;
 
 const elementsToutlip = document.querySelectorAll('[data-toutlip]');
 elementsToutlip.forEach(e => {
