@@ -56,7 +56,7 @@ Route::get('checkout', [PagesController::class, 'checkout']);
 
 
 // Route::get('login', [AuthenticationController::class, 'login']);
-Route::get('register', [AuthenticationController::class, 'register']);
+// Route::get('register', [AuthenticationController::class, 'register']);
 Route::get('forgot-password', [AuthenticationController::class, 'forgot_password']);
 Route::get('lockscreen', [AuthenticationController::class, 'lockscreen']);
 Route::get('under-maintenance', [AuthenticationController::class, 'under_maintenance']);
@@ -149,12 +149,16 @@ Route::get('maps', [MapsController::class, 'maps']);
 Route::get('chart-chartist', [ChartsController::class, 'chart_chartist']);
 Route::get('chart-echart', [ChartsController::class, 'chart_echart']);
 Route::get('chart-apex', [ChartsController::class, 'chart_apex']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 });
+
+
