@@ -445,7 +445,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputAtivo_1" class="form-label">Ativo disponível</label>
+                                    <label for="inputAtivo_1" class="form-label">Categoria cliente</label>
                                     <input type="text" class="form-control" id="inputAtivo_1" placeholder="Selecione"
                                         name="active_one" required>
                                     <div class="invalid-feedback">
