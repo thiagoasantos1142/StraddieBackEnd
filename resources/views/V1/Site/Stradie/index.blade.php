@@ -2,7 +2,7 @@
 
 @section('content')
     <x-v1.site.sidebar />
-    <section class="container-fluid section-one position-relative">
+    <section id="section1" class="container-fluid section-one position-relative">
         <div class="container-content-section-one">
             <div class="container w-100 h-100 d-flex justify-content-center flex-column j-mobile-center">
                 <h4 class="fw-300">Sua plataforma para</h4>
@@ -13,7 +13,7 @@
             </div>
         </div>
     </section>
-    <section class="section-two pys-1 container">
+    <section id="section2" class="section-two pys-1 container">
         <div class="row align-items-center justify-content-center j-mobile-center">
             <div class="col-md-6">
                 <p class="fs-4 m-0 m-sm-2">Grandes números para a Straddie.<strong> Resultados ainda maiores para
@@ -27,7 +27,7 @@
             </div>
         </div>
     </section>
-    <section class="section-two pys-1 container-fluid bg-secundary-color">
+    <section id="section3" class="section-two pys-1 container-fluid bg-secundary-color">
         <div class="container primary-color my-2 mt-4">
             <div class="row align-items-center justify-content-center">
                 <div
@@ -46,7 +46,7 @@
             </div>
         </div>
     </section>
-    <section class="section-tree pys-1 container-fluid bg-primary-color">
+    <section id="section4" class="section-tree pys-1 container-fluid bg-primary-color">
         <div class="container">
             <div class="row">
                 <div class="col-md mb-4 mb-sm-0">
@@ -63,7 +63,7 @@
             </div>
         </div>
     </section>
-    <section class="section-four pys-1 secundary-color pb-0">
+    <section id="section5" class="section-four pys-1 secundary-color pb-0">
         <div class="container-fluid">
             <div class="container">
                 <div class="row mb-4 text-center-mobile">
@@ -172,7 +172,7 @@
             </div>
         </div>
     </section>
-    <section class="section-five pys-1 container-fluid bg-secundary-color">
+    <section id="section6" class="section-five pys-1 container-fluid bg-secundary-color">
         <div class="container text-white">
             <div class="row">
                 <div class="col-12">
@@ -236,7 +236,7 @@
             </div>
         </div>
     </section>
-    <section class="section-six pys-1 container-fluid bg-third-color">
+    <section id="section7" class="section-six pys-1 container-fluid bg-third-color">
         <div class="container text-white">
             <div class="row">
                 <div class="col-12">
@@ -295,7 +295,7 @@
             </div>
         </div>
     </section>
-    <section class="section-seven pys-1 container secundary-color">
+    <section id="section8" class="section-seven pys-1 container secundary-color">
         <div class="row">
             <div class="col-md-4 mb-5 mb-sm-0">
                 <div class="p-4">
@@ -335,7 +335,7 @@
             </div>
         </div>
     </section>
-    <section class="section-nine pys-1 container-fluid bg-third-color">
+    <section id="section9" class="section-nine pys-1 container-fluid bg-third-color">
         <div class="container text-white">
             <div class="row flex-column justify-content-center align-items-center">
                 <div class="col-md-10">
@@ -385,7 +385,7 @@
             </div>
         </div>
     </section>
-    <section class="container-ten section-ten position-relative text-black pys-2">
+    <section id="section10" class="container-ten section-ten position-relative text-black pys-2">
         <div class="container-content-section-ten">
             <div class="container w-100 d-flex justify-content-center flex-column">
                 <div class="card-form p-5">

@@ -9,10 +9,10 @@
         </button>
         <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link text-black fw-400" aria-current="page" href="#">Straddie</a>
-                <a class="nav-link text-black fw-400" href="#">Diferenciais</a>
-                <a class="nav-link text-black fw-400" href="#">Parceiros</a>
-                <a class="nav-link text-black fw-400" href="#">FAQ</a>
+                <a class="nav-link text-black fw-400" aria-current="page" href="#section4">Straddie</a>
+                <a class="nav-link text-black fw-400" href="#section6">Diferenciais</a>
+                <a class="nav-link text-black fw-400" href="#section8">Parceiros</a>
+                <a class="nav-link text-black fw-400" href="#section9">FAQ</a>
                 <div class="py-2 py-lg-0 ms-0 ms-lg-4">
                     <a href="{{ route('dashboard') }}">
                         <button type="button" class="btn btn-custom-nav px-4">Entrar</button>
