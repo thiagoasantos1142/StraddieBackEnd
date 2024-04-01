@@ -1,21 +1,3 @@
-// import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
-import '/resources/js/bootstrap.js'
-import '~bootstrap/js/bootstrap.min.js';
-import jQuery from 'jquery';
-import Swiper from 'swiper/bundle'
-import '@floating-ui/dom';
-import {
-  computePosition,
-  flip,
-  shift,
-  offset,
-  arrow
-} from '@floating-ui/dom';
-
-window.jQuery = window.$ = jQuery;
-window.Swiper = Swiper;
-
-
 const swiper = new Swiper('#swiper-one', {
     direction: 'horizontal',
     slidesPerView: 1.6,
@@ -114,14 +96,12 @@ function calculateDiv(elements) {
 
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-            saveForm(form);
+        form.addEventListener('submit', async event => {
             event.preventDefault()
+            await saveForm(form, event);
             if (!form.checkValidity()) {
                 event.stopPropagation()
                 form.classList.add('was-validated')
-            } else {
-                saveForm();
             }
         }, false)
     })
@@ -129,24 +109,51 @@ function calculateDiv(elements) {
 
 
 async function saveForm(form) {
+    clearErrros(form);
+    
     const btnSubmit = $(form).find('button[type="submit"]');
     btnSubmit.prop('disabled', true);
     btnSubmit.children().fadeIn();
 
     const formData = $('#form-register').serialize();
     await axios.post('/', formData).then(function (response) {
+        setTimeout(() => {
+            form.classList.remove('was-validated');
+        }, 2000);
+
         console.log(response.data);
     }).catch(function (error) {
         console.error(error);
+        customValidateApi(error, form);
     }).finally(function () {
         btnSubmit.prop('disabled', false);
         btnSubmit.children().fadeOut();
+        return
     });
 }
 
+function customValidateApi(error, form) {
+    const errors = error.response.data.errors;
+    const keysArray = Object.keys(errors);
+    keysArray.forEach(nameInput => {
+        form.querySelector(`[name="${nameInput}"]`).setCustomValidity(errors[nameInput][0]);
+
+        const divInvalidFeedBack = form.querySelector(`[name="${nameInput}"]`).parentNode.querySelector('.invalid-feedback');
+        if(divInvalidFeedBack){
+            divInvalidFeedBack.textContent = errors[nameInput][0];
+        }
+    });
+}
+
+function clearErrros(form){
+    const arrayCampos = form.querySelectorAll('[name]');
+    arrayCampos.forEach(element => {
+        element.setCustomValidity('');
+    });
+}
 
 // teste de toutlip
-// const { computePosition, flip, shift, offset, arrow } = Floating;
+const { computePosition, flip, shift, offset, arrow } = Floating;
 
 const elementsToutlip = document.querySelectorAll('[data-toutlip]');
 elementsToutlip.forEach(e => {
@@ -203,7 +210,7 @@ function updateToutlip(element, tooltipElement) {
 
 function showTooltip() {
     const toutlip = checkExistToutLip(this);
-    if(toutlip){
+    if (toutlip) {
         $(toutlip).fadeIn(300);
         updateToutlip(this, toutlip);
     }
@@ -220,5 +227,8 @@ function checkExistToutLip(element) {
     }
     return null;
 }
+
+
+
 
 

@@ -14,7 +14,9 @@
                 <a class="nav-link text-black fw-400" href="#">Parceiros</a>
                 <a class="nav-link text-black fw-400" href="#">FAQ</a>
                 <div class="py-2 py-lg-0 ms-0 ms-lg-4">
-                    <button type="button" class="btn btn-custom-nav px-4">Entrar</button>
+                    <a href="{{ route('dashboard') }}">
+                        <button type="button" class="btn btn-custom-nav px-4">Entrar</button>
+                    </a>
                 </div>
             </div>
         </div>

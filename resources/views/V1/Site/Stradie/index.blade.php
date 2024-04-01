@@ -398,8 +398,7 @@
                                 <div class="mb-3">
                                     <label for="inputName" class="form-label">Nome completo</label>
                                     <input type="text" class="form-control" id="inputName"
-                                        aria-describedby="nameHelp" placeholder="Seu nome" name="name" data-toutlip
-                                        required>
+                                        aria-describedby="nameHelp" placeholder="Seu nome" name="nome" data-toutlip>
                                     <div class="tooltip-custom" role="tooltip">
                                         <div class="p-2">
                                             <p class="d-flex">Nome e sobrenome</p>
@@ -415,8 +414,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputPhone" class="form-label">Telefone</label>
-                                    <input type="tel" class="form-control" id="inputPhone"
-                                        placeholder="Seu telefone" name="phone" required data-toutlip>
+                                    <input type="tel" class="form-control phone_with_ddd" id="inputPhone"
+                                        placeholder="Seu telefone" name="telefone" data-toutlip>
                                     <div class="tooltip-custom" role="tooltip">
                                         <div class="p-2">
                                             <p class="d-flex">Telefone ex: (ddd) 9 0000-0000</p>
@@ -433,7 +432,7 @@
                                 <div class="mb-3">
                                     <label for="inputEmail" class="form-label">E-mail</label>
                                     <input type="email" class="form-control" id="inputEmail" placeholder="Seu e-mail"
-                                        name="email" data-toutlip required>
+                                        name="email" data-toutlip>
                                     <div class="tooltip-custom" role="tooltip">
                                         <div class="p-2">
                                             <p class="d-flex">Email ex: xxxxxxxxxx@gmail.com</p>
@@ -446,8 +445,14 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputAtivo_1" class="form-label">Categoria cliente</label>
-                                    <input type="text" class="form-control" id="inputAtivo_1" placeholder="Selecione"
-                                        name="active_one" required>
+                                    <select class="form-select form-control" aria-label="Default select example" id="inputAtivo_1" name="cliente_type">
+                                        <option selected value="">Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    {{-- <input type="text" class="form-control" id="inputAtivo_1" placeholder="Selecione"
+                                        name="client_type"> --}}
                                     <div class="invalid-feedback">
                                         Please provide a valid city.
                                     </div>
@@ -457,7 +462,7 @@
                                 <div class="mb-3">
                                     <label for="inputAtivo_2" class="form-label">Ativo disponível</label>
                                     <input type="text" class="form-control" id="inputAtivo_2"
-                                        placeholder="Ativo disponível" name="active_two" required>
+                                        placeholder="Ativo disponível" name="ativo_disponivel">
                                     <div class="invalid-feedback">
                                         Please provide a valid city.
                                     </div>
@@ -465,7 +470,7 @@
                                 <div class="mb-3 d-flex flex-column" style="flex: 1">
                                     <label for="inputFeedBack" class="form-label">Mensagem</label>
                                     <textarea type="text" class="form-control" id="inputFeedBack" rows="8" placeholder=""
-                                        style="resize: none;flex: 1" name="message" required></textarea>
+                                        style="resize: none;flex: 1" name="mensagem"></textarea>
                                     <div class="invalid-feedback">
                                         Please provide a valid city.
                                     </div>

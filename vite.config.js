@@ -112,7 +112,7 @@ export default defineConfig({
                     });
                 }
             },
-        }
+        },
     ],
     build: {
         chunkSizeWarningLimit: 1600,
@@ -121,6 +121,7 @@ export default defineConfig({
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap/dist'),
             '~resources': path.resolve(__dirname, 'resources'),
+            '~jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js')
         },
     }
 });

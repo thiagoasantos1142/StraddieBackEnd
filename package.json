@@ -18,10 +18,10 @@
     "dependencies": {
         "@floating-ui/dom": "^1.6.3",
         "apexcharts": "^3.43.0",
-        "sass": "^1.69.1",
-        "vite-plugin-static-copy": "^0.17.0",
         "bootstrap": "^5.3.3",
         "jquery": "^3.7.1",
-        "swiper": "^11.0.7"
+        "sass": "^1.69.1",
+        "swiper": "^11.0.7",
+        "vite-plugin-static-copy": "^0.17.0"
     }
 }

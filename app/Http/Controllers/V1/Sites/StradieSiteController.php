@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\V1\Sites;
 
 use App\Http\Controllers\Controller;
+use App\Models\V1\Lead;
+use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StradieSiteController extends Controller
 {
@@ -29,18 +32,35 @@ class StradieSiteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|min:8',
-            'email' => 'required|string|email|max:255|unique:users',
-            'active_one' => 'required|string|min:8',
-            'active_two' => 'required|string|min:8',
-            'message' => 'required|string|min:8'
-        ]);
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nome' => ['required', 'string', 'max:255', new NameAndSurname],
+                'email' => 'required|string|email|max:255',
+                'telefone' => 'required|string|max:16|min:16',
+                'cliente_type' => 'required|string',
+                'ativo_disponivel' => 'required|string|min:3|max:255',
+                'mensagem' => 'required|string|min:20|max:255'
+            ],
+            [
+                'required' => 'O :attribute é requerido.',
+                'cliente_type.string' => 'O :attribute é requerido.'
+            ]
+        );
 
         if ($request->ajax()) {
-            // A requisição é AJAX
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
 
+            try {
+                Lead::create($request->all());
+                //code...
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
+            }
 
             return response()->json(['status' => 'success'], 200);
         }
