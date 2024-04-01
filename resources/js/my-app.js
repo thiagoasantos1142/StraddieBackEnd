@@ -3,8 +3,6 @@ import '~bootstrap/js/bootstrap.min.js';
 import jQuery from 'jquery';
 import Swiper from 'swiper/bundle'
 import '@floating-ui/dom';
-// import '~resources/js/jquery.mask.js';
-// import '~resources/js/basicMask.js';
 import.meta.glob([
   '../images/**',
   '../fonts/**',
@@ -19,7 +17,14 @@ import {
   arrow
 } from '@floating-ui/dom';
 
+//config jquery
 window.jQuery = window.$ = jQuery;
+window.require = name => {
+  if (name === 'jquery') return window.jQuery || window.Zepto
+  else throw new Error(`Cannot require ${name}`)
+}
+//fim config jquery
+
 window.Swiper = Swiper;
 window.Floating = {
   computePosition,
@@ -28,5 +33,4 @@ window.Floating = {
   offset,
   arrow
 };
-
 

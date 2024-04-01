@@ -1,3 +1,5 @@
+import '~resources/js/importmask.js';
+
 const swiper = new Swiper('#swiper-one', {
     direction: 'horizontal',
     slidesPerView: 1.6,
