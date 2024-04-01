@@ -1,4 +1,4 @@
-import '/resources/js/bootstrap.js'
+import '~resources/js/bootstrap.js';
 import '~bootstrap/js/bootstrap.min.js';
 import jQuery from 'jquery';
 import Swiper from 'swiper/bundle'
