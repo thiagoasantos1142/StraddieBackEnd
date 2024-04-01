@@ -444,12 +444,12 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputAtivo_1" class="form-label">Categoria cliente</label>
+                                    <label for="inputAtivo_1" class="form-label">Você gostaria de:</label>
                                     <select class="form-select form-control" aria-label="Default select example" id="inputAtivo_1" name="cliente_type">
-                                        <option selected value="">Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option selected value="">-Selecione</option>
+                                        <option value="1">Vender um título próprio</option>
+                                        <option value="2">Vender títulos de terceiros</option>
+                                        <option value="3">Comprar títulos</option>
                                     </select>
                                     {{-- <input type="text" class="form-control" id="inputAtivo_1" placeholder="Selecione"
                                         name="client_type"> --}}
