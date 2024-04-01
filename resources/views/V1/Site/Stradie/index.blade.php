@@ -445,7 +445,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputAtivo_1" class="form-label">Você gostaria de:</label>
-                                    <select class="form-select form-control" aria-label="Default select example" id="inputAtivo_1" name="cliente_type">
+                                    <select class="form-select form-control" aria-label="Default select example" id="inputAtivo_1" name="purpose_registration">
                                         <option selected value="">-Selecione</option>
                                         <option value="1">Vender um título próprio</option>
                                         <option value="2">Vender títulos de terceiros</option>

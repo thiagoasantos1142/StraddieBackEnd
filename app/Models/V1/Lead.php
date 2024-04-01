@@ -9,7 +9,7 @@ class Lead extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'email', 'telefone', 'cliente_type', 'ativo_disponivel', 'mensagem'];
+    protected $fillable = ['nome', 'email', 'telefone', 'purpose_registration', 'ativo_disponivel', 'mensagem'];
 
     public function setTelefoneAttribute($value)
     {

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');
-            $table->string('cliente_type');
+            $table->string('purpose_registration');
             $table->text('ativo_disponivel')->nullable();
             $table->text('mensagem')->nullable();
             $table->timestamps();

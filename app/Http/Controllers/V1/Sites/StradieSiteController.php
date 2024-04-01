@@ -39,13 +39,13 @@ class StradieSiteController extends Controller
                 'nome' => ['required', 'string', 'max:255', new NameAndSurname],
                 'email' => 'required|string|email|max:255',
                 'telefone' => 'required|string|max:16|min:16',
-                'cliente_type' => 'required|string',
+                'purpose_registration' => 'required|string',
                 'ativo_disponivel' => 'required|string|min:3|max:255',
                 'mensagem' => 'required|string|min:20|max:255'
             ],
             [
                 'required' => 'O :attribute é requerido.',
-                'cliente_type.string' => 'O :attribute é requerido.'
+                'purpose_registration.string' => 'O :attribute é requerido.'
             ]
         );
 
