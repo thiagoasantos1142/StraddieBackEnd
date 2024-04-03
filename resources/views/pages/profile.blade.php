@@ -12,11 +12,11 @@
 	
                     <!-- PAGE-HEADER -->
                     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-                        <h1 class="page-title">Profile</h1>
+                        <h1 class="page-title">Perfil</h1>
                         <div>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Páginas</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Perfil</li>
                             </ol>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                 <div class="card text-center shadow-none border profile-cover__img">
                                     <div class="card-body">
                                         <div class="profile-img-1">
-                                            <img src="{{asset('build/assets/images/users/18.jpg')}}" alt="img" id="profile-img">
+                                            <img src="{{asset('build/assets/images/users/Thiago_053.jpg')}}" alt="img" id="profile-img">
                                             <a aria-label="anchor" href="#" class="rounded-pill avatar-icons bg-primary tx-fixed-white p-2">
                                                 <input type="file" name="photo" class="position-absolute w-100 h-100 op-0" id="profile-change">
                                                 <i class="fe fe-camera lh-base"></i>
@@ -39,8 +39,8 @@
                                         </div>
                                         <div class="profile-img-content text-dark my-2">
                                             <div>
-                                                <h5 class="mb-0">Cedric Kelly</h5>
-                                                <p class="text-muted mb-0">UI Developer</p>
+                                                <h5 class="mb-0">{{$user->name}}</h5>
+                                                <p class="text-muted mb-0">{{$user->userType->title}}</p>
                                             </div>
                                         </div>
                                         <div>
@@ -54,167 +54,28 @@
                                         </div>
                                         <p class="mb-2">(3145 Reviews)</p>
                                         <div class="d-flex btn-list btn-list-icon justify-content-center">
-                                            <button type="button" class="btn btn-sm btn-primary"><i class="fe fe-user-plus me-1"></i>Follow</button>
-                                            <button type="button" class="btn btn-sm btn-info"><i class="fe fe-message-square me-1"></i>Message</button>
+                                            <button type="button" class="btn btn-sm btn-primary"><i class="fe fe-user-plus me-1"></i>Seguir</button>
+                                            <button type="button" class="btn btn-sm btn-info"><i class="fe fe-message-square me-1"></i>Mensagem</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title">Skills</div>
+                                        <div class="card-title">Funções Habilitadas</div>
                                     </div>
                                     <div class="card-body">
                                         <div class="tags">
-                                            <a class="tag alert bg-light">
-                                                HTML
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                CSS
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                javascript
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                Angular
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                React
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                Laravel
-                                            </a>
-                                            <a class="tag alert bg-light">
-                                                Bootstrap
-                                            </a>
+                                            @foreach ($user->roles as $role)
+                                                <a class="tag alert bg-light">
+                                                    {{ $role->title }}
+                                                </a>
+                                            @endforeach
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="card">
-                                    <div class="card-header justify-content-between align-items-center">
-                                        <div class="card-title">Friends <span class="badge rounded-pill bg-default">419</span></div>
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary-light">View all</a>
-                                    </div>
-                                    <div class="card-body px-5">
-                                        <div class="row">
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/1.jpg')}}" class="rounded-2 w-100" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/10.jpg')}}" class="rounded-2 w-100" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/6.jpg')}}" class="rounded-2 w-100" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/2.jpg')}}" class="rounded-2 w-100" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/3.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/8.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/9.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/4.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/13.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/7.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/10.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                            <div class="col-3 px-1">
-                                                <a href="javascript:void(0);"><img src="{{asset('build/assets/images/users/12.jpg')}}" class="rounded-2 w-100 mt-2" alt="img"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header justify-content-between align-items-center">
-                                        <div class="card-title">Suggestions</div>
-                                        <div class="dropdown">
-                                            <a aria-label="anchor" href="javascript:void(0);" class="text-dark" data-bs-toggle="dropdown" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                                                <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
-                                            </ul>
-                                            </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center flex-wrap">
-                                            <div class="avatar avatar-lg rounded-circle">
-                                                <img src="{{asset('build/assets/images/users/10.jpg')}}" class="rounded-circle" alt="img">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 fw-semibold">Gibson</h6>
-                                                <p class="mb-0 fs-13">Developer</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <span><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-light rounded-pill"><i class="fe fe-plus"></i></button></span>
-                                                <span class="ms-1"><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-blue rounded-pill"><i class="fe fe-message-square"></i></button></span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3 flex-wrap">
-                                            <div class="avatar avatar-lg rounded-circle">
-                                                <img src="{{asset('build/assets/images/users/11.jpg')}}" class="rounded-circle" alt="img">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 fw-semibold">Jaon Powell</h6>
-                                                <p class="mb-0 fs-13">Manager</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <span><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-light rounded-pill"><i class="fe fe-plus"></i></button></span>
-                                                <span class="ms-1"><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-blue rounded-pill"><i class="fe fe-message-square"></i></button></span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3 flex-wrap">
-                                            <div class="avatar avatar-lg rounded-circle">
-                                                <img src="{{asset('build/assets/images/users/12.jpg')}}" class="rounded-circle" alt="img">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 fw-semibold">Cedric Kelly</h6>
-                                                <p class="mb-0 fs-13">UI Developer</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <span><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-primary rounded-pill"><i class="fe fe-check"></i></button></span>
-                                                <span class="ms-1"><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-blue rounded-pill"><i class="fe fe-message-square"></i></button></span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3 flex-wrap">
-                                            <div class="avatar avatar-lg rounded-circle">
-                                                <img src="{{asset('build/assets/images/users/18.jpg')}}" class="rounded-circle" alt="img">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 fw-semibold">Samantha</h6>
-                                                <p class="mb-0 fs-13">JS Developer</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <span><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-light rounded-pill"><i class="fe fe-plus"></i></button></span>
-                                                <span class="ms-1"><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-blue rounded-pill"><i class="fe fe-message-square"></i></button></span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3 flex-wrap">
-                                            <div class="avatar avatar-lg rounded-circle">
-                                                <img src="{{asset('build/assets/images/users/20.jpg')}}" class="rounded-circle" alt="img">
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 fw-semibold">Julian Kerr</h6>
-                                                <p class="mb-0 fs-13">JS Developer</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <span><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-primary rounded-pill"><i class="fe fe-check"></i></button></span>
-                                                <span class="ms-1"><button type="button" aria-label="anchor" class="btn btn-icon btn-sm btn-blue rounded-pill"><i class="fe fe-message-square"></i></button></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                
                             </div>
                             <div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7">
                                 <div class="card">
@@ -222,32 +83,32 @@
                                         <ul class="nav nav-pills gap-2" id="pills-tab" role="tablist">
                                             <li class="nav-item" role="presentation">
                                                 <button type="button" aria-label="anchor" class="nav-link active" id="about-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#about">About</button>
+                                                    data-bs-toggle="pill" data-bs-target="#about">Sobre</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="timeline-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#timeline" type="button" role="tab"
-                                                    aria-controls="timeline" aria-selected="false">Timeline</button>
+                                                <button class="nav-link" id="organization-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#organization" type="button" role="tab"
+                                                    aria-controls="organization" aria-selected="false">Empresa</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="gallery-tab" data-bs-toggle="pill"
                                                     data-bs-target="#gallery" type="button" role="tab"
-                                                    aria-controls="gallery" aria-selected="false">Gallery</button>
+                                                    aria-controls="gallery" aria-selected="false">OAB</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="editprofile-tab" data-bs-toggle="pill"
                                                     data-bs-target="#editprofile" type="button" role="tab"
-                                                    aria-controls="editprofile" aria-selected="false">Edit Profile</button>
+                                                    aria-controls="editprofile" aria-selected="false">Editar Perfil</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="projects-tab" data-bs-toggle="pill"
                                                     data-bs-target="#projects" type="button" role="tab"
-                                                    aria-controls="projects" aria-selected="false">Projects</button>
+                                                    aria-controls="projects" aria-selected="false">Titulos cadastrados</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="team-tab" data-bs-toggle="pill"
                                                     data-bs-target="#team" type="button" role="tab"
-                                                    aria-controls="team" aria-selected="false">Team</button>
+                                                    aria-controls="team" aria-selected="false">Ativos Disponíveis</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -255,12 +116,13 @@
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade show active" id="about">
                                                 <div class="p-5">
-                                                    <h5 class="text-dark">Biodata</h5>
-                                                    <p class="text-dark mb-2">Hi I'm Teri Dactyl,has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                                                    <p class="text-dark mb-0">Industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                                                </div>
+                                                    <h5 class="text-dark">{{$user->title}}</h5>
+                                                    <p class="text-dark mb-2">
+                                                        {{$user->bio}}
+                                                    </p>
+                                                       </div>
                                                 <div class="border-top"></div>
-                                                <div class="p-5">
+                                                <!-- <div class="p-5">
                                                     <h5 class="mb-3">Experience</h5>
                                                     <div class="d-flex">
                                                         <div class="experience-icon bg-primary rounded-circle">
@@ -296,15 +158,15 @@
                                                             <p class="text-muted mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="border-top"></div>
                                                 <div class="table-responsive p-5">
-                                                    <h5 class="mb-3">Personal Info</h5>
+                                                    <h5 class="mb-3">Informação pesssoais</h5>
                                                     <div class="row">
                                                         <div class="col-xl-8 ms-3">
                                                             <div class="row row-sm">
                                                                 <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">First Name : </span>
+                                                                    <span class="fw-semibold fs-14">Primeiro Nome: </span>
                                                                 </div>
                                                                 <div class="col-md-9">
                                                                     <span class="fs-15">Cedric Kelly</span>
@@ -405,7 +267,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="timeline">
+                                            <div class="tab-pane fade" id="organization">
                                                 <div class="row p-5">
                                                     <div class="col-xl-12">
                                                         <div class="card border p-0 shadow-none">
@@ -413,11 +275,13 @@
                                                                 <div class="d-flex">
                                                                     <div class="media mt-0">
                                                                         <div class="media-user me-2">
-                                                                            <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/users/16.jpg')}}"></div>
+                                                                            <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/organizations/Clin-1.png')}}"></div>
                                                                         </div>
                                                                         <div class="media-body">
-                                                                            <h6 class="mb-0 mt-1">Peter Hill</h6>
-                                                                            <small class="text-muted">just now</small>
+                                                                            <h6 class="mb-0 mt-1">{{$user->organization->razao_social}}
+                                                                        
+                                                                        </h6>
+                                                                            <small class="text-muted"></small>
                                                                         </div>
                                                                     </div>
                                                                     <div class="ms-auto">
@@ -426,33 +290,42 @@
                                                                                 <span class=""><i class="fe fe-more-vertical"></i></span>
                                                                             </a>
                                                                             <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Edit Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Delete Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Personal Settings</a>
+                                                                                <a class="dropdown-item" href="javascript:void(0);">Editar perfil</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-4">
-                                                                    <h5 class="mt-3">There is nothing more beautiful.</h5>
-                                                                    <p class="mb-0 text-muted">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+                                                                    <h5 class="mt-3">{{$user->organization->nome_fantasia}}</h5>
+                                                                    <p class="mb-0 text-muted">{{$user->organization->description}}
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer user-pro-2">
                                                                 <div class="media mt-0 flex-wrap overflow-visible">
-                                                                    <div class="media-user me-2">
-                                                                        <div class="avatar-list avatar-list-stacked">
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/12.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/9.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/4.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+28</span>
-                                                                        </div>
+                                                                <div class="media-user me-2">
+                                                                    <div class="avatar-list avatar-list-stacked">
+                                                                        @foreach($user->organization->users as $user)
+                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
+                                                                        @endforeach
+                                                                        @php
+                                                                            $userCount = $user->organization->users->count();
+                                                                            $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                        @endphp
+                                                                        @if ($userCount > 5)
+                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                        @endif
                                                                     </div>
+                                                                </div>
+
                                                                     <div class="media-body flex-fill">
-                                                                        <p class="mb-0 ms-2">28 people like your photo</p>
+                                                                        <p class="mb-0 ms-2">
+                                                                            @php
+                                                                                $userCount = $user->organization->users->count();
+                                                                                $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                            @endphp
+                                                                            {{ $userCount }} {{ $message }} associado(s) a essa organização.
+                                                                        </p>
                                                                     </div>
                                                                     <div>
                                                                         <div class="d-flex mt-1">
@@ -687,153 +560,178 @@
                                                     <div class="col-xl-12">
                                                         <div class="">
                                                             <div class="p-5">
-                                                                <div class="mb-4 main-content-label">Personal Information</div>
+                                                                <div class="mb-4 main-content-label">Informações Pessoais</div>
                                                                 <div class="form-horizontal">
-                                                                    <div class="mb-4 main-content-label">Name</div>
-                                                                    <div class="form-group ">
+                                                                    <div class="mb-4 main-content-label">Perfil</div>
+                                                                    
+                                                                    <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">User Name</label>
+                                                                                <label class="form-label">Primeiro Nome</label>
                                                                             </div>
                                                                             <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="User Name" value="Sonia Taylor">
+                                                                                @php
+                                                                                    $nameParts = explode(" ", $user->name);
+                                                                                    $firstName = $nameParts[0];
+                                                                                    echo '<input type="text" class="form-control" placeholder="First Name" value="' . $firstName . '">';
+                                                                                @endphp
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group ">
+
+                                                                    <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">First Name</label>
+                                                                                <label class="form-label">Último Nome</label>
                                                                             </div>
                                                                             <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="First Name" value="Sonia">
+                                                                                @php
+                                                                                    $lastName = end($nameParts);
+                                                                                    echo '<input type="text" class="form-control" placeholder="Last Name" value="' . $lastName . '">';
+                                                                                @endphp
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="form-group ">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">Last Name</label>
+                                                                                <label class="form-label">Título</label>
                                                                             </div>
                                                                             <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Last Name" value="Taylor">
+                                                                                <input type="text" class="form-control" placeholder="Designation" value={{$user->title}}>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="mb-4 main-content-label">Informações de Contato</div>
                                                                     <div class="form-group ">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">Designation</label>
+                                                                                <label class="form-label">E-mail<i>(required)</i></label>
                                                                             </div>
                                                                             <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Designation" value="Web Designer">
+                                                                                <input type="text" class="form-control" placeholder="Email" value={{$user->email}}>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="mb-4 main-content-label">Contact Info</div>
+                                                                    
                                                                     <div class="form-group ">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">Email<i>(required)</i></label>
+                                                                                <label class="form-label">Telefone</label>
                                                                             </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Email" value="klomitoor@domain.com">
-                                                                            </div>
+                                                                            @foreach($user->contacts as $contact)
+                                                                                <div class="col-md-10">
+                                                                                    <input type="text" class="form-control" placeholder="phone number" value="{{$contact->phone}}">
+                                                                                </div>
+                                                                            @endforeach
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Website</label>
+                                                                    
+                                                                    <div class="mb-4 main-content-label">Endereço</div>
+
+                                                                        @foreach($user->addresses as $address)
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">Rua</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Website" value="domain.com">
+                                                                            
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">Número</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="Número" value="{{ $address->street_number }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Phone</label>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">Complemento</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="CEP" value="{{ $address->complement }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="phone number" value="+125 254 3562">
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">CEP</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="CEP" value="{{ $address->zip }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Address</label>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">Cidade</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-md-10">
-                                                                                <textarea class="form-control" name="example-textarea-input" rows="2" placeholder="Address">London, UK</textarea>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
+                                                                                        <label class="form-label">Estado</label>
+                                                                                    </div>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->title }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mb-4 main-content-label">Social Info</div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Twitter</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="twitter" value="twitter.com/spruko.me">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Facebook</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="facebook" value="https://www.facebook.com/vexel">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Linked in</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="linkedin" value="linkedin.com/in/spruko">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mb-4 main-content-label">About Yourself</div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Biographical Info</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <textarea class="form-control" name="example-textarea-input1" rows="4" placeholder="Please say something about yourself"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mb-4 main-content-label">Notifications</div>
+                                                                        @endforeach
+
+                                                                    
+                                                                   
+                                                                    <div class="mb-4 main-content-label">Permissões</div>
                                                                     <div class="form-group mb-0">
                                                                         <div class="row">
                                                                             <div class="col-md-2">
-                                                                                <label class="form-label">Configure Notifications</label>
+                                                                                <label class="form-label">Configurar Permissões</label>
                                                                             </div>
                                                                             <div class="col-md-10">
                                                                                 <label class="custom-switch d-block mb-2">
                                                                                     <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
                                                                                     <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Allow all Notifications</span>
+                                                                                    <span class="text-muted ms-2">Cadastrar Títulos</span>
                                                                                 </label>
                                                                                 <label class="custom-switch d-block mb-2">
                                                                                     <input type="checkbox" name="custom-switch-checkbox1" class="custom-switch-input">
                                                                                     <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Disable all Notifications</span>
+                                                                                    <span class="text-muted ms-2">Iniciar Due Diligence</span>
                                                                                 </label>
                                                                                 <label class="custom-switch d-block mb-2">
                                                                                     <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
                                                                                     <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Notification Sounds</span>
+                                                                                    <span class="text-muted ms-2">Aprovar Due Diligence</span>
+                                                                                </label>
+                                                                                <label class="custom-switch d-block mb-2">
+                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                    <span class="custom-switch-indicator"></span>
+                                                                                    <span class="text-muted ms-2">Fazer Oferta</span>
+                                                                                </label>
+                                                                                <label class="custom-switch d-block mb-2">
+                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                    <span class="custom-switch-indicator"></span>
+                                                                                    <span class="text-muted ms-2">Aceitar Oferta</span>
+                                                                                </label>
+                                                                                <label class="custom-switch d-block mb-2">
+                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                    <span class="custom-switch-indicator"></span>
+                                                                                    <span class="text-muted ms-2">Recusar Oferta</span>
                                                                                 </label>
                                                                             </div>
                                                                         </div>

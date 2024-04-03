@@ -12,17 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();            
+            $table->id();   
+                  
+            $table->string('title', 30)->nullable();         
             $table->unsignedBigInteger('user_type_id')->default(5);            
-            $table->unsignedBigInteger('organization_id')->nullable();            
-            $table->unsignedBigInteger('user_role_id')->default(1);
+            $table->unsignedBigInteger('organization_id')->nullable();  
             $table->string('name');
             $table->string('email')->unique();            
             $table->string('cpf')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();            
+            $table->string('bio', 2048)->nullable();
             $table->timestamps();
 
              // Adicionando coluna 'user_type_id'
@@ -32,8 +34,7 @@ return new class extends Migration
              $table->foreign('organization_id')->references('id')->on('organizations');             
  
              
-             // Adicionando coluna 'user_role_id'
-             $table->foreign('user_role_id')->references('id')->on('user_roles');  
+            
         });
     }
 

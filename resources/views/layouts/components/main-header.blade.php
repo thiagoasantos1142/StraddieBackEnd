@@ -774,22 +774,22 @@
 														height="30" class="rounded-circle">
 												</span>
 												<div class="d-xl-block d-none lh-1">
-													<h6 class="fs-13 font-weight-semibold mb-0">Json Taylor</h6>
-													<span class="op-8 fs-10">Web Designer</span>
+													<h6 class="fs-13 font-weight-semibold mb-0">{{$user->name}}</h6>
+													<span class="op-8 fs-10">{{ $user->userType->title }}</span>
 												</div>
 											</a>
 											<!-- End::header-link|dropdown-toggle -->
 											<ul class="dropdown-menu pt-0 overflow-hidden dropdown-menu-end mt-1"
 												aria-labelledby="mainHeaderProfile">
 												<li><a class="dropdown-item" href="{{url('profile')}}"><i
-															class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
+															class="ti ti-user-circle fs-18 me-2 op-7"></i>Perfil</a></li>
 												<li><a class="dropdown-item" href="{{url('index')}}"><i
 															class="ti ti-inbox fs-18 me-2 op-7"></i>Dashboard</a></li>
 												<li><a class="dropdown-item border-block-end" href="{{url('blog')}}"><i
 															class="ti ti-clipboard-check fs-18 me-2 op-7"></i>Posts &
 														Activities</a></li>
 												<li><a class="dropdown-item" href="{{url('settings')}}"><i
-															class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i>Settings
+															class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i>Configurações
 														& Privacy</a></li>
 												<li><a class="dropdown-item border-block-end" href="{{url('faq')}}"><i
 															class="ti ti-help fs-18 me-2 op-7"></i>Help Center</a></li>
@@ -799,11 +799,16 @@
 												<li><a class="dropdown-item" href="{{url('register')}}"><i
 															class="ti ti-user-plus fs-18 me-2 op-7"></i>Add Another
 														Account</a></li>
-												<li><a class="dropdown-item" href="{{url('login')}}"><i
-															class="ti ti-power fs-18 me-2 op-7"></i>Sign Out</a></li>
-												<li>
-													<hr class="dropdown-divider my-0">
-												</li>
+												
+
+												<form method="POST" action="{{ route('logout') }}">
+													@csrf
+													<button type="submit" class="dropdown-item">
+														<i class="ti ti-power fs-18 me-2 op-7"></i>Sair
+													</button>
+												</form>
+
+
 												<li class="d-flex justify-content-center p-2">
 													<span><a class="fs-12 px-2 border-end"
 															href="javascript:void(0);">Privacy Policy</a></span>

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('phone');
-            $table->timestamps();
-            $table->foreignId('user_id')->constrained('users');
-            
-            $table->foreignId('organization_id')->constrained('organizations');
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->foreignId('city_id')->nullable()->constrained('cities');
         });
     }
 
@@ -26,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contacts');
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
+            $table->dropColumn('city_id');
+        });
     }
 };

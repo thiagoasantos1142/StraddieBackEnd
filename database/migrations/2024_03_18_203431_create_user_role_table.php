@@ -11,21 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('addresses', function (Blueprint $table) {
-            $table->id();            
+        Schema::create('user_roles', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('street');
-            $table->string('zip')->nullable();
-            $table->string('neighborhood')->nullable();
-            $table->string('street_number')->nullable();
-            $table->string('complent')->nullable();     
-           
+            $table->unsignedBigInteger('role_id');
             $table->timestamps();
 
             // Define as chaves estrangeiras
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('organization_id')->constrained('organizations');
-           
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+
+            // Defina uma chave única para evitar duplicatas
+            $table->unique(['user_id', 'role_id']);
         });
     }
 
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('user_role');
     }
 };

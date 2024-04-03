@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('state_id')->nullable()->constrained('states');
             $table->timestamps();
         });
-
-         // Inserir dados padrão
-         DB::table('user_roles')->insert([
-            ['id' => 1, 'title' => 'Cadastrar'],
-            ['id' => 2,'title' => 'Aprovar'],
-            ['id' => 3,'title' => 'Fazer oferta'],
-            ['id' => 4,'title' => 'Aceitar oferta'],
-            ['id' => 5,'title' => 'Recusar ofertas'],
-        ]);
     }
 
     /**
@@ -32,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('cities');
     }
 };

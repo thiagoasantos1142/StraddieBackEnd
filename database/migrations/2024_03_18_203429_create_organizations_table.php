@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            
             $table->unsignedBigInteger('entidade_type_id');
             $table->string('cnpj')->nullable();
             $table->string('main_CNAE')->nullable();
             $table->string('nome_fantasia');
-            $table->string('razao_social')->nullable();
-            $table->timestamps();
+            $table->string('razao_social')->nullable();            
+            $table->string('description')->nullable();
             $table->string('state_registration')->nullable();
-            $table->string('municipal_registration')->nullable();
-            $table->string('UF')->nullable();
+            $table->string('municipal_registration')->nullable();            
             $table->string('website')->nullable();
-            $table->date('cnpj_opening_date')->nullable();
             
+            $table->string('logo')->nullable();
+            $table->date('cnpj_opening_date')->nullable();
+            $table->timestamps();
+
             $table->foreign('entidade_type_id')->references('id')->on('entidade_types')->onDelete('NO ACTION')->onUpdate('NO ACTION');
           
         });

@@ -8,112 +8,177 @@ class PagesController extends Controller
 {
     public function profile()
     {
-        return view('pages.profile');
+        $user = \Auth::user();        
+        
+        return view('pages.profile', ['user' => $user]);
     }
 
     public function notify_list()
     {
-        return view('pages.notify-list');
+        $user = \Auth::user();
+        
+        
+        return view('pages.notify-list', ['user' => $user]);
     }
 
     public function email_inbox()
     {
-        return view('pages.email-inbox');
+        $user = \Auth::user();
+        
+        
+        return view('pages.email-inbox', ['user' => $user]);
     }
 
     public function gallery()
     {
-        return view('pages.gallery');
+        $user = \Auth::user();
+        
+        
+        return view('pages.gallery', ['user' => $user]);
     }
 
     public function about()
     {
-        return view('pages.about');
+        $user = \Auth::user();
+        
+        
+        return view('pages.about', ['user' => $user]);
     }
 
     public function faq()
     {
-        return view('pages.faq');
+        $user = \Auth::user();
+        
+        
+        return view('pages.faq', ['user' => $user]);
     }
 
     public function terms()
     {
-        return view('pages.terms');
+        $user = \Auth::user();
+        
+        
+        return view('pages.terms', ['user' => $user]);
     }
 
     public function invoice()
     {
-        return view('pages.invoice');
+        $user = \Auth::user();
+        
+        
+        return view('pages.invoice', ['user' => $user]);
     }
 
     public function pricing()
     {
-        return view('pages.pricing');
+        $user = \Auth::user();
+        
+        
+        return view('pages.pricing', ['user' => $user]);
     }
 
     public function settings()
     {
-        return view('pages.settings');
+        $user = \Auth::user();
+        
+        
+        return view('pages.settings', ['user' => $user]);
     }
 
     public function blog()
     {
-        return view('pages.blog');
+        $user = \Auth::user();
+        
+        
+        return view('pages.blog', ['user' => $user]);
     }
 
     public function blog_details()
     {
-        return view('pages.blog-details');
+        $user = \Auth::user();
+        
+        
+        return view('pages.blog-details', ['user' => $user]);
     }
 
     public function blog_post()
     {
-        return view('pages.blog-post');
+        $user = \Auth::user();
+        
+        
+        return view('pages.blog-post', ['user' => $user]);
     }
 
     public function emptypage()
     {
-        return view('pages.emptypage');
+        $user = \Auth::user();
+        
+        
+        return view('pages.emptypage', ['user' => $user]);
     }
 
     public function file_manager()
     {
-        return view('pages.file-manager');
+        $user = \Auth::user();
+        
+        
+        return view('pages.file-manager', ['user' => $user]);
     }
 
     public function filemanager_list()
     {
-        return view('pages.filemanager-list');
+        $user = \Auth::user();
+        
+        
+        return view('pages.filemanager-list', ['user' => $user]);
     }
 
     public function shop()
     {
-        return view('pages.shop');
+        $user = \Auth::user();
+        
+        
+        return view('pages.shop', ['user' => $user]);
     }
 
     public function shop_description()
     {
-        return view('pages.shop-description');
+        $user = \Auth::user();
+        
+        
+        return view('pages.shop-description', ['user' => $user]);
     }
 
     public function cart()
     {
-        return view('pages.cart');
+        $user = \Auth::user();
+        
+        
+        return view('pages.cart', ['user' => $user]);
     }
 
     public function add_product()
     {
-        return view('pages.add-product');
+        $user = \Auth::user();
+        
+        
+        return view('pages.add-product', ['user' => $user]);
     }
 
     public function wishlist()
     {
-        return view('pages.wishlist');
+        $user = \Auth::user();
+        
+        
+        return view('pages.wishlist', ['user' => $user]);
     }
 
     public function checkout()
     {
-        return view('pages.checkout');
+        $user = \Auth::user();
+        
+        
+        return view('pages.checkout', ['user' => $user]);
     }
 
 }
