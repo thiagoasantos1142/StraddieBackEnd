@@ -16,6 +16,20 @@ return new class extends Migration
             $table->string('title');
             $table->timestamps();
         });
+
+          // Insere os valores padrão
+          DB::table('entidade_types')->insert([
+            ['id' => 1, 'title' => 'MEI'],
+            ['id' => 2, 'title' => 'Sociedade Simples'],
+            ['id' => 3, 'title' => 'Sociedade Limitada'],
+            ['id' => 4, 'title' => 'Sociedade Limitada Unipessoal'],
+            ['id' => 5, 'title' => 'Sociedade em Nome Coletivo'],            
+            ['id' => 6, 'title' => 'Sociedade em Comandita Simples'],            
+            ['id' => 7, 'title' => 'Sociedade Comandita por Ações'],            
+            ['id' => 8, 'title' => 'Sociedade Anônima'],            
+            ['id' => 9, 'title' => 'Sociedade Cooperativa'],
+            ['id' => 10, 'title' => 'Sociedade de Advogados'],
+        ]);
     }
 
     /**
