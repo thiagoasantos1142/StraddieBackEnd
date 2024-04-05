@@ -17,9 +17,9 @@ return new class extends Migration
             
             $table->string('type');
             $table->timestamps();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->nullable(); ;
             
-            $table->foreignId('organization_id')->constrained('organizations');
+            $table->foreignId('organization_id')->constrained('organizations')->nullable(); ;
         });
     }
 

@@ -13,4 +13,18 @@ class Organization extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function EntidadeType()
+    {
+        return $this->belongsTo(EntidadeType::class, 'entidade_type_id');
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 }

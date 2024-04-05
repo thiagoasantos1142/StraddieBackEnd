@@ -20,11 +20,16 @@ return new class extends Migration
             $table->string('nome_fantasia');
             $table->string('razao_social')->nullable();            
             $table->string('description')->nullable();
+                      
+            $table->string('inscricao_estadual')->nullable();
             $table->string('state_registration')->nullable();
+            
+            $table->string('inscricao_municipal')->nullable();
             $table->string('municipal_registration')->nullable();            
             $table->string('website')->nullable();
             
             $table->string('logo')->nullable();
+            $table->string('email')->nullable();
             $table->date('cnpj_opening_date')->nullable();
             $table->timestamps();
 

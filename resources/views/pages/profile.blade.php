@@ -91,9 +91,9 @@
                                                     aria-controls="organization" aria-selected="false">Empresa</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="gallery-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#gallery" type="button" role="tab"
-                                                    aria-controls="gallery" aria-selected="false">OAB</button>
+                                                <button class="nav-link" id="OAB-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#OAB" type="button" role="tab"
+                                                    aria-controls="OAB" aria-selected="false">OAB</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="editprofile-tab" data-bs-toggle="pill"
@@ -101,14 +101,14 @@
                                                     aria-controls="editprofile" aria-selected="false">Editar Perfil</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="projects-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#projects" type="button" role="tab"
-                                                    aria-controls="projects" aria-selected="false">Titulos cadastrados</button>
+                                                <button class="nav-link" id="titulos-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#titulos" type="button" role="tab"
+                                                    aria-controls="titulos" aria-selected="false">Titulos cadastrados</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="team-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#team" type="button" role="tab"
-                                                    aria-controls="team" aria-selected="false">Ativos Disponíveis</button>
+                                                <button class="nav-link" id="assets-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#assets" type="button" role="tab"
+                                                    aria-controls="assets" aria-selected="false">Ativos Disponíveis</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -116,49 +116,12 @@
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade show active" id="about">
                                                 <div class="p-5">
-                                                    <h5 class="text-dark">{{$user->title}}</h5>
+                                                    <h5 class="text-dark">{{$user->title ?? 'Titulo vazio'}}</h5>
                                                     <p class="text-dark mb-2">
                                                         {{$user->bio}}
                                                     </p>
-                                                       </div>
-                                                <div class="border-top"></div>
-                                                <!-- <div class="p-5">
-                                                    <h5 class="mb-3">Experience</h5>
-                                                    <div class="d-flex">
-                                                        <div class="experience-icon bg-primary rounded-circle">
-                                                            <i class="fe fe-pocket fs-22 tx-fixed-white"></i>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <h6 class="text-dark fw-semibold mb-0">Lead designer / Developer</h6>
-                                                            <a href="javascript:void(0);" class="text-primary">sprukotechnologies.com</a>
-                                                            <p class="mb-2 mt-2"><b>2010-2015</b></p>
-                                                            <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex mt-2">
-                                                        <div class="experience-icon bg-secondary rounded-circle">
-                                                            <i class="fe fe-award fs-22 tx-fixed-white"></i>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <h6 class="text-dark fw-semibold mb-0">Senior Graphic Designer</h6>
-                                                            <a href="javascript:void(0);" class="text-primary">sprukotechnologies.com</a>
-                                                            <p class="mb-2 mt-2"><b>2007-2009</b></p>
-                                                            <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex mt-2">
-                                                        <div class="experience-icon bg-info rounded-circle">
-                                                            <i class="fe fe-award fs-22 tx-fixed-white"></i>
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <h6 class="text-dark fw-semibold mb-0">Senior Backend Designer</h6>
-                                                            <a href="javascript:void(0);" class="text-primary">sprukotechnologies.com</a>
-                                                            <p class="mb-2 mt-2"><b>2005-2007</b></p>
-                                                            <p class="text-muted mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                            <p class="text-muted mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                                </div>
+                                                
                                                 <div class="border-top"></div>
                                                 <div class="table-responsive p-5">
                                                     <h5 class="mb-3">Informação pesssoais</h5>
@@ -169,392 +132,506 @@
                                                                     <span class="fw-semibold fs-14">Primeiro Nome: </span>
                                                                 </div>
                                                                 <div class="col-md-9">
-                                                                    <span class="fs-15">Cedric Kelly</span>
+                                                                    <span class="fs-15">
+                                                                        @php
+                                                                            $nameParts = explode(" ", $user->name);
+                                                                                $firstName = $nameParts[0];
+                                                                        @endphp
+                                                                         {{ $firstName }}
+                                                                            
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="row row-sm mt-3">
+                                                                <div class="col-md-3">
+                                                                    <span class="fw-semibold fs-14">Ultimo nome: </span>
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <span class="fs-15">
+                                                                    <span class="fs-15">
+                                                                        @php
+                                                                             $lastName = end($nameParts);
+                                                                        @endphp
+                                                                         {{ $lastName }}
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <div class="row row-sm mt-3">
                                                                 <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Last Name : </span>
+                                                                    <span class="fw-semibold fs-14">Título: </span>
                                                                 </div>
                                                                 <div class="col-md-9">
-                                                                    <span class="fs-15">Macro</span>
+                                                                    <span class="fs-15">{{$user->title}}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="row row-sm mt-3">
                                                                 <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Designation : </span>
+                                                                    <span class="fw-semibold fs-14">E-mail: </span>
                                                                 </div>
                                                                 <div class="col-md-9">
-                                                                    <span class="fs-15">UI/UX Designer</span>
+                                                                    <span class="fs-15 text-primary">{{$user->email}}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="row row-sm mt-3">
                                                                 <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Email : </span>
+                                                                    <span class="fw-semibold fs-14">Telefone: </span>
                                                                 </div>
-                                                                <div class="col-md-9">
-                                                                    <span class="fs-15 text-primary">sprukotechnologies8@gmail.com</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row row-sm mt-3">
-                                                                <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Website : </span>
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <span class="fs-15 text-primary">https://www.spruko.com/</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row row-sm mt-3">
-                                                                <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Address : </span>
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <span class="fs-15">San franscisko, UAE</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row row-sm mt-3">
-                                                                <div class="col-md-3">
-                                                                    <span class="fw-semibold fs-14">Phone : </span>
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <span class="fs-15 text-primary">(+65) 7894 5612 3212</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="border-top"></div>
-                                                <div class="p-5">
-                                                    <h5 class="mb-3">Social</h5>
-                                                    <div class="d-xxl-flex justify-content-between">
-
-                                                        <div class="main-profile-contact-list">
-                                                            <div class="media mx-2 mb-2">
-                                                                <div class="media-icon bg-primary tx-fixed-white"> <i class="fe fe-github fs-20"></i> </div>
-                                                                <div class="media-body ms-2">
-                                                                    <span class="text-muted">Github</span>
-                                                                    <p class="mb-0"> <a href="javascript:void(0);" class="text-dark">github.com/spruko</a> </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="main-profile-contact-list">
-                                                            <div class="media mx-2 mb-2">
-                                                                <div class="media-icon bg-info tx-fixed-white"> <i class="fe fe-linkedin fs-20"></i> </div>
-                                                                <div class="media-body ms-2">
-                                                                    <span class="text-muted">Linkedin</span>
-                                                                    <p class="mb-0"> <a href="javascript:void(0);" class="text-dark">linkedin.com/in/spruko</a> </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="main-profile-contact-list">
-                                                            <div class="media mx-2 mb-2">
-                                                                <div class="media-icon bg-secondary tx-fixed-white"> <i class="fe fe-instagram fs-20"></i> </div>
-                                                                <div class="media-body ms-2">
-                                                                    <span class="text-muted">Instagram</span>
-                                                                    <p class="mb-0"> <a href="javascript:void(0);" class="text-dark">instagram.com/in/spruko</a> </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="main-profile-contact-list">
-                                                            <div class="media mx-2 mb-2">
-                                                                <div class="media-icon bg-success tx-fixed-white"> <i class="fe fe-twitter fs-20"></i> </div>
-                                                                <div class="media-body ms-2">
-                                                                    <span class="text-muted">Twitter</span>
-                                                                    <p class="mb-0"> <a href="javascript:void(0);" class="text-dark text-break">twitter.com/spruko.me</a> </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="organization">
-                                                <div class="row p-5">
-                                                    <div class="col-xl-12">
-                                                        <div class="card border p-0 shadow-none">
-                                                            <div class="card-body">
-                                                                <div class="d-flex">
-                                                                    <div class="media mt-0">
-                                                                        <div class="media-user me-2">
-                                                                            <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/organizations/Clin-1.png')}}"></div>
-                                                                        </div>
-                                                                        <div class="media-body">
-                                                                            <h6 class="mb-0 mt-1">{{$user->organization->razao_social}}
-                                                                        
-                                                                        </h6>
-                                                                            <small class="text-muted"></small>
-                                                                        </div>
+                                                                @foreach($user->contacts as $contact)
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15 text-primary">{{$contact->phone}}</span>
                                                                     </div>
-                                                                    <div class="ms-auto">
-                                                                        <div class="dropdown show">
-                                                                            <a aria-label="anchor" class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
-                                                                                <span class=""><i class="fe fe-more-vertical"></i></span>
-                                                                            </a>
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Editar perfil</a>
+                                                                @endforeach
+                                                                
+                                                            </div>
+                                                            <div class="row row-sm mt-3">
+                                                                <h5 class="mb-3">Endereços</h5>
+                                                                @foreach($user->addresses as $address)
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Rua: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->street}}</span>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Numero: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->street_number}}</span>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Complemento: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->complement}}</span>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Bairro: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->neighborhood}}</span>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">CEP: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->zip}}</span>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Cidade: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->city->title}}</span>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <span class="fw-semibold fs-14">Estado: </span>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                        <span class="fs-15">{{$address->city->state->uf}}</span>
+                                                                    </div>
+
+
+
+                                                                @endforeach
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- End profile -->
+
+
+                                            <!-- Start organization -->                                           
+                                            <div class="tab-pane fade" id="organization">
+                                                @if(isset($user->organization))
+                                                    <div class="row p-5">
+                                                        <div class="col-xl-12">                                                       
+                                                            <div class="card border p-0 shadow-none">
+                                                                <div class="card-body">
+                                                                    <div class="d-flex">
+                                                                        <div class="media mt-0">
+                                                                            <div class="media-user me-2">
+                                                                                <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/organizations/Clin-1.png')}}"></div>
+                                                                            </div>
+                                                                            <div class="media-body">
+                                                                                <h6 class="mb-0 mt-1">{{$user->organization->razao_social}}</h6>
+                                                                                <small class="text-muted"></small>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ms-auto">
+                                                                            <div class="dropdown show">
+                                                                                <a aria-label="anchor" class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
+                                                                                    <span class=""><i class="fe fe-more-vertical"></i></span>
+                                                                                </a>
+                                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                                    <a class="dropdown-item" href="javascript:void(0);">Editar perfil</a>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="mt-4">
-                                                                    <h5 class="mt-3">{{$user->organization->nome_fantasia}}</h5>
-                                                                    <p class="mb-0 text-muted">{{$user->organization->description}}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer user-pro-2">
-                                                                <div class="media mt-0 flex-wrap overflow-visible">
-                                                                <div class="media-user me-2">
-                                                                    <div class="avatar-list avatar-list-stacked">
-                                                                        @foreach($user->organization->users as $user)
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
-                                                                        @endforeach
-                                                                        @php
-                                                                            $userCount = $user->organization->users->count();
-                                                                            $message = ($userCount == 1) ? 'usuário' : 'usuários';
-                                                                        @endphp
-                                                                        @if ($userCount > 5)
-                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-
-                                                                    <div class="media-body flex-fill">
-                                                                        <p class="mb-0 ms-2">
-                                                                            @php
-                                                                                $userCount = $user->organization->users->count();
-                                                                                $message = ($userCount == 1) ? 'usuário' : 'usuários';
-                                                                            @endphp
-                                                                            {{ $userCount }} {{ $message }} associado(s) a essa organização.
+                                                                    <div class="mt-4">
+                                                                        <h5 class="mt-3">{{$user->organization->nome_fantasia}}</h5>
+                                                                        <p class="mb-0 text-muted">{{$user->organization->description}}
                                                                         </p>
                                                                     </div>
-                                                                    <div>
-                                                                        <div class="d-flex mt-1">
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
-                                                                            <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card border p-0 shadow-none">
-                                                            <div class="card-body">
-                                                                <div class="d-flex">
-                                                                    <div class="media mt-0">
+                                                                <div class="card-footer user-pro-2">
+                                                                    <div class="media mt-0 flex-wrap overflow-visible">
                                                                         <div class="media-user me-2">
-                                                                            <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/users/16.jpg')}}"></div>
+                                                                            <div class="avatar-list avatar-list-stacked">
+                                                                                @foreach($user->organization->users as $user)
+                                                                                    <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
+                                                                                @endforeach
+                                                                                @php
+                                                                                    $userCount = $user->organization->users->count();
+                                                                                    $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                @endphp
+                                                                                @if ($userCount > 5)
+                                                                                    <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                                @endif
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="media-body">
-                                                                            <h6 class="mb-0 mt-1">Peter Hill</h6>
-                                                                            <small class="text-muted">Sep 26 2019, 10:14am</small>
+
+                                                                        <div class="media-body flex-fill">
+                                                                            <p class="mb-0 ms-2">
+                                                                                @php
+                                                                                    $userCount = $user->organization->users->count();
+                                                                                    $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                @endphp
+                                                                                {{ $userCount }} {{ $message }} associado(s) a essa organização.
+                                                                            </p>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="ms-auto">
-                                                                        <div class="dropdown show">
-                                                                            <a aria-label="anchor" class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
-                                                                                <span class=""><i class="fe fe-more-vertical"></i></span>
-                                                                            </a>
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Edit Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Delete Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Personal Settings</a>
+                                                                        <div>
+                                                                            <div class="d-flex mt-1">
+                                                                                <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
+                                                                                <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
+                                                                                <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mt-4">
+                                                            </div>
+                                                            <div class="card border p-0 shadow-none">
+                                                                <div class="card-body">
                                                                     <div class="d-flex">
-                                                                        <a href="{{url('gallery')}}" class="w-20 m-2"><img src="{{asset('build/assets/images/media/22.jpg')}}" alt="img" class="br-5"></a>
-                                                                        <a href="{{url('gallery')}}" class="w-20 m-2"><img src="{{asset('build/assets/images/media/24.jpg')}}" alt="img" class="br-5"></a>
-                                                                    </div>
-                                                                    <h5 class="mt-3">There is nothing more beautiful.</h5>
-                                                                    <p class="mb-0 text-muted">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                                                    </p>
+                                                                        <div class="col-xl-12">
+                                                                            <div class="">
+                                                                                <div class="p-5">
+                                                                                    <div class="mb-4 main-content-label">Dados da Empresa</div>
+                                                                                    <div class="form-horizontal">
+                                                                                        <div class="mb-4 main-content-label">Perfil</div>                                                                    
+                                                                                            
+                                                                                           
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Nome Fantasia</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Nome Fantasia" value="{{$user->organization->nome_fantasia}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Razão Social</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Razão Social" value="{{$user->organization->razao_social}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                           <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">CNPJ</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="CNPJ" value="{{$user->organization->cnpj}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">CNAE</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="cnae" value="{{$user->organization->main_CNAE}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Inscricao Municipal</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Inscricao Municipal" value="{{$user->organization->inscricao_municipal}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Inscricao Estadual</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Inscricao Estadual" value="{{$user->organization->inscricao_estadual}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Tipo Sociedade Empresárial</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="entidade_type" value="{{$user->organization->EntidadeType->title}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Data de abertura do CNPJ</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="08/10/2018" value="{{$user->organization->cnpj_opening_date}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">UF resgistro</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="pr" value="{{$user->organization->state_registration}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Cidade de resgistro</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Curitiba" value="{{$user->organization->municipal_registration}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="mb-4 main-content-label">Informações de Contato</div>
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">E-mail<i>(required)</i></label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        <input type="text" class="form-control" placeholder="Email" value={{$user->organization->email}}>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                    
+                                                                                            <div class="form-group ">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Telefone</label>
+                                                                                                    </div>
+                                                                                                    @foreach($user->organization->contacts ?? [] as $contact)
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="phone number" value="{{$contact->phone}}">
+                                                                                                        </div>
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-2">
+                                                                                                        <label class="form-label">Website</label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-10">
+                                                                                                        @if(isset($user->organization->website))
+                                                                                                            <a href="{{$user->organization->website}}" target="_blank">{{$user->organization->website}}</a>
+                                                                                                        @else
+                                                                                                            <span>Não especificado</span>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                    
+                                                                                            <div class="mb-4 main-content-label">Endereço</div>                                                                        
+                                                                                            @foreach($user->organization->addresses as $address)
+                                                                                                <div class="form-group">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-md-2">
+                                                                                                                <label class="form-label">Rua</label>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-10">
+                                                                                                                <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                </div>
+                                                                                        
+                                                                                                <div class="form-group">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="form-label">Número</label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="Número" value="{{ $address->street_number }}">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="form-label">Complemento</label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="Complemento" value="{{ $address->complement }}">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="form-label">CEP</label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="CEP" value="{{ $address->zip }}">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="form-label">Cidade</label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label class="form-label">Estado</label>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-10">
+                                                                                                            <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->uf }}">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            @endforeach  
+                                                                                        </div>
+                                                                                    </div>
+                                                                            </div>                                                            
+                                                                        </div>
+                                                                    </div>                                                
                                                                 </div>
-                                                            </div>
-                                                            <div class="card-footer user-pro-2">
-                                                                <div class="media mt-0 flex-wrap overflow-visible">
-                                                                    <div class="media-user me-2">
-                                                                        <div class="avatar-list avatar-list-stacked">
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/12.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/9.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/4.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+28</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="media-body flex-fill">
-                                                                        <p class="mb-0 ms-2">28 people like your photo</p>
-                                                                    </div>
-                                                                    <div class="">
-                                                                        <div class="d-flex mt-1">
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
-                                                                            <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card border p-0 shadow-none">
-                                                            <div class="card-body">
-                                                                <div class="d-flex">
-                                                                    <div class="media mt-0">
-                                                                        <div class="media-user me-2">
-                                                                            <div class=""><img alt="" class="rounded-circle avatar avatar-md" src="{{asset('build/assets/images/users/16.jpg')}}"></div>
-                                                                        </div>
-                                                                        <div class="media-body">
-                                                                            <h6 class="mb-0 mt-1">Peter Hill</h6>
-                                                                            <small class="text-muted">Sep 24 2019, 09:14am</small>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-auto">
-                                                                        <div class="dropdown show">
-                                                                            <a aria-label="anchor" class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
-                                                                                <span class=""><i class="fe fe-more-vertical"></i></span>
-                                                                            </a>
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Edit Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Delete Post</a>
-                                                                                <a class="dropdown-item" href="javascript:void(0);">Personal Settings</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mt-4">
-                                                                    <div class="d-flex">
-                                                                        <a href="{{url('gallery')}}" class="w-20 m-2"><img src="{{asset('build/assets/images/media/26.jpg')}}" alt="img" class="br-5"></a>
-                                                                        <a href="{{url('gallery')}}" class="w-20 m-2"><img src="{{asset('build/assets/images/media/23.jpg')}}" alt="img" class="br-5"></a>
-                                                                        <a href="{{url('gallery')}}" class="w-20 m-2"><img src="{{asset('build/assets/images/media/20.jpg')}}" alt="img" class="br-5"></a>
-                                                                    </div>
-                                                                    <h5 class="mt-3">There is nothing more beautiful.</h5>
-                                                                    <p class="mb-0 text-muted">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer user-pro-2">
-                                                                <div class="media mt-0 flex-wrap overflow-visible">
-                                                                    <div class="media-user me-2">
-                                                                        <div class="avatar-list avatar-list-stacked">
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/12.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/9.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/2.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{asset('build/assets/images/users/4.jpg')}}"></span>
-                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+28</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="media-body flex-fill">
-                                                                        <p class="mb-0 ms-2">28 people like your photo</p>
-                                                                    </div>
-                                                                    <div class="">
-                                                                        <div class="d-flex mt-1">
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
-                                                                            <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
-                                                                            <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="shadow-none">
-                                                            <div class="card-body p-0">
-                                                                <form class="profile-edit">
-                                                                    <textarea class="form-control" placeholder="What's in your mind right now" rows="7"></textarea>
-                                                                    <div class="profile-share border-top-0">
-                                                                        <div class="mt-2">
-                                                                            <a aria-label="anchor" href="javascript:void(0);" class="me-2" title="Audio" data-bs-toggle="tooltip" data-bs-placement="top"><span class="text-muted"><i class="fe fe-mic"></i></span></a>
-                                                                            <a aria-label="anchor" href="javascript:void(0);" class="me-2" title="Video" data-bs-toggle="tooltip" data-bs-placement="top"><span class="text-muted"><i class="fe fe-video"></i></span></a>
-                                                                            <a aria-label="anchor" href="javascript:void(0);" class="me-2" title="Image" data-bs-toggle="tooltip" data-bs-placement="top"><span class="text-muted"><i class="fe fe-image"></i></span></a>
-                                                                        </div>
-                                                                        <button type="submit" class="btn btn-sm btn-success ms-auto"><i class="fa fa-share ms-1"></i> Share</button>
-                                                                    </div>
-                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                        
+                                                @else
+                                                    <div class="col-md-9">                                                            
+                                                        <div class="mb-4 main-content-label">                                                                
+                                                                        Usuário não está associado a nenhuma Empresa.                                                                
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div class="tab-pane fade" id="gallery">
-                                                <ul id="lightgallery" class="list-unstyled row p-5">
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/1.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img src="{{asset('build/assets/images/media/1.jpg')}}" alt="image" class="img-responsive br-5">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/2.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/2.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/3.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/3.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/4.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/4.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/5.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/5.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/6.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/6.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/7.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/7.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/8.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/8.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/9.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive mb-0 br-5" src="{{asset('build/assets/images/media/9.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-xl-0 mb-md-0 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/10.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive mb-0 br-5" src="{{asset('build/assets/images/media/10.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 mb-md-0 mb-xl-0  border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/11.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive mb-0 br-5" src="{{asset('build/assets/images/media/11.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/1.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/1.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/2.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/2.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/3.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/3.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                    <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
-                                                        <a href="{{asset('build/assets/images/media/4.jpg')}}" class="glightbox br-5" data-gallery="image">
-                                                            <img class="img-responsive br-5" src="{{asset('build/assets/images/media/4.jpg')}}" alt="image">
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                            
+                                            <!--                                             
+                                                End organization 
+                                            -->
+                                            <!--                                             
+                                                Inicio OAB organization 
+                                            -->
+
+                                            <div class="tab-pane fade" id="OAB">
+                                                @if(isset($user->OAB))
+
+                                                    <ul id="lightgallery" class="list-unstyled row p-5">
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/1.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img src="{{asset('build/assets/images/media/1.jpg')}}" alt="image" class="img-responsive br-5">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/2.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/2.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/3.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/3.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/4.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/4.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/5.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/5.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/6.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/6.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-4 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/7.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/7.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-xs-6 col-sm-4 col-md-4 col-xl-3 mb-4 border-bottom-0">
+                                                            <a href="{{asset('build/assets/images/media/8.jpg')}}" class="glightbox br-5" data-gallery="image">
+                                                                <img class="img-responsive br-5" src="{{asset('build/assets/images/media/8.jpg')}}" alt="image">
+                                                            </a>
+                                                        </li>                                              
+                                                   
+                                                    </ul>
+                                                @else
+                                                    <div class="col-md-9">                                                            
+                                                        <div class="mb-4 main-content-label">                                                                
+                                                                        Usuário não possuí OAB Cadastrada.                                                                
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
+
+                                            <!--                                             
+                                            End OAB 
+                                            -->
+                                            <!--                                             
+                                                Inicio editprofile  
+                                            -->
                                             <div class="tab-pane fade" id="editprofile">
                                                 <div class="row">
                                                     <div class="col-xl-12">
@@ -628,10 +705,9 @@
                                                                         </div>
                                                                     </div>
                                                                     
-                                                                    <div class="mb-4 main-content-label">Endereço</div>
-
-                                                                        @foreach($user->addresses as $address)
-                                                                            <div class="form-group">
+                                                                    <div class="mb-4 main-content-label">Endereço</div>                                                                        
+                                                                    @foreach($user->addresses as $address)
+                                                                        <div class="form-group">
                                                                                 <div class="row">
                                                                                     <div class="col-md-2">
                                                                                         <label class="form-label">Rua</label>
@@ -640,7 +716,7 @@
                                                                                         <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                        </div>
                                                                             
                                                                             <div class="form-group">
                                                                                 <div class="row">
@@ -746,7 +822,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane projects fade" id="projects">
+
+                                            <!--                                             
+                                            End editprofile 
+                                            -->
+                                            <!--                                             
+                                                Inicio titulos  
+                                            -->
+                                            <div class="tab-pane titulo fade" id="titulos">
                                                 <div class="row p-5">
                                                     <div class="col-md-12 col-xl-6">
                                                         <div class="card shadow-none">
@@ -1336,7 +1419,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="team">
+
+                                            <!--                                             
+                                                End titulos 
+                                            -->
+                                            <!--                                             
+                                                Inicio assets  
+                                            -->
+
+
+                                            <div class="tab-pane fade" id="assets">
                                                 <div class="row p-5">
                                                     <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-4">
                                                         <div class="card user-card shadow-none">

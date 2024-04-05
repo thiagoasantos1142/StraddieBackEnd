@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('zip')->nullable();
             $table->string('neighborhood')->nullable();
             $table->string('street_number')->nullable();
-            $table->string('complent')->nullable();     
+            $table->string('complement')->nullable();     
            
             $table->timestamps();
 
             // Define as chaves estrangeiras
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('organization_id')->constrained('organizations');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->nullable();
+            $table->foreignId('organization_id')->constrained('organizations')->nullable();    
            
         });
     }
