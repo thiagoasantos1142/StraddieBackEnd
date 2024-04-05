@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,8 +38,9 @@ class AddressController extends Controller
             'neighborhood' => 'required|string',
             'street' => 'required|string',
             'city_id' => 'required|string',
-            'complent' => 'string|max:100'
         ]);
+
+        $request->merge(['city_id' => City::where('title',$request->city_id)->first()['id']]);
 
         if ($request->ajax()) {
             // A requisição é AJAX

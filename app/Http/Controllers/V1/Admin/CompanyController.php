@@ -15,7 +15,8 @@ class CompanyController extends Controller
     public function index()
     {
         //mostrar todas as empresas
-        return view('V1.Admin.Company.index');
+        $organizations = Organization::get();
+        return view('V1.Admin.Company.index', compact('organizations'));
     }
 
     /**

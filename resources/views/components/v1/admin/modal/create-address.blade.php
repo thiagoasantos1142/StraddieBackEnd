@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('company.store') }}">
+                <form id="form-address">
                     @csrf
                     <div class="">
                         <div class="form-row">
@@ -44,13 +44,15 @@
                                 <input type="text" class="form-control" id="complent" name="complent"
                                     placeholder="Complemento" value="">
                             </div>
+                            <input type="hidden" name="organization_id" value="{{$organizationId ?? null}}">
+                            <input type="hidden" name="user_id" value="{{$userId ?? null}}">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" data-saveaddress>Save changes</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" data-saveaddress>Salvar</button>
             </div>
         </div>
     </div>

@@ -200,7 +200,7 @@
         </div>
     </div>
 
-    <x-v1.admin.modal.createAddress></x-v1.admin.modal.createAddress>
+    <x-v1.admin.modal.createAddress :organization-id="1"></x-v1.admin.modal.createAddress>
 
 
 

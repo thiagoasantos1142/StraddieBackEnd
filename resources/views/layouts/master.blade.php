@@ -31,6 +31,11 @@
         @vite(['resources/sass/app.scss' ])
       
         @yield('styles')
+        <style>
+            #awn-toast-container {
+                z-index: 100000 !important;
+            }
+        </style>
 
     </head>
 

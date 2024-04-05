@@ -19,19 +19,23 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    <div class="alert alert-solid-secondary alert-dismissible fs-15 fade show mb-4 mx-3">
+    {{-- <div class="alert alert-solid-secondary alert-dismissible fs-15 fade show mb-4 mx-3">
         We Placed <strong class="text-fixed-black">Datatables</strong> only in this page by using <strong
             class="text-fixed-black">jquery</strong> cdn link.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="bi bi-x"></i></button>
-    </div>
+    </div> --}}
 
     <!-- CONTAINER -->
     <div class="main-container container-fluid"> <!-- Start::row-1 -->
         <div class="row">
             <div class="col-xl-12">
                 <div class="card custom-card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <div class="card-title">File Export Datatable</div>
+                        <div class="d-flex">
+                            <a href="{{ route('company.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                                    class="fa fa-plus-square me-2"></i>Adicionar empresa</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -39,394 +43,36 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>Razão social</th>
+                                        <th>cnpj</th>
+                                        <th>email</th>
+                                        <th>created at</th>
                                         <th>ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="{{ route('company.show', ['company'=>1]) }}">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">Visualizar&nbsp;</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                </a>
-                                                <a href="">
-                                                    <p class="mt-0 text-muted">&nbsp;Excluir</p>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                    @foreach ($organizations as $organization)
+                                        <tr>
+                                            <td>{{ $organization->nome_fantasia }}</td>
+                                            <td>{{ $organization->razao_social }}</td>
+                                            <td>{{ $organization->cnpj }}</td>
+                                            <td>{{ $organization->email }}</td>
+                                            <td>{{ $organization->created_at }}</td>
+                                            <td class="align-middle">
+                                                <div class="btn-list">
+                                                    <a href="{{ route('company.show', ['company' => $organization->id]) }}">
+                                                        <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
+                                                            type="button"><i class="bi bi-pencil-square"></i></button>
+                                                    </a>
+                                                    <a href="">
+                                                        <button
+                                                            class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
+                                                            type="button"><i class="bi bi-trash"></i></button>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

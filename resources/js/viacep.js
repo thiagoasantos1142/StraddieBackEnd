@@ -1,4 +1,4 @@
-const modal = document.querySelector('[data-saveaddress]');
+const btnSaveAddress = document.querySelector('[data-saveaddress]');
 const inputCep = document.querySelector('input.zip');
 
 //campos do form
@@ -17,8 +17,6 @@ async function getAddress(address) {
             ...lastSearchCeps,
             [`${response.data.cep.replace(/-/g, '')}`]: response.data
         }
-        openAlert('success','endereço pesquisado com sucesso.');
-        console.log(lastSearchCeps);
     } catch (error) {
         console.error('Erro:', error);
     } finally {
@@ -39,10 +37,10 @@ function verifyCepIsSearch(cep) {
     ['focus', getAddress],
     ['blur', getAddress],
 ].forEach(([event, listener]) => {
-    inputCep.addEventListener(event, function () {
+    inputCep.addEventListener(event, async function () {
         const currentCep = inputCep.value.trim().replace(/-/g, '');
         if (currentCep.length === 8 && !verifyCepIsSearch(currentCep)) { // Verifica se o CEP tem 8 dígitos e se é diferente do último pesquisado
-            listener(currentCep);
+            await listener(currentCep);
         }
         setValues(currentCep);
     });
@@ -62,8 +60,14 @@ function setValues(cep) {
 
 
 function openAlert(type, message) {
+    // documentação
+    // https://f3oall.github.io/awesome-notifications/docs/toasts
     "use strict";
-    var options = {}
+    var options = {
+        durations : {
+            alert: 2000
+        }
+    }
     var notifier = new AWN(options);
 
     if (!(type, message)) {
@@ -73,4 +77,27 @@ function openAlert(type, message) {
     notifier[type](message)
     // document.querySelector('#basic').addEventListener('click', function () {
     // })
+}
+
+btnSaveAddress.onclick = async () => {
+    await saveCep()
+}
+
+async function saveCep() {
+    // pegar as info do form agora
+    const form = document.querySelector("#form-address");
+    const dataForm = new FormData(form);
+
+
+    await axios.post('/dashboard/address', dataForm)
+        .then(function (response) {
+            $('#address').modal('hide');
+            openAlert('success','endereço salvo com sucesso.');
+        })
+        .catch(function (error) {
+            openAlert('alert','Erro ao salvar endereço.');
+            console.error('Erro ao enviar formulário:', error);
+        });
+
+    console.log(dataForm);
 }

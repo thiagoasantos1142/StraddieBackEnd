@@ -15,6 +15,7 @@ use App\Http\Controllers\FormsController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
+use App\Http\Controllers\V1\Admin\AddressController;
 use App\Http\Controllers\V1\Admin\CompanyController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
@@ -47,6 +48,7 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('/company', CompanyController::class);
+        Route::resource('/address', AddressController::class);
     });
    
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');

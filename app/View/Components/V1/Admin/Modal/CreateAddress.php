@@ -8,12 +8,15 @@ use Illuminate\View\Component;
 
 class CreateAddress extends Component
 {
+    public $userId;
+    public $organizationId;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($userId = null, $organizationId = null)
     {
-        //
+        $this->userId = $userId;
+        $this->organizationId = $organizationId;
     }
 
     /**
