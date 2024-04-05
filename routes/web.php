@@ -15,6 +15,7 @@ use App\Http\Controllers\FormsController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
+use App\Http\Controllers\V1\Admin\CompanyController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
 /*
@@ -44,10 +45,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::resource('/company', CompanyController::class);
+    });
+   
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 
     Route::get('profile', [PagesController::class, 'profile'])->name('profile');
@@ -168,5 +169,3 @@ Route::get('chart-echart', [ChartsController::class, 'chart_echart']);
 Route::get('chart-apex', [ChartsController::class, 'chart_apex']);
 
 });
-
-

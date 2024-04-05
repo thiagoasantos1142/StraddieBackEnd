@@ -23,6 +23,8 @@
         <!-- Main Theme Js -->
         <script src="{{asset('build/assets/main.js')}}"></script>
 
+        <link rel="stylesheet" href="{{ asset('build/assets/libs/awesome-notifications/style.css') }}">
+
         @include('layouts.components.styles')
 
         <!-- APP CSS & APP SCSS -->
@@ -87,7 +89,7 @@
         <script src="{{asset('build/assets/sticky.js')}}"></script>
 
         <!-- APP JS-->
-		@vite('resources/js/app.js')       
+		@vite('resources/js/app.js')    
         <!-- END SCRIPTS -->
 
     </body> 

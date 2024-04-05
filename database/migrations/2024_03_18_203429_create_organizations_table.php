@@ -16,6 +16,7 @@ return new class extends Migration
             
             $table->unsignedBigInteger('entidade_type_id');
             $table->string('cnpj')->nullable();
+            $table->string('email')->nullable();
             $table->string('main_CNAE')->nullable();
             $table->string('nome_fantasia');
             $table->string('razao_social')->nullable();            
@@ -34,7 +35,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('entidade_type_id')->references('id')->on('entidade_types')->onDelete('NO ACTION')->onUpdate('NO ACTION');
-          
         });
     }
 

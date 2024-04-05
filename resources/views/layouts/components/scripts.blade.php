@@ -23,4 +23,6 @@
         <!-- Color Picker JS -->
         <script src="{{asset('build/assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
 
+        <script src="{{ asset('build/assets/libs/awesome-notifications/index.var.js') }}"></script>
+
         @yield('scripts')

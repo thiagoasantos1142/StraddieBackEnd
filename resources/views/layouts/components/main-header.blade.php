@@ -774,8 +774,8 @@
 														height="30" class="rounded-circle">
 												</span>
 												<div class="d-xl-block d-none lh-1">
-													<h6 class="fs-13 font-weight-semibold mb-0">{{$user->name}}</h6>
-													<span class="op-8 fs-10">{{ $user->userType->title }}</span>
+													<h6 class="fs-13 font-weight-semibold mb-0">{{$user->name ?? ''}}</h6>
+													<span class="op-8 fs-10">{{ $user->userType->title ?? '' }}</span>
 												</div>
 											</a>
 											<!-- End::header-link|dropdown-toggle -->

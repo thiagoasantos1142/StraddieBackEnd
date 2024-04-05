@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,10 +45,19 @@ class AddressController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
+
+            try {
+                Address::create($request->all());
+                //code...
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
+            }
+
+            return response()->json(['status' => 'success'], 200);
         }
 
-
-        //se não for requisição ajax ajustar o retorno aqui.
+        //se não for requisição ajax ajustar o retorno aqui para o tipo laravel.
     }
 
     /**
