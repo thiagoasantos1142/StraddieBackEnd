@@ -5,11 +5,16 @@
 
         <!-- GLightbox CSS -->
         <link rel="stylesheet" href="{{asset('build/assets/libs/glightbox/css/glightbox.min.css')}}">
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- jQuery Mask Plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 
 @endsection
 
 @section('content')
-	
+
                     <!-- PAGE-HEADER -->
                     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
                         <h1 class="page-title">Perfil</h1>
@@ -23,6 +28,27 @@
                     <!-- PAGE-HEADER END -->
 
                     <!-- CONTAINER -->
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="main-container container-fluid">
 
                         <!-- ROW-1 -->
@@ -167,6 +193,15 @@
                                                             </div>
                                                             <div class="row row-sm mt-3">
                                                                 <div class="col-md-3">
+                                                                    <span class="fw-semibold fs-14">CPF: </span>
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <span id="cpf" class="fs-15 cpf-input">{{$user->cpf}}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row row-sm mt-3">
+                                                                <div class="col-md-3">
                                                                     <span class="fw-semibold fs-14">E-mail: </span>
                                                                 </div>
                                                                 <div class="col-md-9">
@@ -179,7 +214,7 @@
                                                                 </div>
                                                                 @foreach($user->contacts as $contact)
                                                                     <div class="col-md-9">
-                                                                        <span class="fs-15 text-primary">{{$contact->phone}}</span>
+                                                                        <span class="fs-15 text-primary phone-input">{{$contact->phone}}</span>
                                                                     </div>
                                                                 @endforeach
                                                                 
@@ -632,196 +667,209 @@
                                             <!--                                             
                                                 Inicio editprofile  
                                             -->
-                                            <div class="tab-pane fade" id="editprofile">
-                                                <div class="row">
-                                                    <div class="col-xl-12">
-                                                        <div class="">
-                                                            <div class="p-5">
-                                                                <div class="mb-4 main-content-label">Informações Pessoais</div>
-                                                                <div class="form-horizontal">
-                                                                    <div class="mb-4 main-content-label">Perfil</div>
+                                            <form action="{{ route('user.update') }}" method="post">
+                                                @csrf <!-- Adiciona o token CSRF -->
+                                                    <div class="tab-pane fade" id="editprofile">
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+                                                            <div class="">
+                                                                <div class="p-5">
+                                                                    <div class="mb-4 main-content-label">Informações Pessoais</div>
+                                                                    <div class="form-horizontal">
+                                                                        <div class="mb-4 main-content-label">Perfil</div>
                                                                     
-                                                                    <div class="form-group">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Primeiro Nome</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                @php
-                                                                                    $nameParts = explode(" ", $user->name);
-                                                                                    $firstName = $nameParts[0];
-                                                                                    echo '<input type="text" class="form-control" placeholder="First Name" value="' . $firstName . '">';
-                                                                                @endphp
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Último Nome</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                @php
-                                                                                    $lastName = end($nameParts);
-                                                                                    echo '<input type="text" class="form-control" placeholder="Last Name" value="' . $lastName . '">';
-                                                                                @endphp
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Título</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Designation" value={{$user->title}}>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="mb-4 main-content-label">Informações de Contato</div>
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">E-mail<i>(required)</i></label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <input type="text" class="form-control" placeholder="Email" value={{$user->email}}>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="form-group ">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Telefone</label>
-                                                                            </div>
-                                                                            @foreach($user->contacts as $contact)
+                                                                        <div class="form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Primeiro Nome</label>
+                                                                                </div>
                                                                                 <div class="col-md-10">
-                                                                                    <input type="text" class="form-control" placeholder="phone number" value="{{$contact->phone}}">
+                                                                                    @php
+                                                                                        $nameParts = explode(" ", $user->name);
+                                                                                        $firstName = $nameParts[0];
+                                                                                        echo '<input type="text" class="form-control"  name="firstName" placeholder="First Name" value="' . $firstName . '">';
+                                                                                    @endphp
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Último Nome</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    @php
+                                                                                        $lastName = end($nameParts);
+                                                                                        echo '<input type="text" class="form-control" name="lastName" placeholder="Last Name" value="' . $lastName . '">';
+                                                                                    @endphp
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group ">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Título</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    <input type="text" class="form-control"  name="title"  placeholder="Título" value="{{$user->title}}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">CPF</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    <input type="text" class="form-control cpf-input" name="cpf" placeholder="CPF" value="{{$user->cpf}}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="mb-4 main-content-label">Informações de Contato</div>
+                                                                        <div class="form-group ">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">E-mail<i>(required)</i></label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Telefone</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    @foreach($user->contacts as $contact)
+                                                                                        <input type="text" class="form-control phone-input" name="phone" placeholder="phone number" value="{{ strval($contact->phone) }}">
+                                                                                     @endforeach
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
+                                                                        <div class="mb-4 main-content-label">Endereço</div>                                                                        
+                                                                        @foreach($user->addresses as $address)
+                                                                            <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">Rua</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                            </div>
+                                                                                
+                                                                                <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">Número</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="Número" value="{{ $address->street_number }}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">Complemento</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="CEP" value="{{ $address->complement }}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">CEP</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="CEP" value="{{ $address->zip }}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">Cidade</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-2">
+                                                                                            <label class="form-label">Estado</label>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->title }}">
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             @endforeach
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="mb-4 main-content-label">Endereço</div>                                                                        
-                                                                    @foreach($user->addresses as $address)
-                                                                        <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">Rua</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                        </div>
-                                                                            
-                                                                            <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">Número</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="Número" value="{{ $address->street_number }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">Complemento</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="CEP" value="{{ $address->complement }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">CEP</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="CEP" value="{{ $address->zip }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">Cidade</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="form-label">Estado</label>
-                                                                                    </div>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->title }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        @endforeach
 
+                                                                        
                                                                     
-                                                                   
-                                                                    <div class="mb-4 main-content-label">Permissões</div>
-                                                                    <div class="form-group mb-0">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2">
-                                                                                <label class="form-label">Configurar Permissões</label>
-                                                                            </div>
-                                                                            <div class="col-md-10">
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Cadastrar Títulos</span>
-                                                                                </label>
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox1" class="custom-switch-input">
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Iniciar Due Diligence</span>
-                                                                                </label>
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Aprovar Due Diligence</span>
-                                                                                </label>
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Fazer Oferta</span>
-                                                                                </label>
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Aceitar Oferta</span>
-                                                                                </label>
-                                                                                <label class="custom-switch d-block mb-2">
-                                                                                    <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
-                                                                                    <span class="custom-switch-indicator"></span>
-                                                                                    <span class="text-muted ms-2">Recusar Oferta</span>
-                                                                                </label>
+                                                                        <div class="mb-4 main-content-label">Permissões</div>
+                                                                        <div class="form-group mb-0">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Configurar Permissões</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" checked>
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Cadastrar Títulos</span>
+                                                                                    </label>
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox1" class="custom-switch-input">
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Iniciar Due Diligence</span>
+                                                                                    </label>
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Aprovar Due Diligence</span>
+                                                                                    </label>
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Fazer Oferta</span>
+                                                                                    </label>
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Aceitar Oferta</span>
+                                                                                    </label>
+                                                                                    <label class="custom-switch d-block mb-2">
+                                                                                        <input type="checkbox" name="custom-switch-checkbox11" class="custom-switch-input" checked>
+                                                                                        <span class="custom-switch-indicator"></span>
+                                                                                        <span class="text-muted ms-2">Recusar Oferta</span>
+                                                                                    </label>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="card-footer d-flex justify-content-end">
-                                                                <button type="button" class="btn ripple btn-light w-sm me-2">Cancel</button>
-                                                                <button type="submit" class="btn ripple btn-primary w-sm">Save</button>
+                                                                <div class="card-footer d-flex justify-content-end">                                                                    
+                                                                    <button type="submit" class="btn ripple btn-primary w-sm">Salvar</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
 
                                             <!--                                             
                                             End editprofile 
@@ -1707,5 +1755,30 @@
 	    <!-- Gallery JS -->
         <script src="{{asset('build/assets/libs/glightbox/js/glightbox.min.js')}}"></script>
         @vite('resources/assets/js/profile.js')
+
+        <script>
+            $(document).ready(function(){
+                $('.phone-input').mask('(00) 00000-0000');
+            });
+        </script>
+
+        <script>
+                $(document).ready(function() {
+                    // Aplica a máscara ao campo de entrada de CPF
+                    $('.cpf-input').each(function() {
+                        var cpf = $(this).val().replace(/\D/g, '');
+                        var maskedCpf = '';
+
+                        if (cpf.length === 11) {
+                            maskedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                        } else {
+                            maskedCpf = cpf;
+                        }
+
+                        $(this).val(maskedCpf).mask('000.000.000-00', {reverse: true});
+                    });
+                });
+        </script>
+
 
 @endsection

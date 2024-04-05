@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
@@ -31,7 +32,26 @@ Route::resource('/', StradieSiteController::class);
 // Route::get('/', [DashboardController::class, 'index']);
 Route::get('index', [DashboardController::class, 'index']);
 
-Route::get('profile', [PagesController::class, 'profile']);
+
+
+Route::get('landing-page', [LandingpageController::class, 'landing_page']);
+
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+
+    Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+
+    Route::get('profile', [PagesController::class, 'profile'])->name('profile');
+    
 Route::get('notify-list', [PagesController::class, 'notify_list']);
 Route::get('email-inbox', [PagesController::class, 'email_inbox']);
 Route::get('gallery', [PagesController::class, 'gallery']);
@@ -124,9 +144,6 @@ Route::get('users-list', [AdminuIController::class, 'users_list']);
 Route::get('search', [AdminuIController::class, 'search']);
 
 
-Route::get('landing-page', [LandingpageController::class, 'landing_page']);
-
-
 Route::get('form-elements', [FormsController::class, 'form_elements']);
 Route::get('form-layouts', [FormsController::class, 'form_layouts']);
 Route::get('form-advanced', [FormsController::class, 'form_advanced']);
@@ -150,15 +167,6 @@ Route::get('chart-chartist', [ChartsController::class, 'chart_chartist']);
 Route::get('chart-echart', [ChartsController::class, 'chart_echart']);
 Route::get('chart-apex', [ChartsController::class, 'chart_apex']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
 });
 
 
