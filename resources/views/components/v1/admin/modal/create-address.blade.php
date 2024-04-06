@@ -40,8 +40,8 @@
                                     placeholder="Cidade" value="">
                             </div>
                             <div class="form-group col-md-12 mb-0">
-                                <label for="complent" class="form-label">Complemento</label>
-                                <input type="text" class="form-control" id="complent" name="complent"
+                                <label for="complement" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complement" name="complement"
                                     placeholder="Complemento" value="">
                             </div>
                             <input type="hidden" name="organization_id" value="{{$organizationId ?? null}}">

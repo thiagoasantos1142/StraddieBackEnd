@@ -20,11 +20,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Form Advanced</h1>
+        <h1 class="page-title">Exibição de cadastro</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form Advanced</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Exibição</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
             </ol>
         </div>
     </div>
@@ -41,7 +41,7 @@
                                         class="fa fa-bolt"></i></span></div>
                             <div class="card-body  p-6">
                                 <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">adicione um endereço a empresa</p>
+                                <p class="card-text">adicione um usuário ao Advogado</p>
                             </div>
                         </div>
                     </a>
@@ -53,7 +53,7 @@
                                         class="fa fa-bolt"></i></span></div>
                             <div class="card-body  p-6">
                                 <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">Atribua um usuario a sua empresa</p>
+                                <p class="card-text">Atribua um usuario a sua Advogado</p>
                             </div>
                         </div>
                     </a>
@@ -63,31 +63,31 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Dados da empresa</h4>
+                        <h4 class="card-title">Dados do Advogado</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('company.store') }}">
+                        <form method="POST" action="{{ route('lawyer.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Razão social</label>
+                                        <label for="name" class="form-label">Nome</label>
                                         <input type="text"
-                                            class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
-                                            name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? $organization->razao_social ?? '' }}"
+                                            class="form-control  @error('name') is-invalid @enderror" id="name"
+                                            name="name" placeholder="Razão social"
+                                            value="{{ old('name') ?? $lawyer->name ?? '' }}"
                                             disabled>
-                                        @error('razao_social')
+                                        @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="fantasy" class="form-label">Nome fantasia</label>
+                                        <label for="title" class="form-label">Título</label>
                                         <input type="text"
-                                            class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
-                                            name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? ($organization->nome_fantasia ?? '') }}" disabled>
-                                        @error('nome_fantasia')
+                                            class="form-control @error('title') is-invalid @enderror" id="fantasy"
+                                            name="title" placeholder="Título "
+                                            value="{{ old('title') ?? ($lawyer->title ?? '') }}" disabled>
+                                        @error('title')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -95,56 +95,12 @@
                                         <label for="cnpj" class="form-label">Cnpj</label>
                                         <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
                                             id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? $organization->cnpj ?? '' }}" disabled>
+                                            value="{{ old('cnpj') ?? $lawyer->UF ?? '' }}" disabled>
                                         @error('cnpj')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="estadual" class="form-label">Inscrição estadual (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('state_registration') is-invalid @enderror"
-                                            id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? $organization->state_registration ?? '' }}" disabled>
-                                        @error('state_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="municipal" class="form-label">Inscrição municipal (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('municipal_registration') is-invalid @enderror"
-                                            id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? $organization->municipal_registration ?? '' }}" disabled>
-                                        @error('municipal_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" placeholder="E-mail"
-                                            value="{{ old('email') ?? $organization->email ?? '' }}" disabled>
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="entidade_type" class="form-label">Tipo instituição</label>
-                                        <select class="form-select @error('entidade_type_id') is-invalid @enderror"
-                                            name="entidade_type_id" disabled>
-                                            <option>Disabled select</option>
-                                            <option value='1' @if (old('entidade_type_id') == 1) selected @endif>
-                                                Disabled 1</option>
-                                            <option value='2'>Disabled 2</option>
-                                            <option value='3'>Disabled 3</option>
-                                        </select>
-                                        @error('entidade_type_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    </div>  
+                                    
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">
@@ -166,7 +122,7 @@
                             <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
                                 data-bs-target="#largemodal">
                                 <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Atribuir um usuario +</p>
+                                    <p class="fs-4 mb-0">Atribuir um novo usuario +</p>
                                 </div>
                             </a>
                             <a href="" onclick="event.preventDefault();" class="col-md-6" data-bs-toggle="modal" data-bs-target="#largemodal">
@@ -186,8 +142,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="">
-                                @foreach($organization->addresses as $address)
+                        @if($lawyer->user)
+                            <div class="">                            
+                                @foreach($lawyer->user->addresses as $address)
                                     <div class="form-row">
                                         <div class="form-group col-md-8 mb-0">
                                                 <label for="street" class="form-label">Rua</label>
@@ -246,7 +203,7 @@
                                             <input type="text"
                                                 class="form-control @error('city') is-invalid @enderror"
                                                 id="city" name="city" placeholder="Cidade"
-                                                value="{{ old('city') ?? $organization->city->title ?? '' }}" disabled>
+                                                value="{{ old('city') ?? $lawyer->user->city->title ?? '' }}" disabled>
                                             @error('city')
                                                 <div class="city">{{ $message }}</div>
                                             @enderror
@@ -256,33 +213,33 @@
                                             <input type="text"
                                                 class="form-control @error('uf') is-invalid @enderror"
                                                 id="uf" name="uf" placeholder="uf"
-                                                value="{{ old('uf') ?? $organization->city->state->uf ?? '' }}" disabled>
+                                                value="{{ old('uf') ?? $lawyer->user->city->state->uf ?? '' }}" disabled>
                                             @error('uf')
                                                 <div class="uf">{{ $message }}</div>
                                             @enderror
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
-                                @endforeach
+                                @endforeach                           
                             </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
+                                data-bs-target="#address">
+                                <div class="dropzone d-flex justify-content-center align-items-center">
+                                    <p class="fs-4 mb-0">Adicione um endereço +</p>
+                                </div>
+                            </a>
+                            {{-- <form data-single="true" method="post" action="https://httpbin.org/post"
+                                class="dropzone"></form> --}}
+                        </div>
+                        <x-v1.admin.modal.createAddress :user-id="$lawyer->user->id"></x-v1.admin.modal.createAddress>
                     </div>
-                    <div class="card-body">
-                        <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
-                            data-bs-target="#address">
-                            <div class="dropzone d-flex justify-content-center align-items-center">
-                                <p class="fs-4 mb-0">Adicione um endereço +</p>
-                            </div>
-                        </a>
-                        {{-- <form data-single="true" method="post" action="https://httpbin.org/post"
-                            class="dropzone"></form> --}}
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
-
-    <x-v1.admin.modal.createAddress :organization-id="$organization->id"></x-v1.admin.modal.createAddress>
-
+                     
+             
 
 
 

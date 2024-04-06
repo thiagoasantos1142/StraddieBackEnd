@@ -35,10 +35,10 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-start">
                                                             <div class="flex-grow-1">
-                                                                <p class="mb-0">Total Orders</p>
-                                                                <span class="fs-5">45</span>
+                                                                <p class="mb-0">Total Usuários</p>
+                                                                <span class="fs-5">{{$totalUsers}}</span>
                                                                 <span class="fs-12 text-success ms-1"><i
-                                                                        class="ti ti-trending-up mx-1"></i>0.5%</span>
+                                                                        class="ti ti-trending-up mx-1"></i>{{$percentageGrowthUsers}}%</span>
                                                             </div>
                                                             <div class="min-w-fit-content ms-3">
                                                                 <span

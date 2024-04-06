@@ -50,7 +50,7 @@ Route::middleware([
     Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('/company', CompanyController::class);
         Route::resource('/address', AddressController::class);
-        Route::resource('/lawyers', LawyerController::class);
+        Route::resource('/lawyer', LawyerController::class);
 
     });
    

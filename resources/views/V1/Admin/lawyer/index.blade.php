@@ -19,19 +19,23 @@
     </div>
     <!-- PAGE-HEADER END -->
 
-    <div class="alert alert-solid-secondary alert-dismissible fs-15 fade show mb-4 mx-3">
+    {{-- <div class="alert alert-solid-secondary alert-dismissible fs-15 fade show mb-4 mx-3">
         We Placed <strong class="text-fixed-black">Datatables</strong> only in this page by using <strong
             class="text-fixed-black">jquery</strong> cdn link.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="bi bi-x"></i></button>
-    </div>
+    </div> --}}
 
     <!-- CONTAINER -->
     <div class="main-container container-fluid"> <!-- Start::row-1 -->
         <div class="row">
             <div class="col-xl-12">
                 <div class="card custom-card">
-                    <div class="card-header">
-                        <div class="card-title">Exportar lista de advogados</div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">File Export Datatable</div>
+                        <div class="d-flex">
+                            <a href="{{ route('lawyer.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                                    class="fa fa-plus-square me-2"></i>Adicionar Advogado</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -39,33 +43,31 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Título</th>
+                                        <th>Title</th>
                                         <th>OAB</th>
                                         <th>UF</th>
-                                        <th>data do Cadastro</th>
+                                        <th>created at</th>
                                         <th>ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($lawyers as $lawyer)
+                                    @foreach ($lawyers as $lawyer)
                                         <tr>
-                                            <td>{{$lawyer->user->name}}</td>
-                                            <td>{{$lawyer->user->title}}</td>
-                                            <td>{{$lawyer->OAB}}</td>
-                                            <td>{{$lawyer->uf}}</td>
-                                            <td>{{ $lawyer->created_at->format('d/m/Y') }}</td>
-                                            <td>Ações...</td>
-                                        
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('company.show', ['company'=>1]) }}">
-                                                        <p class="mt-0 text-muted">Visualizar&nbsp;</p>
+                                            <td>{{ $lawyer->name }}</td>
+                                            <td>{{ $lawyer->title }}</td>
+                                            <td>{{ $lawyer->OAB_number }}</td>
+                                            <td>{{ $lawyer->UF }}</td>
+                                            <td>{{ $lawyer->created_at }}</td>
+                                            <td class="align-middle">
+                                                <div class="btn-list">
+                                                    <a href="{{ route('lawyer.show', ['lawyer' => $lawyer->id]) }}">
+                                                        <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
+                                                            type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>
                                                     <a href="">
-                                                        <p class="mt-0 text-muted">|&nbsp;Editar&nbsp;|</p>
-                                                    </a>
-                                                    <a href="">
-                                                        <p class="mt-0 text-muted">&nbsp;Excluir</p>
+                                                        <button
+                                                            class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
+                                                            type="button"><i class="bi bi-trash"></i></button>
                                                     </a>
                                                 </div>
                                             </td>

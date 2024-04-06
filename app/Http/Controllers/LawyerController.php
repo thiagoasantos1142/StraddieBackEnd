@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lawyer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LawyerController extends Controller
@@ -14,23 +15,34 @@ class LawyerController extends Controller
         return view('V1.Admin.lawyer.index', compact('lawyers'));
     }
 
+    public function show(string $id)
+    {
+        //pegar as informaçoes do adv
+        $lawyer = Lawyer::find($id);
+       
+        return view('V1.Admin.lawyer.show',compact('lawyer'));
+    }
+
+
     public function create()
     {
-        return view('lawyers.create');
+        $users = User::all();
+        return view('V1.Admin.lawyer..create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'OAB_number' => 'required|string|max:255',
             'UF' => 'required|string|max:255',
-            'user_id' => 'required|exists:users,id',
+            //'user_id' => 'required|exists:users,id',
         ]);
 
         Lawyer::create($request->all());
 
-        return redirect()->route('lawyers.index')
+        return redirect()->route('lawyer.index')
                          ->with('success', 'Lawyer created successfully.');
     }
 

@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Log;
 
 class AddressController extends Controller
 {
@@ -39,9 +40,17 @@ class AddressController extends Controller
             'street' => 'required|string',
             'city_id' => 'required|string',
         ]);
+       
+        $city = City::where('title', $request->city_id)->first();
+       
 
-        $request->merge(['city_id' => City::where('title',$request->city_id)->first()['id']]);
+        if ($city) {
+            $request->merge(['city_id' => $city->id]);
+        } else {
+            // Trate o caso em que a cidade não foi encontrada
+        }
 
+        
         if ($request->ajax()) {
             // A requisição é AJAX
             if ($validator->fails()) {

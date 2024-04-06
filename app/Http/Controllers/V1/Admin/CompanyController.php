@@ -62,7 +62,7 @@ class CompanyController extends Controller
     {
         //pegar as informaçoes da organização
         $organization = Organization::find($id);
-        
+        \Log::info($organization);
         return view('V1.Admin.Company.show',compact('organization'));
     }
 
