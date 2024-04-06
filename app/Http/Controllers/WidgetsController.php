@@ -8,7 +8,10 @@ class WidgetsController extends Controller
 {
     public function widgets()
     {
-        return view('pages.widgets');
+        $user = \Auth::user();        
+        
+        return view('pages.widgets', ['user' => $user]);
+        
     }
 
 }

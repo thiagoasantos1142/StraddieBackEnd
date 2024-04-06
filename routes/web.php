@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,11 +50,15 @@ Route::middleware([
     Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('/company', CompanyController::class);
         Route::resource('/address', AddressController::class);
+        Route::resource('/lawyers', LawyerController::class);
+
     });
    
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 
     Route::get('profile', [PagesController::class, 'profile'])->name('profile');
+    
+
     
 Route::get('notify-list', [PagesController::class, 'notify_list']);
 Route::get('email-inbox', [PagesController::class, 'email_inbox']);

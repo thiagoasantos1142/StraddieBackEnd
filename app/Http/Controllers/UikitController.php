@@ -9,7 +9,9 @@ class UikitController extends Controller
     
     public function alerts()
     {
-        return view('pages.alerts');
+        $user = \Auth::user();        
+        
+        return view('pages.alerts', ['user' => $user]);
     }
 
     public function buttons()
@@ -44,7 +46,9 @@ class UikitController extends Controller
 
     public function pagination()
     {
-        return view('pages.pagination');
+        $user = \Auth::user();        
+        
+        return view('pages.pagination', ['user' => $user]);
     }
 
     public function navigation()
