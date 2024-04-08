@@ -1,105 +1,111 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light" data-menu-styles="dark" loader="disable">
+<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light"
+    data-menu-styles="dark" loader="disable">
 
-    <head>
+<head>
 
-        <!-- META DATA -->
-        <meta charset="UTF-8">
-        <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="vexel – Laravel Bootstrap 5  Admin & Dashboard Template">
-        <meta name="author" content="Spruko Technologies Private Limited">
-        <meta name="keywords" content="admin panel template, admin dashboard template, admin panel, bootstrap admin template, dashboard, laravel, bootstrap dashboard, admin dashboard, admin panel laravel template, laravel framework, admin laravel, laravel admin panel.">
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="vexel – Laravel Bootstrap 5  Admin & Dashboard Template">
+    <meta name="author" content="Spruko Technologies Private Limited">
+    <meta name="keywords"
+        content="admin panel template, admin dashboard template, admin panel, bootstrap admin template, dashboard, laravel, bootstrap dashboard, admin dashboard, admin panel laravel template, laravel framework, admin laravel, laravel admin panel.">
 
-		<!-- TITLE -->
-        <title>Vexel – Laravel Bootstrap 5 Admin &amp; Dashboard Template </title>
+    <!-- TITLE -->
+    <title>Vexel – Laravel Bootstrap 5 Admin &amp; Dashboard Template </title>
 
-        <!-- Favicon -->
-        <link rel="icon" href="{{asset('build/assets/images/brand/favicon.ico')}}" type="image/x-icon">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('build/assets/images/brand/favicon.ico') }}" type="image/x-icon">
 
-        <!-- ICONS CSS -->
-        <link href="{{asset('build/assets/iconfonts/icons.css')}}" rel="stylesheet">
+    <!-- ICONS CSS -->
+    <link href="{{ asset('build/assets/iconfonts/icons.css') }}" rel="stylesheet">
 
-        <!-- Main Theme Js -->
-        <script src="{{asset('build/assets/main.js')}}"></script>
+    <!-- Main Theme Js -->
+    <script src="{{ asset('build/assets/main.js') }}"></script>
 
-        <link rel="stylesheet" href="{{ asset('build/assets/libs/awesome-notifications/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/libs/awesome-notifications/style.css') }}">
 
-        @include('layouts.components.styles')
+    <link rel="stylesheet" href="{{ asset('build/assets/libs/sweetalert2/sweetalert2.min.css') }}">
 
-        <!-- APP CSS & APP SCSS -->
-        @vite(['resources/sass/app.scss' ])
+    @include('layouts.components.styles')
 
-        @vite(['resources/js/configJquery.js'])
-      
-        @yield('styles')
-        
-        <style>
-            #awn-toast-container {
-                z-index: 100000 !important;
-            }
-        </style>
+    <!-- APP CSS & APP SCSS -->
+    @vite(['resources/sass/app.scss'])
 
-    </head>
+    @vite(['resources/js/configJquery.js'])
 
-    <body class="app sidebar-mini">
+    @yield('styles')
 
-        <!-- Switcher -->
-        @include('layouts.components.switcher')
-        <!-- End switcher -->
+    <style>
+        #awn-toast-container {
+            z-index: 100000 !important;
+        }
+    </style>
 
-        <!-- GLOBAL-LOADER -->
-        <div id="loader">
-            <img src="{{asset('build/assets/images/loader.svg')}}" class="loader-img" alt="Loader">
-        </div>
-        <!-- /GLOBAL-LOADER -->
+</head>
 
-        <!-- PAGE -->
-        <div class="page">
-            <div class="page-main">
+<body class="app sidebar-mini">
 
-                <!-- Main-Header -->
-                @include('layouts.components.main-header')
-                <!-- End Main-Header -->
+    <!-- Switcher -->
+    @include('layouts.components.switcher')
+    <!-- End switcher -->
 
-                <!--Main-Sidebar-->
-                @include('layouts.components.main-sidebar')
-                <!-- End Main-Sidebar-->
+    <!-- GLOBAL-LOADER -->
+    <div id="loader">
+        <img src="{{ asset('build/assets/images/loader.svg') }}" class="loader-img" alt="Loader">
+    </div>
+    <!-- /GLOBAL-LOADER -->
 
-                <!--app-content open-->
-                <div class="main-content app-content mt-0">
+    <!-- PAGE -->
+    <div class="page">
+        <div class="page-main">
 
-                    @yield('content')
+            <!-- Main-Header -->
+            @include('layouts.components.main-header')
+            <!-- End Main-Header -->
 
-                </div>
-                <!-- END APP-CONTENT -->
-                
+            <!--Main-Sidebar-->
+            @include('layouts.components.main-sidebar')
+            <!-- End Main-Sidebar-->
+
+            <!--app-content open-->
+            <div class="main-content app-content mt-0">
+
+                @yield('content')
+
             </div>
-            <!--app-content closed-->
+            <!-- END APP-CONTENT -->
 
-            <!-- Country-selector modal -->
-            @include('layouts.components.modal')
-            <!-- End Country-selector modal -->
+        </div>
+        <!--app-content closed-->
 
-            <!-- Footer opened -->
-            @include('layouts.components.footer')
-            <!-- End Footer -->
+        <!-- Country-selector modal -->
+        @include('layouts.components.modal')
+        <!-- End Country-selector modal -->
 
-            @yield('modals')  
+        <!-- Footer opened -->
+        @include('layouts.components.footer')
+        <!-- End Footer -->
 
-        </div>    
-        <!-- END PAGE-->
+        @yield('modals')
 
-        <!-- SCRIPTS -->
-        @include('layouts.components.scripts')
-        
-        <!-- Sticky JS -->
-        <script src="{{asset('build/assets/sticky.js')}}"></script>
+    </div>
+    <!-- END PAGE-->
 
-        <!-- APP JS-->
-		@vite('resources/js/app.js')    
-        <!-- END SCRIPTS -->
+    <!-- SCRIPTS -->
+    @include('layouts.components.scripts')
 
-    </body> 
+    <!-- Sticky JS -->
+    <script src="{{ asset('build/assets/sticky.js') }}"></script>
+
+    <script src="{{ asset('build/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <!-- APP JS-->
+    @vite('resources/js/app.js')
+    <!-- END SCRIPTS -->
+
+</body>
 
 </html>

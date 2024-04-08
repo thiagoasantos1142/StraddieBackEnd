@@ -112,26 +112,25 @@ class AddressController extends Controller
             'city_id' => 'required|string',
         ]);
 
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        
+
         $city = City::where('title', $request->city_id)->first();
 
-        
+
         if ($city) {
             $request->merge(['city_id' => $city->id]);
         } else {
-            
         }
 
         try {
-            
+
             $address->update($request->all());
         } catch (\Throwable $th) {
-            
+
             return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
         }
 
@@ -141,8 +140,12 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        Address::destroy($id);
+        
+        if ($request->ajax()) {
+            return response()->json(["message" => "sucess"], 200);
+        }
     }
 }

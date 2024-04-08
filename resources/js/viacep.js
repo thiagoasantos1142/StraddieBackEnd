@@ -101,7 +101,7 @@ async function saveCep() {
     await axios.post('/dashboard/address', dataForm)
         .then(function (response) {
             $('#address').modal('hide');
-            newLineAddress(response.data,'[data-addresses]');
+            newLineAddress(response.data, '[data-addresses]');
             openAlert('success', 'endereço salvo com sucesso.');
         })
         .catch(function (error) {
@@ -122,11 +122,24 @@ async function updateCep(idAddress) {
     await axios.post(`/dashboard/address/${idAddress}`, dataForm)
         .then(function (response) {
             $('#address').modal('hide');
-            updateLineAddress(response.data,'[data-addresses]');
+            updateLineAddress(response.data, '[data-addresses]');
             openAlert('success', 'endereço salvo com sucesso.');
         })
         .catch(function (error) {
             openAlert('alert', 'Erro ao salvar endereço.');
+            console.error('Erro ao enviar formulário:', error);
+        });
+}
+
+async function deleteCep(idAddress) {
+    // pegar as info do form agora
+    await axios.delete(`/dashboard/address/${idAddress}`)
+        .then(function (response) {
+            removeLineAddress(idAddress, '[data-addresses]');
+            openAlert('success', 'removido com sucesso.');
+        })
+        .catch(function (error) {
+            openAlert('alert', 'Erro ao remover endereço.');
             console.error('Erro ao enviar formulário:', error);
         });
 }
@@ -141,15 +154,36 @@ async function internalGetAddress(idAddress) {
 }
 
 //editar
-function initializeFunctionsBtn(){
+function initializeFunctionsBtn() {
+    //adiciona a função editar e update
     $('[data-modaladdress]').on('click', async function () {
-        clearForm();
-        $('#address').modal('show');
         typeAction = $(this).data('typeaction');
+
+        if(typeAction != 'delete'){
+            clearForm();
+            $('#address').modal('show');
+        }
+
         if (typeAction === 'update') {
             idUpdateAddress = $('[data-idaddress]').data('idaddress');
             const response = await internalGetAddress(idUpdateAddress);
             setInternalValueAddress(response.data);
+        } else if (typeAction === 'delete') {
+            idUpdateAddress = $('[data-idaddress]').data('idaddress');
+            Swal.fire({
+                title: 'Deletar endereço?',
+                text: "Esta ação irá remover permanentemente seu endereço. Tem certeza que deseja continuar?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, deletar agora!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteCep(idUpdateAddress);
+                }
+            })
         }
     });
 }
@@ -177,7 +211,7 @@ function clearForm() {
 
 
 //adiciona e remove linhas na tag definida no front
-function newLineAddress(dataAddress,elementId) {
+function newLineAddress(dataAddress, elementId) {
     const lineAddress = `
     <li class="list-group-item" data-idaddress="${dataAddress.id}">
     <div class="d-flex flex-row justify-content-between">
@@ -189,7 +223,7 @@ function newLineAddress(dataAddress,elementId) {
             <div class="ms-2" id="line-addresses">
                 <p class="fs-13 fw-600 mb-0">${dataAddress.zip}</p>
                 <p class="fs-12 text-muted">CEP: ${dataAddress.zip}, CIDADE:
-                ${dataAddress.city_id}<br>BAIRRO: ${dataAddress.neighborhood}<br>N:
+                ${dataAddress.title_city}<br>BAIRRO: ${dataAddress.neighborhood}<br>N:
                 ${dataAddress.street_number}<br>COMPLEMENTO: ${dataAddress.complement}
                 </p>
             </div>
@@ -208,7 +242,7 @@ function newLineAddress(dataAddress,elementId) {
 }
 
 
-function updateLineAddress(dataAddress,elementId) {
+function updateLineAddress(dataAddress, elementId) {
     console.log('@aqui');
     // pegar a div com o id?
     const lineAddress = `
@@ -221,7 +255,7 @@ function updateLineAddress(dataAddress,elementId) {
             <div class="ms-2" id="line-addresses">
                 <p class="fs-13 fw-600 mb-0">${dataAddress.zip}</p>
                 <p class="fs-12 text-muted">CEP: ${dataAddress.zip}, CIDADE:
-                ${dataAddress.city_id}<br>BAIRRO: ${dataAddress.neighborhood}<br>N:
+                ${dataAddress.title_city}<br>BAIRRO: ${dataAddress.neighborhood}<br>N:
                 ${dataAddress.street_number}<br>COMPLEMENTO: ${dataAddress.complement}
                 </p>
             </div>
@@ -238,5 +272,11 @@ function updateLineAddress(dataAddress,elementId) {
     console.log($(elementId).find(`[data-idaddress="${dataAddress.id}"]`));
     $(elementId).find(`[data-idaddress="${dataAddress.id}"]`).html(lineAddress);
     initializeFunctionsBtn();
+}
+
+
+
+function removeLineAddress(idAddress, elementId) {
+    $(elementId).find(`[data-idaddress="${idAddress}"]`).remove();
 }
 
