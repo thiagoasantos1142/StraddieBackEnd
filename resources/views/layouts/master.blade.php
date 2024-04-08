@@ -102,6 +102,8 @@
 
     <script src="{{ asset('build/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
+    @vite('resources/js/bootstrap.js')
+
     <!-- APP JS-->
     @vite('resources/js/app.js')
     <!-- END SCRIPTS -->

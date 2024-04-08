@@ -54,9 +54,13 @@ Route::middleware([
         Route::resource('/address', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/credit-rights-titles', CreditRightsTitleController::class);
+        Route::resource('/users', UserController::class);
         
         Route::resource('/assets', AssetsController::class);
     });
+
+
+
    
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 

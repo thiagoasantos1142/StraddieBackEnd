@@ -59,7 +59,6 @@
 </div>
 
 @section('scripts')
-    @vite('resources/js/bootstrap.js')
     @vite('resources/js/viacep.js')
 @endsection
 <!-- CONTAINER CLOSED -->

@@ -157,31 +157,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6">
-                <div class="card custom-card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            Atribuir um usuario
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
-                                data-bs-toggle="modal" data-bs-target="#largemodal">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Atribuir um usuario +</p>
-                                </div>
-                            </a>
-                            <a href="" onclick="event.preventDefault();" class="col-md-6" data-bs-toggle="modal"
-                                data-bs-target="#largemodal">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Atribuir um usuario existente +</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+            {{-- @aqui --}}
+            <x-v1.admin.modal.addCorporateUser></x-v1.admin.modal.addCorporateUser>
+            {{-- @aqui --}}
+
             <div class="col-xl-6" id="section-address">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">

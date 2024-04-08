@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::latest()->limit(10)->get();
+            return response()->json($users, 200);
+        }
+    }
+
     public function update(Request $request)
     {
         // Obtém o ID do usuário atual
@@ -16,14 +26,14 @@ class UserController extends Controller
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'email' => "unique:users,email,{$userId}|email|max:255",
-            'phone' => 'required|max:20',            
+            'phone' => 'required|max:20',
             'cpf' => "unique:users,cpf,{$userId}|max:20",
 
             // Adicione outras regras de validação conforme necessário
         ]);
-        
+
         $name = $request->input('firstName') . ' ' . $request->input('lastName');
-       
+
         // Obtém o usuário atual
         $user = auth()->user();
 
@@ -33,8 +43,8 @@ class UserController extends Controller
         // Valida e limpa o CPF
         $cleanedCPF = $this->validateAndCleanCPF($cpf);
 
-         // Verifica se o CPF é válido
-         if ($cleanedCPF === null) {
+        // Verifica se o CPF é válido
+        if ($cleanedCPF === null) {
             // CPF inválido
             return redirect()->back()->with('error', 'CPF inválido.');
         }
@@ -44,32 +54,32 @@ class UserController extends Controller
             $user->update([
                 'name' => $name,
                 'title' => $request->input('title'),
-                'email' => $request->input('email'),                
-                'cpf' => $cleanedCPF,            
+                'email' => $request->input('email'),
+                'cpf' => $cleanedCPF,
                 'bio' => $request->input('bio'),
                 // Adicione outros campos para atualizar conforme necessário
             ]);
 
-         // Verifica se houve alterações nos dados de contato
-        foreach ($user->contacts as $contact) {
-            // Limpa e valida o número de telefone
-            $cleanedPhone = $this->cleanAndValidatePhoneNumber($request->input('phone'));
+            // Verifica se houve alterações nos dados de contato
+            foreach ($user->contacts as $contact) {
+                // Limpa e valida o número de telefone
+                $cleanedPhone = $this->cleanAndValidatePhoneNumber($request->input('phone'));
 
-            // Verifica se o número de telefone é válido
-            if ($cleanedPhone !== null) {
-                // Se for válido, atualiza e salva o número de telefone
+                // Verifica se o número de telefone é válido
+                if ($cleanedPhone !== null) {
+                    // Se for válido, atualiza e salva o número de telefone
 
-                if ($contact->phone !== $request->input('phone')) {
-                    $contact->phone = $cleanedPhone;
-                    $contact->save();
+                    if ($contact->phone !== $request->input('phone')) {
+                        $contact->phone = $cleanedPhone;
+                        $contact->save();
+                    }
+                } else {
+                    // Se não for válido, retorna um erro
+                    return redirect()->back()->with('error', 'Número de telefone inválido.');
                 }
-            } else {
-                // Se não for válido, retorna um erro
-                return redirect()->back()->with('error', 'Número de telefone inválido.');
             }
-        }
 
-        
+
             // Redireciona de volta para a página do perfil do usuário
             return redirect()->route('profile')->with('success', 'Perfil atualizado com sucesso.');
         } catch (\Exception $e) {
@@ -77,7 +87,6 @@ class UserController extends Controller
             // com uma mensagem de erro
             return redirect()->route('profile')->with('error', 'Erro ao atualizar perfil: ' . $e->getMessage());
         }
-        
     }
 
     protected function validateAndCleanCPF($cpf)
@@ -112,17 +121,17 @@ class UserController extends Controller
     }
 
     private function cleanAndValidatePhoneNumber($phone)
-{
-    // Remove todos os caracteres não numéricos do número de telefone
-    $cleanedPhone = preg_replace('/\D/', '', $phone);
+    {
+        // Remove todos os caracteres não numéricos do número de telefone
+        $cleanedPhone = preg_replace('/\D/', '', $phone);
 
-    // Verifica se o número de telefone está no formato correto
-    if (preg_match('/^\d{10,11}$/', $cleanedPhone)) {
-        // Se for, retorna o número de telefone limpo
-        return $cleanedPhone;
-    } else {
-        // Se não for, retorna null
-        return null;
+        // Verifica se o número de telefone está no formato correto
+        if (preg_match('/^\d{10,11}$/', $cleanedPhone)) {
+            // Se for, retorna o número de telefone limpo
+            return $cleanedPhone;
+        } else {
+            // Se não for, retorna null
+            return null;
+        }
     }
-}
 }

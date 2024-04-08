@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/js/viacep.js',
                 'resources/js/bootstrap.js',
                 'resources/js/configJquery.js',
+                'resources/assets/js/components/addCorporateUser.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
