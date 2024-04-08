@@ -11,6 +11,8 @@ class Address extends Model
 
     protected $fillable = ['user_id', 'street', 'zip', 'neighborhood', 'street_number', 'complement', 'organization_id', 'city_id'];
 
+    protected $appends = ['title_city'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -19,5 +21,16 @@ class Address extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function getTitleCityAttribute()
+    {
+        return City::find($this->city_id)['title'] ?? 'N/A';
+    }
+
+    public function setZipAttribute($value)
+    {
+        $value = str_replace(['-', '.'], '', $value);
+        $this->attributes['zip'] = $value;
     }
 }

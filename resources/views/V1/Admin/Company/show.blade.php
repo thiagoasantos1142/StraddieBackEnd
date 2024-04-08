@@ -204,16 +204,18 @@
                                         <div class="ms-2" id="line-addresses">
                                             <p class="fs-13 fw-600 mb-0">{{ $addresse->zip }}</p>
                                             <p class="fs-12 text-muted">CEP: {{ $addresse->zip }}, CIDADE:
-                                                {{ $addresse->city_id }}<br>BAIRRO: {{ $addresse->neighborhood }}<br>N:
+                                                {{ $addresse->title_city }}<br>BAIRRO: {{ $addresse->neighborhood }}<br>N:
                                                 {{ $addresse->street_number }}<br>COMPLEMENTO: {{ $addresse->complement }}
                                             </p>
                                         </div>
                                     </div>
                                     <div class="btn-list">
                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle" type="button"
-                                            data-modaladdress data-typeaction="update"><i class="bi bi-pencil-square"></i></button>
+                                            data-modaladdress data-typeaction="update"><i
+                                                class="bi bi-pencil-square"></i></button>
                                         <button class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
-                                            type="button"><i class="bi bi-trash"></i></button>
+                                            data-modaladdress data-typeaction="delete" type="button"><i
+                                                class="bi bi-trash"></i></button>
                                     </div>
                                 </div>
                             </li>
