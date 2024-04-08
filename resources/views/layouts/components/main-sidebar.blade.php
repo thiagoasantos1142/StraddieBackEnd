@@ -66,74 +66,100 @@
 									</a>
 								</li>
 
+								
+								<li class="slide">
+									<a href="{{url('dashboard/lawyer')}}" class="side-menu__item">
+										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
+											viewBox="0 0 24 24" width="24px" fill="#000000">
+											<path d="M0 0h24v24H0V0z" fill="none" />
+											<path
+												d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
+										</svg>
+										<span class="side-menu__label">Titulos</span>
+									</a>
+								</li>
+
+								<li class="slide">
+									<a href="{{url('dashboard/lawyer')}}" class="side-menu__item">
+										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
+											viewBox="0 0 24 24" width="24px" fill="#000000">
+											<path d="M0 0h24v24H0V0z" fill="none" />
+											<path
+												d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
+										</svg>
+										<span class="side-menu__label">Ativos</span>
+									</a>
+								</li>
+
 								<!-- Start::slide__category -->
 								<li class="slide__category"><span class="category-name">PAGES</span></li>
 								<!-- End::slide__category -->
 
-								<!-- Start::slide -->
-								<li class="slide has-sub">
-									<a href="javascript:void(0);" class="side-menu__item">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="side-menu__icon">
-											<path d="M0 0h24v24H0V0z" fill="none"></path>
-											<path
-												d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zm0-11.47L17.74 9 12 13.47 6.26 9 12 4.53z">
-											</path>
-										</svg>
-										<span class="side-menu__label">Pages</span>
-										<i class="fe fe-chevron-right side-menu__angle"></i>
-									</a>
-									<ul class="slide-menu child1">
-										<li class="slide side-menu__label1">
-											<a href="javascript:void(0);">Pages</a>
-										</li>
-										<li class="slide">
-											<a href="{{url('profile')}}" class="side-menu__item">Profile</a>
-										</li>
-										<li class="slide">
-											<a href="{{url('lawyers')}}" class="side-menu__item">Advogados</a>
-										</li>
-										<li class="slide">
-											<a href="{{url('email-inbox')}}" class="side-menu__item">Mail-Inbox</a>
-										</li>
-										<li class="slide">
-											<a href="{{url('gallery')}}" class="side-menu__item">Gallery</a>
-										</li>
-										<li class="slide has-sub">
-											<a href="javascript:void(0);" class="side-menu__item">Extension
-												<i class="fe fe-chevron-right side-menu__angle"></i></a>
-											<ul class="slide-menu child2">
-												<li class="slide">
-													<a href="{{url('about')}}" class="side-menu__item">About Company</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('faq')}}" class="side-menu__item">FAQS</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('terms')}}" class="side-menu__item">Terms</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('invoice')}}" class="side-menu__item">Invoice</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('pricing')}}" class="side-menu__item">Pricing Tables</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('settings')}}" class="side-menu__item">Settings</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('blog')}}" class="side-menu__item">Blog</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('blog-details')}}" class="side-menu__item">Blog Details</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('blog-post')}}" class="side-menu__item">Blog Post</a>
-												</li>
-												<li class="slide">
-													<a href="{{url('emptypage')}}" class="side-menu__item">Empty Page</a>
-												</li>
-											</ul>
-										</li>
+									<!-- Start::slide -->
+									<!-- 
+									<li class="slide has-sub">
+										<a href="javascript:void(0);" class="side-menu__item">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="side-menu__icon">
+												<path d="M0 0h24v24H0V0z" fill="none"></path>
+												<path
+													d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16zm0-11.47L17.74 9 12 13.47 6.26 9 12 4.53z">
+												</path>
+											</svg>
+											<span class="side-menu__label">Pages</span>
+											<i class="fe fe-chevron-right side-menu__angle"></i>
+										</a>
+										<ul class="slide-menu child1">
+											<li class="slide side-menu__label1">
+												<a href="javascript:void(0);">Pages</a>
+											</li>
+											<li class="slide">
+												<a href="{{url('profile')}}" class="side-menu__item">Profile</a>
+											</li>
+											<li class="slide">
+												<a href="{{url('lawyers')}}" class="side-menu__item">Advogados</a>
+											</li>
+											<li class="slide">
+												<a href="{{url('email-inbox')}}" class="side-menu__item">Mail-Inbox</a>
+											</li>
+											<li class="slide">
+												<a href="{{url('gallery')}}" class="side-menu__item">Gallery</a>
+											</li>
+											<li class="slide has-sub">
+												<a href="javascript:void(0);" class="side-menu__item">Extension
+													<i class="fe fe-chevron-right side-menu__angle"></i></a>
+												<ul class="slide-menu child2">
+													<li class="slide">
+														<a href="{{url('about')}}" class="side-menu__item">About Company</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('faq')}}" class="side-menu__item">FAQS</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('terms')}}" class="side-menu__item">Terms</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('invoice')}}" class="side-menu__item">Invoice</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('pricing')}}" class="side-menu__item">Pricing Tables</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('settings')}}" class="side-menu__item">Settings</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('blog')}}" class="side-menu__item">Blog</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('blog-details')}}" class="side-menu__item">Blog Details</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('blog-post')}}" class="side-menu__item">Blog Post</a>
+													</li>
+													<li class="slide">
+														<a href="{{url('emptypage')}}" class="side-menu__item">Empty Page</a>
+													</li>
+												</ul>
+											</li>
 										<li class="slide has-sub">
 											<a href="javascript:void(0);" class="side-menu__item">File Manager
 												<i class="fe fe-chevron-right side-menu__angle"></i></a>
@@ -173,10 +199,12 @@
 											</ul>
 										</li>
 									</ul>
+									<!-- -->
 								</li>
 								<!-- End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
+								
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
@@ -233,9 +261,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide">
 									<a href="{{url('widgets')}}" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"
@@ -246,13 +274,13 @@
 										<span class="side-menu__label">Widgets</span>
 									</a>
 								</li>
-								<!-- End::slide -->
+								 End::slide -->
 
-								<!-- Start::slide__category -->
+								<!-- Start::slide__category
 								<li class="slide__category"><span class="category-name">GENERAL</span></li>
-								<!-- End::slide__category -->
+								End::slide__category -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"
@@ -347,9 +375,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
@@ -408,9 +436,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								 End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
@@ -473,9 +501,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide">
 									<a href="{{url('landing-page')}}" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"
@@ -493,9 +521,9 @@
 										<span class="side-menu__label">Landing Page</span>
 									</a>
 								</li>
-								<!-- End::slide -->
+								 End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -540,13 +568,13 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								 End::slide -->
 
-								<!-- Start::slide__category -->
+								<!-- Start::slide__category
 								<li class="slide__category"><span class="category-name">Forms & Tables</span></li>
-								<!-- End::slide__category -->
+								End::slide__category -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
@@ -587,9 +615,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"
@@ -624,13 +652,13 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 
-								<!-- Start::slide__category -->
+								<!-- Start::slide__category 
 								<li class="slide__category"><span class="category-name">Maps & Charts</span></li>
-								<!-- End::slide__category -->
+								End::slide__category -->
 
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
@@ -658,9 +686,9 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								End::slide -->
 								
-								<!-- Start::slide -->
+								<!-- Start::slide 
 								<li class="slide has-sub">
 									<a href="javascript:void(0);" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
@@ -688,7 +716,7 @@
 										</li>
 									</ul>
 								</li>
-								<!-- End::slide -->
+								 End::slide -->
 
 							</ul>
 							<div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
