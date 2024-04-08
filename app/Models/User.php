@@ -84,10 +84,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
-    public function OAB()
-    {
-        return $this->belongsTo(OAB::class);
-    }
+    
     
 
 }

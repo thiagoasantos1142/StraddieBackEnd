@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('due_dilgence', function (Blueprint $table) {
+        Schema::create('payment_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
-            $table->string('description', 995)->nullable();
+            
+            $table->string('description', 255);
             $table->timestamps();
-            $table->unsignedBigInteger('due_dilgence_statuses_id');
-            $table->foreign('due_dilgence_statuses_id')->references('id')->on('due_dilgence_statuses')->onDelete('no action')->onUpdate('no action');
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('due_dilgence');
+        Schema::dropIfExists('payment_statusses');
     }
 };

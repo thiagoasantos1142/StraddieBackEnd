@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('due_dilgence_statuses', function (Blueprint $table) {
+        Schema::create('due_diligence_documents_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('due_dilgence_statuses');
+        Schema::dropIfExists('due_diligence_documents_statusses');
     }
 };

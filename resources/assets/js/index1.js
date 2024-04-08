@@ -8,15 +8,15 @@ if (element !== null) {
       var options = {
         series: [
           {
-            name: "Online",
+            name: "Ativos",
             data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
           },
           {
-            name: "Offline",
+            name: "Titulos",
             data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
           },
           {
-            name: "Marketing",
+            name: "Ofertas",
             data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
           },
         ],
@@ -45,7 +45,7 @@ if (element !== null) {
           colors: ["transparent"],
         },
         xaxis: {
-          categories: ["Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
+          categories: ["Set", "Ago", "Set", "Out", "Nov", "Dez", "Jan", "Fev", "Mar"],
           labels: {
             show: true,
             style: {

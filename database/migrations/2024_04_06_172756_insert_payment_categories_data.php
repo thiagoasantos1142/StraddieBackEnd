@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 255);
-            $table->string('description', 255);
-            $table->timestamps();
-        });
+       // Inserir categorias de pagamento
+       DB::table('payment_categories')->insert([
+            ['title' => 'Payment for Asset Acquisition'],
+            ['title' => 'Transaction Associated Fees'],
+            ['title' => 'Partner Commission Fee'],
+            ['title' => 'Title Owner Payment'],
+        ]);
     }
 
     /**
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_types');
+        //
     }
 };
