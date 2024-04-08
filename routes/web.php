@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\V1\Admin\AssetsController;
+use App\Http\Controllers\V1\Admin\CreditRightsTitleController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
@@ -51,7 +53,9 @@ Route::middleware([
         Route::resource('/company', CompanyController::class);
         Route::resource('/address', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
-
+        Route::resource('/credit-rights-titles', CreditRightsTitleController::class);
+        
+        Route::resource('/assets', AssetsController::class);
     });
    
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');

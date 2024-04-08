@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CreditRightsTitles;
+use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\Lawyer;
@@ -46,10 +46,10 @@ class DashboardController extends Controller
         }
 
         
-        $totalCreditRightsTitles = CreditRightsTitles::all()->count() ;
+        $totalCreditRightsTitles = CreditRightsTitle::all()->count() ;
 
-        $totalCRTsThisMonth = CreditRightsTitles::whereMonth('created_at', now()->month)->count();
-        $totalCRTsLastMonth = CreditRightsTitles::whereMonth('created_at', now()->subMonth()->month)->count();
+        $totalCRTsThisMonth = CreditRightsTitle::whereMonth('created_at', now()->month)->count();
+        $totalCRTsLastMonth = CreditRightsTitle::whereMonth('created_at', now()->subMonth()->month)->count();
 
          // Calcula a diferença entre o número de titulos de diretiro creditório do mês atual e do mês anterior
          $crtsDifference = $totalCRTsThisMonth - $totalCRTsLastMonth;
