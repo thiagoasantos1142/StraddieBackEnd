@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
@@ -61,8 +62,7 @@ class CompanyController extends Controller
     public function show(string $id)
     {
         //pegar as informaçoes da organização
-        $organization = Organization::find($id);
-        \Log::info($organization);
+        $organization = Organization::with('addresses')->find($id);
         return view('V1.Admin.Company.show',compact('organization'));
     }
 

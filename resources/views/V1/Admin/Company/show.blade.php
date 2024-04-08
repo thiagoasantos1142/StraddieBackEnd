@@ -75,7 +75,7 @@
                                         <input type="text"
                                             class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
                                             name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? $organization->razao_social ?? '' }}"
+                                            value="{{ old('razao_social') ?? ($organization->razao_social ?? '') }}"
                                             disabled>
                                         @error('razao_social')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -86,7 +86,8 @@
                                         <input type="text"
                                             class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
                                             name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? ($organization->nome_fantasia ?? '') }}" disabled>
+                                            value="{{ old('nome_fantasia') ?? ($organization->nome_fantasia ?? '') }}"
+                                            disabled>
                                         @error('nome_fantasia')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -95,7 +96,7 @@
                                         <label for="cnpj" class="form-label">Cnpj</label>
                                         <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
                                             id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? $organization->cnpj ?? '' }}" disabled>
+                                            value="{{ old('cnpj') ?? ($organization->cnpj ?? '') }}" disabled>
                                         @error('cnpj')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -106,7 +107,8 @@
                                         <input type="text"
                                             class="form-control @error('state_registration') is-invalid @enderror"
                                             id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? $organization->state_registration ?? '' }}" disabled>
+                                            value="{{ old('state_registration') ?? ($organization->state_registration ?? '') }}"
+                                            disabled>
                                         @error('state_registration')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -117,7 +119,8 @@
                                         <input type="text"
                                             class="form-control @error('municipal_registration') is-invalid @enderror"
                                             id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? $organization->municipal_registration ?? '' }}" disabled>
+                                            value="{{ old('municipal_registration') ?? ($organization->municipal_registration ?? '') }}"
+                                            disabled>
                                         @error('municipal_registration')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -126,7 +129,7 @@
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                             id="email" name="email" placeholder="E-mail"
-                                            value="{{ old('email') ?? $organization->email ?? '' }}" disabled>
+                                            value="{{ old('email') ?? ($organization->email ?? '') }}" disabled>
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -154,7 +157,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12">
+            <div class="col-xl-6">
                 <div class="card custom-card">
                     <div class="card-header">
                         <div class="card-title">
@@ -163,13 +166,14 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
-                                data-bs-target="#largemodal">
+                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
+                                data-bs-toggle="modal" data-bs-target="#largemodal">
                                 <div class="dropzone d-flex justify-content-center align-items-center">
                                     <p class="fs-4 mb-0">Atribuir um usuario +</p>
                                 </div>
                             </a>
-                            <a href="" onclick="event.preventDefault();" class="col-md-6" data-bs-toggle="modal" data-bs-target="#largemodal">
+                            <a href="" onclick="event.preventDefault();" class="col-md-6" data-bs-toggle="modal"
+                                data-bs-target="#largemodal">
                                 <div class="dropzone d-flex justify-content-center align-items-center">
                                     <p class="fs-4 mb-0">Atribuir um usuario existente +</p>
                                 </div>
@@ -179,115 +183,58 @@
                 </div>
             </div>
             <div class="col-xl-6" id="section-address">
-                <div class="card custom-card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            Endereços
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title">Endereços</div>
+                        <div class="d-flex">
+                            <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
+                                class="btn btn-primary btn-block float-end"><i
+                                    class="fa fa-plus-square me-2"></i>Adicionar endereço</a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="">
-                                @foreach($organization->addresses as $address)
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8 mb-0">
-                                                <label for="street" class="form-label">Rua</label>
-                                                <input type="text"
-                                                    class="form-control  @error('street') is-invalid @enderror" id="street"
-                                                    name="street" placeholder="Rua"
-                                                    value="{{ old('street') ?? $address->street ?? '' }}"
-                                                    disabled>
-                                                @error('street')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                        </div>                                   
-                                        <div class="form-group col-md-4 mb-0">
-                                            <label for="street_number" class="form-label">Numero</label>
-                                            <input type="text"
-                                                class="form-control  @error('street_number') is-invalid @enderror" id="street_number"
-                                                name="street_number" placeholder="Numero"
-                                                value="{{ old('street_number') ?? $address->street_number ?? '' }}"
-                                                disabled>
-                                            @error('street_number')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
+                    <ul class="list-group list-group-flush" data-addresses>
+                        @foreach ($organization->addresses as $addresse)
+                            <li class="list-group-item" data-idaddress="{{ $addresse->id }}">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <div class="d-flex mt-2">
+                                        <div>
+                                            <a class="nav-link border rounded-pill avatar avatar-sm bg-light me-2"
+                                                href="javascript:void(0);"><i class="fe fe-map-pin"></i></a>
+                                        </div>
+                                        <div class="ms-2" id="line-addresses">
+                                            <p class="fs-13 fw-600 mb-0">{{ $addresse->zip }}</p>
+                                            <p class="fs-12 text-muted">CEP: {{ $addresse->zip }}, CIDADE:
+                                                {{ $addresse->city_id }}<br>BAIRRO: {{ $addresse->neighborhood }}<br>N:
+                                                {{ $addresse->street_number }}<br>COMPLEMENTO: {{ $addresse->complement }}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6 mb-0">
-                                            <label for="complement" class="form-label">Complemento</label>
-                                            <input type="text"
-                                                class="form-control @error('complement') is-invalid @enderror" id="complement"
-                                                name="complement" placeholder="Nome fantasia"
-                                                value="{{ old('complement') ?? ($address->complement ?? '') }}" disabled>
-                                            @error('complement')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6 mb-0">
-                                            <label for="zip" class="form-label">CEP</label>
-                                            <input type="text" class="form-control @error('zip') is-invalid @enderror"
-                                                id="zip" name="zip" placeholder="zip"
-                                                value="{{ old('zip') ?? $address->zip?? '' }}" disabled>
-                                            @error('zip')
-                                                <div class="zip">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-6 mb-0">
-                                            <label for="neighborhood" class="form-label">Bairro</label>
-                                            <input type="text" class="form-control @error('neighborhood') is-invalid @enderror"
-                                                id="neighborhood" name="neighborhood" placeholder="neighborhood"
-                                                value="{{ old('neighborhood') ?? $address->neighborhood?? '' }}" disabled>
-                                            @error('neighborhood')
-                                                <div class="neighborhood">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-3 mb-0">
-                                            <label for="estadual" class="form-label">Cidade</label>
-                                            <input type="text"
-                                                class="form-control @error('city') is-invalid @enderror"
-                                                id="city" name="city" placeholder="Cidade"
-                                                value="{{ old('city') ?? $organization->city->title ?? '' }}" disabled>
-                                            @error('city')
-                                                <div class="city">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-3 mb-0">
-                                            <label for="uf" class="form-label">UF </label>
-                                            <input type="text"
-                                                class="form-control @error('uf') is-invalid @enderror"
-                                                id="uf" name="uf" placeholder="uf"
-                                                value="{{ old('uf') ?? $organization->city->state->uf ?? '' }}" disabled>
-                                            @error('uf')
-                                                <div class="uf">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        
+                                    <div class="btn-list">
+                                        <button class="btn btn-sm btn-icon btn-info-light rounded-circle" type="button"
+                                            data-modaladdress data-typeaction="update"><i class="bi bi-pencil-square"></i></button>
+                                        <button class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
+                                            type="button"><i class="bi bi-trash"></i></button>
                                     </div>
-                                @endforeach
-                            </div>
-                    </div>
-                    <div class="card-body">
-                        <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
-                            data-bs-target="#address">
-                            <div class="dropzone d-flex justify-content-center align-items-center">
-                                <p class="fs-4 mb-0">Adicione um endereço +</p>
-                            </div>
-                        </a>
-                        {{-- <form data-single="true" method="post" action="https://httpbin.org/post"
-                            class="dropzone"></form> --}}
-                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @if ($organization->addresses->count() == 0)
+                        <div class="card-body">
+                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
+                                data-bs-toggle="modal" data-bs-target="#address">
+                                <div class="dropzone d-flex justify-content-center align-items-center">
+                                    <p class="fs-4 mb-0">Adicione um endereço +</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
     <x-v1.admin.modal.createAddress :organization-id="$organization->id"></x-v1.admin.modal.createAddress>
-
-
-
-
-
-    
 @endsection
 
 @section('scripts')

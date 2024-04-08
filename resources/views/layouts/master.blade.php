@@ -29,8 +29,11 @@
 
         <!-- APP CSS & APP SCSS -->
         @vite(['resources/sass/app.scss' ])
+
+        @vite(['resources/js/configJquery.js'])
       
         @yield('styles')
+        
         <style>
             #awn-toast-container {
                 z-index: 100000 !important;

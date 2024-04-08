@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $usersDifference = $totalUsersThisMonth - $totalUsersLastMonth;
 
         // Calcula o percentual de crescimento
-        if ($usersDifference > 0) {
+        if ($usersDifference > 0 && $totalUsersLastMonth > 0) {
             $percentageGrowthUsers = ($usersDifference / $totalUsersLastMonth) * 100;
         } else {
             $percentageGrowthUsers = 0;

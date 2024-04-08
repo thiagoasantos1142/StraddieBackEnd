@@ -40,9 +40,9 @@ class AddressController extends Controller
             'street' => 'required|string',
             'city_id' => 'required|string',
         ]);
-       
+
         $city = City::where('title', $request->city_id)->first();
-       
+
 
         if ($city) {
             $request->merge(['city_id' => $city->id]);
@@ -50,7 +50,7 @@ class AddressController extends Controller
             // Trate o caso em que a cidade não foi encontrada
         }
 
-        
+
         if ($request->ajax()) {
             // A requisição é AJAX
             if ($validator->fails()) {
@@ -58,14 +58,14 @@ class AddressController extends Controller
             }
 
             try {
-                Address::create($request->all());
+                $address = Address::create($request->all());
                 //code...
             } catch (\Throwable $th) {
                 //throw $th;
                 return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
             }
 
-            return response()->json(['status' => 'success'], 200);
+            return response()->json($address, 200);
         }
 
         //se não for requisição ajax ajustar o retorno aqui para o tipo laravel.
@@ -74,9 +74,14 @@ class AddressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         //
+        $address = Address::find($id);
+
+        if ($request->ajax()) {
+            return response()->json($address, 200);
+        }
     }
 
     /**
@@ -92,7 +97,45 @@ class AddressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Encontre o endereço que você deseja atualizar
+        $address = Address::find($id);
+
+        if (!$address) {
+            return response()->json(['errors' => ['message' => 'Endereço não encontrado']], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'zip' => 'required|string|min:8|max:9',
+            'street_number' => 'required|string|max:10',
+            'neighborhood' => 'required|string',
+            'street' => 'required|string',
+            'city_id' => 'required|string',
+        ]);
+
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        
+        $city = City::where('title', $request->city_id)->first();
+
+        
+        if ($city) {
+            $request->merge(['city_id' => $city->id]);
+        } else {
+            
+        }
+
+        try {
+            
+            $address->update($request->all());
+        } catch (\Throwable $th) {
+            
+            return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
+        }
+
+        return response()->json($address, 200);
     }
 
     /**
