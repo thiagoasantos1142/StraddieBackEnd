@@ -28,12 +28,16 @@
                     <ul class=" dropdown-scroll" id="list-users-colaborate">
                         @foreach ($usersCompany as $user)
                             <li>
-                                <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
+                                <a class="dropdown-item d-flex flex-row justify-content-between"
+                                    href="javascript:void(0);">
                                     <div>
                                         <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
-                                            width="25" height="25" class="rounded-circle me-2">{{$user->name}}
+                                            width="25" height="25"
+                                            class="rounded-circle me-2">{{ $user->name }}
                                     </div>
-                                    <button type="button" class="btn btn-sm btn-secondary" data-removeusercorporate={{$user->id}}><i class="fe fe-minus me-2"></i>remover</button>
+                                    <button type="button" class="btn btn-sm btn-secondary"
+                                        data-removeusercorporate={{ $user->id }}><i
+                                            class="fe fe-minus me-2"></i>remover</button>
                                 </a>
                             </li>
                         @endforeach
@@ -100,6 +104,7 @@
 </div>
 
 @section('scripts')
+    @parent
     @vite('resources/assets/js/components/addCorporateUser.js')
 @endsection
 <!-- CONTAINER CLOSED -->

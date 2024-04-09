@@ -44,8 +44,8 @@
                                 <input type="text" class="form-control" id="complement" name="complement"
                                     placeholder="Complemento" value="">
                             </div>
-                            <input type="hidden" name="organization_id" value="{{$organizationId ?? null}}">
-                            <input type="hidden" name="user_id" value="{{$userId ?? null}}">
+                            <input type="hidden" name="organization_id" value="{{ $organizationId ?? null }}">
+                            <input type="hidden" name="user_id" value="{{ $userId ?? null }}">
                         </div>
                     </div>
                 </form>
@@ -59,6 +59,7 @@
 </div>
 
 @section('scripts')
+    @parent
     @vite('resources/js/viacep.js')
 @endsection
 <!-- CONTAINER CLOSED -->
