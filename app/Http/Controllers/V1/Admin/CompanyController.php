@@ -13,10 +13,15 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //mostrar todas as empresas
-        $organizations = Organization::get();
+        $organizations = Organization::with('users_company')->get();
+
+        if ($request->ajax()) {
+            return response()->json($organizations, 200);
+        }
+
         return view('V1.Admin.Company.index', compact('organizations'));
     }
 
@@ -63,7 +68,7 @@ class CompanyController extends Controller
     {
         //pegar as informaçoes da organização
         $organization = Organization::with('addresses')->find($id);
-        return view('V1.Admin.Company.show',compact('organization'));
+        return view('V1.Admin.Company.show', compact('organization'));
     }
 
     /**

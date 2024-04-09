@@ -11,8 +11,25 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::latest()->limit(10)->get();
+            $search = $request->input('search');
+
+            $users = User::where('email', 'like', "%$search%")
+                ->orWhere('id', 'like', "%$search%")
+                ->orWhere('name', 'like', "%$search%")
+                ->orWhere('cpf', 'like', "%$search%")
+                ->latest()
+                ->limit(10)
+                ->get();
+
             return response()->json($users, 200);
+        }
+    }
+
+    public function show(Request $request, string $id)
+    {
+        if ($request->ajax()) {
+            $user = User::find($id);
+            return response()->json($user, 200);
         }
     }
 
@@ -133,5 +150,14 @@ class UserController extends Controller
             // Se não for, retorna null
             return null;
         }
+    }
+
+    public function addUserCorporate(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        $user->update($request->all());
+
+        return response()->json(["message" => "success."], 200);
     }
 }

@@ -160,7 +160,7 @@
 
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :organization-id="$organization->id" :users-company="$organization->users_company"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
             <div class="col-xl-6" id="section-address">

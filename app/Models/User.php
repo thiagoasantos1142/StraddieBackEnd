@@ -29,7 +29,8 @@ class User extends Authenticatable
         'password',
         'cpf',
         'title',
-        'bio'
+        'bio',
+        'organization_id'
     ];
 
     /**

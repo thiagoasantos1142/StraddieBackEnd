@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['user_id', 'razao_social', 'nome_fantasia', 'cnpj', 'state_registration', 'municipal_registration', 'email', 'entidade_type_id'];
 
     public function users()
@@ -28,5 +28,9 @@ class Organization extends Model
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+    public function users_company()
+    {
+        return $this->hasMany(User::class, 'organization_id');
     }
 }

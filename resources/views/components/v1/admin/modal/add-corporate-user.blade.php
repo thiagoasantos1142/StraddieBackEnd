@@ -1,4 +1,5 @@
 <div class="col-xl-6">
+    <input name="corporate_id" type="hidden" value="{{ $organizationId }}">
     <div class="card custom-card">
         <div class="card-header d-flex justify-content-between">
             <div class="card-title">Atribuir um usuario</div>
@@ -22,7 +23,24 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="text-wrap">
+                <div class="dropdown-samples">
+                    <ul class=" dropdown-scroll" id="list-users-colaborate">
+                        @foreach ($usersCompany as $user)
+                            <li>
+                                <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
+                                    <div>
+                                        <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
+                                            width="25" height="25" class="rounded-circle me-2">{{$user->name}}
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-secondary" data-removeusercorporate={{$user->id}}><i class="fe fe-minus me-2"></i>remover</button>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            {{-- <div class="row">
                 <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0" data-bs-toggle="modal"
                     data-bs-target="#largemodal">
                     <div class="dropzone d-flex justify-content-center align-items-center">
@@ -35,7 +53,7 @@
                         <p class="fs-4 mb-0">Atribuir um usuario existente +</p>
                     </div>
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -51,11 +69,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="main-header-center  d-none d-lg-block  header-link mb-4">
-                    <input type="text" class="form-control" id="serarchuser" placeholder="Search for results..."
-                        autocomplete="off">
-                    <button class="btn pe-1"><i class="fe fe-search" aria-hidden="true"></i></button>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" placeholder="Pesquise por nome,id,cpf ou email"
+                        id="serarchuser">
+                    <span class="input-group-text btn btn-primary"><i class="fe fe-search"></i></span>
                 </div>
+
                 <ul class="list-group list-scroll" id="users-search-table">
                     {{-- <li class="list-group-item br-ts-5 br-te-5">
                         <div class="d-flex align-items-center">

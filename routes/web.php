@@ -57,18 +57,22 @@ Route::middleware([
         Route::resource('/users', UserController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         
+
         Route::resource('/assets', AssetsController::class);
+
+        Route::post('/addUserCorporate', [UserController::class, 'addUserCorporate']);
+
     });
 
 
 
-   
+
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 
     Route::get('profile', [PagesController::class, 'profile'])->name('profile');
-    
 
-        
+
+
     // Route::get('notify-list', [PagesController::class, 'notify_list']);
     // Route::get('email-inbox', [PagesController::class, 'email_inbox']);
     // Route::get('gallery', [PagesController::class, 'gallery']);
