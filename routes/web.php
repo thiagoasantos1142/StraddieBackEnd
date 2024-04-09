@@ -55,6 +55,7 @@ Route::middleware([
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/credit-rights-titles', CreditRightsTitleController::class);
         Route::resource('/users', UserController::class);
+        Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         
         Route::resource('/assets', AssetsController::class);
     });

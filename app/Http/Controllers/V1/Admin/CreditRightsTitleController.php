@@ -23,7 +23,8 @@ class CreditRightsTitleController extends Controller
      */
     public function create()
     {
-        //
+       //
+       return view('V1.Admin.creditRightsTitle.create');
     }
 
     /**

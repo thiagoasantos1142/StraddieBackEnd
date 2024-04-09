@@ -33,7 +33,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title">File Export Datatable</div>
                         <div class="d-flex">
-                            <a href="{{ route('company.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                            <a href="{{ route('creditRightsTitle.create') }}" class="btn btn-primary btn-block float-end my-2"><i
                                     class="fa fa-plus-square me-2"></i>Adicionar Títulos</a>
                         </div>
                     </div>
@@ -42,22 +42,27 @@
                             <table id="file-export" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Razão social</th>
-                                        <th>cnpj</th>
-                                        <th>email</th>
-                                        <th>created at</th>
-                                        <th>ação</th>
+                                        <th>Classe</th>
+                                        <th>Órgão julgador</th>
+                                        <th>Assunto</th>
+                                        <th>BENEFICIÁRIO</th>
+                                        <th>Órgão Devedor</th>                                        
+                                        <th>Natureza do Crédito</th>
+                                        <th>Valor Principal</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($creditRightsTitles as $titles)
                                         <tr>
-                                            <td>{{ $titles->nome_fantasia }}</td>
-                                            <td>{{ $titles->razao_social }}</td>
-                                            <td>{{ $titles->cnpj }}</td>
-                                            <td>{{ $titles->email }}</td>
-                                            <td>{{ $titles->created_at }}</td>
+                                            <td>{{ $titles->class }}</td>
+                                            <td>{{ $titles->court }}</td>
+                                            <td>{{ $titles->mainBeneficiary->name}}</td>                                            
+                                            <td>{{ $titles->about }}</td>
+                                            <td>{{ $titles->originDebtor->title }}</td>
+                                            <td>{{ $titles->natureCredit->title }}</td>                                            
+                                            <td>{{ $titles->principal_amount }}</td>
+
                                             <td class="align-middle">
                                                 <div class="btn-list">
                                                     <a href="{{ route('company.show', ['company' => $titles->id]) }}">

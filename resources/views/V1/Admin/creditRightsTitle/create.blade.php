@@ -8,11 +8,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Adicionar empresa</h1>
+        <h1 class="page-title">Adicionar Título</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Empresas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Adicionar empresa</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Títulos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Adicionar Título</li>
             </ol>
         </div>
     </div>
@@ -23,20 +23,20 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Dados da empresa</h4>
+                        <h4 class="card-title">Dados do Título</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('company.store') }}">
+                        <form method="POST" action="{{ route('creditRightsTitle.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Razão social</label>
+                                        <label for="razao" class="form-label">Título</label>
                                         <input type="text"
-                                            class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
-                                            name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? '' }}">
-                                        @error('razao_social')
+                                            class="form-control  @error('title') is-invalid @enderror" id="razao"
+                                            name="title" placeholder="Razão social"
+                                            value="{{ old('title') ?? '' }}">
+                                        @error('title')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

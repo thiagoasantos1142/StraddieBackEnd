@@ -13,24 +13,40 @@ return new class extends Migration
     {
         Schema::create('credit_rights_titles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('courts_id')->constrained('courts');
-            $table->foreignId('species_id')->constrained('species');
+            $table->foreignId('court_id')->constrained('courts');
+            $table->foreignId('specie_id')->constrained('species');
+            
+            $table->foreignId('vara_id')->constrained('varas');
             $table->foreignId('nature_credits_id')->constrained('nature_credits');
-            $table->foreignId('nature_obligations_id')->constrained('nature_obligations');
-            $table->foreignId('Origin_debtors_id')->constrained('Origin_debtors');
+            $table->foreignId('origin_debtor_id')->constrained('Origin_debtors');
             $table->string('process_number', 255);
             $table->date('distribution_date')->nullable();
+            
+            $table->string('about', 255);
+            $table->string('nature_obligation', 255)->nullable();
             $table->string('lawsuit_class', 45)->nullable();
-            $table->string('lawsuit_subjects', 45)->nullable();
+            $table->string('lawsuit_subject', 45)->nullable();
             $table->string('lawsuit_reference', 45)->nullable();
             $table->tinyInteger('justice_secret')->nullable();
             $table->tinyInteger('justice_free')->nullable();
             $table->string('urgent_request', 45)->nullable();
             $table->string('provision', 45)->nullable();
-            $table->string('beneficiary', 45)->nullable();
+            $table->date('final_judgment_data')->nullable();            
+            $table->date('final_judgment_embargoes_data')->nullable();
+
             $table->decimal('principal_amount', 16, 2)->nullable();
-            $table->string('interest', 45)->nullable();
-            $table->string('interest_compensation', 45)->nullable();
+            $table->decimal('amount_interest_selic', 16, 2)->nullable();
+            $table->string('interest_compensation', 45)->nullable();            
+            $table->decimal('total_amount', 16, 2)->nullable();
+            
+            $table->decimal('contractual_fee_principal_amount', 16, 2)->nullable();            
+            $table->decimal('contractual_fee_interest_selic_amount', 16, 2)->nullable();            
+            $table->decimal('contractual_fee_total_amount', 16, 2)->nullable();
+
+            
+            $table->decimal('total_amount_required', 16, 2)->nullable();
+
+            $table->string('percentage_interest_arrears', 45)->nullable();
             $table->string('legal_charge', 45)->nullable();
             $table->string('legal_percentage', 45)->nullable();
             $table->string('legal_preference', 45)->nullable();
@@ -43,7 +59,6 @@ return new class extends Migration
             $table->string('IR_percentage_provision', 45)->nullable();
             $table->string('creditor_name', 45)->nullable();
             $table->string('registered_credit_rights_titlescol', 45)->nullable();
-            $table->string('creditor_cpf_cnpj', 45)->nullable();
             $table->string('debtor_cpf_cnpj', 45)->nullable();
             $table->string('legal_incidents', 45)->nullable();
             $table->string('previous_exercise_parcel_quantity', 45)->nullable();
