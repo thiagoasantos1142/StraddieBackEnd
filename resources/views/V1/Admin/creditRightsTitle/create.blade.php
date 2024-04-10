@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{{ asset('build/assets/libs/nouislider/nouislider.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <!-- Inclua os arquivos CSS e JavaScript do Select2 no seu layout -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -54,15 +58,17 @@
                                     </div>
 
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="class" class="form-label">Classe do titulo ou Assunto</label>
-                                        <input type="text" class="form-control @error('class') is-invalid @enderror"
-                                            id="class" name="class" placeholder="class"
-                                            value="{{ old('class') ?? '' }}">
-                                        @error('class')
+                                        <label for="about" class="form-label">Assunto</label>
+                                        <input type="text" class="form-control @error('about') is-invalid @enderror"
+                                            id="about" name="about" placeholder="Sobre"
+                                            value="{{ old('about') ?? '' }}">
+                                        @error('about')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror                                      
                                     </div>
+
                                     <div class="form-group col-md-6 mb-0">
+                                        <label for="about" class="form-label">Classe do titulo</label>
                                         <select class="form-select" id="specie_id" name="specie_id">
                                             <option value="">Selecione a Classe do titulo</option>
                                             @foreach($species as $specie)
@@ -71,9 +77,10 @@
                                         </select>                                    
                                     </div>
 
-                                    <div class="form-group">
+                                  <!-- Adicione a classe "select2" aos seus selects -->
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="court_id" class="form-label">Órgão julgador</label>
-                                        <select class="form-select" id="court_id" name="court_id">
+                                        <select class="form-select select" id="court_id" name="court_id">
                                             <option value="">Selecione um órgão julgador</option>
                                             @foreach($courts as $court)
                                                 <option value="{{ $court->id }}" @if(old('court_id') == $court->id) selected @endif>{{ $court->title }}</option>
@@ -81,42 +88,41 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="vara_id" class="form-label">Vara do tribunal</label>
-                                        <select class="form-select" id="vara_id" name="vara_id">
+                                        <select class="form-select select" id="vara_id" name="vara_id">
                                             <option value="">Selecione uma Vara do tribunal</option>
-                                            @foreach($varas as $vara)
-                                                <option value="{{ $vara->id }}" @if(old('vara_id') == $vara->id) selected @endif>{{ $vara->title }}</option>
-                                            @endforeach
+                                            <!-- Os options serão preenchidos dinamicamente usando JavaScript -->
                                         </select>
                                     </div>
+                                    
 
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="nature_credit_id" class="form-label">Natureza do crédito</label>
                                         <select class="form-select" id="nature_credit_id" name="nature_credit_id">
                                             <option value="">Selecione a natureza do crédito</option>
                                             @foreach($nature_credits as $nature_credit)
-                                                <option value="{{ $nature_credit->id }}" @if(old('nature_credit_id') == $nature_credit->id) selected @endif>{{ $vara->title }}</option>
+                                                <option value="{{ $nature_credit->id }}" @if(old('nature_credit_id') == $nature_credit->id) selected @endif>{{ $nature_credit->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="nature_obligation_id" class="form-label">Natureza da obrigação</label>
                                         <select class="form-select" id="nature_obligation_id" name="nature_obligation_id">
                                             <option value="">Selecione a natureza da obrigação</option>
                                             @foreach($nature_obligations as $nature_obligation)
-                                                <option value="{{ $nature_obligation->id }}" @if(old('nature_obligation') == $nature_obligation->id) selected @endif>{{ $vara->title }}</option>
+                                                <option value="{{ $nature_obligation->id }}" @if(old('nature_obligation') == $nature_obligation->id) selected @endif>{{ $nature_obligation->title }}</option>
                                             @endforeach
                                         </select>
                                     </div> 
                                     
-                                    <div class="form-group">
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="origin_debtor_id" class="form-label">Origem do débito</label>
                                         <select class="form-select" id="origin_debtor_id" name="origin_debtor_id">
                                             <option value="">Selecione a origem do débito</option>
                                             @foreach($origin_debtors as $origin_debtor)
-                                                <option value="{{ $origin_debtor->id }}" @if(old('origin_debtor') == $origin_debtor->id) selected @endif>{{ $vara->title }}</option>
+                                                <option value="{{ $origin_debtor->id }}" @if(old('origin_debtor') == $origin_debtor->id) selected @endif>{{ $origin_debtor->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -133,16 +139,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="nature_credit_id" class="form-label">Natureza do crédito</label>
-                                        <input type="text"
-                                            class="form-control @error('nature_credit_id') is-invalid @enderror"
-                                            id="nature_credit_id" name="principal_amount" placeholder="Selecione a Natureza do crédito"
-                                            value="{{ old('nature_credit_id') ?? '' }}">
-                                        @error('nature_credit_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    
 
                                     
                                     <div class="form-group col-md-3 mb-0">
@@ -181,7 +178,7 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Salvar empresa</button>
+                                <button class="btn btn-primary mt-4 mb-0" type="submit">Salvar Titulo</button>
                             </div>
                         </form>
                     </div>
@@ -279,5 +276,43 @@
         });
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#court_id').change(function() {
+            var courtId = $(this).val();
+            if (courtId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dashboard/varas/' + courtId,
+                    success: function(data) {
+                        $('#vara_id').empty();
+                        $('#vara_id').append('<option value="">Selecione uma Vara do tribunal</option>');
+                        $.each(data, function(key, value) {
+                            $('#vara_id').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#vara_id').empty();
+                $('#vara_id').append('<option value="">Selecione uma Vara do tribunal</option>');
+            }
+        });
+    });
+</script>
+
+
+<!-- Adicione um bloco de script para inicializar o Select2 -->
+<script>
+    $(document).ready(function() {
+        // Inicialize o Select2 nos selects com a classe "select2"
+        $('.select2').select2({
+            tags: true,
+            searchInputPlaceholder: 'Digite para pesquisar'
+        });
+    });
+</script>
+
 
 @endsection

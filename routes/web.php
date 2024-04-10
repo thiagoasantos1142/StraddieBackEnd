@@ -3,6 +3,7 @@
 use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\V1\Admin\AssetsController;
+use App\Http\Controllers\V1\Admin\CourtsController;
 use App\Http\Controllers\V1\Admin\CreditRightsTitleController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,8 @@ Route::middleware([
         Route::resource('/credit-rights-titles', CreditRightsTitleController::class);
         Route::resource('/users', UserController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
+        Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
+
         
 
         Route::resource('/assets', AssetsController::class);

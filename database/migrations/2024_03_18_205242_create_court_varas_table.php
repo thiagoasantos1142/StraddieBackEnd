@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crt_varas', function (Blueprint $table) {
+        Schema::create('court_varas', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
-            $table->timestamps();
+            $table->string('title', 255);   
+            
+            $table->string('uf', 2);           
+            $table->unsignedBigInteger('court_id');          
+            $table->foreign('court_id')->references('id')->on('courts')->onDelete('cascade')->onUpdate('cascade'); 
+            
+              
+            $table->timestamps();               
+           
         });
     }
 
