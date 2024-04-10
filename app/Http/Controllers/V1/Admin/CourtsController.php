@@ -3,26 +3,32 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\V1\Admin\Court;
-
-use App\Models\V1\Admin\CrtNatureCredit;
-use App\Models\V1\Admin\CrtNatureObligation;
-use App\Models\V1\Admin\CrtOriginDebtor;
-use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
-use App\Models\V1\Admin\CreditRightsTitle;
 use Illuminate\Http\Request;
 
-class CreditRightsTitleController extends Controller
+class CourtsController extends Controller
 {
+
+    public function getCourtVaras($courtId)
+    {
+        // Recupera as varas associadas ao tribunal selecionado
+        $courtVaras = CourtVara::where('court_id', $courtId)->get();
+
+        // Prepara os dados para serem retornados no formato necessário para a resposta AJAX
+        $varas = [];
+        foreach ($courtVaras as $vara) {
+            $varas[$vara->id] = $vara->title;
+        }
+
+        // Retorna os dados no formato JSON
+        return response()->json($varas);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-         //mostrar todas os titulos
-         $creditRightsTitles = CreditRightsTitle::get();
-         return view('V1.Admin.creditRightsTitle.index', compact('creditRightsTitles'));
+        //
     }
 
     /**
@@ -30,14 +36,7 @@ class CreditRightsTitleController extends Controller
      */
     public function create()
     {
-       $courts = Court::all(); 
-       $varas = CourtVara::all(); 
-       $species = CrtSpecies::all();
-       $nature_credits = CrtNatureCredit::all();
-       $nature_obligations = CrtNatureObligation::all();
-       $origin_debtors = CrtOriginDebtor::all();
-
-       return view('V1.Admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
+        //
     }
 
     /**

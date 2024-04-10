@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entidade_types', function (Blueprint $table) {
+        Schema::create('organization_types', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->timestamps();
         });
 
           // Insere os valores padrão
-          DB::table('entidade_types')->insert([
+          DB::table('organization_types')->insert([
             ['id' => 1, 'title' => 'MEI'],
             ['id' => 2, 'title' => 'Sociedade Simples'],
             ['id' => 3, 'title' => 'Sociedade Limitada'],

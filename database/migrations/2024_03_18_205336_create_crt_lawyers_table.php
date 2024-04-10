@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lawyer_credit_rights', function (Blueprint $table) {
+        Schema::create('crt_lawyers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('lawyer_id');
             $table->unsignedBigInteger('credit_rights_titles_id');
             $table->timestamps();
             
-            $table->foreign('lawyer_id')->references('id')->on('lawyer')->onDelete('cascade');
+            $table->foreign('lawyer_id')->references('id')->on('lawyers')->onDelete('cascade');
             $table->foreign('credit_rights_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade');
         });
     }
