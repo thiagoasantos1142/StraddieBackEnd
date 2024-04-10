@@ -11,11 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Origin_debtors', function (Blueprint $table) {
+        Schema::create('crt_origin_debtors', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->timestamps();
         });
+
+        DB::table('crt_origin_debtors')->insert([
+            ['title' => 'Municipal'],
+            ['title' => 'Municipal autarquias'],
+            ['title' => 'Estadual'],
+            ['title' => 'Estadual autarquias'],
+            ['title' => 'Federal'],
+            ['title' => 'Federal Autarquias'],
+            ['title' => 'Outros']
+        ]);
     }
 
     /**

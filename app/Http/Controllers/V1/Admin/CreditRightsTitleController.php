@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\V1\Admin\CrtCourt;
+
+use App\Models\V1\Admin\CrtNatureCredit;
+use App\Models\V1\Admin\CrtNatureObligation;
+use App\Models\V1\Admin\CrtOriginDebtor;
+use App\Models\V1\Admin\CrtSpecies;
+use App\Models\V1\Admin\Vara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use Illuminate\Http\Request;
 
@@ -23,8 +30,14 @@ class CreditRightsTitleController extends Controller
      */
     public function create()
     {
-       //
-       return view('V1.Admin.creditRightsTitle.create');
+       $courts = CrtCourt::all(); 
+       $varas = Vara::all(); 
+       $species = CrtSpecies::all();
+       $nature_credits = CrtNatureCredit::all();
+       $nature_obligations = CrtNatureObligation::all();
+       $origin_debtors = CrtOriginDebtor::all();
+
+       return view('V1.Admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
     }
 
     /**

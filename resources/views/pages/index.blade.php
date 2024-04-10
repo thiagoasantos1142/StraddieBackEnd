@@ -576,7 +576,7 @@
                                                             <div class="flex-grow-1">
                                                                 <p class="mb-1 fs-18 fw-semibold">Títulos negociados esta semana</p>
                                                             </div>
-                                                            <p class="mb-1 fs-13 op-8"><br> Quantidade total negociada: 31 </p>
+                                                            <p class="mb-1 fs-13 op-8"><br> Títulos negociada: 31 </p>
                                                             <span class="fs-16">R$ 358.987</span>
                                                             <span class="fs-12 op-7 ms-1"><i class="ti ti-trending-up mx-1"></i>0.5%</span>
                                                         </div>

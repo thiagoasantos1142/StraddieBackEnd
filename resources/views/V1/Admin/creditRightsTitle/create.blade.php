@@ -3,6 +3,8 @@
 @section('styles')
     <!-- noui Slider -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/nouislider/nouislider.min.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -31,78 +33,151 @@
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Título</label>
+                                        <label for="title" class="form-label">Título</label>
                                         <input type="text"
-                                            class="form-control  @error('title') is-invalid @enderror" id="razao"
-                                            name="title" placeholder="Razão social"
+                                            class="form-control  @error('title') is-invalid @enderror" id="title"
+                                            name="title" placeholder="Informe um titulo para este processo"
                                             value="{{ old('title') ?? '' }}">
                                         @error('title')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="fantasy" class="form-label">Nome fantasia</label>
+                                        <label for="process_number" class="form-label">Numero do processo</label>
                                         <input type="text"
-                                            class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
-                                            name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? '' }}">
-                                        @error('nome_fantasia')
+                                            class="form-control @error('process_number') is-invalid @enderror" id="process_number"
+                                            name="process_number" placeholder="Informe o Numero do processo"
+                                            value="{{ old('process_number') ?? '' }}">
+                                        @error('process_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6 mb-0">
+                                        <label for="class" class="form-label">Classe do titulo ou Assunto</label>
+                                        <input type="text" class="form-control @error('class') is-invalid @enderror"
+                                            id="class" name="class" placeholder="class"
+                                            value="{{ old('class') ?? '' }}">
+                                        @error('class')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror                                      
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="cnpj" class="form-label">Cnpj</label>
-                                        <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
-                                            id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? '' }}">
-                                        @error('cnpj')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <select class="form-select" id="specie_id" name="specie_id">
+                                            <option value="">Selecione a Classe do titulo</option>
+                                            @foreach($species as $specie)
+                                                <option value="{{ $specie->id }}" @if(old('specie_id') == $specie->id) selected @endif>{{ $specie->title }}</option>
+                                            @endforeach
+                                        </select>                                    
                                     </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="estadual" class="form-label">Inscrição estadual (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('state_registration') is-invalid @enderror"
-                                            id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? '' }}">
-                                        @error('state_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="municipal" class="form-label">Inscrição municipal (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('municipal_registration') is-invalid @enderror"
-                                            id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? '' }}">
-                                        @error('municipal_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                            placeholder="E-mail" value="{{ old('email') ?? '' }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="entidade_type" class="form-label">Tipo instituição</label>
-                                        <select class="form-select @error('entidade_type_id') is-invalid @enderror"
-                                            name="entidade_type_id">
-                                            <option>Disabled select</option>
-                                            <option value='1' @if (old('entidade_type_id') == 1) selected @endif>
-                                                Disabled 1</option>
-                                            <option value='2'>Disabled 2</option>
-                                            <option value='3'>Disabled 3</option>
+
+                                    <div class="form-group">
+                                        <label for="court_id" class="form-label">Órgão julgador</label>
+                                        <select class="form-select" id="court_id" name="court_id">
+                                            <option value="">Selecione um órgão julgador</option>
+                                            @foreach($courts as $court)
+                                                <option value="{{ $court->id }}" @if(old('court_id') == $court->id) selected @endif>{{ $court->title }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('entidade_type_id')
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vara_id" class="form-label">Vara do tribunal</label>
+                                        <select class="form-select" id="vara_id" name="vara_id">
+                                            <option value="">Selecione uma Vara do tribunal</option>
+                                            @foreach($varas as $vara)
+                                                <option value="{{ $vara->id }}" @if(old('vara_id') == $vara->id) selected @endif>{{ $vara->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nature_credit_id" class="form-label">Natureza do crédito</label>
+                                        <select class="form-select" id="nature_credit_id" name="nature_credit_id">
+                                            <option value="">Selecione a natureza do crédito</option>
+                                            @foreach($nature_credits as $nature_credit)
+                                                <option value="{{ $nature_credit->id }}" @if(old('nature_credit_id') == $nature_credit->id) selected @endif>{{ $vara->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nature_obligation_id" class="form-label">Natureza da obrigação</label>
+                                        <select class="form-select" id="nature_obligation_id" name="nature_obligation_id">
+                                            <option value="">Selecione a natureza da obrigação</option>
+                                            @foreach($nature_obligations as $nature_obligation)
+                                                <option value="{{ $nature_obligation->id }}" @if(old('nature_obligation') == $nature_obligation->id) selected @endif>{{ $vara->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> 
+                                    
+                                    <div class="form-group">
+                                        <label for="origin_debtor_id" class="form-label">Origem do débito</label>
+                                        <select class="form-select" id="origin_debtor_id" name="origin_debtor_id">
+                                            <option value="">Selecione a origem do débito</option>
+                                            @foreach($origin_debtors as $origin_debtor)
+                                                <option value="{{ $origin_debtor->id }}" @if(old('origin_debtor') == $origin_debtor->id) selected @endif>{{ $vara->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label for="principal_amount" class="form-label">Valor principal da causa</label>
+                                        <input type="text"
+                                            class="form-control @error('principal_amount') is-invalid @enderror"
+                                            id="principal_amount" name="principal_amount" placeholder="Valor principal da causa"
+                                            value="{{ old('principal_amount') ?? '' }}">
+                                        @error('principal_amount')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label for="nature_credit_id" class="form-label">Natureza do crédito</label>
+                                        <input type="text"
+                                            class="form-control @error('nature_credit_id') is-invalid @enderror"
+                                            id="nature_credit_id" name="principal_amount" placeholder="Selecione a Natureza do crédito"
+                                            value="{{ old('nature_credit_id') ?? '' }}">
+                                        @error('nature_credit_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label for="justice_secret" class="form-label">O processo está em segredo de Justiça?</label>
+                                        <div class="row gy-1">
+                                            <div class="col-xl-4">
+                                                <!-- Toggle switch com texto personalizado -->
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="secrecySwitch">
+                                                    <label class="form-check-label" for="secrecySwitch">Não</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @error('justice_secret')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                 
+                                    
+                                    <div class="form-group col-md-3 mb-0">
+                                        <label for="justice_free" class="form-label">Justiça gratuita?</label>
+                                        <div class="row gy-1">
+                                            <div class="col-xl-4">
+                                                <!-- Toggle switch com texto personalizado -->
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="secrecySwitch">
+                                                    <label class="form-check-label" for="secrecySwitch">Não</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @error('justice_free')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>    
+                                    
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">
@@ -187,4 +262,22 @@
     <script src="{{ asset('build/assets/libs/nouislider/nouislider.min.js') }}"></script>
     <script src="{{ asset('build/assets/libs/wnumb/wNumb.min.js') }}"></script>
     @vite('resources/assets/js/nouislider.js')
+
+    <!-- jQuery para alterar o texto do toggle switch -->
+    <script>
+    $(document).ready(function() {
+        // Adiciona um ouvinte de evento de mudança ao switch
+        $('#secrecySwitch').change(function() {
+            // Verifica se o switch está marcado
+            if ($(this).is(':checked')) {
+                // Se marcado, atualiza o texto para "Sim"
+                $('.form-check-label').text('Sim');
+            } else {
+                // Se não marcado, atualiza o texto para "Não"
+                $('.form-check-label').text('Não');
+            }
+        });
+    });
+</script>
+
 @endsection

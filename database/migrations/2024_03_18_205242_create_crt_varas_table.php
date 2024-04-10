@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-          // Inserir categorias de pagamento
-       DB::table('nature_credits')->insert([
-            ['title' => 'Alimentar'],
-            ['title' => 'Tributaria'],
-            ['title' => 'Comum'],
-            ['title' => 'Trabalhista'],
-        ]);
+        Schema::create('crt_varas', function (Blueprint $table) {
+            $table->id();
+            $table->string('title', 255);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('nature_obligations');
     }
 };

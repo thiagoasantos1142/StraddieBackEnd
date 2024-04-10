@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('varas', function (Blueprint $table) {
+        Schema::create('crt_courts', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
+            $table->string('UF', 45)->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nature_obligations');
+        Schema::dropIfExists('courts');
     }
 };

@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('species', function (Blueprint $table) {
+        Schema::create('crt_species', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
             $table->timestamps();
         });
+
+        DB::table('crt_species')->insert([
+            ['title' => 'Originário'],            
+            ['title' => 'De cessão'],                  
+            ['title' => 'Outros'],
+        ]);
     }
 
     /**
