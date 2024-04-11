@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Admin\DashboardController;
-use App\Http\Controllers\LawyerController;
+use App\Http\Controllers\V1\Admin\LawyerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\V1\Admin\AssetsController;
 use App\Http\Controllers\V1\Admin\CourtsController;
