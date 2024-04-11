@@ -60,103 +60,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Dados da empresa</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('company.store') }}">
-                            @csrf
-                            <div class="">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Razão social</label>
-                                        <input type="text"
-                                            class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
-                                            name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? ($organization->razao_social ?? '') }}"
-                                            disabled>
-                                        @error('razao_social')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="fantasy" class="form-label">Nome fantasia</label>
-                                        <input type="text"
-                                            class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
-                                            name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? ($organization->nome_fantasia ?? '') }}"
-                                            disabled>
-                                        @error('nome_fantasia')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="cnpj" class="form-label">Cnpj</label>
-                                        <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
-                                            id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? ($organization->cnpj ?? '') }}" disabled>
-                                        @error('cnpj')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="estadual" class="form-label">Inscrição estadual (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('state_registration') is-invalid @enderror"
-                                            id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? ($organization->state_registration ?? '') }}"
-                                            disabled>
-                                        @error('state_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="municipal" class="form-label">Inscrição municipal (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('municipal_registration') is-invalid @enderror"
-                                            id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? ($organization->municipal_registration ?? '') }}"
-                                            disabled>
-                                        @error('municipal_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" placeholder="E-mail"
-                                            value="{{ old('email') ?? ($organization->email ?? '') }}" disabled>
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="entidade_type" class="form-label">Tipo instituição</label>
-                                        <select class="form-select @error('entidade_type_id') is-invalid @enderror"
-                                            name="entidade_type_id" disabled>
-                                            <option>Disabled select</option>
-                                            <option value='1' @if (old('entidade_type_id') == 1) selected @endif>
-                                                Disabled 1</option>
-                                            <option value='2'>Disabled 2</option>
-                                            <option value='3'>Disabled 3</option>
-                                        </select>
-                                        @error('entidade_type_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Editar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <x-v1.admin.form.defaultForm :path-name="$pathName" :users="$users" ::type="update" :action="route('company.update', ['company' => $organization->id]) "></x-v1.admin.form.defaultForm>
 
 
             {{-- @aqui --}}
@@ -169,8 +73,8 @@
                         <div class="card-title">Endereços</div>
                         <div class="d-flex">
                             <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
-                                class="btn btn-primary btn-block float-end"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar endereço</a>
+                                class="btn btn-primary btn-block float-end"><i class="fa fa-plus-square me-2"></i>Adicionar
+                                endereço</a>
                         </div>
                     </div>
                     <ul class="list-group list-group-flush" data-addresses>
