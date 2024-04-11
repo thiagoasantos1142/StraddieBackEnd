@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\V1\Admin\CreditRightsTitle;
-use App\Models\Organization;
 use App\Models\User;
 use App\Models\Lawyer;
+use App\Models\V1\Admin\Organization;
 use App\Models\V1\Admin\Payment;
 //use Auth;
 use Illuminate\Http\Request;

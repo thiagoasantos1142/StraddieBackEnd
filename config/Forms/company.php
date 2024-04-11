@@ -3,8 +3,8 @@ return [
     "form" => [
         "method" => "POST",
         "name" => [
-            "create" => "company.store",
-            "update" => "company.update"
+            "create" => "organization.store",
+            "update" => "organization.update"
         ],
         "path" => [
             

@@ -33,7 +33,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title">File Export Datatable</div>
                         <div class="d-flex">
-                            <a href="{{ route('company.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                            <a href="{{ route('organization.create') }}" class="btn btn-primary btn-block float-end my-2"><i
                                     class="fa fa-plus-square me-2"></i>Adicionar empresa</a>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                             <td>{{ $organization->created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('company.show', ['company' => $organization->id]) }}">
+                                                    <a href="{{ route('organization.show', ['organization' => $organization->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>

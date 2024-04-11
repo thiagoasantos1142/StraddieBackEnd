@@ -26,7 +26,7 @@
                         <h4 class="card-title">Dados da empresa</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('company.store') }}">
+                        <form method="POST" action="{{ route('organization.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">

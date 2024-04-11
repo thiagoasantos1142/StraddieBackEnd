@@ -26,7 +26,7 @@
                         <h4 class="card-title">Dados da empresa</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('company.store') }}">
+                        <form method="POST" action="{{ route('organization.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">
@@ -89,20 +89,18 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="entidade_type" class="form-label">Tipo instituição</label>
-                                        <select class="form-select @error('entidade_type_id') is-invalid @enderror"
-                                            name="entidade_type_id">
-                                            <option>Disabled select</option>
-                                            <option value='1' @if (old('entidade_type_id') == 1) selected @endif>
-                                                Disabled 1</option>
-                                            <option value='2'>Disabled 2</option>
-                                            <option value='3'>Disabled 3</option>
+                                        <label for="organization_type_id" class="form-label">Tipo Empresa</label>
+                                        <select class="form-select select" id="organization_type_id" name="organization_type_id">
+                                            <option value="">Selecione o tipo da empresa</option>
+                                            @foreach($organisation_types as $types)
+                                                <option value="{{ $types->id }}" @if(old('organization_type_id') == $types->id) selected @endif>{{ $types->title }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('entidade_type_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
+
+                                   
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">

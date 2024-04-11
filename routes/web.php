@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\V1\Admin\DashboardController;
 use App\Http\Controllers\LawyerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\V1\Admin\AssetsController;
 use App\Http\Controllers\V1\Admin\CourtsController;
 use App\Http\Controllers\V1\Admin\CreditRightsTitleController;
+use App\Http\Controllers\V1\Admin\OrganizationController;
+
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\WidgetsController;
@@ -20,7 +22,6 @@ use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\V1\Admin\AddressController;
-use App\Http\Controllers\V1\Admin\CompanyController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
 /*
@@ -51,7 +52,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::resource('/company', CompanyController::class);
+        Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/credit-rights-titles', CreditRightsTitleController::class);

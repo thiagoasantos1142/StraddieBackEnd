@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Organization;
+use App\Models\OrganizationType;
 use App\Models\User;
+use App\Models\V1\Admin\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class CompanyController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class CompanyController extends Controller
             return response()->json($organizations, 200);
         }
 
-        return view('V1.Admin.Company.index', compact('organizations'));
+        return view('v1.admin.organization.index', compact('organizations'));
     }
 
     /**
@@ -31,8 +32,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
-        return view('V1.Admin.Company.create');
+        $organisation_types = OrganizationType::all(); 
+        return view('v1.admin.organization.create', compact('organisation_types'));
     }
 
     /**
@@ -46,8 +47,8 @@ class CompanyController extends Controller
                 'razao_social' => 'required|string|max:255',
                 'nome_fantasia' => 'required|string|max:255',
                 'cnpj' => 'required|string|min:14|max:18',
-                'state_registration' => 'string',
-                'municipal_registration' => 'string',
+               // 'state_registration' => 'string',
+               // 'municipal_registration' => 'string',
                 'entidade_type_id' => 'required|int',
                 'email' => 'required|email',
             ]
@@ -59,7 +60,7 @@ class CompanyController extends Controller
 
         $organization = Organization::create($request->all());
 
-        return redirect()->route('company.show', ['company' => $organization->id]);
+        return redirect()->route('organization.show', ['organization' => $organization->id]);
     }
 
     /**
@@ -68,10 +69,10 @@ class CompanyController extends Controller
     public function show(string $id)
     {
         //form controller;
-        $pathName = 'Forms.company'; //localizado em config
+        $pathName = 'Forms.organization'; //localizado em config
         $users = User::get();
         $organization = Organization::with('addresses')->find($id);
-        return view('V1.Admin.Company.show', compact('organization', 'pathName', 'users'));
+        return view('v1.admin.organization.show', compact('organization', 'pathName', 'users'));
     }
 
     /**

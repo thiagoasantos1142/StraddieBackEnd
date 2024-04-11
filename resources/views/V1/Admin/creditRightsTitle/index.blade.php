@@ -65,7 +65,7 @@
 
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('company.show', ['company' => $titles->id]) }}">
+                                                    <a href="{{ route('organization.show', ['organization' => $titles->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>

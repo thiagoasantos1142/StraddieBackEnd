@@ -22,7 +22,7 @@ class CreditRightsTitleController extends Controller
     {
          //mostrar todas os titulos
          $creditRightsTitles = CreditRightsTitle::get();
-         return view('V1.Admin.creditRightsTitle.index', compact('creditRightsTitles'));
+         return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles'));
     }
 
     /**
@@ -37,7 +37,7 @@ class CreditRightsTitleController extends Controller
        $nature_obligations = CrtNatureObligation::all();
        $origin_debtors = CrtOriginDebtor::all();
 
-       return view('V1.Admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
+       return view('v1.admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
     }
 
     /**
