@@ -22,10 +22,7 @@ class CreditRightsTitle extends Model
 
     use HasFactory;
 
-    public function mainBeneficiaries()
-    {
-        return $this->belongsToMany(User::class, 'credit_rights_title_main_beneficiary', 'credit_rights_title_id', 'user_id');
-    }
+  
 
     public function crtOriginDebtor()
     {
@@ -41,9 +38,16 @@ class CreditRightsTitle extends Model
         return $this->belongsTo(Court::class, 'court_id');
     }
 
-    public function users()
+    public function vara()
+    {
+        return $this->belongsTo(CourtVara::class, 'court_id');
+    }
+
+    public function users_titles()
     {
         return $this->belongsToMany(User::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
     }
+
+    
 
 }

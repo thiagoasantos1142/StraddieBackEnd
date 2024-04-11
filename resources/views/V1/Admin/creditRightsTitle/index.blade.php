@@ -57,7 +57,7 @@
                                             <td>{{ $titles->about }}</td>
                                             <td>{{ $titles->court->title }}</td>
                                             <td>
-                                                @foreach ($titles->users as $beneficiary)
+                                                @foreach ($titles->users_titles as $beneficiary)
                                                     <button type="button" class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
                                                 @endforeach
                                             </td> 

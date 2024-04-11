@@ -11,14 +11,16 @@ class AddCorporateUser extends Component
     public $dataBase;
     public $userId;
     public $organizationId;
+    public $creditRightsTitleId;
     /**
      * Create a new component instance.
      */
-    public function __construct($dataBase, $organizationId = null, $userId = null)
+    public function __construct($dataBase, $organizationId = null, $userId = null, $creditRightsTitleId = null)
     {
         //
         $this->organizationId = $organizationId;
-        $this->userId = $userId;
+        $this->userId = $userId;        
+        $this->creditRightsTitleId = $creditRightsTitleId;
         $this->dataBase = $dataBase;
     }
 
