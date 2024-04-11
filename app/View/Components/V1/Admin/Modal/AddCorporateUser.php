@@ -8,16 +8,18 @@ use Illuminate\View\Component;
 
 class AddCorporateUser extends Component
 {
+    public $dataBase;
+    public $userId;
     public $organizationId;
-    public $usersOrganization;
     /**
      * Create a new component instance.
      */
-    public function __construct($organizationId = null, $usersOrganization = null)
+    public function __construct($dataBase, $organizationId = null, $userId = null)
     {
         //
         $this->organizationId = $organizationId;
-        $this->usersOrganization = $usersOrganization;
+        $this->userId = $userId;
+        $this->dataBase = $dataBase;
     }
 
     /**

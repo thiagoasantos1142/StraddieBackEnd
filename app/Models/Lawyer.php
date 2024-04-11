@@ -14,12 +14,15 @@ class Lawyer extends Model
         'title',
         'OAB_number',
         'UF',
-       // '_token', // Adicione o atributo _token à lista de atributos preenchíveis.
+        'user_id',
+        // '_token', // Adicione o atributo _token à lista de atributos preenchíveis.
     ];
     public function user()
     {
         return $this->belongsTo(Organization::class);
     }
-
-
+    public function users()
+    {
+        return $this->hasMany(User::class, 'id', 'user_id');
+    }
 }

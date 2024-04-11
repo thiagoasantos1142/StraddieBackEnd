@@ -19,9 +19,11 @@ class LawyerController extends Controller
     public function show(string $id)
     {
         //pegar as informaçoes do adv
-        $lawyer = Lawyer::find($id);
-       
-        return view('V1.Admin.lawyer.show',compact('lawyer'));
+        $lawyer = Lawyer::with('users')->find($id);
+
+        $dataForm = $this->formCreateUpdate($lawyer); //localizado em config
+
+        return view('V1.Admin.lawyer.show', compact('lawyer','dataForm'));
     }
 
 
@@ -44,7 +46,7 @@ class LawyerController extends Controller
         Lawyer::create($request->all());
 
         return redirect()->route('lawyer.index')
-                         ->with('success', 'Lawyer created successfully.');
+            ->with('success', 'Lawyer created successfully.');
     }
 
     public function edit(Lawyer $lawyer)
@@ -64,7 +66,7 @@ class LawyerController extends Controller
         $lawyer->update($request->all());
 
         return redirect()->route('lawyers.index')
-                         ->with('success', 'Lawyer updated successfully.');
+            ->with('success', 'Lawyer updated successfully.');
     }
 
     public function destroy(Lawyer $lawyer)
@@ -72,6 +74,48 @@ class LawyerController extends Controller
         $lawyer->delete();
 
         return redirect()->route('lawyers.index')
-                         ->with('success', 'Lawyer deleted successfully.');
+            ->with('success', 'Lawyer deleted successfully.');
+    }
+
+    public function addUserLawyer(Request $request)
+    {
+        $lawyer = Lawyer::find($request->user_id);
+
+        $lawyer->update($request->all());
+
+        return response()->json(["message" => "success."], 200);
+    }
+
+
+    public function formCreateUpdate($data)
+    {
+        return [
+            "inputs" => [
+                [
+                    "label" => "Nome",
+                    "name" => "name",
+                    "col" => "6",
+                    "value" => $data->name
+                ],
+                [
+                    "label" => "Título",
+                    "name" => "title",
+                    "col" => "6",
+                    "value" => $data->title
+                ],
+                [
+                    "label" => "Número da OAB",
+                    "name" => "OAB_number",
+                    "col" => "6",
+                    "value" => $data->OAB_number
+                ],
+                [
+                    "label" => "UF",
+                    "name" => "UF",
+                    "col" => "6",
+                    "value" => $data->UF
+                ],
+            ]
+        ];
     }
 }

@@ -1,5 +1,8 @@
 <div class="col-xl-6">
     <input name="corporate_id" type="hidden" value="{{ $organizationId }}">
+    <input name="user_id" type="hidden" value="{{ $userId }}">
+    <input name="route" type="hidden" value="{{ $attributes['routeUpdate'] }}">
+
     <div class="card custom-card">
         <div class="card-header d-flex justify-content-between">
             <div class="card-title">Atribuir um usuario</div>
@@ -17,16 +20,13 @@
                                 Atribuir</a></li>
                     </ul>
                 </div>
-                {{-- <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
-                    class="btn btn-primary btn-block float-end"><i
-                        class="fa fa-plus-square me-2"></i>Adicionar endereço</a> --}}
             </div>
         </div>
         <div class="card-body">
             <div class="text-wrap">
                 <div class="dropdown-samples">
                     <ul class=" dropdown-scroll" id="list-users-colaborate">
-                        @foreach ($usersOrganization as $user)
+                        @foreach ($dataBase as $user)
                             <li>
                                 <a class="dropdown-item d-flex flex-row justify-content-between"
                                     href="javascript:void(0);">

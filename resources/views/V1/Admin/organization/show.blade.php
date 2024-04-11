@@ -70,7 +70,7 @@
 
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :organization-id="$organization->id" :users-organization="$organization->users_organization"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :organization-id="$organization->id" :data-base="$organization->users_organization" :routeUpdate="route('corporate.add.user')"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
             <div class="col-xl-6" id="section-address">

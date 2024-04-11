@@ -1,3 +1,5 @@
+//global component
+
 $('[data-modaluser]').on('click', function () {
     $('#addUser').modal('show');
 });
@@ -67,14 +69,15 @@ function createLinesTable(arrayData) {
 
 
 async function updateUserCorporate(userId, organizationId, element, func = () => { }) {
-
     // pegar as info do form agora
     const data = {
         user_id: userId,
         organization_id: organizationId
     };
 
-    await axios.post(`/dashboard/addUserCorporate`, data)
+    const route = $('[name="route"]').val();
+
+    await axios.post(route, data)
         .then(function (response) {
             if (element) {
                 $(element).fadeOut();
