@@ -12,6 +12,7 @@ use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use Illuminate\Http\Request;
+use Validator;
 
 class CreditRightsTitleController extends Controller
 {
@@ -21,7 +22,8 @@ class CreditRightsTitleController extends Controller
     public function index()
     {
          //mostrar todas os titulos
-         $creditRightsTitles = CreditRightsTitle::get();
+         $creditRightsTitles = CreditRightsTitle::all();
+       
          return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles'));
     }
 
@@ -45,7 +47,31 @@ class CreditRightsTitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'process_number' => 'required|string|max:255',
+                'about' => 'required|string|max:255',               
+                'title' => 'string',
+                'specie_id' => 'string',
+                'court_id' => 'required|int',
+                'nature_credit_id' => 'required',
+                'nature_obligation_id'  => 'required',
+                'origin_debtor_id'  => 'required',
+                'principal_amount'  => 'required',
+                'vara_id' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
+
+        $creditRightsTitle = CreditRightsTitle::create($request->all());
+
+        return view('v1.admin.creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
     }
 
     /**

@@ -42,10 +42,9 @@
                             <table id="file-export" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Classe</th>
-                                        <th>Órgão julgador</th>
-                                        <th>Assunto</th>
-                                        <th>BENEFICIÁRIO</th>
+                                        <th>Assunto / Sobre </th>
+                                        <th>Corte</th>
+                                        <th>BENEFICIÁRIOS</th>
                                         <th>Órgão Devedor</th>                                        
                                         <th>Natureza do Crédito</th>
                                         <th>Valor Principal</th>
@@ -55,17 +54,22 @@
                                 <tbody>
                                     @foreach ($creditRightsTitles as $titles)
                                         <tr>
-                                            <td>{{ $titles->class }}</td>
-                                            <td>{{ $titles->court }}</td>
-                                            <td>{{ $titles->mainBeneficiary->name}}</td>                                            
                                             <td>{{ $titles->about }}</td>
-                                            <td>{{ $titles->originDebtor->title }}</td>
-                                            <td>{{ $titles->natureCredit->title }}</td>                                            
-                                            <td>{{ $titles->principal_amount }}</td>
+                                            <td>{{ $titles->court->title }}</td>
+                                            <td>
+                                                @foreach ($titles->users as $beneficiary)
+                                                    <button type="button" class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
+                                                @endforeach
+                                            </td> 
+                                            <td>{{ $titles->crtOriginDebtor->title}}</td>
+                                            <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 15) }}</td>
+                                      
+                                            <td>R$ {{ number_format($titles->principal_amount, 2, ',', '.') }}</td>
+
 
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('organization.show', ['organization' => $titles->id]) }}">
+                                                    <a href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $titles->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>

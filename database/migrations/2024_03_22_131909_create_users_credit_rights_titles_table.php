@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users_credit_rights_titles', function (Blueprint $table) {
-            $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('credit_rights_titles_id');
-            $table->primary(['users_id', 'credit_rights_titles_id']);
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('credit_rights_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('credit_rights_title_id');
+            $table->primary(['user_id', 'credit_rights_titles_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('credit_right_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

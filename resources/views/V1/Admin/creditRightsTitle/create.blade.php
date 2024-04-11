@@ -9,10 +9,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
 @endsection
 
 @section('content')
     <!-- PAGE-HEADER -->
+
+    
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
         <h1 class="page-title">Adicionar Título</h1>
         <div>
@@ -23,8 +29,29 @@
         </div>
     </div>
     <!-- PAGE-HEADER END -->
+    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
     <div class="main-container container-fluid">
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -90,11 +117,12 @@
 
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="vara_id" class="form-label">Vara do tribunal</label>
-                                        <select class="form-select select" id="vara_id" name="vara_id">
+                                        <select class="form-select select" id="vara_id" name="vara_id" required>
                                             <option value="">Selecione uma Vara do tribunal</option>
                                             <!-- Os options serão preenchidos dinamicamente usando JavaScript -->
                                         </select>
                                     </div>
+
                                     
 
                                     <div class="form-group col-md-6 mb-0">
@@ -112,7 +140,7 @@
                                         <select class="form-select" id="nature_obligation_id" name="nature_obligation_id">
                                             <option value="">Selecione a natureza da obrigação</option>
                                             @foreach($nature_obligations as $nature_obligation)
-                                                <option value="{{ $nature_obligation->id }}" @if(old('nature_obligation') == $nature_obligation->id) selected @endif>{{ $nature_obligation->title }}</option>
+                                                <option value="{{ $nature_obligation->id }}" @if(old('nature_obligation_id') == $nature_obligation->id) selected @endif>{{ $nature_obligation->title }}</option>
                                             @endforeach
                                         </select>
                                     </div> 
@@ -122,7 +150,7 @@
                                         <select class="form-select" id="origin_debtor_id" name="origin_debtor_id">
                                             <option value="">Selecione a origem do débito</option>
                                             @foreach($origin_debtors as $origin_debtor)
-                                                <option value="{{ $origin_debtor->id }}" @if(old('origin_debtor') == $origin_debtor->id) selected @endif>{{ $origin_debtor->title }}</option>
+                                                <option value="{{ $origin_debtor->id }}" @if(old('origin_debtor_id') == $origin_debtor->id) selected @endif>{{ $origin_debtor->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -130,10 +158,10 @@
 
                                     <div class="form-group col-md-3 mb-0">
                                         <label for="principal_amount" class="form-label">Valor principal da causa</label>
-                                        <input type="text"
-                                            class="form-control @error('principal_amount') is-invalid @enderror"
-                                            id="principal_amount" name="principal_amount" placeholder="Valor principal da causa"
-                                            value="{{ old('principal_amount') ?? '' }}">
+                                        
+                                         <input class="form-control @error('principal_amount') is-invalid @enderror"
+                                            type="number"  id="principal_amount" name="principal_amount" placeholder="Valor principal da causa"
+                                            value="{{ old('principal_amount') ?? '' }}"> 
                                         @error('principal_amount')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -302,7 +330,20 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        // Aplicar máscara de moeda brasileira
+        $('#principal_amount').mask('R$ 000.000.000,00', { reverse: true });
 
+        // Validar entrada para aceitar apenas números
+        $('#principal_amount').on('input', function() {
+            // Remover caracteres não numéricos
+            var sanitized = $(this).val().replace(/[^0-9]/g, '');
+            // Atualizar o valor no campo
+            $(this).val(sanitized);
+        });
+    });
+</script>
 <!-- Adicione um bloco de script para inicializar o Select2 -->
 <script>
     $(document).ready(function() {
