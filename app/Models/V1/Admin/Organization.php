@@ -21,7 +21,7 @@ class Organization extends Model
         return $this->hasMany(User::class);
     }
 
-    public function EntidadeType()
+    public function OrganizationType()
     {
         return $this->belongsTo(OrganizationType::class, 'organization_type_id');
     }
