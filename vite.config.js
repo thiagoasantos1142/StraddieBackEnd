@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/js/bootstrap.js',
                 'resources/js/configJquery.js',
                 'resources/assets/js/components/addCorporateUser.js',
+                'resources/assets/js/components/defaultForm.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',

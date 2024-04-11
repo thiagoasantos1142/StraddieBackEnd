@@ -59,12 +59,12 @@
                     </a>
                 </div>
             </div>
+
+            <x-v1.admin.form.defaultForm :path-name="$pathName" :users="$users" ::type="update" :action="route('company.update', ['company' => $organization->id]) "></x-v1.admin.form.defaultForm>
+
             
-            <x-v1.admin.form.defaultForm ::type="update" :action="route('organization.update', ['organization' => $organization->id])" :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
-
-
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :organization-id="$organization->id" :users-organization="$organization->users_organization"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :organization-id="$organization->id" :users-company="$organization->users_company"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
             <div class="col-xl-6" id="section-address">

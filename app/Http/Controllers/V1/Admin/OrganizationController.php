@@ -69,10 +69,10 @@ class OrganizationController extends Controller
     public function show(string $id)
     {
         //form controller;
-        $pathName = 'Forms.organization'; //localizado em config
         $users = User::get();
-        $organization = Organization::with('addresses')->find($id);
-        return view('v1.admin.organization.show', compact('organization', 'pathName', 'users'));
+        $organization = Organization::with('addresses')->with('users_organization')->find($id);
+        $dataForm = $this->formCreateUpdate($organization); //localizado em config
+        return view('V1.Admin.organization.show', compact('organization', 'dataForm', 'users'));
     }
 
     /**
@@ -89,6 +89,28 @@ class OrganizationController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'razao_social' => 'required|string|max:255',
+                'nome_fantasia' => 'required|string|max:255',
+                'cnpj' => 'required|string|min:14|max:18',
+                'state_registration' => 'string',
+                'municipal_registration' => 'string',
+                'entidade_type_id' => 'required|int',
+                'email' => 'required|email',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $organization = Organization::find($id);
+
+        $organization->update($request->all());
+
+        return redirect()->route('company.show', ['company' => $organization->id]);
     }
 
     /**
@@ -97,5 +119,71 @@ class OrganizationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function formCreateUpdate($data)
+    {
+        return [
+            "form" => [
+                // "method" => "POST",
+                // "name" => [
+                //     "create" => "company.store",
+                //     "update" => "company.update"
+                // ],
+                // "path" => []
+            ],
+            "inputs" => [
+                [
+                    "label" => "Razão social",
+                    "name" => "razao_social",
+                    "col" => "6",
+                    "value" => $data->razao_social
+                    // placeholder
+                    // label
+                    // value
+                    //"input" => "select"
+                    //"type" => "select"
+                ],
+                [
+                    "label" => "Nome fantasia",
+                    "name" => "nome_fantasia",
+                    "col" => "6",
+                    "value" => $data->nome_fantasia
+                ],
+                [
+                    "label" => "Cnpj",
+                    "name" => "cnpj",
+                    "col" => "6",
+                    "value" => $data->cnpj
+                ],
+                [
+                    "label" => "Inscrição estadual",
+                    "name" => "state_registration",
+                    "col" => "3",
+                    "value" => $data->state_registration
+                ],
+                [
+                    "label" => "Inscrição municipal",
+                    "name" => "municipal_registration",
+                    "col" => "3",
+                    "value" => $data->municipal_registration
+                ],
+                [
+                    "label" => "E-mail",
+                    "name" => "email",
+                    "col" => "6",
+                    "value" => $data->email
+                ],
+                [
+                    "label" => "Tipo instituição",
+                    "name" => "entidade_type_id",
+                    "col" => "6",
+                    "input" => "select",
+                    "value" => $data->entidade_type_id,
+                    "options" => User::get()
+                ]
+            ]
+        ];
     }
 }

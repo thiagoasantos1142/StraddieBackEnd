@@ -9,15 +9,15 @@ use Illuminate\View\Component;
 class AddCorporateUser extends Component
 {
     public $organizationId;
-    public $usersCompany;
+    public $usersOrganization;
     /**
      * Create a new component instance.
      */
-    public function __construct($organizationId = null, $usersCompany = null)
+    public function __construct($organizationId = null, $usersOrganization = null)
     {
         //
         $this->organizationId = $organizationId;
-        $this->usersCompany = $usersCompany;
+        $this->usersOrganization = $usersOrganization;
     }
 
     /**

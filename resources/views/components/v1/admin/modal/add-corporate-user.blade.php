@@ -26,7 +26,7 @@
             <div class="text-wrap">
                 <div class="dropdown-samples">
                     <ul class=" dropdown-scroll" id="list-users-colaborate">
-                        @foreach ($usersCompany as $user)
+                        @foreach ($usersOrganization as $user)
                             <li>
                                 <a class="dropdown-item d-flex flex-row justify-content-between"
                                     href="javascript:void(0);">
