@@ -65,13 +65,17 @@ class DashboardController extends Controller
          
          $totalOrganizationsThisMonth = Organization::whereMonth('created_at', now()->month)->count();
          $totalOrganizationsLastMonth = Organization::whereMonth('created_at', now()->subMonth()->month)->count();
+         
+         if($totalOrganizationsLastMonth == 0){
+             $totalOrganizationsLastMonth = 1;
+         }
 
          // Calcula a diferença entre o número de titulos de diretiro creditório do mês atual e do mês anterior
          $organizationsDifference = $totalOrganizationsThisMonth - $totalOrganizationsLastMonth;
-
+        
          // Calcula o percentual de crescimento
          if ($organizationsDifference > 0) {
-             $percentageGrowthOrganizations = ($organizationsDifference / $totalOrganizationsLastMonth) * 100;
+             $percentageGrowthOrganizations = ($organizationsDifference / $totalOrganizationsLastMonth )  * 100;
          } else {
              $percentageGrowthOrganizations = 0;
          }

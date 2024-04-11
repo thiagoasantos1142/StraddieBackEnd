@@ -18,7 +18,7 @@ class OrganizationController extends Controller
     public function index(Request $request)
     {
         //mostrar todas as empresas
-        $organizations = Organization::with('users_company')->get();
+        $organizations = Organization::with('users_organization')->get();
 
         if ($request->ajax()) {
             return response()->json($organizations, 200);
@@ -40,7 +40,7 @@ class OrganizationController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
         $validator = Validator::make(
             $request->all(),
             [
@@ -49,7 +49,7 @@ class OrganizationController extends Controller
                 'cnpj' => 'required|string|min:14|max:18',
                // 'state_registration' => 'string',
                // 'municipal_registration' => 'string',
-                'entidade_type_id' => 'required|int',
+                'organization_type_id' => 'required|int',
                 'email' => 'required|email',
             ]
         );

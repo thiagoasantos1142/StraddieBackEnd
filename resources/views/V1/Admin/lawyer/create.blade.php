@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- PAGE-HEADER END -->
-    @if ($errors->any())
+                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)

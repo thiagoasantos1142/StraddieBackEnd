@@ -13,7 +13,7 @@ class Organization extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'entidade_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id'];
+    protected $fillable = ['user_id', 'organization_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id'];
     
 
     public function users()
@@ -23,7 +23,7 @@ class Organization extends Model
 
     public function EntidadeType()
     {
-        return $this->belongsTo(OrganizationType::class, 'entidade_type_id');
+        return $this->belongsTo(OrganizationType::class, 'organization_type_id');
     }
     public function getTypes()
     {

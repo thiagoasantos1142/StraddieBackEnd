@@ -47,8 +47,8 @@ return [
             "col" => "6",
         ],
         [
-            "label" => "Tipo instituição",
-            "name" => "entidade_type_id",
+            "label" => "Tipo empresas",
+            "name" => "organization_type_id",
             "col" => "6",
             "input" => "select",
             "options" => 'users' //variavel que foi enviada pelo back
