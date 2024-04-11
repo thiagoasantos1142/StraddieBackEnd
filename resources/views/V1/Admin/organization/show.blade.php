@@ -20,11 +20,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Form Advanced</h1>
+        <h1 class="page-title">Empresa</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form Advanced</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Empresas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Empresa</li>
             </ol>
         </div>
     </div>
@@ -34,33 +34,39 @@
     <div class="main-container container-fluid">
         <div class="row">
             <div class="col-md-12 row">
-                <div class="col-xl-3 col-md-6">
-                    <a href="#section-address">
-                        <div class="card ribbone-card">
-                            <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
-                                        class="fa fa-bolt"></i></span></div>
-                            <div class="card-body  p-6">
-                                <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">adicione um endereço a empresa</p>
+                @if (!$organization->addresses->count())
+                    <div class="col-xl-3 col-md-6">
+                        <a href="#section-address">
+                            <div class="card ribbone-card">
+                                <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
+                                            class="fa fa-bolt"></i></span></div>
+                                <div class="card-body  p-6">
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
+                                    <p class="card-text">adicione um endereço a empresa</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <a href="#address">
-                        <div class="card ribbone-card">
-                            <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
-                                        class="fa fa-bolt"></i></span></div>
-                            <div class="card-body  p-6">
-                                <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">Atribua um usuario a sua empresa</p>
+                        </a>
+                    </div>
+                @endif
+
+                @if (!$organization->users_organization->count())
+                    <div class="col-xl-3 col-md-6">
+                        <a href="#address">
+                            <div class="card ribbone-card">
+                                <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
+                                            class="fa fa-bolt"></i></span></div>
+                                <div class="card-body  p-6">
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
+                                    <p class="card-text">Atribua um usuario a sua empresa</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endif
             </div>
-            
-            <x-v1.admin.form.defaultForm ::type="update" :action="route('organization.update', ['organization' => $organization->id])" :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
+
+            <x-v1.admin.form.defaultForm ::type="update" :action="route('organization.update', ['organization' => $organization->id])"
+                :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
 
 
             {{-- @aqui --}}
