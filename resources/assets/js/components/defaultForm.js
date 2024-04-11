@@ -13,8 +13,8 @@ function addFunctionToForm() {
             }else{
                 form.trigger( "submit" );
                 //executar a rotina para salvar
-                $(this).text('Editar');
-                formInputs.prop('disabled', true);
+                // $(this).text('Editar');
+                // formInputs.prop('disabled', true);
             }
         }
     })

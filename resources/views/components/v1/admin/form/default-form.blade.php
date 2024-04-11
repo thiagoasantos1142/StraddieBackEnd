@@ -17,15 +17,19 @@
                                     <div class="form-group col-md-{{ $input['col'] ?? '12' }} mb-0">
                                         <label for="{{ $input['name'] ?? $input['id'] }}"
                                             class="form-label">{{ $input['label'] }}</label>
-                                        <select class="form-select " id="{{ $input['name'] ?? $input['id'] }}"
-                                            name="{{ $input['name'] }}" @if ($attributes[':type'] === 'update') disabled @endif data-input>
+                                        <select class="form-select @error($input['name']) is-invalid @enderror" id="{{ $input['name'] ?? $input['id'] }}"
+                                            name="{{ $input['name'] }}" @if ($attributes[':type'] === 'update') disabled @endif
+                                            data-input>
                                             <option>Disabled select</option>
                                             @foreach ($input['options'] as $item)
-                                                <option value="1">
-                                                    Disabled 1
+                                                <option value="1" @if ($input['value'] === $item[$input['identifier_value']]) selected @endif>
+                                                    {{$item[$input['identifier_title']]}}
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @error($input['name'])
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 @break
 
@@ -40,11 +44,11 @@
                                     placeholder="{{ $input['placeholder'] ?? $input['label'] }}"
                                     value="{{ old($input['name']) ?? ($input['value'] ?? '') }}"
                                     @if ($attributes[':type'] === 'update') disabled @endif data-input>
+                                @error($input['name'])
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         @endif
-                        @error($input['name'])
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
                     @endforeach
                 </div>
                 <div class="d-flex flex-row-reverse">

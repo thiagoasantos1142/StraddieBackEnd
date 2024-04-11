@@ -110,7 +110,7 @@ class OrganizationController extends Controller
 
         $organization->update($request->all());
 
-        return redirect()->route('company.show', ['company' => $organization->id]);
+        return redirect()->route('organization.show', ['organization' => $organization->id]);
     }
 
     /**
@@ -180,8 +180,10 @@ class OrganizationController extends Controller
                     "name" => "entidade_type_id",
                     "col" => "6",
                     "input" => "select",
-                    "value" => $data->entidade_type_id,
-                    "options" => User::get()
+                    "value" => $data->organization_type_id,
+                    "identifier_value" => 'id',
+                    "identifier_title" => 'title',
+                    "options" => OrganizationType::get()
                 ]
             ]
         ];
