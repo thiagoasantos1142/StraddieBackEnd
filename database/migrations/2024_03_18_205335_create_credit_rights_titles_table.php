@@ -18,9 +18,9 @@ return new class extends Migration
             
             $table->string('class', 45)->nullable();
 
-            $table->foreignId('court_id')->constrained('crt_courts')->nullable();
+            $table->foreignId('court_id')->constrained('courts')->nullable();
             $table->foreignId('specie_id')->constrained('crt_species')->nullable();
-            $table->foreignId('vara_id')->constrained('crt_varas')->nullable();
+            $table->foreignId('vara_id')->constrained('court_varas')->nullable();
             $table->foreignId('nature_credit_id')->constrained('crt_nature_credits')->nullable();            
             $table->foreignId('nature_obligation_id')->constrained('crt_nature_credits')->nullable();
             $table->foreignId('origin_debtor_id')->constrained('crt_origin_debtors')->nullable();

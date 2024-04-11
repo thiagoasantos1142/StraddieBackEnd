@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('entidade_type_id');
+            $table->unsignedBigInteger('organization_type_id');
             $table->string('cnpj')->nullable();
             $table->string('email')->nullable();
             $table->string('main_CNAE')->nullable();
@@ -30,11 +30,10 @@ return new class extends Migration
             $table->string('website')->nullable();
             
             $table->string('logo')->nullable();
-            $table->string('email')->nullable();
             $table->date('cnpj_opening_date')->nullable();
             $table->timestamps();
 
-            $table->foreign('entidade_type_id')->references('id')->on('entidade_types')->onDelete('NO ACTION')->onUpdate('NO ACTION');
+            $table->foreign('organization_type_id')->references('id')->on('organization_types')->onDelete('NO ACTION')->onUpdate('NO ACTION');
         });
     }
 

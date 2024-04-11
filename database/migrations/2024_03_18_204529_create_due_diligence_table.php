@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title', 255);
             $table->string('description', 995)->nullable();
             $table->timestamps();
-            $table->unsignedBigInteger('due_dilgence_statuses_id');
-            $table->foreign('due_dilgence_statuses_id')->references('id')->on('due_dilgence_statuses')->onDelete('no action')->onUpdate('no action');
+            $table->unsignedBigInteger('due_diligence_statuses_id');
+            $table->foreign('due_diligence_statuses_id')->references('id')->on('due_diligence_statuses')->onDelete('no action')->onUpdate('no action');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('due_dilgence');
+        Schema::dropIfExists('due_diligence');
     }
 };

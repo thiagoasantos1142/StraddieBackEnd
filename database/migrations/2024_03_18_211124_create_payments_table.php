@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title', 255);            
             $table->string('description', 255);
             $table->decimal('amount', 16, 2)->nullable();
-            $table->unsignedBigInteger('payment_type')->nullable();
+            $table->unsignedBigInteger('payment_type_id')->nullable();
             $table->unsignedBigInteger('payment_status_id')->nullable();
             $table->date('payment_date')->nullable();
             $table->string('link_pagamento', 255)->nullable();
@@ -29,8 +29,8 @@ return new class extends Migration
 
             $table->foreign('purchase_sales_agreements_Offers_id')->references('id')->on('purchase_sales_agreements')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('payment_category_id')->references('id')->on('payment_categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('payment_status_id')->references('id')->on('payment_statusses')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('payment_types_id')->references('id')->on('payment_types')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('payment_status_id')->references('id')->on('payment_statuses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('payment_type_id')->references('id')->on('payment_types')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
