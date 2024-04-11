@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();            
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('street');
             $table->string('zip')->nullable();
             $table->string('neighborhood')->nullable();
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Define as chaves estrangeiras
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->nullable();
-            $table->foreignId('organization_id')->constrained('organizations')->nullable();    
+            $table->foreign('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('organization_id')->nullable()->constrained('organizations');    
            
         });
     }
