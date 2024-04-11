@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\V1\Admin\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
