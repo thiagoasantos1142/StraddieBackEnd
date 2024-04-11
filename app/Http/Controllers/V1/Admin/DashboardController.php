@@ -25,6 +25,7 @@ class DashboardController extends Controller
         $usersDifference = $totalUsersThisMonth - $totalUsersLastMonth;
 
         // Calcula o percentual de crescimento
+        if($totalUsersLastMonth == 0){$totalUsersLastMonth = 1;}
         if ($usersDifference > 0 && $totalUsersLastMonth > 0) {
             $percentageGrowthUsers = ($usersDifference / $totalUsersLastMonth) * 100;
         } else {
@@ -39,6 +40,7 @@ class DashboardController extends Controller
          // Calcula a diferença entre o número de advogados do mês atual e do mês anterior
         $lawyersDifference = $totalLawyersThisMonth - $totalLawyersLastMonth;
 
+        if($totalLawyersLastMonth == 0){$totalLawyersLastMonth = 1;}
         // Calcula o percentual de crescimento
         if ($lawyersDifference > 0) {
             $percentageGrowthLawyers = ($lawyersDifference / $totalLawyersLastMonth) * 100;
@@ -55,6 +57,9 @@ class DashboardController extends Controller
          // Calcula a diferença entre o número de titulos de diretiro creditório do mês atual e do mês anterior
          $crtsDifference = $totalCRTsThisMonth - $totalCRTsLastMonth;
 
+         if($totalCRTsLastMonth == 0){
+            $totalCRTsLastMonth = 1;
+        }
          // Calcula o percentual de crescimento
          if ($crtsDifference > 0) {
              $percentageGrowthCreditRightsTitles = ($crtsDifference / $totalCRTsLastMonth) * 100;
