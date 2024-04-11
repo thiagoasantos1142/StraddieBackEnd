@@ -22,7 +22,7 @@
                                             data-input>
                                             <option>Disabled select</option>
                                             @foreach ($input['options'] as $item)
-                                                <option value="1" @if ($input['value'] === $item[$input['identifier_value']]) selected @endif>
+                                                <option value="{{$item[$input['identifier_value']]}}" @if ($input['value'] === $item[$input['identifier_value']]) selected @endif>
                                                     {{$item[$input['identifier_title']]}}
                                                 </option>
                                             @endforeach
