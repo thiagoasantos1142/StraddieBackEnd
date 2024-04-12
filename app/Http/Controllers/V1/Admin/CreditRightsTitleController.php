@@ -32,10 +32,10 @@ class CreditRightsTitleController extends Controller
      */
     public function index()
     {
-         //mostrar todas os titulos
-         $creditRightsTitles = CreditRightsTitle::all();
-       
-         return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles'));
+        //mostrar todas os titulos
+        $creditRightsTitles = CreditRightsTitle::all();
+
+        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles'));
     }
 
     /**
@@ -43,14 +43,14 @@ class CreditRightsTitleController extends Controller
      */
     public function create()
     {
-       $courts = Court::all(); 
-       $varas = CourtVara::all(); 
-       $species = CrtSpecies::all();
-       $nature_credits = CrtNatureCredit::all();
-       $nature_obligations = CrtNatureObligation::all();
-       $origin_debtors = CrtOriginDebtor::all();
+        $courts = Court::all();
+        $varas = CourtVara::all();
+        $species = CrtSpecies::all();
+        $nature_credits = CrtNatureCredit::all();
+        $nature_obligations = CrtNatureObligation::all();
+        $origin_debtors = CrtOriginDebtor::all();
 
-       return view('v1.admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
+        return view('v1.admin.creditRightsTitle.create', compact('courts', 'varas', 'species', 'nature_credits', 'nature_obligations', 'origin_debtors'));
     }
 
     /**
@@ -58,12 +58,12 @@ class CreditRightsTitleController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validator = Validator::make(
             $request->all(),
             [
                 'process_number' => 'required|string|max:255',
-                'about' => 'required|string|max:255',               
+                'about' => 'required|string|max:255',
                 'title' => 'string',
                 'specie_id' => 'string',
                 'court_id' => 'required|int',
@@ -78,7 +78,7 @@ class CreditRightsTitleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-       
+
 
         $creditRightsTitle = CreditRightsTitle::create($request->all());
 
@@ -90,11 +90,11 @@ class CreditRightsTitleController extends Controller
      */
     public function show(string $id)
     {
-         //form controller;
-         $users = User::get();
-         $title = CreditRightsTitle::with('users_titles')->find($id);
-         $dataForm = $this->formCreateUpdate($title); //localizado em config
-         return view('v1.admin.creditRightsTitle.show', compact('title', 'dataForm', 'users'));
+        //form controller;
+        $users = User::get();
+        $title = CreditRightsTitle::with('users_titles')->find($id);
+        $dataForm = $this->formCreateUpdate($title); //localizado em config
+        return view('v1.admin.creditRightsTitle.show', compact('title', 'dataForm', 'users'));
     }
 
     /**
@@ -110,12 +110,12 @@ class CreditRightsTitleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
         $validator = Validator::make(
             $request->all(),
             [
                 'process_number' => 'required|string|max:255',
-                            
+
                 'title' => 'string',
                 'specie_id' => 'string',
                 'court_id' => 'required',
@@ -130,15 +130,13 @@ class CreditRightsTitleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-       
+
 
         $creditRightsTitle = CreditRightsTitle::find($id);
 
         $creditRightsTitle->update($request->all());
 
         return view('v1.admin.creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
-
-       
     }
 
     /**
@@ -151,21 +149,24 @@ class CreditRightsTitleController extends Controller
 
     public function addUserTitle(Request $request)
     {
-       //user_id = $request->user_id;
-       //credit_rights_title_id = $request->credit_rights_title_id;
+        //user_id = $request->user_id;
+        //credit_rights_title_id = $request->credit_rights_title_id;
 
 
-        UsersCreditRightsTitle::create($request->all());
+        UsersCreditRightsTitle::updateOrCreate(
+            ['user_id' => $request->user_id, 'credit_rights_title_id' => $request->credit_rights_title_id],
+            $request->all()
+        );
 
         return response()->json(["message" => "success."], 200);
     }
     public function formCreateUpdate($data)
     {
-       // Obtenha as varas associadas ao tribunal selecionado
-       $courtVaras = $this->courtController->getCourtVaras($data->court_id);
+        // Obtenha as varas associadas ao tribunal selecionado
+        $courtVaras = $this->courtController->getCourtVaras($data->court_id);
 
         return [
-           
+
             "inputs" => [
                 [
                     "label" => "Título",
@@ -177,9 +178,9 @@ class CreditRightsTitleController extends Controller
                     // value
                     //"input" => "select"
                     //"type" => "select"
-                ],    
-                       
-               
+                ],
+
+
                 [
                     "label" => "Classe do titulo",
                     "name" => "crt_class_id",
@@ -198,7 +199,7 @@ class CreditRightsTitleController extends Controller
                     "col" => "4",
                     "class" => "text-danger font-weight-bold", // Adiciona classes CSS para destaque e cor
                     "value" => $data->principal_amount
-                    
+
                 ],
                 [
                     "label" => "Origem do débito",
@@ -223,7 +224,7 @@ class CreditRightsTitleController extends Controller
                 [
                     "label" => "Espécie do título",
                     "name" => "specie_id",
-                    "col" => "3",     
+                    "col" => "3",
                     "value" => $data->specie_id,
                     "input" => "select",
                     "identifier_value" => 'id',
@@ -240,7 +241,7 @@ class CreditRightsTitleController extends Controller
                     "identifier_title" => 'title',
                     "options" => crtNatureCredit::get()
                 ],
-               
+
                 [
                     "label" => "Órgão julgador",
                     "name" => "court_id",
@@ -266,17 +267,18 @@ class CreditRightsTitleController extends Controller
                     "label" => "Data do ajuizamento do processo ",
                     "name" => "distribution_date",
                     "col" => "5",
-                    "value" => $this->dateFormat($data->distribution_date) 
-                ]   
-                
+                    "value" => $this->dateFormat($data->distribution_date)
+                ]
+
             ]
         ];
     }
 
     // Função para formatar o valor para moeda brasileira
-   
 
-    private function dateFormat($date){
+
+    private function dateFormat($date)
+    {
         if ($date instanceof \DateTime) {
             return $date->format('d/m/Y');
         } elseif (is_string($date)) {

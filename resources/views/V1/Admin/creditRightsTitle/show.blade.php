@@ -57,7 +57,7 @@
                     
             
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :title-id="$title->id" :data-base="$title->users_titles" :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $title->id]" :data-base="$title->users_titles" :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
             

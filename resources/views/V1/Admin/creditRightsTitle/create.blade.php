@@ -59,7 +59,7 @@
                         <h4 class="card-title">Dados do Título</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('credit-rights-titles.store') }}">
+                        <form method="POST" action="{{ route('creditRightsTitle.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">

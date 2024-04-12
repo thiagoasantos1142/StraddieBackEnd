@@ -55,9 +55,8 @@ Route::middleware([
         Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
-        Route::resource('/credit-rights-titles', CreditRightsTitleController::class);
-        Route::resource('/users', UserController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
+        Route::resource('/users', UserController::class);
         Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
 
         

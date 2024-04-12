@@ -76,6 +76,8 @@ async function updateUserCorporate(userId, element, func = () => { }) {
         ...jsonData
     };
 
+    console.log(data);
+
     const route = $('[name="route"]').val();
 
     await axios.post(route, data)

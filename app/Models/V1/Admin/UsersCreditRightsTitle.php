@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class UsersCreditRightsTitle extends Model
 {
     use HasFactory;
-    
+
+    protected $fillable = ['user_id', 'credit_rights_title_id'];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
