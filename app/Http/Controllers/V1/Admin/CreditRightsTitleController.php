@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CreditRightsTitleController extends Controller
 {
+    protected $courtController;
+
+    public function __construct(CourtsController $courtController)
+    {
+        $this->courtController = $courtController;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -155,9 +161,9 @@ class CreditRightsTitleController extends Controller
     }
     public function formCreateUpdate($data)
     {
-        // Obtenha as varas associadas ao tribunal selecionado
-         $courtVaras = $this->getCourtVaras($data->court_id);
-        
+       // Obtenha as varas associadas ao tribunal selecionado
+       $courtVaras = $this->courtController->getCourtVaras($data->court_id);
+
         return [
            
             "inputs" => [
@@ -253,7 +259,8 @@ class CreditRightsTitleController extends Controller
                     "input" => "select",
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
-                    "options" => $courtVaras  // Varas associadas ao tribunal selecionado
+                    "options" => CourtVara::get(),
+                    //"options" => $courtVaras  // Varas associadas ao tribunal selecionado
                 ],
                 [
                     "label" => "Data do ajuizamento do processo ",
