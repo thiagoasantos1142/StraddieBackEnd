@@ -67,8 +67,13 @@ Route::middleware([
         Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
         Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
         Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+        Route::post('/addUserCorporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
+        
+        Route::post('/creditRightsTitleAddUserTitle', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
 
-        Route::post('/upload', [FileController::class, 'upload']);
+        Route::post('/addUserLawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+
+        Route::post('/upload', [FileController::class, 'upload'])->name('upload.file');
         Route::get('/download/{fileName}', [FileController::class, 'download']);
 
     });

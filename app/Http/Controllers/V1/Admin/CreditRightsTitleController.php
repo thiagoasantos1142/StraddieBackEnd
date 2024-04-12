@@ -7,6 +7,9 @@ use App\Models\OrganizationType;
 use App\Models\User;
 use App\Models\V1\Admin\Court;
 
+use Illuminate\Support\Str;
+
+use App\Models\V1\Admin\CrtDocuments;
 use App\Models\V1\Admin\CrtNatureCredit;
 use App\Models\V1\Admin\CrtNatureObligation;
 use App\Models\V1\Admin\CrtOriginDebtor;
@@ -16,6 +19,7 @@ use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use NumberFormatter;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,33 +62,57 @@ class CreditRightsTitleController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'process_number' => 'required|string|max:255',
-                'about' => 'required|string|max:255',
-                'title' => 'string',
-                'specie_id' => 'string',
-                'court_id' => 'required|int',
-                'nature_credit_id' => 'required',
-                'nature_obligation_id'  => 'required',
-                'origin_debtor_id'  => 'required',
-                'principal_amount'  => 'required',
-                'vara_id' => 'required',
-            ]
-        );
+        // Validação dos dados do formulário
+        $validator = Validator::make($request->all(), [
+            'process_number' => 'required|string|max:255',
+            
+            'title' => 'string',
+            'specie_id' => 'string',
+            'court_id' => 'required|int',
+            'nature_credit_id' => 'required',
+            'nature_obligation_id'  => 'required',
+            'origin_debtor_id'  => 'required',
+            'principal_amount'  => 'required',
+            'vara_id' => 'required',
+            'file' => 'required|file|max:2048'
+        ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Verifica se um arquivo foi enviado
+        if ($request->hasFile('file')) {
 
-        $creditRightsTitle = CreditRightsTitle::create($request->all());
+            // Obtém o arquivo enviado
+            $file = $request->file('file');
 
-        return view('v1.admin.creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
+            $path = 'crt/docs/';
+
+            // Define o nome do arquivo 
+            $fileName = str::uuid() . $file->getClientOriginalExtension();
+
+            // Faz o upload do arquivo para o Amazon S3
+            Storage::disk('s3')->put($path . $fileName, file_get_contents($file));
+
+            // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
+            $creditRightsTitle = CreditRightsTitle::create($request->all());
+
+            // Salva o link do arquivo na tabela crt_documents
+            $document = new CrtDocuments();
+            $document->credit_rights_title_id = $creditRightsTitle->id;
+            
+            $document->file_name = $fileName;
+            $document->file_path = $path;
+            $document->save();
+
+            // Redireciona para a página de exibição do título
+            return redirect()->route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
+        }
+
+        // Se não houver arquivo enviado, retorna com uma mensagem de erro
+        return redirect()->back()->with('error', 'Nenhum arquivo enviado.');
     }
-
     /**
      * Display the specified resource.
      */

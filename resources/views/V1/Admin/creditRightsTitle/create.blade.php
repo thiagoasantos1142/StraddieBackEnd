@@ -59,12 +59,12 @@
                         <h4 class="card-title">Dados do Título</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('creditRightsTitle.store') }}">
-                            @csrf
+                    <form method="POST" action="{{ route('creditRightsTitle.store') }}" enctype="multipart/form-data">
+                        @csrf
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="title" class="form-label">Título</label>
+                                        <label for="title" class="form-label">Título / Assunto</label>
                                         <input type="text"
                                             class="form-control  @error('title') is-invalid @enderror" id="title"
                                             name="title" placeholder="Informe um titulo para este processo"
@@ -85,19 +85,19 @@
                                     </div>
 
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="about" class="form-label">Assunto</label>
-                                        <input type="text" class="form-control @error('about') is-invalid @enderror"
-                                            id="about" name="about" placeholder="Sobre"
-                                            value="{{ old('about') ?? '' }}">
-                                        @error('about')
+                                        <label for="class" class="form-label">Classe do titulo</label>
+                                        <input type="text" class="form-control @error('class') is-invalid @enderror"
+                                            id="class" name="class" placeholder="Classe"
+                                            value="{{ old('class') ?? '' }}">
+                                        @error('class')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror                                      
                                     </div>
 
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="about" class="form-label">Classe do titulo</label>
+                                        <label for="php " class="form-label">Espécie do titulo</label>
                                         <select class="form-select" id="specie_id" name="specie_id">
-                                            <option value="">Selecione a Classe do titulo</option>
+                                            <option value="">Selecione a Espécie do titulo</option>
                                             @foreach($species as $specie)
                                                 <option value="{{ $specie->id }}" @if(old('specie_id') == $specie->id) selected @endif>{{ $specie->title }}</option>
                                             @endforeach
@@ -205,18 +205,87 @@
                                     
                                 </div>
                             </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Salvar Titulo</button>
+                            <!-- Botão para abrir o modal -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 100px;">                                           
+                                        
+                                          <!-- Campo de upload de arquivo -->
+                                          <div class="form-group col-md-6 mb-0">
+                                            <label for="file" class="form-label">Upload do arquivo</label>
+                                            <input class="form-control @error('file') is-invalid @enderror" type="file" id="file" name="file">
+                                            @error('file')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 100px;">
+                                            <div class="text-center">
+                                                
+                                                <button class="btn btn-primary mt-4 mb-0" type="submit">
+                                                    Salvar Titulo
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="form-group col-md-6 mb-0">
+                                            <div class="d-flex flex-row-reverse">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 @endsection
 
 @section('modals')
+
+    <!-- Modal de Upload -->
+    <!-- Modal de upload -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLabel">Enviar Arquivo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('upload.file') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Selecione um arquivo</label>
+                        <input class="form-control" type="file" id="fileInput" name="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
     <!-- File-Details Modal -->
     <div class="modal fade" id="largemodal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg " role="document">
@@ -290,6 +359,11 @@
 
     <!-- jQuery para alterar o texto do toggle switch -->
     <script>
+        // Adicione um evento de clique ao botão "Fazer Upload do titulo"
+        document.getElementById('openUploadModalButton').addEventListener('click', function() {
+            // Mostra o modal de upload
+            $('#uploadModal').modal('show');
+        });
     $(document).ready(function() {
         // Adiciona um ouvinte de evento de mudança ao switch
         $('#secrecySwitch').change(function() {
