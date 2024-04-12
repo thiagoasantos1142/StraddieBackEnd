@@ -17,9 +17,9 @@ export default defineConfig({
                 'resources/v1/site/js/app.js',
                 'resources/js/viacep.js',
                 'resources/js/bootstrap.js',
-                'resources/js/configJquery.js',
                 'resources/assets/js/components/addCorporateUser.js',
                 'resources/assets/js/components/defaultForm.js',
+                'resources/js/importmask.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
@@ -96,12 +96,15 @@ export default defineConfig({
                         'resources/assets/images/',
                         'resources/assets/libs/',
                         'resources/assets/iconfonts/',
+                        'resources/assets/js/libs',
                         'resources/assets/js/sticky.js',
                         'resources/assets/js/main.js',
                         'resources/assets/js/under-maintenance.js',
                         'resources/assets/js/show-password.js',
                         'resources/assets/js/filemanager-list.js',
                         'resources/assets/js/apexcharts-stock-prices.js',
+                        'resources/js/jquery-3.7.1.js',
+                        ''
                     ]),
                     dest: 'assets/'
                 }

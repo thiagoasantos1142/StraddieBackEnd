@@ -198,7 +198,9 @@ class CreditRightsTitleController extends Controller
                     "name" => "principal_amount",
                     "col" => "4",
                     "class" => "text-danger font-weight-bold", // Adiciona classes CSS para destaque e cor
-                    "value" => $data->principal_amount
+                    "value" => $data->getRawOriginal('principal_amount'),
+                    "label-class" => "",
+                    "input-class" => "money2",
 
                 ],
                 [
@@ -250,7 +252,9 @@ class CreditRightsTitleController extends Controller
                     "input" => "select",
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
-                    "options" => Court::get()
+                    "options" => Court::get(),
+                    "label-class" => "",
+                    "input-class" => "js-example-basic-single",
                 ],
                 [
                     "label" => "Vara do tribunal",
@@ -261,6 +265,7 @@ class CreditRightsTitleController extends Controller
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
                     "options" => CourtVara::get(),
+                    "input-class" => "js-example-basic-single",
                     //"options" => $courtVaras  // Varas associadas ao tribunal selecionado
                 ],
                 [
@@ -269,7 +274,6 @@ class CreditRightsTitleController extends Controller
                     "col" => "5",
                     "value" => $this->dateFormat($data->distribution_date)
                 ]
-
             ]
         ];
     }

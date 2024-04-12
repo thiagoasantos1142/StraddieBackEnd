@@ -16,8 +16,8 @@
                                 @case($input['input'] == 'select')
                                     <div class="form-group col-md-{{ $input['col'] ?? '12' }} mb-0">
                                         <label for="{{ $input['name'] ?? $input['id'] }}"
-                                            class="form-label">{{ $input['label'] }}</label>
-                                        <select class="form-select @error($input['name']) is-invalid @enderror" id="{{ $input['name'] ?? $input['id'] }}"
+                                            class="form-label {{$input['label-class'] ?? ''}}">{{ $input['label'] }}</label>
+                                        <select class="form-select {{$input['input-class'] ?? ''}} @error($input['name']) is-invalid @enderror" id="{{ $input['name'] ?? $input['id'] }}"
                                             name="{{ $input['name'] }}" @if ($attributes[':type'] === 'update') disabled @endif
                                             data-input>
                                             <option>Disabled select</option>
@@ -38,8 +38,8 @@
                         @else
                             <div class="form-group col-md-{{ $input['col'] ?? '12' }} mb-0">
                                 <label for="{{ $input['name'] ?? $input['id'] }}"
-                                    class="form-label">{{ $input['label'] }}</label>
-                                <input type="text" class="form-control  @error($input['name']) is-invalid @enderror"
+                                    class="form-label {{$input['label-class'] ?? ''}}">{{ $input['label'] }}</label>
+                                <input type="text" class="form-control {{$input['input-class'] ?? ''}}  @error($input['name']) is-invalid @enderror"
                                     id="{{ $input['name'] ?? $input['id'] }}" name="{{ $input['name'] }}"
                                     placeholder="{{ $input['placeholder'] ?? $input['label'] }}"
                                     value="{{ old($input['name']) ?? ($input['value'] ?? '') }}"

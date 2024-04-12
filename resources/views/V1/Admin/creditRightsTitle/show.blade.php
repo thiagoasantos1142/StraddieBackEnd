@@ -15,9 +15,6 @@
 
     <!-- FlatPickr CSS -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/flatpickr/flatpickr.min.css') }}">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-
 @endsection
 
 @section('content')
@@ -37,7 +34,7 @@
     <div class="main-container container-fluid">
         <div class="row">
             <div class="col-md-12 row">
-                
+
                 <div class="col-xl-3 col-md-6">
                     <a href="#address">
                         <div class="card ribbone-card">
@@ -53,14 +50,15 @@
             </div>
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $title->id])"
-                            :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
-                    
-            
+                :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
+
+
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $title->id]" :data-base="$title->users_titles" :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $title->id]" :data-base="$title->users_titles"
+                :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
-            
+
         </div>
     </div>
 
@@ -68,21 +66,21 @@
 @endsection
 
 @section('scripts')
-    
-  
-<script>
-    $(document).ready(function() {
+    <script>
         $('#court_id').change(function() {
             var courtId = $(this).val();
             if (courtId) {
                 $.ajax({
                     type: 'GET',
-                    url: '/load-courts-varas/' + courtId, // Rota para carregar varas com base no tribunal selecionado
+                    url: '/dashboard/varas/' +
+                        courtId, // Rota para carregar varas com base no tribunal selecionado
                     success: function(data) {
                         $('#vara_id').empty();
-                        $('#vara_id').append('<option value="">Selecione uma Vara do tribunal</option>');
+                        $('#vara_id').append(
+                            '<option value="">Selecione uma Vara do tribunal</option>');
                         $.each(data, function(key, value) {
-                            $('#vara_id').append('<option value="' + key + '">' + value + '</option>');
+                            $('#vara_id').append('<option value="' + key + '">' +
+                                value + '</option>');
                         });
                     }
                 });
@@ -91,41 +89,7 @@
                 $('#vara_id').append('<option value="">Selecione uma Vara do tribunal</option>');
             }
         });
-    });
-</script>
-    <!-- Filepond JS -->
-    <script src="{{ asset('build/assets/libs/filepond/filepond.min.js') }}"></script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('build/assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('build/assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
-    </script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js') }}"></script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.js') }}"></script>
-    <script
-        src="{{ asset('build/assets/libs/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
-    </script>
-    <script
-        src="{{ asset('build/assets/libs/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
-    </script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
-    </script>
-    <script src="{{ asset('build/assets/libs/filepond-plugin-image-transform/filepond-plugin-image-transform.min.js') }}">
-    </script>
 
-    <!-- Dropzone JS -->
-    <script src="{{ asset('build/assets/libs/dropzone/dropzone-min.js') }}"></script>
-
-    <!-- Color Picker JS -->
-    @vite('resources/assets/js/color-picker.js')
-
-    <!-- Date & Time Picker JS -->
-    <script src="{{ asset('build/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
-
-    <!-- FORMELEMENTS JS -->
-    @vite('resources/assets/js/formelementadvnced.js')
+        $('.js-example-basic-single').select2();
+    </script>
 @endsection

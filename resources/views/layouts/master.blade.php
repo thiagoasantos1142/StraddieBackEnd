@@ -29,14 +29,22 @@
 
     <link rel="stylesheet" href="{{ asset('build/assets/libs/sweetalert2/sweetalert2.min.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
     @include('layouts.components.styles')
 
     <!-- APP CSS & APP SCSS -->
     @vite(['resources/sass/app.scss'])
 
-    @vite(['resources/js/configJquery.js'])
 
     @yield('styles')
+
+    <script src="{{ asset('build/assets/jquery-3.7.1.js') }}"></script>
+
+    <!-- Select2 Cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    @vite(['resources/js/importmask.js'])
 
     <style>
         #awn-toast-container {

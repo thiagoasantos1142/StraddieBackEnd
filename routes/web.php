@@ -63,11 +63,9 @@ Route::middleware([
 
         Route::resource('/assets', AssetsController::class);
 
-        Route::post('/addUserCorporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
-        
-        Route::post('/creditRightsTitle', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
-
-        Route::post('/addUserLawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+        Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
+        Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
+        Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
 
     });
 
