@@ -48,6 +48,9 @@ class CreditRightsTitle extends Model
         return $this->belongsToMany(User::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
     }
 
-    
+    public function getPrincipalAmountAttribute($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
 
 }

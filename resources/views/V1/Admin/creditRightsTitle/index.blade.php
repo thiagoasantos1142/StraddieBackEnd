@@ -66,7 +66,8 @@
                                             <td>{{ $titles->crtOriginDebtor->title}}</td>
                                             <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 25) }}</td>
                                       
-                                            <td>R$ {{ number_format($titles->principal_amount, 2, ',', '.') }}</td>
+                                            
+                                            <td>{{ $titles->principal_amount }}</td>
 
 
                                             <td class="align-middle">

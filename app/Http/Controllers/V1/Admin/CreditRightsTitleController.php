@@ -197,8 +197,8 @@ class CreditRightsTitleController extends Controller
                     "name" => "principal_amount",
                     "col" => "4",
                     "class" => "text-danger font-weight-bold", // Adiciona classes CSS para destaque e cor
-                
-                    "value" => $this->formatCurrency($data->principal_amount)
+                    "value" => $data->principal_amount
+                    
                 ],
                 [
                     "label" => "Origem do débito",
@@ -274,13 +274,7 @@ class CreditRightsTitleController extends Controller
     }
 
     // Função para formatar o valor para moeda brasileira
-    private function formatCurrency($value)
-    {
-        // Formatar o valor para duas casas decimais e com o símbolo de R$
-        $formattedValue = 'R$ ' . number_format($value, 2, ',', '.');
-        
-        return $formattedValue;
-    }
+   
 
     private function dateFormat($date){
         if ($date instanceof \DateTime) {
