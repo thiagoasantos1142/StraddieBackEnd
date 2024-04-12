@@ -14,7 +14,7 @@ use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CreditRightsTitleController extends Controller
 {

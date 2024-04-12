@@ -79,7 +79,7 @@ class LawyerController extends Controller
 
     public function addUserLawyer(Request $request)
     {
-        $lawyer = Lawyer::find($request->user_id);
+        $lawyer = Lawyer::find($request->lawyer_id);
 
         $lawyer->update($request->all());
 
