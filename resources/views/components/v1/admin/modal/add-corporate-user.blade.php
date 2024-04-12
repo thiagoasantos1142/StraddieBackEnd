@@ -1,6 +1,5 @@
 <div class="col-xl-6">
-    <input name="corporate_id" type="hidden" value="{{ $organizationId }}">
-    <input name="user_id" type="hidden" value="{{ $userId }}">
+    <input name="custom_request" type="hidden" value="{{ json_encode($customRequest) }}">
     <input name="route" type="hidden" value="{{ $attributes['routeUpdate'] }}">
 
     <div class="card custom-card">

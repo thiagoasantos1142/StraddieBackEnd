@@ -63,7 +63,7 @@
             <x-v1.admin.form.defaultForm ::type="update" :action="route('lawyer.update', ['lawyer' => $lawyer->id])"
                 :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
 
-            <x-v1.admin.modal.addCorporateUser :user-id="$lawyer->id" :data-base="$lawyer->users"
+            <x-v1.admin.modal.addCorporateUser :custom-request="['lawyer_id' => $lawyer->id]" :user-id="$lawyer->id" :data-base="$lawyer->users"
                 :routeUpdate="route('lawyer.add.user')"></x-v1.admin.modal.addCorporateUser>
         </div>
     </div>

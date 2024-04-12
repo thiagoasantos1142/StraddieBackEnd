@@ -17,7 +17,7 @@ use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
 use NumberFormatter;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CreditRightsTitleController extends Controller
 {

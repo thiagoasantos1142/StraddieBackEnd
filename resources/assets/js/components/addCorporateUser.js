@@ -1,4 +1,5 @@
 //global component
+console.log($('[name="custom_request"]').val());
 
 $('[data-modaluser]').on('click', function () {
     $('#addUser').modal('show');
@@ -35,8 +36,7 @@ function createLinesUserAdd(data) {
     //add function btns
     $('[data-adduserincorporate]').on('click', function () {
         const userId = $(this).data('adduserincorporate');
-        const corporateId = $('[name="corporate_id"]').val();
-        updateUserCorporate(userId, corporateId, this, createElementInList(userId));
+        updateUserCorporate(userId, this, createElementInList(userId));
     });
 }
 
@@ -68,11 +68,12 @@ function createLinesTable(arrayData) {
 }
 
 
-async function updateUserCorporate(userId, organizationId, element, func = () => { }) {
+async function updateUserCorporate(userId, element, func = () => { }) {
+    const jsonData = $('[name="custom_request"]').val() && JSON.parse($('[name="custom_request"]').val());
     // pegar as info do form agora
     const data = {
         user_id: userId,
-        organization_id: organizationId
+        ...jsonData
     };
 
     const route = $('[name="route"]').val();
