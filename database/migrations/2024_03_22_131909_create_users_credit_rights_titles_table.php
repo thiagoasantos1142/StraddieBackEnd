@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('credit_rights_title_id');
             $table->primary(['user_id', 'credit_rights_titles_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('credit_right_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('credit_rights_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
