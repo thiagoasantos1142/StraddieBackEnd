@@ -164,7 +164,7 @@ class CreditRightsTitleController extends Controller
 
         $creditRightsTitle->update($request->all());
 
-        return view('v1.admin.creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
+        return redirect()->route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
     }
 
     /**
@@ -217,7 +217,7 @@ class CreditRightsTitleController extends Controller
                 ],
                 [
                     "label" => "Numero do processo",
-                    "name" => " process_number",
+                    "name" => "process_number",
                     "col" => "4",
                     "value" => $data->process_number
                 ],

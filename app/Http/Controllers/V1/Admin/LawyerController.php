@@ -23,14 +23,14 @@ class LawyerController extends Controller
 
         $dataForm = $this->formCreateUpdate($lawyer); //localizado em config
 
-        return view('V1.Admin.lawyer.show', compact('lawyer','dataForm'));
+        return view('V1.Admin.lawyer.show', compact('lawyer', 'dataForm'));
     }
 
 
     public function create()
     {
-        $users = User::all();
-        return view('V1.Admin.lawyer..create');
+        $dataForm = $this->formCreateUpdate();
+        return view('V1.Admin.lawyer.create', compact('dataForm'));
     }
 
     public function store(Request $request)
@@ -87,7 +87,7 @@ class LawyerController extends Controller
     }
 
 
-    public function formCreateUpdate($data)
+    public function formCreateUpdate($data = null)
     {
         return [
             "inputs" => [
@@ -95,25 +95,25 @@ class LawyerController extends Controller
                     "label" => "Nome",
                     "name" => "name",
                     "col" => "6",
-                    "value" => $data->name
+                    "value" => $data->name ?? null
                 ],
                 [
                     "label" => "Título",
                     "name" => "title",
                     "col" => "6",
-                    "value" => $data->title
+                    "value" => $data->title ?? null
                 ],
                 [
                     "label" => "Número da OAB",
                     "name" => "OAB_number",
                     "col" => "6",
-                    "value" => $data->OAB_number
+                    "value" => $data->OAB_number ?? null
                 ],
                 [
                     "label" => "UF",
                     "name" => "UF",
                     "col" => "6",
-                    "value" => $data->UF
+                    "value" => $data->UF ?? null
                 ],
             ]
         ];

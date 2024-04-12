@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Dados da empresa</h4>
+            <h4 class="card-title">{{$attributes['dataForm']['card']['name'] ?? 'não definido'}}</h4>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ $attributes['action'] }}">

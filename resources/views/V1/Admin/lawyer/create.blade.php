@@ -17,87 +17,30 @@
         </div>
     </div>
     <!-- PAGE-HEADER END -->
-                     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="main-container container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Dados do Advogado</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('lawyer.store') }}">
-                            @csrf
-                            <div class="">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="name" class="form-label">Nome</label>
-                                        <input type="text"
-                                            class="form-control  @error('name') is-invalid @enderror" id="name"
-                                            name="name" placeholder="Nome"
-                                            value="{{ old('name') ?? '' }}">
-                                        @error('name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div> 
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="title" class="form-label">Title</label>
-                                        <input type="text"
-                                            class="form-control @error('title') is-invalid @enderror" id="title"
-                                            name="title" placeholder="Titulo"
-                                            value="{{ old('title') ?? '' }}">
-                                        @error('title')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="OAB_number" class="form-label">Numero da OAB</label>
-                                        <input type="text" class="form-control @error('OAB_number') is-invalid @enderror"
-                                            id="OAB_number" name="OAB_number" placeholder="Numero da OAB"
-                                            value="{{ old('OAB_number') ?? '' }}">
-                                        @error('OAB_number')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="UF" class="form-label">UF</label>
-                                        <input type="text"
-                                            class="form-control @error('UF') is-invalid @enderror"
-                                            id="UF" name="UF" placeholder="UF"
-                                            value="{{ old('UF') ?? '' }}">
-                                        @error('UF')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>                                   
-                                   
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Salvar Advogado</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <x-v1.admin.form.defaultForm :action="route('lawyer.store')"
+                :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
         </div>
     </div>
 @endsection

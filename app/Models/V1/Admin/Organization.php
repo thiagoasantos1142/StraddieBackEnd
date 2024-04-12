@@ -2,6 +2,7 @@
 
 namespace App\Models\V1\Admin;
 
+use App\Helpers\CustomHelpers;
 use App\Models\Address;
 use App\Models\Contact;
 use App\Models\OrganizationType;
@@ -13,8 +14,8 @@ class Organization extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'organization_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id','email'];
-    
+    protected $fillable = ['user_id', 'organization_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id', 'email'];
+
 
     public function users()
     {
@@ -40,5 +41,18 @@ class Organization extends Model
     public function users_organization()
     {
         return $this->hasMany(User::class, 'organization_id');
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        return CustomHelpers::formatDate($value);
+    }
+    public function getCnpjAttribute($value)
+    {
+        return CustomHelpers::formatCnpj($value);
+    }
+
+    public function setCnpjAttribute($value)
+    {
+        $this->attributes['cnpj'] = CustomHelpers::removeFormat($value);
     }
 }

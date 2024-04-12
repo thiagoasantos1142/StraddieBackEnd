@@ -17,119 +17,31 @@
         </div>
     </div>
     <!-- PAGE-HEADER END -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="main-container container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Dados da empresa</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('organization.store') }}">
-                            @csrf
-                            <div class="">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Razão social</label>
-                                        <input type="text"
-                                            class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
-                                            name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? '' }}">
-                                        @error('razao_social')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="fantasy" class="form-label">Nome fantasia</label>
-                                        <input type="text"
-                                            class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
-                                            name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? '' }}">
-                                        @error('nome_fantasia')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="cnpj" class="form-label">Cnpj</label>
-                                        <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
-                                            id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? '' }}">
-                                        @error('cnpj')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="estadual" class="form-label">Inscrição estadual (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('state_registration') is-invalid @enderror"
-                                            id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? '' }}">
-                                        @error('state_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="municipal" class="form-label">Inscrição municipal (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('municipal_registration') is-invalid @enderror"
-                                            id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? '' }}">
-                                        @error('municipal_registration')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                            placeholder="E-mail" value="{{ old('email') ?? '' }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="organization_type_id" class="form-label">Tipo Empresa</label>
-                                        <select class="form-select select" id="organization_type_id" name="organization_type_id">
-                                            <option value="">Selecione o tipo da empresa</option>
-                                            @foreach($organisation_types as $types)
-                                                <option value="{{ $types->id }}" @if(old('organization_type_id') == $types->id) selected @endif>{{ $types->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                   
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Salvar empresa</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <x-v1.admin.form.defaultForm :action="route('organization.store')"
+                :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
         </div>
     </div>
 @endsection
@@ -148,8 +60,7 @@
                     <div class="row">
                         <div class="col-xl-5">
                             <div>
-                                <img src="{{ asset('build/assets/images/media/33.jpg') }}" class="rounded-2"
-                                    alt="img">
+                                <img src="{{ asset('build/assets/images/media/33.jpg') }}" class="rounded-2" alt="img">
                             </div>
                         </div>
                         <div class="col-xl-7">

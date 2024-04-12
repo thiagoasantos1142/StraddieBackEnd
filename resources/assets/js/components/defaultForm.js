@@ -16,6 +16,8 @@ function addFunctionToForm() {
                 // $(this).text('Editar');
                 // formInputs.prop('disabled', true);
             }
+        }else{
+            form.trigger( "submit" );
         }
     })
 }

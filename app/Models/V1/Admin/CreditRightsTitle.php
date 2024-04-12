@@ -2,6 +2,7 @@
 
 namespace App\Models\V1\Admin;
 
+use App\Helpers\CustomHelpers;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,8 @@ class CreditRightsTitle extends Model
         'nature_obligation_id',
         'origin_debtor_id',
         'principal_amount',
-        'vara_id'
+        'vara_id',
+        'process_number'
        
     ];
 
@@ -51,6 +53,11 @@ class CreditRightsTitle extends Model
     public function getPrincipalAmountAttribute($value)
     {
         return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+
+    public function setPrincipalAmountAttribute($value)
+    {
+        $this->attributes['principal_amount'] = CustomHelpers::removeFormatMoney($value);
     }
 
 }

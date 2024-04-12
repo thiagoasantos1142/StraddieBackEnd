@@ -32,23 +32,24 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        $organisation_types = OrganizationType::all(); 
-        return view('v1.admin.organization.create', compact('organisation_types'));
+        $organisation_types = OrganizationType::all();
+        $dataForm = $this->formCreateUpdate();
+        return view('v1.admin.organization.create', compact('organisation_types','dataForm'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $validator = Validator::make(
             $request->all(),
             [
                 'razao_social' => 'required|string|max:255',
                 'nome_fantasia' => 'required|string|max:255',
                 'cnpj' => 'required|string|min:14|max:18',
-               // 'state_registration' => 'string',
-               // 'municipal_registration' => 'string',
+                // 'state_registration' => 'string',
+                // 'municipal_registration' => 'string',
                 'organization_type_id' => 'required|int',
                 'email' => 'required|email',
             ]
@@ -96,11 +97,11 @@ class OrganizationController extends Controller
                 'nome_fantasia' => 'required|string|max:255',
                 'cnpj' => 'required|string|min:14|max:18',
                 //'state_registration' => 'string',
-               // 'municipal_registration' => 'string',
-                'entidade_type_id' => 'required|int',
+                // 'municipal_registration' => 'string',
+                'organization_type_id' => 'required|int',
                 'email' => 'required|email',
-            ]
-        );
+                ]
+            );
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -121,11 +122,11 @@ class OrganizationController extends Controller
         //
     }
 
-
-    public function formCreateUpdate($data)
+    public function formCreateUpdate($data = null)
     {
         return [
-            "form" => [
+            "card" => [
+                "name" => 'Dados da empresa'
                 // "method" => "POST",
                 // "name" => [
                 //     "create" => "company.store",
@@ -138,7 +139,7 @@ class OrganizationController extends Controller
                     "label" => "Razão social",
                     "name" => "razao_social",
                     "col" => "6",
-                    "value" => $data->razao_social
+                    "value" => $data->razao_social ?? null
                     // placeholder
                     // label
                     // value
@@ -149,39 +150,39 @@ class OrganizationController extends Controller
                     "label" => "Nome fantasia",
                     "name" => "nome_fantasia",
                     "col" => "6",
-                    "value" => $data->nome_fantasia
+                    "value" => $data->nome_fantasia ?? null
                 ],
                 [
                     "label" => "Cnpj",
                     "name" => "cnpj",
                     "col" => "6",
-                    "value" => $data->cnpj,
+                    "value" => $data->cnpj ?? null,
                     "class" => "cnpj-input"
                 ],
                 [
                     "label" => "Inscrição estadual",
                     "name" => "state_registration",
                     "col" => "3",
-                    "value" => $data->state_registration
+                    "value" => $data->state_registration ?? null
                 ],
                 [
                     "label" => "Inscrição municipal",
                     "name" => "municipal_registration",
                     "col" => "3",
-                    "value" => $data->municipal_registration
+                    "value" => $data->municipal_registration ?? null
                 ],
                 [
                     "label" => "E-mail",
                     "name" => "email",
                     "col" => "6",
-                    "value" => $data->email
+                    "value" => $data->email ?? null
                 ],
                 [
                     "label" => "Tipo instituição",
-                    "name" => "entidade_type_id",
+                    "name" => "organization_type_id",
                     "col" => "6",
                     "input" => "select",
-                    "value" => $data->organization_type_id,
+                    "value" => $data->organization_type_id ?? null,
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
                     "options" => OrganizationType::get()
