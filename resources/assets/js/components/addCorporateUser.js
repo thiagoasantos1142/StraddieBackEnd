@@ -1,16 +1,26 @@
 //global component
-console.log($('[name="custom_request"]').val());
+let mainComponent = null;
 
 $('[data-modaluser]').on('click', function () {
-    $('#addUser').modal('show');
+    switch ($(this).data('modaluser')) {
+        case 'search':
+            mainComponent = $(this).parents("[name='container-main']");
+            const modal = mainComponent.find("[name='addUser']");
+            modal.modal('show');
+            break;
+
+        default:
+            break;
+    }
+    // $('[#addUser]').modal('show');
 });
 
 [
     ['keyup', searchUser],
 ].forEach(([event, listener]) => {
-    document.querySelector("#serarchuser").addEventListener(event, async function () {
+    $("[name='serarchuser']").on(event, async function () {
         listener(this);
-    });
+    })
 });
 
 function searchUser(element) {
@@ -30,13 +40,14 @@ async function getUsers(val) {
 
 
 function createLinesUserAdd(data) {
-    const usersTable = $('#users-search-table');
+    const usersTable = mainComponent.find("[name='search-data']");
     const elementsTable = createLinesTable(data);
     usersTable.html(elementsTable);
     //add function btns
     $('[data-adduserincorporate]').on('click', function () {
         const userId = $(this).data('adduserincorporate');
-        updateUserCorporate(userId, this, createElementInList(userId));
+        const jsonData = mainComponent.find('[name="custom_request"]').val() && JSON.parse($('[name="custom_request"]').val());
+        updateUserCorporate(userId, jsonData, this, createElementInList(userId));
     });
 }
 
@@ -68,8 +79,7 @@ function createLinesTable(arrayData) {
 }
 
 
-async function updateUserCorporate(userId, element, func = () => { }) {
-    const jsonData = $('[name="custom_request"]').val() && JSON.parse($('[name="custom_request"]').val());
+async function updateUserCorporate(userId, jsonData, element, func = () => { }) {
     // pegar as info do form agora
     const data = {
         user_id: userId,
@@ -78,7 +88,7 @@ async function updateUserCorporate(userId, element, func = () => { }) {
 
     console.log(data);
 
-    const route = $('[name="route"]').val();
+    const route = mainComponent.find('[name="route"]').val();
 
     await axios.post(route, data)
         .then(function (response) {
@@ -125,6 +135,7 @@ function addRemoveCorporateBtn() {
 }
 
 function removeUserCorporate(element) {
+    mainComponent = $(element).parents("[name='container-main']");
     Swal.fire({
         title: 'Remover colaborador?',
         text: "Esta ação irá remover o colaborador da empresa. Tem certeza que deseja continuar?",
@@ -137,7 +148,6 @@ function removeUserCorporate(element) {
     }).then(async (result) => {
         if (result.isConfirmed) {
             //executar a função de update para remover
-            console.log($(element).data('removeusercorporate'));
             await updateUserCorporate($(element).data('removeusercorporate'), null, null);
             removeListUser(element);
         }
@@ -146,6 +156,7 @@ function removeUserCorporate(element) {
 
 function removeListUser(element) {
     const liElement = $(element).parent().parent();
+    console.log($(element).parent().parent());
     liElement.fadeOut();
     setTimeout(() => {
         liElement.remove();
@@ -154,12 +165,13 @@ function removeListUser(element) {
 
 async function createElementInList(userId) {
     //verifica se o elemento já existe
-    const element = $(`[data-removeusercorporate="${userId}"]`);
+    //usar o this para pegar apenas desta tabela
+
+    const element = mainComponent.find(`[data-removeusercorporate="${userId}"]`);
     if (!!element.length) {
         return;
     }
     const { data } = await getUser(userId);
-
     const newdiv = `
     <li>
         <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
@@ -171,7 +183,7 @@ async function createElementInList(userId) {
         </a>
     </li>
     `
-    $(`#list-users-colaborate`).append(newdiv);
+    mainComponent.find(`[name="show-date"]`).append(newdiv);
     addRemoveCorporateBtn();
 }
 
