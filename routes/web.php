@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Admin\DashboardController;
+use App\Http\Controllers\V1\Admin\FileController;
 use App\Http\Controllers\V1\Admin\LawyerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\V1\Admin\AssetsController;
@@ -68,6 +69,9 @@ Route::middleware([
         Route::post('/creditRightsTitle', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
 
         Route::post('/addUserLawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+
+        Route::post('/upload', [FileController::class, 'upload']);
+        Route::get('/download/{fileName}', [FileController::class, 'download']);
 
     });
 
