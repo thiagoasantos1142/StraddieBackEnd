@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="{{ asset('build/assets/libs/@simonwep/pickr/themes/monolith.min.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
 
+     <!-- Inclua o jQuery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Inclua o jQuery Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
     <!-- FlatPickr CSS -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/flatpickr/flatpickr.min.css') }}">
 @endsection
@@ -131,6 +137,13 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $('.cnpj-input').mask('00.000.000/0000-00', {reverse: true});
+        });
+    </script>
+
     <!-- Filepond JS -->
     <script src="{{ asset('build/assets/libs/filepond/filepond.min.js') }}"></script>
     <script src="{{ asset('build/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
@@ -166,4 +179,8 @@
 
     <!-- FORMELEMENTS JS -->
     @vite('resources/assets/js/formelementadvnced.js')
+
+   
+   
+
 @endsection

@@ -30,7 +30,7 @@ class CreditRightsTitle extends Model
     }
     public function crtNatureCredit()
     {
-        return $this->belongsTo(crtNatureCredit::class, 'nature_credit_id');
+        return $this->belongsTo(CrtNatureCredit::class, 'nature_credit_id');
     }
 
     public function court()

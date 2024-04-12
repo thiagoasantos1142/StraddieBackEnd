@@ -95,8 +95,8 @@ class OrganizationController extends Controller
                 'razao_social' => 'required|string|max:255',
                 'nome_fantasia' => 'required|string|max:255',
                 'cnpj' => 'required|string|min:14|max:18',
-                'state_registration' => 'string',
-                'municipal_registration' => 'string',
+                //'state_registration' => 'string',
+               // 'municipal_registration' => 'string',
                 'entidade_type_id' => 'required|int',
                 'email' => 'required|email',
             ]
@@ -155,7 +155,8 @@ class OrganizationController extends Controller
                     "label" => "Cnpj",
                     "name" => "cnpj",
                     "col" => "6",
-                    "value" => $data->cnpj
+                    "value" => $data->cnpj,
+                    "class" => "cnpj-input"
                 ],
                 [
                     "label" => "Inscrição estadual",

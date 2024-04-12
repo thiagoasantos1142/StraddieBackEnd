@@ -54,15 +54,17 @@
                                 <tbody>
                                     @foreach ($creditRightsTitles as $titles)
                                         <tr>
-                                            <td>{{ $titles->about }}</td>
-                                            <td>{{ $titles->court->title }}</td>
+                                            
+                                            <td title="{{ $titles->title }}">{{ substr($titles->title, 0, 25) }}</td>
+                                            <td title="{{ $titles->court->title }}">{{ substr($titles->court->title, 0, 25) }}</td>
+                                      
                                             <td>
                                                 @foreach ($titles->users_titles as $beneficiary)
                                                     <button type="button" class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
                                                 @endforeach
                                             </td> 
                                             <td>{{ $titles->crtOriginDebtor->title}}</td>
-                                            <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 15) }}</td>
+                                            <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 25) }}</td>
                                       
                                             <td>R$ {{ number_format($titles->principal_amount, 2, ',', '.') }}</td>
 
