@@ -47,6 +47,7 @@ class CustomHelpers
      */
     public static function removeFormatMoney($value)
     {
-        return str_replace(',', '.', $value);
+        $removePinters = str_replace('.', '', $value);
+        return str_replace(',', '.', $removePinters);
     }
 }
