@@ -103,8 +103,7 @@ export default defineConfig({
                         'resources/assets/js/show-password.js',
                         'resources/assets/js/filemanager-list.js',
                         'resources/assets/js/apexcharts-stock-prices.js',
-                        'resources/js/jquery-3.7.1.js',
-                        ''
+                        'resources/js/jquery-3.7.1.js'
                     ]),
                     dest: 'assets/'
                 }
