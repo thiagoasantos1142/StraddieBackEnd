@@ -18,13 +18,30 @@ class CreditRightsTitle extends Model
         'origin_debtor_id',
         'principal_amount',
         'vara_id',
-        'process_number'
+        'process_number',
+        'class'
        
     ];
 
     use HasFactory;
 
-  
+    // Método para manipular os dados antes de salvar
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     // Manipulação dos dados antes de salvar
+    //     static::saving(function ($creditRightsTitle) {
+    //         // Verifica se o campo principal_amount está definido e não é nulo
+    //         if (isset($creditRightsTitle->principal_amount) && !is_null($creditRightsTitle->principal_amount)) {
+    //             // Remove qualquer caracter não numérico, exceto o ponto decimal
+    //             $creditRightsTitle->principal_amount = preg_replace('/[^0-9.]/', '', $creditRightsTitle->principal_amount);
+
+    //             // Converte o valor para float
+    //             $creditRightsTitle->principal_amount = floatval($creditRightsTitle->principal_amount);
+    //         }
+    //     });
+    // }
 
     public function crtOriginDebtor()
     {

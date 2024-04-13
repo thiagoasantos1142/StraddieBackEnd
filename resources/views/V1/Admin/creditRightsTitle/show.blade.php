@@ -49,12 +49,12 @@
                 </div>
             </div>
 
-            <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $title->id])"
+            <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
                 :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
 
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $title->id]" :data-base="$title->users_titles"
+            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $creditRightsTitle->id]" :data-base="$creditRightsTitle->users_titles"
                 :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <x-v1.admin.modal.createAddress :title-id="$title->id"></x-v1.admin.modal.createAddress>
+    <x-v1.admin.modal.createAddress :title-id="$creditRightsTitle->id"></x-v1.admin.modal.createAddress>
 @endsection
 
 @section('scripts')

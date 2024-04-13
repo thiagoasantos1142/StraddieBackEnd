@@ -65,16 +65,16 @@ class CreditRightsTitleController extends Controller
         // Validação dos dados do formulário
         $validator = Validator::make($request->all(), [
             'process_number' => 'required|string|max:255',
-            
+            'class' => 'required',
             'title' => 'string',
-            'specie_id' => 'string',
+            'specie_id' => 'required',
             'court_id' => 'required|int',
             'nature_credit_id' => 'required',
             'nature_obligation_id'  => 'required',
             'origin_debtor_id'  => 'required',
             'principal_amount'  => 'required',
             'vara_id' => 'required',
-            'file' => 'required|file|max:2048'
+            'file' => 'required|file'
         ]);
 
         if ($validator->fails()) {
@@ -107,11 +107,17 @@ class CreditRightsTitleController extends Controller
             $document->save();
 
             // Redireciona para a página de exibição do título
-            return redirect()->route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
+            //form controller;
+            $users = User::get();
+            $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
         }
 
+        //mostrar todas os titulos
+        $creditRightsTitles = CreditRightsTitle::all();
+
         // Se não houver arquivo enviado, retorna com uma mensagem de erro
-        return redirect()->back()->with('error', 'Nenhum arquivo enviado.');
+        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitle'))->with('error', 'Falha ao cadastrar titulo .');
     }
     /**
      * Display the specified resource.
@@ -120,9 +126,9 @@ class CreditRightsTitleController extends Controller
     {
         //form controller;
         $users = User::get();
-        $title = CreditRightsTitle::with('users_titles')->find($id);
-        $dataForm = $this->formCreateUpdate($title); //localizado em config
-        return view('v1.admin.creditRightsTitle.show', compact('title', 'dataForm', 'users'));
+        $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
+        $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
+        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
     }
 
     /**
