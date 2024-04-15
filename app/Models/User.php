@@ -86,7 +86,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
-    
-    
 
+    public function lawyer()
+    {
+        return $this->hasOne(Lawyer::class, 'user_id');
+    }
 }

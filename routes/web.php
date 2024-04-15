@@ -23,6 +23,8 @@ use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\V1\Admin\AddressController;
+use App\Http\Controllers\V1\Admin\CrtLwyerController;
+use App\Http\Controllers\V1\Admin\UsersCreditRigtsTitleController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
 /*
@@ -58,6 +60,8 @@ Route::middleware([
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         Route::resource('/users', UserController::class);
+        Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
+        Route::resource('/crtLwyerController', CrtLwyerController::class);
         Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
 
         
@@ -67,6 +71,10 @@ Route::middleware([
         Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
         Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
         Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+
+        Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class,'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
+        Route::post('/deleteLawyerCreditRigtsTitle', [CrtLwyerController::class,'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
+        Route::post('/deleteLawyerToUser', [LawyerController::class,'deleteLawyerToUser'])->name('deleteLawyerToUser');
         
         Route::post('/upload', [FileController::class, 'upload'])->name('upload.file');
         Route::post('/upload/crtDocument', [FileController::class, 'uploadCrtDocument'])->name('upload.crtDocument');

@@ -101,7 +101,7 @@ class CreditRightsTitleController extends Controller
             // Salva o link do arquivo na tabela crt_documents
             $document = new CrtDocuments();
             $document->credit_rights_title_id = $creditRightsTitle->id;
-            
+
             $document->file_name = $fileName;
             $document->file_path = $path;
             $document->save();
@@ -136,7 +136,11 @@ class CreditRightsTitleController extends Controller
         $users = User::get();
         $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
         $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
+        $lawyers = User::whereHas('lawyer.crt_lawyer', function ($query) use ($id) {
+            $query->where('credit_rights_title_id', $id);
+        })->get();
+    
+        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users','lawyers'));
     }
 
     /**
@@ -199,6 +203,13 @@ class CreditRightsTitleController extends Controller
             ['user_id' => $request->user_id, 'credit_rights_title_id' => $request->credit_rights_title_id],
             $request->all()
         );
+
+        return response()->json(["message" => "success."], 200);
+    }
+
+    public function deleteUserTitle(Request $request)
+    {
+        UsersCreditRightsTitle::where('user_id', $request->user_id, 'credit_rights_title_id', $request->credit_rights_title_id)->delete();
 
         return response()->json(["message" => "success."], 200);
     }

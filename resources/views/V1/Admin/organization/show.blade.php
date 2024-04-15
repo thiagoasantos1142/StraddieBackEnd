@@ -76,7 +76,7 @@
 
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :custom-request="['organization_id' => $organization->id]" :data-base="$organization->users_organization" :routeUpdate="route('corporate.add.user')"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :show-data="$organization->users_organization" ::action-btnremove="update" :routeUpdate="route('corporate.add.user')" :data-component="['organization_id' => $organization->id]"></x-v1.admin.modal.addCorporateUser>
             {{-- @aqui --}}
 
             <div class="col-xl-6" id="section-address">

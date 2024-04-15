@@ -1,10 +1,14 @@
 <div class="col-xl-6" name="container-main">
-    <input name="custom_request" type="hidden" value="{{ json_encode($customRequest) }}">
-    <input name="route" type="hidden" value="{{ $attributes['routeUpdate'] }}">
+    <input name="route_update" type="hidden" value="{{ $attributes['routeUpdate'] }}">
+    <input name="route_create" type="hidden" value="{{ $attributes['routeCreate'] }}">
+    <input name="route_delete" type="hidden" value="{{ $attributes['routeDelete'] }}">
+
+    <input name="action_btnremove" type="hidden" value="{{ $attributes[':action-btnremove'] }}">
+    <input name="data_component" type="hidden" value="{{ json_encode($dataComponent) }}">
 
     <div class="card custom-card">
         <div class="card-header d-flex justify-content-between">
-            <div class="card-title">Atribuir um usuario</div>
+            <div class="card-title">{{$attributes[':title-card'] ?? 'Atribuir um usuario'}}</div>
             <div class="d-flex">
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary" data-modaluser="search">Atribuir
@@ -27,7 +31,7 @@
             <div class="text-wrap">
                 <div class="dropdown-samples">
                     <ul class=" dropdown-scroll" name="show-date">
-                        @foreach ($dataBase as $user)
+                        @foreach ($showData as $user)
                             <li>
                                 <a class="dropdown-item d-flex flex-row justify-content-between"
                                     href="javascript:void(0);">
@@ -38,7 +42,7 @@
                                     </div>
                                     <button type="button" class="btn btn-sm btn-secondary"
                                         data-removeusercorporate={{ $user->id }}><i
-                                            class="fe fe-minus me-2"></i>remover</button>
+                                            class="fe fe-minus me-2"  data-removebtn="update"></i>remover</button>
                                 </a>
                             </li>
                         @endforeach
@@ -82,23 +86,7 @@
                     </div>
 
                     <ul class="list-group list-scroll" name="search-data">
-                        {{-- <li class="list-group-item br-ts-5 br-te-5">
-                        <div class="d-flex align-items-center">
-                            <span class="avatar avatar-md rounded-circle">
-                                <img src="{{ asset('build/assets/images/users/1.jpg') }}" class="rounded-circle"
-                                    alt="img">
-                            </span>
-                            <div class="ms-3">
-                                <p class="mb-0 fs-14">Morbi leo risus</p>
-                                <span class="clearfix"></span>
-                                <small class="text-muted fs-12">Classic marinara sauce, authentic</small>
-                            </div>
-                            <div class="ms-auto">
-                                <span class="badge bg-light text-dark p-2"><i
-                                        class="bi bi-circle-fill fs-8 me-1 text-success"></i> Online</span>
-                            </div>
-                        </div>
-                    </li> --}}
+                       
                     </ul>
                 </div>
             </div>

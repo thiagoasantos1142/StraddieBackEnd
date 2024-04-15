@@ -76,59 +76,13 @@
 
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :custom-request="['credit_rights_title_id' => $creditRightsTitle->id]" :data-base="$creditRightsTitle->users_titles"
-                :routeUpdate="route('creditRightsTitle.add.user')"></x-v1.admin.modal.addCorporateUser>
+            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$creditRightsTitle->users_titles" :routeUpdate="route('creditRightsTitle.add.user')"
+                :routeDelete="route('deleteUsersCreditRigtsTitle')"
+                ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
-            <div class="col-xl-12" id="section-documents">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">Arquivos</div>
-                        <div class="d-flex">
-                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFileModal"
-                                class="btn btn-primary btn-block float-end"><i class="fa fa-plus-square me-2"></i>Adicionar
-                                arquivo</a>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush" data-documents>
-                        @foreach ($creditRightsTitle->crtDocuments as $document)
-                            <li class="list-group-item" data-iddocuments="{{ $document->id }}">
-                                <div class="d-flex flex-row justify-content-between">
-                                    <div class="col-xl-10 col-md-12">
-                                        <div class="card ribbone-card">
-                                            <div class="card-body p-12">
-                                                <h6 class="card-subtitle mb-2 text-dark fw-bold">{{ $document->file_name }}</h6>
-                                                <p class="card-text">Data de Upload: {{ $document->created_at->format('d/m/Y H:i') }}</p>
-                                                <form action="{{ route('download.file', $document->id) }}" method="GET">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary">Baixar</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="btn-list">
-                                       
-                                        <button class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
-                                            data-modaldocuments data-typeaction="delete" type="button"><i
-                                                class="bi bi-trash"></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @if ($creditRightsTitle->crtDocuments->count() == 0)
-                        <div class="card-body">
-                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
-                                data-bs-toggle="modal" data-bs-target="#documents">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Adicione um arquivo +</p>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
-                </div>
-            </div>
-                
-            
+            {{-- @aqui --}}
+            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers"
+                :routeUpdate="route('crtLwyerController.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
 
         </div>

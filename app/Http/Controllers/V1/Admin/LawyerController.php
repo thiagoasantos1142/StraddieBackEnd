@@ -86,6 +86,17 @@ class LawyerController extends Controller
         return response()->json(["message" => "success."], 200);
     }
 
+    public function deleteLawyerToUser(Request $request)
+    {
+        $lawyer = Lawyer::find($request->lawyer_id);
+
+        $request->merge(["user_id" => null]);
+
+        $lawyer->update($request->all());
+
+        return response()->json(["message" => "success."], 200);
+    }
+
 
     public function formCreateUpdate($data = null)
     {

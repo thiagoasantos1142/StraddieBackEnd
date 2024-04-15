@@ -1,5 +1,6 @@
 //global component
 let mainComponent = null;
+const actionBtnRemove = $('[name="action_btnremove"]').val();
 
 $('[data-modaluser]').on('click', function () {
     switch ($(this).data('modaluser')) {
@@ -46,8 +47,8 @@ function createLinesUserAdd(data) {
     //add function btns
     $('[data-adduserincorporate]').on('click', function () {
         const userId = $(this).data('adduserincorporate');
-        const jsonData = mainComponent.find('[name="custom_request"]').val() && JSON.parse($('[name="custom_request"]').val());
-        updateUserCorporate(userId, jsonData, this, createElementInList(userId));
+        const objectData = mainComponent.find('[name="data_component"]').val() && JSON.parse($('[name="data_component"]').val());
+        updateUserCorporate(userId, objectData, this, createElementInList(userId));
     });
 }
 
@@ -79,16 +80,39 @@ function createLinesTable(arrayData) {
 }
 
 
-async function updateUserCorporate(userId, jsonData, element, func = () => { }) {
+async function updateUserCorporate(userId, objectData, element, func = () => { }) {
     // pegar as info do form agora
     const data = {
         user_id: userId,
-        ...jsonData
+        ...objectData
     };
 
-    console.log(data);
+    const route = mainComponent.find('[name="route_update"]').val();
 
-    const route = mainComponent.find('[name="route"]').val();
+    await axios.post(route, data)
+        .then(function (response) {
+            if (element) {
+                $(element).fadeOut();
+            }
+            if (func && typeof func === 'function') {
+                func();
+            }
+            openAlert('success', 'endereço salvo com sucesso.');
+        })
+        .catch(function (error) {
+            openAlert('alert', 'Erro ao salvar endereço.');
+            console.error('Erro ao enviar formulário:', error);
+        });
+}
+
+async function deletRegister(userId, objectData, element, func = () => { }) {
+    // pegar as info do form agora
+    const data = {
+        user_id: userId,
+        ...objectData
+    };
+
+    const route = mainComponent.find('[name="route_delete"]').val();
 
     await axios.post(route, data)
         .then(function (response) {
@@ -148,10 +172,32 @@ function removeUserCorporate(element) {
     }).then(async (result) => {
         if (result.isConfirmed) {
             //executar a função de update para remover
-            await updateUserCorporate($(element).data('removeusercorporate'), null, null);
+            //verificar qual rota executar
+            if (actionBtnRemove === 'update') {
+                const data = JSON.parse($('[name="data_component"]').val());
+                const nullDate = setKeysNull(data);
+                await updateUserCorporate($(element).data('removeusercorporate'), nullDate, null, null);
+            } else if (actionBtnRemove === 'delete') {
+                //executar outra rota
+                const objectData = mainComponent.find('[name="data_component"]').val() && JSON.parse($('[name="data_component"]').val());
+                await deletRegister($(element).data('removeusercorporate'), objectData, null, null);
+            }
+
+
             removeListUser(element);
         }
     })
+}
+
+function setKeysNull(obj) {
+    var keys = Object.keys(obj);
+    var newObj = {};
+
+    keys.forEach(function (key) {
+        newObj[key] = null;
+    });
+
+    return newObj;
 }
 
 function removeListUser(element) {

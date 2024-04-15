@@ -25,4 +25,9 @@ class Lawyer extends Model
     {
         return $this->hasMany(User::class, 'id', 'user_id');
     }
+
+    public function crt_lawyer()
+    {
+        return $this->hasOne(CrtLawyer::class, 'lawyer_id', 'id');
+    }
 }
