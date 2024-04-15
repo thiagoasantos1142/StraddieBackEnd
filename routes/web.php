@@ -69,7 +69,8 @@ Route::middleware([
         Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
         
         Route::post('/upload', [FileController::class, 'upload'])->name('upload.file');
-        Route::get('/download/{fileName}', [FileController::class, 'download']);
+        Route::post('/upload/crtDocument', [FileController::class, 'uploadCrtDocument'])->name('upload.crtDocument');
+        Route::get('/download/{fileName}', [FileController::class, 'download'])->name('download.file');
 
     });
 

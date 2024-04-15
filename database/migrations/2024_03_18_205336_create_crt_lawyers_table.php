@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('crt_lawyers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('lawyer_id');
-            $table->unsignedBigInteger('credit_rights_titles_id');
+            $table->unsignedBigInteger('credit_rights_title_id');
             $table->timestamps();
             
             $table->foreign('lawyer_id')->references('id')->on('lawyers')->onDelete('cascade');
-            $table->foreign('credit_rights_titles_id')->references('id')->on('credit_rights_titles')->onDelete('cascade');
+            $table->foreign('credit_rights_title_id')->references('id')->on('credit_right_titles')->onDelete('cascade');
         });
     }
 

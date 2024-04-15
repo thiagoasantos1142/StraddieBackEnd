@@ -439,7 +439,7 @@
                                                                                                         <label class="form-label">Tipo Sociedade Empresárial</label>
                                                                                                     </div>
                                                                                                     <div class="col-md-10">
-                                                                                                        <input type="text" class="form-control" placeholder="entidade_type" value="{{$user->organization->EntidadeType->title}}">
+                                                                                                        <input type="text" class="form-control" placeholder="entidade_type" value="{{$user->organization->organizationType->title}}">
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

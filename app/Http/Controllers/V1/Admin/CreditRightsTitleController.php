@@ -74,7 +74,7 @@ class CreditRightsTitleController extends Controller
             'origin_debtor_id'  => 'required',
             'principal_amount'  => 'required',
             'vara_id' => 'required',
-            'file' => 'required|file'
+            'file' => 'file'
         ]);
 
         if ($validator->fails()) {
@@ -106,6 +106,14 @@ class CreditRightsTitleController extends Controller
             $document->file_path = $path;
             $document->save();
 
+            // Redireciona para a página de exibição do título
+            //form controller;
+            $users = User::get();
+            $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
+        }else{
+            // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
+            $creditRightsTitle = CreditRightsTitle::create($request->all());
             // Redireciona para a página de exibição do título
             //form controller;
             $users = User::get();

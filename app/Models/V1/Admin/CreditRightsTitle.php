@@ -25,23 +25,6 @@ class CreditRightsTitle extends Model
 
     use HasFactory;
 
-    // Método para manipular os dados antes de salvar
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     // Manipulação dos dados antes de salvar
-    //     static::saving(function ($creditRightsTitle) {
-    //         // Verifica se o campo principal_amount está definido e não é nulo
-    //         if (isset($creditRightsTitle->principal_amount) && !is_null($creditRightsTitle->principal_amount)) {
-    //             // Remove qualquer caracter não numérico, exceto o ponto decimal
-    //             $creditRightsTitle->principal_amount = preg_replace('/[^0-9.]/', '', $creditRightsTitle->principal_amount);
-
-    //             // Converte o valor para float
-    //             $creditRightsTitle->principal_amount = floatval($creditRightsTitle->principal_amount);
-    //         }
-    //     });
-    // }
 
     public function crtOriginDebtor()
     {
@@ -65,6 +48,14 @@ class CreditRightsTitle extends Model
     public function users_titles()
     {
         return $this->belongsToMany(User::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
+    }
+    public function crtDocuments()
+    {
+        return $this->hasMany(CrtDocuments::class, 'credit_rights_title_id');
+    }
+    public function crtLawyers()
+    {
+        return $this->hasMany(CrtLawyers::class, 'credit_rights_title_id');
     }
 
     public function getPrincipalAmountAttribute($value)
