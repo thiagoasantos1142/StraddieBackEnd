@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Admin\DashboardController;
+use App\Http\Controllers\V1\Admin\DueDiligenceController;
 use App\Http\Controllers\V1\Admin\FileController;
 use App\Http\Controllers\V1\Admin\LawyerController;
 use App\Http\Controllers\UserController;
@@ -59,10 +60,13 @@ Route::middleware([
         Route::resource('/address', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
+        Route::resource('/dueDiligence', DueDiligenceController::class);
         Route::resource('/users', UserController::class);
         Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
         Route::resource('/crtLwyerController', CrtLwyerController::class);
         Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
+        Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
+
 
         
 
