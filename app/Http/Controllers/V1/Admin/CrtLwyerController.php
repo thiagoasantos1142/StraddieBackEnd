@@ -42,7 +42,7 @@ class CrtLwyerController extends Controller
 
         $layer = Lawyer::where('user_id', $request->user_id)->first();
 
-        $newRequest = $request->merge(["lawyer_id" => $layer->id]);
+        $request->merge(["lawyer_id" => $layer->id]);
 
         CrtLawyer::create($request->all());
         //aqui 
