@@ -9,8 +9,28 @@ use Illuminate\Http\Request;
 
 class LawyerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+        if ($request->ajax()) {
+            $search = $request->input('search');
+
+            if(!isset($search)){
+                return response()->json(Lawyer::all());
+            }
+
+            $users = Lawyer::where('name', 'like', "%$search%")
+                ->orWhere('title', 'like', "%$search%")
+                ->orWhere('OAB_number', 'like', "%$search%")
+                ->orWhere('UF', 'like', "%$search%")
+                ->latest()
+                ->limit(10)
+                ->get();
+
+            return response()->json($users, 200);
+        }
+
+
         $lawyers = Lawyer::with('user')->get();
 
         return view('V1.Admin.lawyer.index', compact('lawyers'));

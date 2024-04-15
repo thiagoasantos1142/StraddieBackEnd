@@ -40,9 +40,7 @@ class CrtLwyerController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $layer = Lawyer::where('user_id', $request->user_id)->first();
-
-        $request->merge(["lawyer_id" => $layer->id]);
+        $request->merge(["lawyer_id" => $request->user_id]);
 
         CrtLawyer::create($request->all());
         //aqui 
@@ -85,7 +83,8 @@ class CrtLwyerController extends Controller
 
     public function customDeleteRoute(Request $request)
     {
-        $lawyer = Lawyer::where('user_id', $request->user_id)->first();
+        $layer_id = $request->user_id;
+        $lawyer = Lawyer::find($layer_id);
 
         if (!isset($lawyer)) {
             return response()->json(['message' => 'Erro user não é um advogado']);

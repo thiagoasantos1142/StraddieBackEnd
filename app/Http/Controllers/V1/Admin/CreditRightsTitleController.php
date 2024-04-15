@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lawyer;
 use App\Models\OrganizationType;
 use App\Models\User;
 use App\Models\V1\Admin\Court;
@@ -136,7 +137,7 @@ class CreditRightsTitleController extends Controller
         $users = User::get();
         $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
         $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-        $lawyers = User::whereHas('lawyer.crt_lawyer', function ($query) use ($id) {
+        $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
             $query->where('credit_rights_title_id', $id);
         })->get();
     

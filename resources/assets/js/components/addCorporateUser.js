@@ -29,7 +29,11 @@ function searchUser(element) {
 }
 
 async function getUsers(val) {
-    await axios.get(`/dashboard/users?search=${val}`)
+    //verifica se existe uma rota definida 
+    const route = mainComponent.find('[name="search_dataroute"]').val();
+
+
+    await axios.get(route?`${route}?search=${val}` : `/dashboard/users?search=${val}`)
         .then(function (response) {
             createLinesUserAdd(response.data);
         })
@@ -53,7 +57,7 @@ function createLinesUserAdd(data) {
 }
 
 
-const USER_LINE_ELEMRNT = (id, name, email) => `
+const USER_LINE_ELEMRNT = (id, name, email, OAB) => `
     <li class="list-group-item br-ts-5 br-te-5">
         <div class="d-flex align-items-center">
             <span class="avatar avatar-md rounded-circle">
@@ -63,7 +67,7 @@ const USER_LINE_ELEMRNT = (id, name, email) => `
             <div class="ms-3">
                 <p class="mb-0 fs-14">${name}</p>
                 <span class="clearfix"></span>
-                <small class="text-muted fs-12">${email}</small>
+                <small class="text-muted fs-12">${email || `OAB: ${OAB}`}</small>
             </div>
             <div class="ms-auto">
             <button type="button" class="btn btn-sm btn-primary" data-adduserincorporate="${id}"><i class="fe fe-plus me-2"></i>Atribuir</button>
@@ -73,8 +77,8 @@ const USER_LINE_ELEMRNT = (id, name, email) => `
     `
 
 function createLinesTable(arrayData) {
-    const finalArray = arrayData.map(({ id, name, email }) => {
-        return USER_LINE_ELEMRNT(id, name, email);
+    const finalArray = arrayData.map(({ id, name, email, OAB_number = null }) => {
+        return USER_LINE_ELEMRNT(id, name, email, OAB_number);
     });
     return finalArray.join("");
 }

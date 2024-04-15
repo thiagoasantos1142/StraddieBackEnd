@@ -3,6 +3,8 @@
     <input name="route_create" type="hidden" value="{{ $attributes['routeCreate'] }}">
     <input name="route_delete" type="hidden" value="{{ $attributes['routeDelete'] }}">
 
+    <input name="search_dataroute" type="hidden" value="{{ $attributes['search-dataroute'] }}">
+
     <input name="action_btnremove" type="hidden" value="{{ $attributes[':action-btnremove'] }}">
     <input name="data_component" type="hidden" value="{{ json_encode($dataComponent) }}">
 

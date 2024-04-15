@@ -48,7 +48,7 @@
                         </a>
                     </div>
                 @endif
-                @if($creditRightsTitle->crtDocuments)
+                {{-- @if($creditRightsTitle->crtDocuments)
                     @php
                         $documentsCount = $creditRightsTitle->crtDocuments->count();
                         Log::info("Número de documentos associados ao título: " . $documentsCount);
@@ -68,7 +68,7 @@
                             </a>
                         </div>
                     @endif
-                @endif
+                @endif --}}
             </div>
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
@@ -81,7 +81,8 @@
                 ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers"
+            {{-- //a base de dados deve ser lawer --}}
+            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
                 :routeUpdate="route('crtLwyerController.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
 
