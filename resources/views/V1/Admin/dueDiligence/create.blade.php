@@ -26,7 +26,7 @@
 
                         <!-- ROW-1 OPEN -->
                         <div class="row justify-content-center">
-                            <div class="col-lg-7 col-xl-10 col-xxl-8">
+                            <div class="col-lg-7 col-xl-10 col-xxl-10">
                                 <div class="card custom-card">
                                     <div class="card-header d-sm-flex d-block">
                                         <ul class="nav nav-pills nav-tabs-header mb-0 d-sm-flex d-block" role="tablist">
