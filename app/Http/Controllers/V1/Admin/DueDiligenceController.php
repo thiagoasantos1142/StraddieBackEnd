@@ -22,10 +22,10 @@ class DueDiligenceController extends Controller
     public function create($credit_rights_title_id)
     {
         $creditRightsTitle = CreditRightsTitle::find($credit_rights_title_id);
-        $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('id'))->get();
+        $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
 
-        $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('id'))->get();  
-
+        $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
+       
         return view('v1.admin.dueDiligence.create', compact('creditRightsTitle', 'users', 'lawyers'));
     }
 

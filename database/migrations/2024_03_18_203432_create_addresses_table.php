@@ -24,7 +24,7 @@ return new class extends Migration
 
             // Define as chaves estrangeiras
             $table->foreign('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('organization_id')->nullable()->constrained('organizations');
+            $table->foreignId('organization_id')->nullable()->constrained('organizations')->nullable(); 
            
         });
     }
