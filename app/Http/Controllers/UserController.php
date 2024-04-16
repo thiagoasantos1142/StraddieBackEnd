@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -23,6 +25,9 @@ class UserController extends Controller
 
             return response()->json($users, 200);
         }
+
+        $users = User::get();
+        return view('V1.Admin.users.index', compact('users'));
     }
 
     public function show(Request $request, string $id)
@@ -31,6 +36,43 @@ class UserController extends Controller
             $user = User::find($id);
             return response()->json($user, 200);
         }
+
+        $user = User::with('addresses')->find($id);
+
+        $dataForm = $this->formCreateUpdate($user);
+
+        return view('V1.Admin.users.show', compact('user', 'dataForm'));
+    }
+
+
+    public function create()
+    {
+        $dataForm = $this->formCreateUpdate();
+
+        return view('V1.Admin.users.create', compact('dataForm'));
+    }
+
+    public function store(Request $request)
+    {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required', 'string', 'max:255', new NameAndSurname],
+                'email' => "unique:users,email|email|max:255",
+                'cpf' => "unique:users,cpf|max:20",
+                'phone' => 'required|max:20'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $request->merge(['password' => $request->cpf]);
+        $user = User::create($request->all());
+
+        return redirect()->route('users.show', ['user' => $user->id]);
     }
 
     public function update(Request $request)
@@ -159,5 +201,58 @@ class UserController extends Controller
         $user->update($request->all());
 
         return response()->json(["message" => "success."], 200);
+    }
+
+    public function formCreateUpdate($data = null)
+    {
+        return [
+            "card" => [
+                "name" => "Usuário"
+            ],
+            "inputs" => [
+                [
+                    "label" => "Nome e sobrenome",
+                    "name" => "name",
+                    "col" => "6",
+                    "value" => $data->name ?? null
+                ],
+                [
+                    "label" => "E-mail",
+                    "name" => "email",
+                    "col" => "6",
+                    "value" => $data->email ?? null
+                ],
+                [
+                    "label" => "Cpf",
+                    "name" => "cpf",
+                    "col" => "4",
+                    "value" => isset($data->cpf) ? $data->getRawOriginal('cpf') : null
+                ],
+                [
+                    "label" => "Papel",
+                    "name" => "user_type_id",
+                    "col" => "4",
+                    "value" => $data->user_type_id ?? null
+                ],
+                // [
+                //     "label" => "Organização",
+                //     "name" => "organization_id",
+                //     "col" => "4",
+                //     "value" => $data->organization_id ?? null
+                // ],
+                [
+                    "label" => "Telefone",
+                    "name" => "phone",
+                    "col" => "4",
+                    "value" => $data->bio ?? null
+                ],
+                [
+                    "label" => "Bio",
+                    "name" => "bio",
+                    "col" => "12",
+                    "value" => $data->bio ?? null
+                ]
+            ]
+        ];
     }
 }
