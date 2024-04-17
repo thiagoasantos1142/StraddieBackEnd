@@ -93,11 +93,14 @@
                         </div>
                     @endif
                 </div>
+                <x-v1.admin.modal.createAddress :user-id="$user->id"></x-v1.admin.modal.createAddress>
             </div>
+
+            <x-v1.admin.modal.addPhone id="add-address" :show-data="$user->contacts" :keys="['user_id' => $user->id]"></x-v1.admin.modal.addPhone>
         </div>
     </div>
 
-    <x-v1.admin.modal.createAddress :user-id="$user->id"></x-v1.admin.modal.createAddress>
+
 @endsection
 
 @section('scripts')

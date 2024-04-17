@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('phone');
             
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->timestamps();
-            $table->foreignId('user_id')->constrained('users')->nullable(); ;
+            $table->foreignId('user_id')->nullable()->constrained('users');
             
-            $table->foreignId('organization_id')->constrained('organizations')->nullable(); ;
+            $table->foreignId('organization_id')->nullable()->constrained('organizations');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserType;
 use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +38,7 @@ class UserController extends Controller
             return response()->json($user, 200);
         }
 
-        $user = User::with('addresses')->find($id);
+        $user = User::with('addresses')->with('contacts')->find($id);
 
         $dataForm = $this->formCreateUpdate($user);
 
@@ -75,20 +76,15 @@ class UserController extends Controller
         return redirect()->route('users.show', ['user' => $user->id]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
-        // Obtém o ID do usuário atual
-        $userId = auth()->id();
-
         // Validação dos dados recebidos do formulário
         $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
-            'email' => "unique:users,email,{$userId}|email|max:255",
+            'email' => "unique:users,email,{$id}|email|max:255",
             'phone' => 'required|max:20',
-            'cpf' => "unique:users,cpf,{$userId}|max:20",
-
-            // Adicione outras regras de validação conforme necessário
+            'cpf' => "unique:users,cpf,{$id}|max:20"
         ]);
 
         $name = $request->input('firstName') . ' ' . $request->input('lastName');
@@ -232,7 +228,11 @@ class UserController extends Controller
                     "label" => "Tipo do usuário",
                     "name" => "user_type_id",
                     "col" => "4",
-                    "value" => $data->userType ?  $data->userType->title : null
+                    "input" => "select",
+                    "value" => $data->user_type_id ?? null,
+                    "identifier_value" => 'id',
+                    "identifier_title" => 'title',
+                    "options" => UserType::get()
                 ],
                 // [
                 //     "label" => "Organização",
@@ -241,7 +241,7 @@ class UserController extends Controller
                 //     "value" => $data->organization_id ?? null
                 // ],
                 [
-                    "label" => "Telefone",
+                    "label" => "Organization",
                     "name" => "phone",
                     "col" => "4",
                     "value" => $data->bio ?? null

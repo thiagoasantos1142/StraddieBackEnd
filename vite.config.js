@@ -20,6 +20,9 @@ export default defineConfig({
                 'resources/assets/js/components/addCorporateUser.js',
                 'resources/assets/js/components/defaultForm.js',
                 'resources/js/importmask.js',
+                'resources/assets/js/components/addPhone.js',
+                'resources/assets/js/addPhone-lib.js',
+                'resources/assets/js/components/requestsaxios.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',

@@ -24,6 +24,7 @@ use App\Http\Controllers\TablesController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\V1\Admin\AddressController;
+use App\Http\Controllers\V1\Admin\ContactsController;
 use App\Http\Controllers\V1\Admin\CrtLawyerController;
 use App\Http\Controllers\V1\Admin\UsersCreditRigtsTitleController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
@@ -64,6 +65,7 @@ Route::middleware([
         Route::resource('/users', UserController::class);
         Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
         Route::resource('/crtLawyer', CrtLawyerController::class);
+        Route::resource('/contacts', ContactsController::class);
         Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
         Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
 
