@@ -9,11 +9,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Users</h1>
+        <h1 class="page-title">Usuários</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Users</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Users</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Usuários</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Usuário</li>
             </ol>
         </div>
     </div>
@@ -31,10 +31,10 @@
             <div class="col-xl-12">
                 <div class="card custom-card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">File Export Datatable</div>
+                        <div class="card-title">Usuários</div>
                         <div class="d-flex">
-                            <a href="{{ route('organization.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar user</a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                                    class="fa fa-plus-square me-2"></i>Adicionar Usuário</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -44,7 +44,8 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Cpf</th>
+                                        <th>Cpf</th>                                        
+                                        <th>Tipo usuário</th>
                                         <th>created at</th>
                                         <th>ação</th>
                                     </tr>
@@ -55,6 +56,7 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->cpf ?? 'n/a' }}</td>
+                                            <td>{{ $user->userType ? $user->userType->title : 'n/a' }}</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-list">

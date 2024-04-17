@@ -270,7 +270,7 @@ class CreditRightsTitleController extends Controller
                 [
                     "label" => "Natureza da obrigação",
                     "name" => "nature_obligation_id",
-                    "col" => "4",
+                    "col" => "3",
                     "input" => "select",
                     "value" => $data->nature_obligation_id,
                     "identifier_value" => 'id',

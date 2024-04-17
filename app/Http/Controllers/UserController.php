@@ -229,10 +229,10 @@ class UserController extends Controller
                     "value" => isset($data->cpf) ? $data->getRawOriginal('cpf') : null
                 ],
                 [
-                    "label" => "Papel",
+                    "label" => "Tipo do usuário",
                     "name" => "user_type_id",
                     "col" => "4",
-                    "value" => $data->user_type_id ?? null
+                    "value" => $data->userType ?  $data->userType->title : null
                 ],
                 // [
                 //     "label" => "Organização",

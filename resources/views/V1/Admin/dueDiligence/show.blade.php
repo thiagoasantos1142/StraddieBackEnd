@@ -89,7 +89,7 @@
 
             {{-- @aqui --}}
             <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers"
-                :routeUpdate="route('crtLwyerController.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
+                :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
 
         </div>

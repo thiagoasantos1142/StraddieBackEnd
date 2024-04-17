@@ -26,11 +26,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">User</h1>
+        <h1 class="page-title">Usuário</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Usuários</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Usuário</li>
             </ol>
         </div>
     </div>

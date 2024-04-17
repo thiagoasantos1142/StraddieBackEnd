@@ -8,7 +8,7 @@ use App\Models\Lawyer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CrtLwyerController extends Controller
+class CrtLawyerController extends Controller
 {
     /**
      * Display a listing of the resource.
