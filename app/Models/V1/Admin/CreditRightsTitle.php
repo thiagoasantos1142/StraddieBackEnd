@@ -49,9 +49,9 @@ class CreditRightsTitle extends Model
     {
         return $this->belongsToMany(User::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
     }
-    public function crtDocuments()
+    public function files()
     {
-        return $this->hasMany(CrtDocuments::class, 'credit_rights_title_id');
+        return $this->hasMany(File::class, 'credit_rights_title_id');
     }
     public function crtLawyers()
     {

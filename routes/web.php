@@ -86,8 +86,8 @@ Route::middleware([
         Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class,'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
         Route::post('/deleteLawyerToUser', [LawyerController::class,'deleteLawyerToUser'])->name('deleteLawyerToUser');
         
-        Route::post('/upload', [FileController::class, 'upload'])->name('upload.file');
-        Route::post('/upload/crtDocument', [FileController::class, 'uploadCrtDocument'])->name('upload.crtDocument');
+     
+        Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
         Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
 
     });

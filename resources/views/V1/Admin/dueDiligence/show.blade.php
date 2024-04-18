@@ -55,9 +55,9 @@
                         </a>
                     </div>
                 @endif
-                @if($creditRightsTitle->crtDocuments)
+                @if($creditRightsTitle->files)
                     @php
-                        $documentsCount = $creditRightsTitle->crtDocuments->count();
+                        $documentsCount = $creditRightsTitle->files->count();
                         Log::info("Número de documentos associados ao título: " . $documentsCount);
                     @endphp
 
@@ -104,7 +104,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Formulário para enviar o arquivo -->
-                        <form action="{{ route('upload.crtDocument') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('upload.file') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="mb-3">
                                 <label for="fileInput" class="form-label">Selecione um arquivo</label>

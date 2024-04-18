@@ -57,27 +57,7 @@
                         </a>
                     </div>
                 @endif
-                {{-- @if($creditRightsTitle->crtDocuments)
-                    @php
-                        $documentsCount = $creditRightsTitle->crtDocuments->count();
-                        Log::info("Número de documentos associados ao título: " . $documentsCount);
-                    @endphp
-
-                    @if($documentsCount == 0)
-                        <div class="col-xl-3 col-md-6">
-                            <a href="#documents">
-                                <div class="card ribbone-card">
-                                    <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
-                                                class="fa fa-bolt"></i></span></div>
-                                    <div class="card-body  p-6">
-                                        <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                        <p class="card-text">Atribua um arquivo ao título</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
-                @endif --}}
+                
             </div>
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
@@ -94,17 +74,17 @@
 
                 <div class="col-xxl-10 col-xl-9 col-sm-8">
                     <div class="row">                        
-                        @foreach($creditRightsTitle->crtDocuments as $crtDocument)
+                        @foreach($creditRightsTitle->files as $file)
                             <div class="col-xl-2 col-sm-6">
                                 <div class="card file-manager">                           
-                                <a href="{{ route('download.file', ['id' => $crtDocument->id]) }}" target="_blank" class="stretched-link" ></a>
+                                <a href="{{ route('download.file', ['id' => $file->id]) }}" target="_blank" class="stretched-link" ></a>
                                     <div class="card-body">
                                         <div class="file-dropdown file-icon">
                                             <a href="javascript:void(0);" class="text-muted" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-dots-vertical fs-10"></i></a>
                                             <div class="dropdown-menu dropdown-menu-start">
                                                 <a class="dropdown-item" href="javascript:void(0);"><i class="fe fe-edit me-2"></i> Visualizar</a>
                                                 <a class="dropdown-item" href="javascript:void(0);"><i class="fe fe-download me-2"></i> Baixar</a>
-                                                <form action="{{ route('files.destroy', ['file' => $crtDocument->id]) }}" method="POST">
+                                                <form action="{{ route('files.destroy', ['file' => $file->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item">
@@ -126,7 +106,7 @@
                                                                 c1,1,1.5,2.3,1.5,4C69.2,57,68.7,58.4,67.7,59.4z M78,51.6h-4.1v2.9h3.8v1.9h-3.8v4.4h-2.3V49.7H78V51.6z M63.6,51.6h-1.3v7.3h1
                                                                 c2.3,0,3.4-1.2,3.4-3.7C66.8,52.8,65.7,51.6,63.6,51.6z"></path></svg>
                                         </div>
-                                        <p class="text-center mt-3">{{ $crtDocument->file_name }}</p>
+                                        <p class="text-center mt-3">{{ $file->filename }}</p>
                                     </div>
                                 </div>
                             </div>                        
@@ -158,15 +138,27 @@
                     </div>
                     <div class="modal-body">
                         <!-- Formulário para enviar o arquivo -->
-                        <form action="{{ route('upload.crtDocument') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('upload.file') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="mb-3">
                                 <label for="fileInput" class="form-label">Selecione um arquivo</label>
                                 <input class="form-control" type="file" id="fileInput" name="file">
                             </div>
                             <div class="mb-3">
+                                <label for="text" class="form-label">Adiconar descrição ao documento</label>
+                                <input class="form-control" type="description" id="description" name="description">
+                            </div>
+                            <div class="mb-3">
                                 <label for="credit_rights_title_id" class="form-label"></label>
                                 <input class="form-control" value="{{$creditRightsTitle->id}}" type="hidden" id="credit_rights_title_id" name="credit_rights_title_id">
+                            </div>
+                            <div class="mb-3">
+                                <label for="type_id" class="form-label"></label>
+                                <input class="form-control" value="21" type="hidden" id="type_id" name="type_id">
+                            </div>
+                            <div class="mb-3">
+                                <label for="category_id" class="form-label"></label>
+                                <input class="form-control" value="1" type="hidden" id="category_id" name="category_id">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>

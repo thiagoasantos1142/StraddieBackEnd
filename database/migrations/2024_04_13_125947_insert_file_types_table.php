@@ -44,7 +44,7 @@ return new class extends Migration
             ['title' => 'Documento de Autorização de Venda', 'type'=> 'OUTROS'],
             ['title' => 'Documento de Autorização de Compra', 'type'=> 'OUTROS'],
             ['title' => 'Procuração', 'type'=> 'OUTROS'],
-            
+            ['title' => 'Outros', 'type'=> 'OUTROS'],
 
             
         ]);

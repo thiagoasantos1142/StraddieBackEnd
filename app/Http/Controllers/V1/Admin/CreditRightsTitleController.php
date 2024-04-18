@@ -8,9 +8,9 @@ use App\Models\OrganizationType;
 use App\Models\User;
 use App\Models\V1\Admin\Court;
 
+use App\Models\V1\Admin\File;
 use Illuminate\Support\Str;
 
-use App\Models\V1\Admin\CrtDocuments;
 use App\Models\V1\Admin\CrtNatureCredit;
 use App\Models\V1\Admin\CrtNatureObligation;
 use App\Models\V1\Admin\CrtOriginDebtor;
@@ -100,12 +100,12 @@ class CreditRightsTitleController extends Controller
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
-            // Salva o link do arquivo na tabela crt_documents
-            $document = new CrtDocuments();
+            // Salva o link do arquivo na tabela files
+            $document = new File();
             $document->credit_rights_title_id = $creditRightsTitle->id;
 
-            $document->file_name = $fileName;
-            $document->file_path = $path;
+            $document->filename = $fileName;
+            $document->filepath = $path;
             $document->save();
 
             // Redireciona para a página de exibição do título
