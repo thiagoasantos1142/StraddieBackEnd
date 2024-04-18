@@ -81,6 +81,7 @@ class CreditRightsTitleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        
 
         // Verifica se um arquivo foi enviado
         if ($request->hasFile('file')) {
@@ -88,13 +89,13 @@ class CreditRightsTitleController extends Controller
             // Obtém o arquivo enviado
             $file = $request->file('file');
 
-            $path = 'crt/docs/';
+            $path = 'crt/docs/'.str::uuid();
 
             // Define o nome do arquivo 
-            $fileName = str::uuid() . $file->getClientOriginalExtension();
+            $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
 
             // Faz o upload do arquivo para o Amazon S3
-            Storage::disk('s3')->put($path . $fileName, file_get_contents($file));
+            Storage::disk('s3')->put($path, file_get_contents($file));
 
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
@@ -111,22 +112,30 @@ class CreditRightsTitleController extends Controller
             //form controller;
             $users = User::get();
             $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
+            $id = $creditRightsTitle->id;
+            $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
+                $query->where('credit_rights_title_id', $id);
+            })->get();
+           
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'lawyers', 'dataForm', 'users'));
+
         }else{
-            // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
+
+            // Salva os dados do título mesmo se o upload do arquivo não for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
+
             // Redireciona para a página de exibição do título
             //form controller;
             $users = User::get();
             $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users'));
+            $id = $creditRightsTitle->id;
+            $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
+                $query->where('credit_rights_title_id', $id);
+            })->get();
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'lawyers', 'dataForm', 'users'));
+
         }
 
-        //mostrar todas os titulos
-        $creditRightsTitles = CreditRightsTitle::all();
-
-        // Se não houver arquivo enviado, retorna com uma mensagem de erro
-        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitle'))->with('error', 'Falha ao cadastrar titulo .');
     }
     /**
      * Display the specified resource.

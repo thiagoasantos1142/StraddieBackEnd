@@ -148,9 +148,10 @@
                                                     </p>
                                                 </div>
                                                 
+                                                
                                                 <div class="border-top"></div>
                                                 <div class="table-responsive p-5">
-                                                    <h5 class="mb-3">Informação pesssoais</h5>
+                                                    <h5 class="mb-3">Informações pesssoais</h5>
                                                     <div class="row">
                                                         <div class="col-xl-8 ms-3">
                                                             <div class="row row-sm">
@@ -667,12 +668,13 @@
                                             <!--                                             
                                                 Inicio editprofile  
                                             -->
-                                            <form action="{{ route('user.update') }}" method="post">
-                                                @csrf <!-- Adiciona o token CSRF -->
-                                                    <div class="tab-pane fade" id="editprofile">
-                                                    <div class="row">
-                                                        <div class="col-xl-12">
-                                                            <div class="">
+                                               
+                                            <div class="tab-pane fade" id="editprofile">
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="">
+                                                            <form action="{{ route('user.update') }}" method="post">
+                                                            @csrf <!-- Adiciona o token CSRF -->
                                                                 <div class="p-5">
                                                                     <div class="mb-4 main-content-label">Informações Pessoais</div>
                                                                     <div class="form-horizontal">
@@ -717,6 +719,16 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="form-group ">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2">
+                                                                                    <label class="form-label">Bio</label>
+                                                                                </div>
+                                                                                <div class="col-md-10">
+                                                                                    <input type="text" class="form-control"  name="bio"  placeholder="Bio" value="{{$user->bio}}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                         <div class="form-group">
                                                                             <div class="row">
                                                                                 <div class="col-md-2">
@@ -756,17 +768,17 @@
                                                                         <div class="mb-4 main-content-label">Endereço</div>                                                                        
                                                                         @foreach($user->addresses as $address)
                                                                             <div class="form-group">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-2">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2">
                                                                                             <label class="form-label">Rua</label>
-                                                                                        </div>
-                                                                                        <div class="col-md-10">
-                                                                                            <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
-                                                                                        </div>
                                                                                     </div>
+                                                                                    <div class="col-md-10">
+                                                                                            <input type="text" class="form-control" placeholder="Rua" value="{{ $address->street }}">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                                 
-                                                                                <div class="form-group">
+                                                                            <div class="form-group">
                                                                                     <div class="row">
                                                                                         <div class="col-md-2">
                                                                                             <label class="form-label">Número</label>
@@ -775,19 +787,19 @@
                                                                                             <input type="text" class="form-control" placeholder="Número" value="{{ $address->street_number }}">
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <div class="row">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
                                                                                         <div class="col-md-2">
                                                                                             <label class="form-label">Complemento</label>
                                                                                         </div>
                                                                                         <div class="col-md-10">
                                                                                             <input type="text" class="form-control" placeholder="CEP" value="{{ $address->complement }}">
                                                                                         </div>
-                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <div class="row">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
                                                                                         <div class="col-md-2">
                                                                                             <label class="form-label">CEP</label>
                                                                                         </div>
@@ -795,30 +807,28 @@
                                                                                             <input type="text" class="form-control" placeholder="CEP" value="{{ $address->zip }}">
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <div class="row">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
                                                                                         <div class="col-md-2">
                                                                                             <label class="form-label">Cidade</label>
                                                                                         </div>
                                                                                         <div class="col-md-10">
                                                                                             <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
                                                                                         </div>
-                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <div class="row">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="row">
                                                                                         <div class="col-md-2">
                                                                                             <label class="form-label">Estado</label>
                                                                                         </div>
                                                                                         <div class="col-md-10">
                                                                                             <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->title }}">
                                                                                         </div>
-                                                                                    </div>
                                                                                 </div>
-                                                                            @endforeach
-
-                                                                        
+                                                                            </div>
+                                                                        @endforeach                                                                        
                                                                     
                                                                         <div class="mb-4 main-content-label">Permissões</div>
                                                                         <div class="form-group mb-0">
@@ -864,12 +874,13 @@
                                                                 </div>
                                                                 <div class="card-footer d-flex justify-content-end">                                                                    
                                                                     <button type="submit" class="btn ripple btn-primary w-sm">Salvar</button>
-                                                                </div>
-                                                            </div>
+                                                                </div>                                                            
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            </div>
+                                            
 
                                             <!--                                             
                                             End editprofile 
@@ -879,72 +890,111 @@
                                             -->
                                             <div class="tab-pane titulo fade" id="titulos">
                                                 <div class="row p-5">
-                                                    <div class="col-md-12 col-xl-6">
-                                                        <div class="card shadow-none">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="row">
-                                                                            <div class="col">
-                                                                                <div class="d-sm-flex align-items-center">
-                                                                                    <span class="avatar avatar-md br-5 bg-primary rounded-circle project-icon">
-                                                                                        <i class="fe fe-grid"></i>
-                                                                                    </span>
-                                                                                    <div class="ms-2 mt-sm-0 mt-2">
-                                                                                        <h6 class="mb-1"> <a href="#" class="float-start">Web
-                                                                                                Design</a> <span class="badge bg-light text-muted fs-11 mx-2">opened
-                                                                                                yesterday</span> </h6>
-                                                                                        <span class="text-muted border-end pe-2 fs-12 float-start">28
-                                                                                            tasks</span>
-                                                                                        <span class="ps-1 fs-12">11 Nov 19</span>
+                                                    @foreach($user->usersTitles as $title)
+                                                        <div class="col-md-12 col-xl-6">
+                                                            <div class="card shadow-none">
+                                                                <div class="card-body">
+                                                                    <div class="row">                                                                   
+                                                                        <div class="col-md-12">
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <div class="d-sm-flex align-items-center">
+                                                                                        <span class="avatar avatar-md br-5 bg-primary rounded-circle project-icon">
+                                                                                            <i class="fe fe-grid"></i>
+                                                                                        </span>
+                                                                                        <div class="ms-2 mt-sm-0 mt-2">
+                                                                                            <h6 class="mb-1"> <a href="#" class="float-start">
+                                                                                                {{$title->title}}</a> 
+                                                                                            <span class="badge bg-light text-muted fs-11 mx-2">
+                                                                                                Classe:
+                                                                                                {{$title->class}}
+                                                                                            </span> </h6>
+                                                                                            <span class="text-muted border-end pe-2 fs-12 float-start">
+                                                                                                Nº do processo:
+                                                                                                {{$title->title_number}}
+                                                                                            </span>
+                                                                                            <span class="ps-1 fs-12">
+                                                                                                Data da distribuição:
+                                                                                                {{$title->distribution_date}}
+                                                                                            </span>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-auto">
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <div class="stars-main me-2">
-                                                                                        <i class="fa fa-star text-light star"></i>
-                                                                                    </div>
-                                                                                    <a aria-label="anchor" href="#" class="option-dots" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-                                                                                    <div class="dropdown-menu dropdown-menu-start">
-                                                                                        <a class="dropdown-item" href="#"><i class="fe fe-edit me-2 d-inline-flex"></i> Edit</a>
-                                                                                        <a class="dropdown-item" href="#"><i class="fe fe-share me-2 d-inline-flex"></i> Share</a>
-                                                                                        <a class="dropdown-item" href="#"><i class="fe fe-download me-2 d-inline-flex"></i> Clone</a>
-                                                                                        <a class="dropdown-item" href="#"><i class="fe fe-trash me-2 d-inline-flex"></i> Delete</a>
+                                                                                <div class="col-auto">
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <div class="stars-main me-2">
+                                                                                            <i class="fa fa-star text-light star"></i>
+                                                                                        </div>
+                                                                                        <a aria-label="anchor" href="#" class="option-dots" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
+                                                                                        <div class="dropdown-menu dropdown-menu-start">
+                                                                                            <a class="dropdown-item" href="#"><i class="fe fe-edit me-2 d-inline-flex"></i> Edit</a>
+                                                                                            <a class="dropdown-item" href="#"><i class="fe fe-share me-2 d-inline-flex"></i> Share</a>
+                                                                                            <a class="dropdown-item" href="#"><i class="fe fe-download me-2 d-inline-flex"></i> Clone</a>
+                                                                                            <a class="dropdown-item" href="#"><i class="fe fe-trash me-2 d-inline-flex"></i> Delete</a>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 mt-4">
-                                                                        <div class="row align-items-center">
-                                                                            <div class="col">
-                                                                                <p class="m-0 mb-2 fw-600">Members</p>
-                                                                                <div class="avatar-list avatar-list-stacked">
-                                                                                    <span class="avatar avatar-sm avatar-radius cover-image" data-bs-image-src="{{asset('build/assets/images/users/9.jpg')}}"></span>
-                                                                                    <span class="avatar avatar-sm avatar-radius cover-image" data-bs-image-src="{{asset('build/assets/images/users/8.jpg')}}"></span>
-                                                                                    <span class="avatar avatar-sm avatar-radius cover-image" data-bs-image-src="{{asset('build/assets/images/users/11.jpg')}}"></span>
-                                                                                    <span class="avatar avatar-sm avatar-radius cover-image" data-bs-image-src="{{asset('build/assets/images/users/1.jpg')}}"></span>
-                                                                                    <span class="avatar avatar-sm avatar-radius cover-image" data-bs-image-src="{{asset('build/assets/images/users/6.jpg')}}"></span>
-                                                                                    <span class="avatar avatar-sm avatar-radius bg-primary">+15</span>
+                                                                   
+                                                                        <div class="col-md-12 mt-4">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col">
+                                                                                    <p class="m-0 mb-2 fw-600">Beneficiários</p>
+                                                                                    <div class="card-footer user-pro-2">
+                                                                                        <div class="media mt-0 flex-wrap overflow-visible">
+                                                                                            <div class="media-user me-2">
+                                                                                                <div class="avatar-list avatar-list-stacked">
+                                                                                                    @foreach($user->organization->users as $user)
+                                                                                                        <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
+                                                                                                    @endforeach
+                                                                                                    @php
+                                                                                                        $userCount = $user->organization->users->count();
+                                                                                                        $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                                    @endphp
+                                                                                                    @if ($userCount > 5)
+                                                                                                        <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                                                    @endif
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="media-body flex-fill">
+                                                                                                <p class="mb-0 ms-2">
+                                                                                                    @php
+                                                                                                        $userCount = $user->organization->users->count();
+                                                                                                        $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                                    @endphp
+                                                                                                    {{ $userCount }} {{ $message }} associado(s) a esse Título.
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <div class="d-flex mt-1">
+                                                                                                    <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
+                                                                                                    <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
+                                                                                                    <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-auto">
+                                                                                    <p class="mb-0">
+                                                                                        <span class="text-muted d-block">Due Date</span>
+                                                                                        <span class="text-danger">11 Nov 21</span>
+                                                                                    </p>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-auto">
-                                                                                <p class="mb-0">
-                                                                                    <span class="text-muted d-block">Due Date</span>
-                                                                                    <span class="text-danger">11 Nov 21</span>
-                                                                                </p>
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 mt-4">
-                                                                        <div class="text-center">
-                                                                            <div class="progress progress-xs progress-custom1 mb-2">
-                                                                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
-                                                                            </div>
-                                                                            <div class="float-end">
-                                                                                <div class="fs-13">
-                                                                                    <span class="badge bg-primary-transparent text-primary">55%</span>
+                                                                    
+                                                                        <div class="col-md-12 mt-4">
+                                                                            <div class="text-center">
+                                                                                <div class="progress progress-xs progress-custom1 mb-2">
+                                                                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
+                                                                                </div>
+                                                                                <div class="float-end">
+                                                                                    <div class="fs-13">
+                                                                                        <span class="badge bg-primary-transparent text-primary">55%</span>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -952,7 +1002,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    @endforeach
                                                     <div class="col-md-12 col-xl-6">
                                                         <div class="card shadow-none">
                                                             <div class="card-body">

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,5 +91,9 @@ class User extends Authenticatable
     public function lawyer()
     {
         return $this->hasOne(Lawyer::class, 'user_id');
+    }
+    public function usersTitles()
+    {
+        return $this->belongsToMany(CreditRightsTitle::class, 'users_credit_rights_titles', 'user_id', 'credit_rights_title_id');
     }
 }

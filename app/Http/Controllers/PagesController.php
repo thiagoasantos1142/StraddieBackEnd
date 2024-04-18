@@ -8,7 +8,8 @@ class PagesController extends Controller
 {
     public function profile()
     {
-        $user = \Auth::user();        
+        $user = \Auth::user(); 
+        
         
         return view('pages.profile', ['user' => $user]);
     }

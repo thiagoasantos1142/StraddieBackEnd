@@ -59,10 +59,14 @@ Route::middleware([
     Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
+        
+        Route::resource('/file', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         Route::resource('/dueDiligence', DueDiligenceController::class);
         Route::resource('/users', UserController::class);
+        
+        Route::resource('/files', FileController::class);
         Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
         Route::resource('/crtLawyer', CrtLawyerController::class);
         Route::resource('/contacts', ContactsController::class);
@@ -84,7 +88,7 @@ Route::middleware([
         
         Route::post('/upload', [FileController::class, 'upload'])->name('upload.file');
         Route::post('/upload/crtDocument', [FileController::class, 'uploadCrtDocument'])->name('upload.crtDocument');
-        Route::get('/download/{fileName}', [FileController::class, 'download'])->name('download.file');
+        Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
 
     });
 

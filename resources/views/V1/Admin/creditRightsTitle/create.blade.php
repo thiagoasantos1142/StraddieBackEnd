@@ -156,7 +156,7 @@
                                     </div>
 
 
-                                    <div class="form-group col-md-3 mb-0">
+                                    <div class="form-group col-md-6 mb-0">
                                         <label for="principal_amount" class="form-label">Valor principal da causa</label>
                                         
                                          <input class="form-control @error('principal_amount') is-invalid @enderror"
@@ -166,10 +166,6 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-                                    
-
-                                    
                                     <div class="form-group col-md-3 mb-0">
                                         <label for="justice_secret" class="form-label">O processo está em segredo de Justiça?</label>
                                         <div class="row gy-1">
@@ -209,17 +205,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="card">
-                                        <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 100px;">                                           
-                                        
-                                          <!-- Campo de upload de arquivo -->
-                                          <div class="form-group col-md-6 mb-0">
-                                            <label for="file" class="form-label">Upload do arquivo</label>
-                                            <input class="form-control @error('file') is-invalid @enderror" type="file" id="file" name="file">
-                                            @error('file')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
+                                        <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 100px;"> 
+                                            <!-- Campo de upload de arquivo -->
+                                            <div class="form-group col-md-6 mb-0">
+                                                <label for="file" class="form-label">Upload do arquivo</label>
+                                                <input class="form-control @error('file') is-invalid @enderror" type="file" id="file" name="file">
+                                                @error('file')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -236,17 +230,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="form-group col-md-6 mb-0">
-                                            <div class="d-flex flex-row-reverse">
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -259,96 +242,7 @@
 
 @section('modals')
 
-    <!-- Modal de Upload -->
-    <!-- Modal de upload -->
-<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadModalLabel">Enviar Arquivo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('upload.file') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="fileInput" class="form-label">Selecione um arquivo</label>
-                        <input class="form-control" type="file" id="fileInput" name="file">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-    <!-- File-Details Modal -->
-    <div class="modal fade" id="largemodal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">File Details</h5>
-                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-5">
-                            <div>
-                                <img src="{{ asset('build/assets/images/media/33.jpg') }}" class="rounded-2"
-                                    alt="img">
-                            </div>
-                        </div>
-                        <div class="col-xl-7">
-                            <div class="table-responsive">
-                                <table class="table border text-nowrap text-md-nowrap mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="fw-bold">File Name</td>
-                                            <td>Media Image</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">File Size</td>
-                                            <td>11.45GB</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">Uploaded date</td>
-                                            <td>03-11-2022</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">Uploaded by</td>
-                                            <td>Michael Starc</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">File format</td>
-                                            <td>psd</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">Image height</td>
-                                            <td>350px</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">Image Width</td>
-                                            <td>350px</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-bold">File location</td>
-                                            <td>storage/documents/images/File.psd</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- File-Details Modal -->
+    
 @endsection
 
 @section('scripts')
@@ -357,27 +251,8 @@
     <script src="{{ asset('build/assets/libs/wnumb/wNumb.min.js') }}"></script>
     @vite('resources/assets/js/nouislider.js')
 
-    <!-- jQuery para alterar o texto do toggle switch -->
-    <script>
-        // Adicione um evento de clique ao botão "Fazer Upload do titulo"
-        document.getElementById('openUploadModalButton').addEventListener('click', function() {
-            // Mostra o modal de upload
-            $('#uploadModal').modal('show');
-        });
-    $(document).ready(function() {
-        // Adiciona um ouvinte de evento de mudança ao switch
-        $('#secrecySwitch').change(function() {
-            // Verifica se o switch está marcado
-            if ($(this).is(':checked')) {
-                // Se marcado, atualiza o texto para "Sim"
-                $('.form-check-label').text('Sim');
-            } else {
-                // Se não marcado, atualiza o texto para "Não"
-                $('.form-check-label').text('Não');
-            }
-        });
-    });
-</script>
+    
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -419,15 +294,6 @@
     });
 </script>
 <!-- Adicione um bloco de script para inicializar o Select2 -->
-<script>
-    $(document).ready(function() {
-        // Inicialize o Select2 nos selects com a classe "select2"
-        $('.select2').select2({
-            tags: true,
-            searchInputPlaceholder: 'Digite para pesquisar'
-        });
-    });
-</script>
 
 
 @endsection
