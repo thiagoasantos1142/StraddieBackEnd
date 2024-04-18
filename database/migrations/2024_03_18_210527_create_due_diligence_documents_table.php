@@ -26,7 +26,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('due_diligence_id')->references('id')->on('due_diligence')->onDelete('cascade');
-            $table->foreign('document_type_id')->references('id')->on('due_diligence_documents_type')->onDelete('cascade');
+            // $table->foreign('document_type_id')->references('id')->on('due_diligence_documents_type')->onDelete('cascade');
             $table->foreign('document_status_id')->references('id')->on('due_diligence_documents_statuses')->onDelete('cascade');
         });
     }
