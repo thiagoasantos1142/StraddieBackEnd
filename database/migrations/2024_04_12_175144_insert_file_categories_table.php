@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('due_diligence_documents_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 255);
-            $table->timestamps();
-        });
+        DB::table('file_categories')->insert([
+            ['title' => 'CreditRightsTitle'],
+            ['title' => 'DueDiligence']
+        ]);
     }
 
     /**
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('due_diligence_documents_statusses');
+        //
     }
 };

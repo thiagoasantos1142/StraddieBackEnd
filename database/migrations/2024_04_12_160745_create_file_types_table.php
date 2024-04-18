@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('due_diligence', function (Blueprint $table) {
+        Schema::create('file_types', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
-            $table->string('description', 995)->nullable();
+            $table->string('type', 30);
             $table->timestamps();
-            $table->unsignedBigInteger('due_diligence_statuses_id');
-            $table->foreign('due_diligence_statuses_id')->references('id')->on('due_diligence_statuses')->onDelete('no action')->onUpdate('no action');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('due_diligence');
+        Schema::dropIfExists('file_types');
     }
 };

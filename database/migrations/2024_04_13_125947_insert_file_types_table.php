@@ -10,13 +10,10 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::table('document_types', function (Blueprint $table) {
-            $table->string('type', 30);
-        });         
+    {     
 
          // Inserir categorias de pagamento
-       DB::table('document_types')->insert([
+       DB::table('file_types')->insert([
             ['title' => 'RG (Identidade)', 'type'=> 'KYC'],
             ['title' => 'CPF (Cadastro de Pessoa Física)', 'type'=> 'KYC'],            
             ['title' => 'CNH (Carteira Nacional de Habilitação)', 'type'=> 'KYC'],
