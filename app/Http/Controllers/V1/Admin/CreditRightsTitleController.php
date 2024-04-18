@@ -119,9 +119,8 @@ class CreditRightsTitleController extends Controller
            
             return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'lawyers', 'dataForm', 'users'));
 
-        }else{
-
-            // Salva os dados do título mesmo se o upload do arquivo não for bem-sucedido
+       } else {
+            // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
             // Redireciona para a página de exibição do título
@@ -149,8 +148,8 @@ class CreditRightsTitleController extends Controller
         $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
             $query->where('credit_rights_title_id', $id);
         })->get();
-    
-        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users','lawyers'));
+
+        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers'));
     }
 
     /**

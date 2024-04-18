@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             
             $table->foreign('lawyer_id')->references('id')->on('lawyers')->onDelete('cascade');
-            $table->foreign('credit_rights_title_id')->references('id')->on('credit_right_titles')->onDelete('cascade');
+            // $table->foreign('credit_rights_title_id')->references('id')->on('credit_right_titles')->onDelete('cascade');
         });
     }
 
