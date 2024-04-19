@@ -17,7 +17,7 @@ use App\Models\V1\Admin\CrtOriginDebtor;
 use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
-use App\Models\V1\admin\CrtType;
+use App\Models\V1\Admin\CrtType;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
