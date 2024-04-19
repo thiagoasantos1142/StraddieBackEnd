@@ -19,6 +19,7 @@ use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
+use App\Models\v1\CrtType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use NumberFormatter;
@@ -35,12 +36,32 @@ class CreditRightsTitleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //mostrar todas os titulos
+
+        if ($request->ajax()) {
+
+            $request->all();
+            $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+
+            return response()->json(["data" => CreditRightsTitle::with('users_titles')
+                ->with('court')
+                ->with('crtOriginDebtor')
+                ->with('CrtNatureCredit')
+                ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
+                    return $query->whereIn('crt_types_id', $filterCtrTypesId);
+                })
+                ->get()]);
+        }
+
+
+
+        $ctrTypes = CrtType::get();
+
         $creditRightsTitles = CreditRightsTitle::all();
 
-        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles'));
+        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
     }
 
     /**

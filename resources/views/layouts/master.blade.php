@@ -45,10 +45,18 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @vite(['resources/js/importmask.js'])
+    
+    @vite(['resources/assets/js/components/customFilter.js'])
 
     <style>
         #awn-toast-container {
             z-index: 100000 !important;
+        }
+
+        .active-btn {
+            color: #fff;
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
     </style>
 

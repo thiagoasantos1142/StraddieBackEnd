@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('nature_credit_id')->constrained('crt_nature_credits')->nullable();            
             $table->foreignId('nature_obligation_id')->constrained('crt_nature_credits')->nullable();
             $table->foreignId('origin_debtor_id')->constrained('crt_origin_debtors')->nullable();
+            $table->foreignId('crt_types_id')->constrained('crt_types')->nullable();
            
             $table->date('distribution_date')->nullable();            
             $table->date('final_judgment_date')->nullable();            

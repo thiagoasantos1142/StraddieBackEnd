@@ -23,6 +23,8 @@ export default defineConfig({
                 'resources/assets/js/components/addPhone.js',
                 'resources/assets/js/addPhone-lib.js',
                 'resources/assets/js/components/requestsaxios.js',
+                'resources/assets/js/customFilter-lib.js',
+                'resources/assets/js/components/customFilter.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
