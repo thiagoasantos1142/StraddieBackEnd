@@ -7,6 +7,8 @@
 
         <div id="responsive-overlay"></div>
 
+        <script src="{{ asset('build/assets/libs/awesome-notifications/index.var.js') }}"></script>
+
         <!-- Popper JS -->
         <script src="{{asset('build/assets/libs/@popperjs/core/umd/popper.min.js')}}"></script>
 
