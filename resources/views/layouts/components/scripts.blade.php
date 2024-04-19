@@ -23,9 +23,5 @@
 <script src="{{ asset('build/assets/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script>
 
 <script src="{{ asset('build/assets/libs/awesome-notifications/index.var.js') }}"></script>
-<script>
-    var options = {}
-    var notifier = new AWN(options);
-</script>
 
 @yield('scripts')
