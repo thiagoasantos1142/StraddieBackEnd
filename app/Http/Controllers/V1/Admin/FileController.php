@@ -20,9 +20,9 @@ class FileController extends Controller
             // Obtém o arquivo enviado
             $file = $request->file('file');
 
-            if($request->type_id == '1') {
+            if($request->category_id == 1) {
                 $path = 'crt/docs/'. str::uuid();
-            }else{
+            }elseif($request->category_id == 2){
                 $path = 'dueDiligence/docs/'. str::uuid();
             }
 

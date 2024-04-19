@@ -33,7 +33,7 @@ class LawyerController extends Controller
 
         $lawyers = Lawyer::with('user')->get();
 
-        return view('V1.Admin.lawyer.index', compact('lawyers'));
+        return view('v1.admin.lawyer.index', compact('lawyers'));
     }
 
     public function show(string $id)
@@ -43,14 +43,14 @@ class LawyerController extends Controller
 
         $dataForm = $this->formCreateUpdate($lawyer); //localizado em config
 
-        return view('V1.Admin.lawyer.show', compact('lawyer', 'dataForm'));
+        return view('v1.admin.lawyer.show', compact('lawyer', 'dataForm'));
     }
 
 
     public function create()
     {
         $dataForm = $this->formCreateUpdate();
-        return view('V1.Admin.lawyer.create', compact('dataForm'));
+        return view('v1.admin.lawyer.create', compact('dataForm'));
     }
 
     public function store(Request $request)

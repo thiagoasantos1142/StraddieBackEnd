@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('available_assets', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
-            $table->foreignId('due_diligence_id')->constrained('due_diligence');
+            $table->foreignId('due_diligence_id')->constrained('due_diligences');
             $table->string('process_number', 45)->nullable();
             $table->decimal('nominal_value_title', 16, 2)->nullable()->comment('Valor total do título');
             $table->decimal('updated_value', 16, 2)->nullable();
@@ -28,6 +28,7 @@ return new class extends Migration
     
             // Adicionando índice à coluna 'due_diligence_id'
             $table->index('due_diligence_id');
+
         });
     }
 

@@ -158,7 +158,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="category_id" class="form-label"></label>
-                                <input class="form-control" value="1" type="hidden" id="category_id" name="category_id">
+                                <input class="form-control" value=1 type="hidden" id="category_id" name="category_id">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>

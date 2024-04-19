@@ -73,7 +73,7 @@ class OrganizationController extends Controller
         $users = User::get();
         $organization = Organization::with('addresses')->with('users_organization')->find($id);
         $dataForm = $this->formCreateUpdate($organization); //localizado em config
-        return view('V1.Admin.organization.show', compact('organization', 'dataForm', 'users'));
+        return view('v1.admin.organization.show', compact('organization', 'dataForm', 'users'));
     }
 
     /**

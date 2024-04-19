@@ -28,7 +28,7 @@ class UserController extends Controller
         }
 
         $users = User::get();
-        return view('V1.Admin.users.index', compact('users'));
+        return view('v1.admin.users.index', compact('users'));
     }
 
     public function show(Request $request, string $id)
@@ -42,7 +42,7 @@ class UserController extends Controller
 
         $dataForm = $this->formCreateUpdate($user);
 
-        return view('V1.Admin.users.show', compact('user', 'dataForm'));
+        return view('v1.admin.users.show', compact('user', 'dataForm'));
     }
 
 
@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         $dataForm = $this->formCreateUpdate();
 
-        return view('V1.Admin.users.create', compact('dataForm'));
+        return view('v1.admin.users.create', compact('dataForm'));
     }
 
     public function store(Request $request)
@@ -62,7 +62,7 @@ class UserController extends Controller
                 'name' => ['required', 'string', 'max:255', new NameAndSurname],
                 'email' => "unique:users,email|email|max:255",
                 'cpf' => "unique:users,cpf|max:20",
-                'phone' => 'required|max:20'
+                //'phone' => 'required|max:20'
             ]
         );
 
@@ -241,10 +241,10 @@ class UserController extends Controller
                 //     "value" => $data->organization_id ?? null
                 // ],
                 [
-                    "label" => "Organization",
-                    "name" => "phone",
+                    "label" => "Título",
+                    "name" => "title",
                     "col" => "4",
-                    "value" => $data->bio ?? null
+                    "value" => $data->title ?? null
                 ],
                 [
                     "label" => "Bio",

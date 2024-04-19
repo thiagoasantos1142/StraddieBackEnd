@@ -11,8 +11,8 @@
         <h1 class="page-title">Adicionar usuário</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Empresas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Adicionar empresa</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Usuários</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Adicionar usuário</li>
             </ol>
         </div>
     </div>

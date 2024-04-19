@@ -89,7 +89,7 @@ class CreditRightsTitleController extends Controller
             // Obtém o arquivo enviado
             $file = $request->file('file');
 
-            $path = 'crt/docs/'.str::uuid();
+            $path = 'crt/docs/'. str::uuid();
 
             // Define o nome do arquivo 
             $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
@@ -104,8 +104,10 @@ class CreditRightsTitleController extends Controller
             $document = new File();
             $document->credit_rights_title_id = $creditRightsTitle->id;
 
-            $document->filename = $fileName;
-            $document->filepath = $path;
+            $document->filename = $file->getClientOriginalName();
+            $document->path = $path;
+            $document->type_id = 21;            
+            $document->category_id = 1;  
             $document->save();
 
             // Redireciona para a página de exibição do título
