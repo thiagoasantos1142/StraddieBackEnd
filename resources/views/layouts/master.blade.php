@@ -37,16 +37,13 @@
     @vite(['resources/sass/app.scss'])
 
 
+    <script src="{{ asset('build/assets/jquery-3.7.1.js') }}"></script>
+    
     @yield('styles')
 
-    <script src="{{ asset('build/assets/jquery-3.7.1.js') }}"></script>
 
     <!-- Select2 Cdn -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    
-
-    @vite(['resources/js/jquery-3.7.1.js'])
 
     @vite(['resources/js/importmask.js'])
     

@@ -23,6 +23,8 @@ window.require = name => {
   if (name === 'jquery') return window.jQuery || window.Zepto
   else throw new Error(`Cannot require ${name}`)
 }
+
+window._ = _;
 //fim config jquery
 
 window.Swiper = Swiper;
