@@ -30,14 +30,14 @@ async function deletPhoneUser(phoneId, func = () => {}) {
 function openAlert(type, message) {
     // documentação
     // https://f3oall.github.io/awesome-notifications/docs/toasts
-    "use strict";
-    var options = {
-        durations: {
-            alert: 2000,
-            success: 500
-        }
-    }
-    var notifier = new AWN(options);
+    // "use strict";
+    // var options = {
+    //     durations: {
+    //         alert: 2000,
+    //         success: 500
+    //     }
+    // }
+    var notifier = notifier;
 
     if (!(type, message)) {
         return;
