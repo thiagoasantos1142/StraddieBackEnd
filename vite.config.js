@@ -112,7 +112,6 @@ export default defineConfig({
                         'resources/assets/js/apexcharts-stock-prices.js',
                         'resources/js/jquery-3.7.1.js',
                         'resources/js/jquery.mask.js',
-                        'resources/assets/libs/awesome-notifications/index.var.js'
                     ]),
                     dest: 'assets/'
                 }
