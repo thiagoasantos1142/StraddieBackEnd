@@ -1,5 +1,3 @@
-import AWN from '~awersome';
-
 async function savePhoneUser(data, func = () => { }) {
     try {
         const response = await axios.post(`/dashboard/contacts`, data);
