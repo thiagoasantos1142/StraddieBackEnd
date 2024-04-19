@@ -1,4 +1,4 @@
-import AWN from 'resources/assets/libs/awesome-notifications/index.var.js';
+import AWN from '~awersome';
 
 async function savePhoneUser(data, func = () => { }) {
     try {
