@@ -25,6 +25,7 @@ export default defineConfig({
                 'resources/assets/js/components/requestsaxios.js',
                 'resources/assets/js/customFilter-lib.js',
                 'resources/assets/js/components/customFilter.js',
+                'resources/js/basicMask.js',
 
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
@@ -109,7 +110,8 @@ export default defineConfig({
                         'resources/assets/js/show-password.js',
                         'resources/assets/js/filemanager-list.js',
                         'resources/assets/js/apexcharts-stock-prices.js',
-                        'resources/js/jquery-3.7.1.js'
+                        'resources/js/jquery-3.7.1.js',
+                        'resources/js/jquery.mask.js',
                     ]),
                     dest: 'assets/'
                 }
