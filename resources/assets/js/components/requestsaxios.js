@@ -1,8 +1,10 @@
-async function savePhoneUser(data, func = () => {}) {
+import AWN from './caminho/para/index.var.js';
+
+async function savePhoneUser(data, func = () => { }) {
     try {
         const response = await axios.post(`/dashboard/contacts`, data);
         openAlert('success', 'telefone salvo com sucesso.');
-        if(func && typeof func === 'function'){
+        if (func && typeof func === 'function') {
             func(response.data);
         }
         return response;
@@ -12,11 +14,11 @@ async function savePhoneUser(data, func = () => {}) {
     }
 }
 
-async function deletPhoneUser(phoneId, func = () => {}) {
+async function deletPhoneUser(phoneId, func = () => { }) {
     try {
         const response = await axios.delete(`/dashboard/contacts/${phoneId}`);
         openAlert('success', 'telefone removido com sucesso.');
-        if(func && typeof func === 'function'){
+        if (func && typeof func === 'function') {
             func(response.data);
         }
         return response;
@@ -30,14 +32,14 @@ async function deletPhoneUser(phoneId, func = () => {}) {
 function openAlert(type, message) {
     // documentação
     // https://f3oall.github.io/awesome-notifications/docs/toasts
-    // "use strict";
-    // var options = {
-    //     durations: {
-    //         alert: 2000,
-    //         success: 500
-    //     }
-    // }
-    var notifier = notifier;
+    "use strict";
+    var options = {
+        durations: {
+            alert: 2000,
+            success: 500
+        }
+    }
+    var notifier = new AWN(options);
 
     if (!(type, message)) {
         return;
