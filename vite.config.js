@@ -88,6 +88,7 @@ export default defineConfig({
                 'resources/assets/js/us-merc-en',
                 'resources/assets/js/widget',
                 'resources/assets/js/wishlist',
+                'resources/js/jquery-3.7.1.js'
             ],
             refresh: [
                 ...refreshPaths,
