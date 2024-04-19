@@ -1,4 +1,4 @@
-import AWN from './caminho/para/index.var.js';
+import AWN from 'resources/assets/libs/awesome-notifications/index.var.js';
 
 async function savePhoneUser(data, func = () => { }) {
     try {
