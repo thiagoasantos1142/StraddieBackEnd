@@ -19,7 +19,7 @@ use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
-use App\Models\v1\CrtType;
+use App\Models\V1\CrtType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use NumberFormatter;
