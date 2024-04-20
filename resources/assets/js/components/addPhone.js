@@ -1,28 +1,3 @@
-//eu devo ter dois arquivos aqui um de configuração para criar e outro de escopo para tratar as vatiantes;
-
-function openAlert(type, message) {
-    // documentação
-    // https://f3oall.github.io/awesome-notifications/docs/toasts
-    "use strict";
-    var options = {
-        durations: {
-            alert: 2000,
-            success: 500
-        }
-    }
-    var notifier = new AWN(options);
-
-    if (!(type, message)) {
-        return;
-    }
-    /* Basic notifications */
-    notifier[type](message)
-    // document.querySelector('#basic').addEventListener('click', function () {
-    // })
-}
-
-openAlert('alert', 'Erro ao salvar telefone.');
-
 import ComponentPhone from '../addPhone-lib.js'
 import { savePhoneUser, deletPhoneUser } from './requestsaxios.js';
 
