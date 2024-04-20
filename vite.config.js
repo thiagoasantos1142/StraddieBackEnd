@@ -112,6 +112,7 @@ export default defineConfig({
                         'resources/assets/js/apexcharts-stock-prices.js',
                         'resources/js/jquery-3.7.1.js',
                         'resources/js/jquery.mask.js',
+                        'resources/js/awersome-alert.js'
                     ]),
                     dest: 'assets/'
                 }
@@ -136,7 +137,6 @@ export default defineConfig({
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap/dist'),
-            '~awersome': path.resolve(__dirname, 'resources/assets/libs/awesome-notifications/index.var.js'),
             '~resources': path.resolve(__dirname, 'resources'),
             '~jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js')
         },
