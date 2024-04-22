@@ -43,7 +43,7 @@
     <div class="main-container container-fluid">
         <div class="row">
             <div class="col-md-12 row">
-                @if($creditRightsTitle->users_titles->count() == 0)
+                @if(!$creditRightsTitle->users_titles->count())
                     <div class="col-xl-3 col-md-6">
                         <a href="#users">
                             <div class="card ribbone-card">
@@ -56,8 +56,23 @@
                             </div>
                         </a>
                     </div>
-                @endif
-                
+                @endif                
+            </div>
+            <div class="col-md-12 row">
+                @if(!$creditRightsTitle->crtLawyers->count())
+                    <div class="col-xl-3 col-md-6">
+                        <a href="#users">
+                            <div class="card ribbone-card">
+                                <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
+                                            class="fa fa-bolt"></i></span></div>
+                                <div class="card-body  p-6">
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
+                                    <p class="card-text">Atribua um advogado ao título</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endif                
             </div>
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"

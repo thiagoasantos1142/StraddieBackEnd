@@ -7,6 +7,7 @@ use App\Models\UserType;
 use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -60,8 +61,8 @@ class UserController extends Controller
             $request->all(),
             [
                 'name' => ['required', 'string', 'max:255', new NameAndSurname],
-                'email' => "unique:users,email|email|max:255",
-                'cpf' => "unique:users,cpf|max:20",
+                //'email' => "unique:users,email|email|max:255",
+                //'cpf' => "unique:users,cpf|max:20",
                 //'phone' => 'required|max:20'
             ]
         );
@@ -82,9 +83,19 @@ class UserController extends Controller
         $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
-            'email' => "unique:users,email,{$id}|email|max:255",
-            'phone' => 'required|max:20',
-            'cpf' => "unique:users,cpf,{$id}|max:20"
+            'email' => [
+                'nullable',
+                "required|email|max:255",
+                Rule::unique('users', 'email')->ignore($id),
+            ],
+            'phone' => 'max:20',
+            'cpf' => [
+                'nullable',
+                Rule::unique('users', 'cpf')->where(function ($query) use ($id) {
+                    return $query->whereNotNull('cpf')->where('id', '!=', $id);
+                }),
+                'max:20'
+            ]
         ]);
 
         $name = $request->input('firstName') . ' ' . $request->input('lastName');
