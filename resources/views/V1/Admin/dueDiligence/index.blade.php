@@ -32,8 +32,8 @@
         <h1 class="page-title">Títulos</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Títulos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Títulos</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Due Diligences</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Due Diligence</li>
             </ol>
         </div>
     </div>
@@ -50,49 +50,48 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card custom-card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">File Export Datatable</div>
-                        <div class="d-flex">
-                            <a href="{{ route('creditRightsTitle.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar Títulos</a>
-                        </div>
-                    </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="file-export" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Assunto / Sobre </th>
-                                        <th>Corte</th>
+                                        <th>Assunto / Sobre do título </th>
+                                        <th>ID do titulo</th>
                                         <th>BENEFICIÁRIOS</th>
                                         <th>Órgão Devedor</th>                                        
                                         <th>Natureza do Crédito</th>
                                         <th>Valor Principal</th>
+                                        
+                                        <th>Status da Due Diligence</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($creditRightsTitles as $titles)
+                                    @foreach ($dueDiligences as $dueDiligence)
                                         <tr>
                                             
-                                            <td title="{{ $titles->title }}">{{ substr($titles->title, 0, 25) }}</td>
-                                            <td title="{{ $titles->court->title }}">{{ substr($titles->court->title, 0, 25) }}</td>
+                                            <td title="{{ $dueDiligence->crt->title }}">{{ substr($dueDiligence->crt->title, 0, 25) }}</td>
+                                            <td>{{ $dueDiligence->crt->id }}</td>
                                       
                                             <td>
-                                                @foreach ($titles->users_titles as $beneficiary)
+                                                @foreach ($dueDiligence->crt->users_titles as $beneficiary)
                                                     <button type="button" class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
                                                 @endforeach
                                             </td> 
-                                            <td>{{ $titles->crtOriginDebtor->title}}</td>
-                                            <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 25) }}</td>
+                                            <td>{{ $dueDiligence->crt->crtOriginDebtor->title}}</td>
+                                            <td title="{{ $dueDiligence->crt->CrtNatureCredit->title }}">{{ substr($dueDiligence->crt->CrtNatureCredit->title, 0, 25) }}</td>
                                       
                                             
-                                            <td>{{ $titles->principal_amount }}</td>
+                                            <td>{{ $dueDiligence->crt->principal_amount }}</td>
+
+                                            <td>{{ $dueDiligence->status->title }}</td>
+
 
 
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $titles->id]) }}">
+                                                    <a href="{{ route('dueDiligence.show', ['dueDiligence' => $dueDiligence->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>

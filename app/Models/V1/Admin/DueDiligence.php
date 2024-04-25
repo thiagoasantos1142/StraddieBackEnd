@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class DueDiligence extends Model
 {
     use HasFactory;
+
+    public function crt()
+    {
+        return $this->belongsTo(CreditRightsTitle::class, 'credit_rights_title_id');
+    }
+
+    
+    public function status()
+    {
+        return $this->belongsTo(DueDiligenceStatuses::class, 'statuses_id');
+    }
 }
