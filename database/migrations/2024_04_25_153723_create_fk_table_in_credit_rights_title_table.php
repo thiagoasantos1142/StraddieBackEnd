@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('credit_rights_titles', function (Blueprint $table) {            
                
-           // $table->foreignId('nature_obligation_id')->constrained('crt_nature_obligations')->nullable();
+            $table->foreignId('nature_obligation_id')->constrained('crt_nature_obligations')->nullable();
         
         });
     }
