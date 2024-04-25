@@ -102,7 +102,7 @@ class CreditRightsTitleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
+
 
         // Verifica se um arquivo foi enviado
         if ($request->hasFile('file')) {
@@ -110,7 +110,7 @@ class CreditRightsTitleController extends Controller
             // Obtém o arquivo enviado
             $file = $request->file('file');
 
-            $path = 'crt/docs/'. str::uuid();
+            $path = 'crt/docs/' . str::uuid();
 
             // Define o nome do arquivo 
             $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
@@ -127,8 +127,8 @@ class CreditRightsTitleController extends Controller
 
             $document->filename = $file->getClientOriginalName();
             $document->path = $path;
-            $document->type_id = 21;            
-            $document->category_id = 1;  
+            $document->type_id = 21;
+            $document->category_id = 1;
             $document->save();
 
             // Redireciona para a página de exibição do título
@@ -139,10 +139,9 @@ class CreditRightsTitleController extends Controller
             $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
                 $query->where('credit_rights_title_id', $id);
             })->get();
-           
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'lawyers', 'dataForm', 'users'));
 
-       } else {
+            return redirect()->route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
+        } else {
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
@@ -154,10 +153,8 @@ class CreditRightsTitleController extends Controller
             $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
                 $query->where('credit_rights_title_id', $id);
             })->get();
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'lawyers', 'dataForm', 'users'));
-
+            return redirect()->route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]);
         }
-
     }
     /**
      * Display the specified resource.
