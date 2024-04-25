@@ -306,7 +306,7 @@ class CreditRightsTitleController extends Controller
                     "value" => $data->nature_obligation_id,
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
-                    "options" => crtNatureObligation::get()
+                    "options" => CrtNatureObligation::get()
                 ],
                 [
                     "label" => "Espécie do título",
