@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::table('due_diligences', function (Blueprint $table) {
            
 
-            $table->foreignId('statuses_id')->nullable()->constrained('due_diligence_statuses');
+            //$table->foreignId('statuses_id')->nullable()->constrained('due_diligence_statuses');
             
         });
     
