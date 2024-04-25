@@ -323,7 +323,7 @@ class CreditRightsTitleController extends Controller
                     "value" => $data->nature_credit_id,
                     "identifier_value" => 'id',
                     "identifier_title" => 'title',
-                    "options" => crtNatureCredit::get()
+                    "options" => CrtNatureCredit::get()
                 ],
 
                 [
