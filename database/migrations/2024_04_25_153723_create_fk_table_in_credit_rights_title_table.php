@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('credit_rights_titles', function (Blueprint $table) {            
                
-            $table->foreignId('nature_obligation_id')->constrained('crt_nature_obligations')->nullable();
+           // $table->foreignId('nature_obligation_id')->constrained('crt_nature_obligations')->nullable();
         
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fk_table_in_credit_rights_title');
+        Schema::dropIfExists('nature_obligation_id');
     }
 };
