@@ -211,7 +211,7 @@
                                                                     <div class="card-body">
                                                                         <ul class="list-group">
                                                                             @foreach($files as $file)
-                                                                                @if($file->lawyer_id == $lawyer->id)
+                                                                                @if($file->user_id == $lawyer->user_id)
                                                                                     <li class="list-group-item">
                                                                                         <div class="d-flex align-items-top">
                                                                                             @if($file->status_id == 1 )
@@ -291,7 +291,7 @@
                                                                 <div class="card-body">
                                                                         <ul class="list-group">
                                                                             @foreach($files as $file)
-                                                                                @if($file->id == $creditRightsTitle->id)
+                                                                                @if($file->credit_rights_title_id == $creditRightsTitle->id)
                                                                                     <li class="list-group-item">
                                                                                         <div class="d-flex align-items-top">
                                                                                             @if($file->status_id == 1 )

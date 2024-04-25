@@ -72,43 +72,42 @@ class DueDiligenceController extends Controller
        
         foreach($users as $user){
             foreach ($docTypeUserKycIds as $docTypeUserKycId) {
+               
                 $file = new File;
-                $file->due_duligence_id = $dueDiligence->id;
+                $file->due_diligence_id = $dueDiligence->id;
                 $file->type_id = $docTypeUserKycId;            
                 $file->category_id = 2;
                 $file->user_id = $user->id;
+                $file->status_id = 1;
                 $file->save();           
             }
             foreach ($docTypeUserCndIds as $docTypeUserCndId) {
                 $file = new File;
-                $file->due_duligence_id = $dueDiligence->id;
-                $file->type_id = $docTypeUserCndIds;            
+                $file->due_diligence_id = $dueDiligence->id;
+                $file->type_id = $docTypeUserCndId;            
                 $file->category_id = 2;
                 $file->user_id = $user->id;
+                $file->status_id = 1;
                 $file->save();           
             }
         }
         
-        $docTypeLawyerKycIds = $request->input('doc_type_kyc_lawyer_ids');
-        $docTypeLawyerCndIds = $request->input('doc_type_cnd_lawyer_ids');
-        $lawyers = Lawyer::whereIn('id', [$creditRightsTitle->crtLwyers])->get();
+        $docTypeLawyerKycIds = $request->input('doc_type_kyc_law_ids');
+        
 
+        $lawyersIds = $creditRightsTitle->crtLawyers->pluck('lawyer_id')->toArray();
+        $lawyers = Lawyer::whereIn('id', $lawyersIds)->get();
 
+       
         foreach($lawyers as $lawyer){
-            foreach ($docTypeUserKycIds as $docTypeUserKycId) {
+            foreach ($docTypeLawyerKycIds as $docTypeLawyerKycId) {
                 $file = new File;
-                $file->due_duligence_id = $dueDiligence->id;
-                $file->type_id = $docTypeUserKycId;            
+                $file->due_diligence_id = $dueDiligence->id;
+                $file->type_id = $docTypeLawyerKycId;            
                 $file->category_id = 2;
-                $file->lawyer_id = $lawyer->id;
-                $file->save();           
-            }
-            foreach ($docTypeLawyerCndIds as $docTypeLawyerCndId) {
-                $file = new File;
-                $file->due_duligence_id = $dueDiligence->id;
-                $file->type_id = $docTypeLawyerCndId;            
-                $file->category_id = 2;
-                $file->lawyer_id = $lawyer->id;
+                $file->status_id = 1;
+
+                $file->user_id = $lawyer->user_id;
                 $file->save();           
             }
         }
@@ -122,6 +121,8 @@ class DueDiligenceController extends Controller
                 $file->type_id = $docTypeTitleId;     
                 $file->credit_rights_title_id = $creditRightsTitle->id;       
                 $file->category_id = 2;
+                
+                $file->status_id = 1;
                 $file->save();           
         }    
         
