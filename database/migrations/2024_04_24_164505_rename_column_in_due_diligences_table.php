@@ -13,19 +13,13 @@ return new class extends Migration
     {
         // Primeiro, remova a restrição de chave estrangeira
         Schema::table('due_diligences', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('due_diligence_statuses_id');
-
-            $table->foreignId('statuses_id')->nullable()->constrained('due_diligence_statuses');
-            
-        });
-
-        Schema::table('due_diligences', function (Blueprint $table) {
-           
+            //$table->dropConstrainedForeignId('due_diligence_statuses_id');
 
             //$table->foreignId('statuses_id')->nullable()->constrained('due_diligence_statuses');
             
         });
-    
+
+       
     }
 
     /**
