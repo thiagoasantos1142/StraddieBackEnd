@@ -59,6 +59,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('creditRightsTitle.store') }}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="crt_type_id">
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
@@ -107,7 +108,8 @@
                                     <!-- Adicione a classe "select2" aos seus selects -->
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="court_id" class="form-label">Órgão julgador</label>
-                                        <select class="form-select select js-example-basic-single" id="court_id" name="court_id">
+                                        <select class="form-select select js-example-basic-single" id="court_id"
+                                            name="court_id">
                                             <option value="">Selecione um órgão julgador</option>
                                             @foreach ($courts as $court)
                                                 <option value="{{ $court->id }}"
@@ -119,7 +121,8 @@
 
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="vara_id" class="form-label">Vara do tribunal</label>
-                                        <select class="form-select select js-example-basic-single" id="vara_id" name="vara_id" required>
+                                        <select class="form-select select js-example-basic-single" id="vara_id"
+                                            name="vara_id" required>
                                             <option value="">Selecione uma Vara do tribunal</option>
                                             <!-- Os options serão preenchidos dinamicamente usando JavaScript -->
                                         </select>
@@ -251,6 +254,9 @@
             </div>
         </div>
     </div>
+
+    {{-- modal --}}
+    <x-v1.admin.modal.select-type-title />
 @endsection
 
 @section('modals')

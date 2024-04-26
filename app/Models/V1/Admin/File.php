@@ -19,4 +19,8 @@ class File extends Model
         return $this->belongsTo(FileStatus::class, 'status_id');
     }
 
+    public function document_type()
+    {
+        return $this->hasOne(DocumentType::class, 'id', 'type_id');
+    }
 }

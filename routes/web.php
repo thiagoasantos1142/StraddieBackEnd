@@ -26,6 +26,8 @@ use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\V1\Admin\AddressController;
 use App\Http\Controllers\V1\Admin\ContactsController;
 use App\Http\Controllers\V1\Admin\CrtLawyerController;
+use App\Http\Controllers\V1\Admin\CrtTypeController;
+use App\Http\Controllers\V1\Admin\FormDocuments;
 use App\Http\Controllers\V1\Admin\UsersCreditRigtsTitleController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
@@ -48,6 +50,8 @@ Route::get('index', [DashboardController::class, 'index']);
 
 Route::get('landing-page', [LandingpageController::class, 'landing_page']);
 
+Route::resource('/form-documents', FormDocuments::class);
+
 
 
 Route::middleware([
@@ -59,41 +63,35 @@ Route::middleware([
     Route::group(['prefix' => 'dashboard'], function () {
         Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
-        
+
         Route::resource('/file', AddressController::class);
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         Route::resource('/dueDiligence', DueDiligenceController::class);
         Route::resource('/users', UserController::class);
-        
+
         Route::resource('/files', FileController::class);
         Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
         Route::resource('/crtLawyer', CrtLawyerController::class);
         Route::resource('/contacts', ContactsController::class);
         Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
         Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
-
-
-        
-
         Route::resource('/assets', AssetsController::class);
+        Route::resource('crtType', CrtTypeController::class);
 
         Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
         Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
         Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
 
-        Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class,'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
-        Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class,'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
-        Route::post('/deleteLawyerToUser', [LawyerController::class,'deleteLawyerToUser'])->name('deleteLawyerToUser');
-        
-     
-        Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
+        Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class, 'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
+        Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
+        Route::post('/deleteLawyerToUser', [LawyerController::class, 'deleteLawyerToUser'])->name('deleteLawyerToUser');
+
+
         Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
 
     });
-
-
-
+    Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
 
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 

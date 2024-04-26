@@ -80,7 +80,9 @@
     <!-- PAGE -->
     <div class="page">
         <div class="page-main">
-
+            @if (isset($noNavebar))
+            @else
+                
             <!-- Main-Header -->
             @include('layouts.components.main-header')
             <!-- End Main-Header -->
@@ -88,6 +90,8 @@
             <!--Main-Sidebar-->
             @include('layouts.components.main-sidebar')
             <!-- End Main-Sidebar-->
+            @endif
+
 
             <!--app-content open-->
             <div class="main-content app-content mt-0">

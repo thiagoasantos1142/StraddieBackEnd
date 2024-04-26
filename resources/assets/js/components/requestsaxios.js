@@ -48,7 +48,45 @@ function openAlert(type, message) {
     // })
 }
 
+
+async function saveDocument(data, func = () => { }) {
+    //ajustar para criar e enviar um form;
+
+
+    try {
+        const response = await axios.post(`/upload/file`, data);
+        console.log("@response", response);
+        openAlert('success', 'telefone salvo com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', 'Erro ao salvar telefone.');
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
+// CtrTypes
+async function getAllCrtTypes(func = () => { }) {
+    try {
+        const response = await axios.get(`/dashboard/crtType`);
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
+
+
+
+
 export {
     savePhoneUser,
-    deletPhoneUser
+    deletPhoneUser,
+    saveDocument,
+    getAllCrtTypes
 }

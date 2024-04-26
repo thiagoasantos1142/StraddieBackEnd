@@ -26,7 +26,8 @@ export default defineConfig({
                 'resources/assets/js/customFilter-lib.js',
                 'resources/assets/js/components/customFilter.js',
                 'resources/js/basicMask.js',
-
+                'resources/assets/js/pages/formDocuments.js',
+                'resources/assets/js/components/selectTypeTitle.js',
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
                 'resources/assets/js/advancedform',

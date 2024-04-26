@@ -96,7 +96,8 @@ class CreditRightsTitleController extends Controller
             'origin_debtor_id'  => 'required',
             'principal_amount'  => 'required',
             'vara_id' => 'required',
-            'file' => 'file'
+            'file' => 'file',
+            'crt_type_id' => 'required'
         ]);
 
         if ($validator->fails()) {

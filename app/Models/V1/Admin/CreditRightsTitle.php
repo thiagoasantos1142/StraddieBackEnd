@@ -19,8 +19,8 @@ class CreditRightsTitle extends Model
         'principal_amount',
         'vara_id',
         'process_number',
-        'class'
-       
+        'class',
+        'crt_type_id'
     ];
 
     use HasFactory;
