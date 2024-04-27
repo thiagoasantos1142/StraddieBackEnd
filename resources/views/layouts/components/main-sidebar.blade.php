@@ -88,6 +88,20 @@
 									</a>
 								</li>
 
+								
+								<li class="slide">
+									<a href="{{url('dashboard/dueDiligence')}}" class="side-menu__item">
+										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
+											viewBox="0 0 24 24" width="24px" fill="#000000">
+											<path d="M0 0h24v24H0V0z" fill="none" />
+											<path
+												d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
+										</svg>
+										<span class="side-menu__label">Due Diligences</span>
+									</a>
+								</li>
+
+
 								<li class="slide">
 									<a href="{{url('dashboard/assets')}}" class="side-menu__item">
 										<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"

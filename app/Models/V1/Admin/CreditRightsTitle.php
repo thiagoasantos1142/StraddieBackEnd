@@ -51,7 +51,7 @@ class CreditRightsTitle extends Model
     }
     public function files()
     {
-        return $this->hasMany(File::class, 'credit_rights_title_id');
+        return $this->hasMany(File::class, 'credit_rights_title_id')->where('category_id', 1);
     }
     public function crtLawyers()
     {
