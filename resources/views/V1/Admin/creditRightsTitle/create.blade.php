@@ -290,20 +290,12 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            // Aplicar máscara de moeda brasileira
-            $('#principal_amount').mask('000.000.000,00', {
-                reverse: true
-            });
-
-            // // Validar entrada para aceitar apenas números
-            // $('#principal_amount').on('input', function() {
-            //     // Remover caracteres não numéricos
-            //     var sanitized = $(this).val().replace(/[^0-9]/g, '');
-            //     // Atualizar o valor no campo
-            //     $(this).val(sanitized);
-            // });
-        });
+        // $(document).ready(function() {
+        //     // Aplicar máscara de moeda brasileira
+        //     $('#principal_amount').mask('000.000.000,00', {
+        //         reverse: true
+        //     });
+        // });
     </script>
     <!-- Adicione um bloco de script para inicializar o Select2 -->
     <script>
