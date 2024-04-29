@@ -1,4 +1,4 @@
-@extends('V1.Site.Stradie.defaults.template')
+@extends('v1.Site.Stradie.defaults.template')
 
 @section('content')
     <x-v1.site.sidebar />

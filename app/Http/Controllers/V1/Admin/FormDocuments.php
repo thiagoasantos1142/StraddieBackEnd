@@ -44,7 +44,7 @@ class FormDocuments extends Controller
 
         $stopIn = File::where('due_diligence_id', $id)->with('document_type')->whereNull('path')->first();
 
-        return view('V1.Client.formDocuments.show', compact('files','stopIn'));
+        return view('v1.Client.formDocuments.show', compact('files','stopIn'));
     }
 
     /**
