@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+{{-- aqui --}}
 @section('styles')
     <!-- noui Slider -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/nouislider/nouislider.min.css') }}">
