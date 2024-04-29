@@ -9,25 +9,25 @@
 @section('content')
     <!-- PAGE-HEADER -->
     @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
         <h1 class="page-title">Títulos</h1>
         <div>
@@ -53,7 +53,8 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title">File Export Datatable</div>
                         <div class="d-flex">
-                            <a href="{{ route('creditRightsTitle.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                            <a href="{{ route('creditRightsTitle.create') }}"
+                                class="btn btn-primary btn-block float-end my-2"><i
                                     class="fa fa-plus-square me-2"></i>Adicionar Títulos</a>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                                         <th>Assunto / Sobre </th>
                                         <th>Corte</th>
                                         <th>BENEFICIÁRIOS</th>
-                                        <th>Órgão Devedor</th>                                        
+                                        <th>Órgão Devedor</th>
                                         <th>Natureza do Crédito</th>
                                         <th>Valor Principal</th>
                                         <th>Ações</th>
@@ -74,29 +75,33 @@
                                 <tbody>
                                     @foreach ($creditRightsTitles as $titles)
                                         <tr>
-                                            
+
                                             <td title="{{ $titles->title }}">{{ substr($titles->title, 0, 25) }}</td>
-                                            <td title="{{ $titles->court->title }}">{{ substr($titles->court->title, 0, 25) }}</td>
-                                      
+                                            <td title="{{ $titles->court->title }}">
+                                                {{ substr($titles->court->title, 0, 25) }}</td>
+
                                             <td>
                                                 @foreach ($titles->users_titles as $beneficiary)
-                                                    <button type="button" class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-info">{{ $beneficiary->name }}</button>
                                                 @endforeach
-                                            </td> 
-                                            <td>{{ $titles->crtOriginDebtor->title}}</td>
-                                            <td title="{{ $titles->CrtNatureCredit->title }}">{{ substr($titles->CrtNatureCredit->title, 0, 25) }}</td>
-                                      
-                                            
+                                            </td>
+                                            <td>{{ $titles->crtOriginDebtor->title }}</td>
+                                            <td title="{{ $titles->CrtNatureCredit->title }}">
+                                                {{ substr($titles->CrtNatureCredit->title, 0, 25) }}</td>
+
+
                                             <td>{{ $titles->principal_amount }}</td>
 
 
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $titles->id]) }}">
+                                                    <a
+                                                        href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $titles->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>
-                                                    <a href="">
+                                                    <a href="javascript:void(0);" data-delete="{{ $titles->id }}">
                                                         <button
                                                             class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
                                                             type="button"><i class="bi bi-trash"></i></button>
@@ -135,5 +140,5 @@
             ],
         });
     </script>
-    {{-- @vite('resources/assets/js/table-data.js') --}}
+    @vite('resources/assets/js/pages/creditRigthTitles.js')
 @endsection

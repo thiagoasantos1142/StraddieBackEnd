@@ -218,9 +218,23 @@ class CreditRightsTitleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         //
+        try {
+            //code...
+            $title = CreditRightsTitle::find($id);
+            $title->delete();
+        } catch (\Throwable $th) {
+            //throw $th;
+            if ($request->ajax()) {
+                return response()->json(["message" => $th->getMessage()], 422);
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json(["message" => "success."]);
+        }
     }
 
     public function addUserTitle(Request $request)

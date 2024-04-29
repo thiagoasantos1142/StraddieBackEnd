@@ -80,13 +80,24 @@ async function getAllCrtTypes(func = () => { }) {
     }
 }
 
-
-
-
+async function deleteTitle(id, func = () => { }) {
+    try {
+        const response = await axios.delete(`/dashboard/creditRightsTitle/${id}`);
+        openAlert('success', 'Título removido com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', 'Erro ao deletar Título.');
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
 
 export {
     savePhoneUser,
     deletPhoneUser,
     saveDocument,
-    getAllCrtTypes
+    getAllCrtTypes,
+    deleteTitle
 }
