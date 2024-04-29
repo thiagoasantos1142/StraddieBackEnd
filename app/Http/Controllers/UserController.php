@@ -17,6 +17,10 @@ class UserController extends Controller
         if ($request->ajax()) {
             $search = $request->input('search');
 
+            if (!isset($search)) {
+                return response()->json(User::get(), 200);
+            }
+
             $users = User::where('email', 'like', "%$search%")
                 ->orWhere('id', 'like', "%$search%")
                 ->orWhere('name', 'like', "%$search%")
@@ -60,20 +64,36 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required', 'string', 'max:255', new NameAndSurname],
+                'name' => ['required', 'string','min:5', 'max:255', new NameAndSurname],
                 //'email' => "unique:users,email|email|max:255",
                 //'cpf' => "unique:users,cpf|max:20",
                 //'phone' => 'required|max:20'
             ]
         );
 
+        
         if ($validator->fails()) {
+            if($request->ajax()){
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        
         $request->merge(['password' => $request->cpf]);
-        $user = User::create($request->all());
+        
+        if($request->ajax()){
+            try {
+                $user = User::create($request->all());
+                //code...
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json(['errors' => ["message" => $th->getMessage()]], 422);
+            }
 
+            return response()->json($user, 200);
+        }
+        
+        $user = User::create($request->all());
         return redirect()->route('users.show', ['user' => $user->id]);
     }
 

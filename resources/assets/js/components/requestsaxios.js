@@ -80,6 +80,32 @@ async function getAllCrtTypes(func = () => { }) {
     }
 }
 
+// UserController
+async function getAllUsers(func = () => { }) {
+    try {
+        const response = await axios.get(`/dashboard/users`);
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
+async function saveUser(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/users`, data);
+        openAlert('success', 'user salvo com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
 
 
 
@@ -88,5 +114,7 @@ export {
     savePhoneUser,
     deletPhoneUser,
     saveDocument,
-    getAllCrtTypes
+    getAllCrtTypes,
+    getAllUsers,
+    saveUser
 }
