@@ -1,5 +1,5 @@
 @extends('v1.Site.Stradie.defaults.template')
-
+{{-- a --}}
 @section('content')
     <x-v1.site.sidebar />
     <section id="section1" class="container-fluid section-one position-relative">

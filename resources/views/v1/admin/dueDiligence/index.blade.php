@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <!-- PAGE-HEADER -->
+    <!-- PAGE-HEADER b -->
     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
