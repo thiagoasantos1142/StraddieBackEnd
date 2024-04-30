@@ -72,11 +72,8 @@
                                                 </li>
                                                 <li class="nav-item m-1">
                                                     <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
-                                                    href="#highlights" aria-selected="true">Destaques</a>
+                                                    href="#highlights" aria-selected="true">Parametros para a Geração do Ativo</a>
                                                 </li>
-                                                <li class="nav-item m-1">
-                                                    <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
-                                                    href="#additional-settings" aria-selected="true">Informações Adicionais</a>
                                                 </li>
                                                 
                                             </ul>
@@ -364,97 +361,107 @@
                                                         </div>                                                          
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fs-13 p-0" id="additional-settings"
-                                                    role="tabpanel">
-                                                    <ul class="list-group list-group-flush list-unstyled">
-                                                    
-                                                        
-                                                        <li class="list-group-item">
-                                                            
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                              
                                                 <div class="tab-pane fs-13 p-0" id="highlights"
                                                     role="tabpanel">
                                                     <ul class="list-group list-group-flush list-unstyled">
                                                         <li class="list-group-item">
                                                             <div class="row gx-5">
                                                                 <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Logging In</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to logging into our email account and taking down account if any mischevious action happended.</p>
+                                                                    <p class="fs-16 mb-1 fw-semibold">Parametros do Ativo disponível</p>
+                                                                    <p class="fs-12 mb-0 text-muted">Configuração para configuração e geração do Ativo disponível.</p>
                                                                 </div>
-                                                                <div class="col-xl-8">
+                                                                <div class="col-xl-6">
                                                                     <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
                                                                         <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Max Limit for login attempts</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Account will freeze for 24hrs while attempt to login with wrong credentials for selected number of times</p>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Account Freeze time management</p>
-                                                                            <p class="fs-12 mb-0 text-muted">You can change the time for the account freeze when attempts for </p>
+                                                                            <p class="fs-14 mb-1 fw-semibold">Disponibilidade do valor Principal</p>
+                                                                            <p class="fs-12 mb-0 text-muted">Informe se o valor Principal do título está disponivel para receber ofertas?</p>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                    <div class="mt-3 mt-sm-0">
+                                                                        <div class="custom-toggle-switch float-sm-end">
+                                                                            <input id="toggle-switch1" name="toggle-switch1" type="checkbox">
+                                                                            <label for="toggle-switch1" class="label-primary mb-1"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Campos adicionais a serem exibidos/ocultados -->
+                                                                    <div id="campos-adicionais" style="display: none;">
+                                                                        <!-- Coloque os campos adicionais aqui -->
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                            <div>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao Beneficiário:</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado do titulo?</p>
+                                                                            </div>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-text">R$</span>
+                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo" min="0" max="100">
+                                                                               
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>                                                                    
+                                                                </div>                                                               
                                                             </div>
                                                         </li>
                                                         <li class="list-group-item">
                                                             <div class="row gx-5">
                                                                 <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Password Requirements</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to password strength.</p>
+                                                                    <p class="fs-16 mb-1 fw-semibold">Honorários</p>
+                                                                    <p class="fs-12 mb-0 text-muted">Informações sobre os vaores de Honorários.</p>
                                                                 </div>
-                                                                <div class="col-xl-8">
+                                                                <div class="col-xl-6">
                                                                     <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
                                                                         <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Minimun number of characters in the password</p>
-                                                                            <p class="fs-12 mb-0 text-muted">There should be a minimum number of characters for a password to be validated that shouls be set here.</p>
+                                                                            <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
+                                                                            <p class="fs-12 mb-0 text-muted">Informe se os honorários estão destacados na Ação Judicial</p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Contain A Number</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain a number.</p>
+                                                                    <div class="mt-3 mt-sm-0">
+                                                                        <div class="custom-toggle-switch float-sm-end">
+                                                                            <input id="toggle-switch2" name="toggle-switch2" type="checkbox">
+                                                                            <label for="toggle-switch2" class="label-primary mb-1"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                      <!-- Campos adicionais a serem exibidos/ocultados -->
+                                                                    <div id="fields-fee-value" style="display: none;">
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
+                                                                            <div>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Disponíveis para receber ofertas</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Os valores de Honorários estão disponíveis para receber ofertas?</p>
+                                                                            </div>                                                                                                                                                  
                                                                         </div>
                                                                         <div class="mt-3 mt-sm-0">
                                                                             <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-number" name="toggleswitchsize6" type="checkbox">
-                                                                                <label for="password-number" class="label-primary mb-1"></label>
+                                                                                <input id="toggle-switch3" name="toggle-switch3" type="checkbox">
+                                                                                <label for="toggle-switch3" class="label-primary mb-1"></label>
+                                                                            </div>
+                                                                        </div>                                                                        
+                                                                    </div>
+                                                                    <div id="fields-fee-value2" style="display: none;">
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                            <div>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem do destaque:</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Qual o percentual dos honorários Advocatícios?</p>
+                                                                            </div>
+                                                                            <div class="input-group">
+                                                                                <input type="number" id="percentual-destaque" name="percentual-destaque" class="form-control" placeholder="Informe o percentual" min="0" max="100">
+                                                                                <span class="input-group-text">%</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                            <div>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao cliente:</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado do destaque?</p>
+                                                                            </div>
+                                                                            <div class="input-group">
+                                                                                <span class="input-group-text">R$</span>
+                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo" min="0" max="100">
+                                                                               
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Contain A Special Character</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain a special Character.</p>
-                                                                        </div>
-                                                                        <div class="mt-3 mt-sm-0">
-                                                                            <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-special-character" name="toggleswitchsize7" type="checkbox" checked>
-                                                                                <label for="password-special-character" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Atleast One Capital Letter</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain atleast one capital letter.</p>
-                                                                        </div>
-                                                                        <div class="mt-3 mt-sm-0">
-                                                                            <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-capital" name="toggleswitchsize8" type="checkbox" checked>
-                                                                                <label for="password-capital" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Maximun Password Length</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Maximum password lenth should be selected here.</p>
-                                                                        </div>
-                                                                    </div>
+
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -489,10 +496,10 @@
                                         <div class="card-footer">
                                             <div class="float-end">
                                                 <button class="btn btn-light m-1">
-                                                    Reset All
+                                                   Cancelar dueDiligence
                                                 </button>
                                                 <button class="btn btn-primary m-1">
-                                                    Save Changes
+                                                    Aprovar dueDiligence
                                                 </button>
                                             </div>
                                         </div>
@@ -591,7 +598,71 @@
 
         </script>
 
-        
+        <script>
+            // Captura o elemento do toggle switch
+            const toggleSwitch = document.getElementById('toggle-switch1');
+
+            // Captura o elemento dos campos adicionais
+            const camposAdicionais = document.getElementById('campos-adicionais');
+
+            // Adiciona um event listener para quando o toggle switch for clicado
+            toggleSwitch.addEventListener('change', function() {
+              
+                // Verifica se o toggle switch está marcado ou não
+                if (this.checked) {
+                    // Se estiver marcado, exibe os campos adicionais
+                    camposAdicionais.style.display = 'block';
+                } else {
+                    // Se não estiver marcado, oculta os campos adicionais
+                    camposAdicionais.style.display = 'none';
+                }
+            });
+        </script>
+
+        <script>
+            // Captura o elemento do toggle switch
+            const toggleSwitch2 = document.getElementById('toggle-switch2');
+
+            // Captura o elemento dos campos adicionais
+            const fieldsFeeValue = document.getElementById('fields-fee-value');
+
+              // Adiciona um event listener para quando o toggle switch for clicado
+              toggleSwitch2.addEventListener('change', function() {
+                
+                // Verifica se o toggle switch está marcado ou não
+                if (this.checked) {
+                    // Se estiver marcado, exibe os campos adicionais
+                    fieldsFeeValue.style.display = 'block';
+                } else {
+                    // Se não estiver marcado, oculta os campos adicionais
+                    fieldsFeeValue.style.display = 'none';
+                }
+            });
+            
+        </script>
+
+        <script>
+            // Captura o elemento do toggle switch
+            const toggleSwitch3 = document.getElementById('toggle-switch3');
+
+            // Captura o elemento dos campos adicionais
+            const fieldsFeeValue2 = document.getElementById('fields-fee-value2');
+
+              // Adiciona um event listener para quando o toggle switch for clicado
+              toggleSwitch3.addEventListener('change', function() {
+                
+                // Verifica se o toggle switch está marcado ou não
+                if (this.checked) {
+                    // Se estiver marcado, exibe os campos adicionais
+                    fieldsFeeValue2.style.display = 'block';
+                } else {
+                    // Se não estiver marcado, oculta os campos adicionais
+                    fieldsFeeValue2.style.display = 'none';
+                }
+            });
+            
+        </script>
+
 
 
 
