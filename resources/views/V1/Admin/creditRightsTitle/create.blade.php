@@ -212,6 +212,18 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group col-md-6 mb-0">
+                                        <label for="user" class="form-label">Adicionar usuário(*não obrigatório)</label>
+
+                                        <input class="form-control"
+                                            type="text" id="user" name="user"
+                                            placeholder="Adicionar usuário"
+                                            value="">
+                                        <input class="form-control"
+                                            type="hidden" id="user_id" name="user_id"
+                                            value="">
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- Botão para abrir o modal -->
@@ -256,8 +268,8 @@
     </div>
 
     {{-- modals --}}
-    <x-v1.admin.modal.select-type-title />
-    {{-- <x-v1.admin.modal.add-user-in-credit-rigth-title /> --}}
+    {{-- <x-v1.admin.modal.select-type-title /> --}}
+    <x-v1.admin.modal.add-user-in-credit-rigth-title />
 @endsection
 
 @section('modals')

@@ -2,6 +2,7 @@ import { getAllUsers, saveUser } from "./requestsaxios";
 let arraySteps = [];
 let currentStep = '';
 $(function () {
+
     const config = {
         modal: '[data-modal="addUserInCreditRigthTitle"]',
         inputAddSelects: '#select_crt_type_id',
@@ -12,6 +13,10 @@ $(function () {
 });
 
 async function init(config) {
+    $('[name="user"]').on('focus', function () {
+        $(config.modal).modal('show');
+    });
+
     if (config?.stepsInModal) {
         initSteps();
         btnNextStep();
@@ -21,14 +26,11 @@ async function init(config) {
 
     const { data } = await getAllUsers();
     $(config.inputAddSelects).html(createSelects(data));
-    $(config.modal).modal({
-        keyboard: false,
-        backdrop: "static"
-    }).modal('show');
-
     $(config.inputAddSelects).on('change', function () {
-        console.log('helo helo');
-        // $(config.setInputs).val($(this).val());
+        const inputUser = $('#user');
+        const inputUserId = $('#user_id');
+        inputUser.val($(this).find('option:selected').text());
+        inputUserId.val($(this).val());
     });
 
     $('.add-user-in-credit-rigth-title').select2({
@@ -127,10 +129,10 @@ async function handlerInStep() {
     switch (currentStep) {
         case 'add-user':
             await internalSaveUser();
-            console.log("manjo muito");
             break;
 
         default:
+            $('[data-modal="addUserInCreditRigthTitle"]').modal('hide');
             break;
     }
 }
