@@ -1,5 +1,5 @@
 @extends('layouts.master')
-{{-- aqui a --}}
+
 @section('styles')
     <!-- noui Slider -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/nouislider/nouislider.min.css') }}">
@@ -290,7 +290,6 @@
     </script>
 
     <script>
-        //att app
         // $(document).ready(function() {
         //     // Aplicar máscara de moeda brasileira
         //     $('#principal_amount').mask('000.000.000,00', {
