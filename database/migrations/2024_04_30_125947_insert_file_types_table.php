@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -45,8 +44,6 @@ return new class extends Migration
             ['title' => 'Documento de Autorização de Compra', 'type'=> 'OUTROS'],
             ['title' => 'Procuração', 'type'=> 'OUTROS'],
             ['title' => 'Outros', 'type'=> 'OUTROS'],
-
-            
         ]);
     }
 
