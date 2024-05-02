@@ -80,24 +80,41 @@ async function getAllCrtTypes(func = () => { }) {
     }
 }
 
-async function deleteTitle(id, func = () => { }) {
+// UserController
+async function getAllUsers(func = () => { }) {
     try {
-        const response = await axios.delete(`/dashboard/creditRightsTitle/${id}`);
-        openAlert('success', 'Título removido com sucesso.');
+        const response = await axios.get(`/dashboard/users`);
         if (func && typeof func === 'function') {
             func(response.data);
         }
         return response;
     } catch (error) {
-        openAlert('alert', 'Erro ao deletar Título.');
         console.error('Erro ao enviar formulário:', error);
     }
 }
+
+async function saveUser(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/users`, data);
+        openAlert('success', 'user salvo com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
+
+
 
 export {
     savePhoneUser,
     deletPhoneUser,
     saveDocument,
     getAllCrtTypes,
-    deleteTitle
+    getAllUsers,
+    saveUser
 }

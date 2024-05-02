@@ -3,9 +3,14 @@
 @section('styles')
     <!-- noui Slider -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/nouislider/nouislider.min.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Inclua os arquivos CSS e JavaScript do Select2 no seu layout -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 @endsection
 
 @section('content')
@@ -207,6 +212,18 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group col-md-6 mb-0">
+                                        <label for="user" class="form-label">Adicionar usuário(*não obrigatório)</label>
+
+                                        <input class="form-control"
+                                            type="text" id="user" name="user"
+                                            placeholder="Adicionar usuário"
+                                            value="">
+                                        <input class="form-control"
+                                            type="hidden" id="user_id" name="user_id"
+                                            value="">
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- Botão para abrir o modal -->
@@ -250,8 +267,9 @@
         </div>
     </div>
 
-    {{-- modal --}}
+    {{-- modals --}}
     <x-v1.admin.modal.select-type-title />
+    {{-- <x-v1.admin.modal.add-user-in-credit-rigth-title /> --}}
 @endsection
 
 @section('modals')
@@ -290,12 +308,20 @@
     </script>
 
     <script>
-        // $(document).ready(function() {
-        //     // Aplicar máscara de moeda brasileira
-        //     $('#principal_amount').mask('000.000.000,00', {
-        //         reverse: true
-        //     });
-        // });
+        $(document).ready(function() {
+            // Aplicar máscara de moeda brasileira
+            $('#principal_amount').mask('000.000.000,00', {
+                reverse: true
+            });
+
+            // // Validar entrada para aceitar apenas números
+            // $('#principal_amount').on('input', function() {
+            //     // Remover caracteres não numéricos
+            //     var sanitized = $(this).val().replace(/[^0-9]/g, '');
+            //     // Atualizar o valor no campo
+            //     $(this).val(sanitized);
+            // });
+        });
     </script>
     <!-- Adicione um bloco de script para inicializar o Select2 -->
     <script>
