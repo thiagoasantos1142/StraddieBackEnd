@@ -269,7 +269,7 @@
 
     {{-- modals --}}
     <x-v1.admin.modal.select-type-title />
-    {{-- <x-v1.admin.modal.add-user-in-credit-rigth-title /> --}}
+    <x-v1.admin.modal.add-user-in-credit-rigth-title />
 @endsection
 
 @section('modals')

@@ -13,8 +13,8 @@
                             <div class="form-group col-md-12 mb-0">
                                 <label for="crt_types_id" class="form-label">Usuários</label>
                                 <div class="d-flex flex-row">
-                                    <select class="form-select add-user-in-credit-rigth-title" id="select_crt_type_id"
-                                        name="select_crt_type_id"></select>
+                                    <select class="form-select add-user-in-credit-rigth-title" id="user_select"
+                                        name="user_select"></select>
                                     <button type="button" class="btn btn-primary ms-2"
                                         style="white-space: nowrap;" data-nextstep="add-user"><i class="fa fa-plus-square me-2"></i>User</button>
                                 </div>

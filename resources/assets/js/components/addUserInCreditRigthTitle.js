@@ -5,8 +5,8 @@ $(function () {
 
     const config = {
         modal: '[data-modal="addUserInCreditRigthTitle"]',
-        inputAddSelects: '#select_crt_type_id',
-        setInputs: '[name="crt_type_id"]',
+        inputAddSelects: '#user_select',
+        setInputs: '[name="user_select"]',
         stepsInModal: true
     }
     init(config);

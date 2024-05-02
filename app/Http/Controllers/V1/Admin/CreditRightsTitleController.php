@@ -122,6 +122,10 @@ class CreditRightsTitleController extends Controller
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
+            if ($creditRightsTitle && $request->user_id) {
+                UsersCreditRightsTitle::create(["user_id" => $request->user_id, "credit_rights_title_id" => $creditRightsTitle->id]);
+            }
+
             // Salva o link do arquivo na tabela files
             $document = new File();
             $document->credit_rights_title_id = $creditRightsTitle->id;
@@ -145,6 +149,10 @@ class CreditRightsTitleController extends Controller
         } else {
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
+
+            if ($creditRightsTitle && $request->user_id) {
+                UsersCreditRightsTitle::create(["user_id" => $request->user_id, "credit_rights_title_id" => $creditRightsTitle->id]);
+            }
 
             // Redireciona para a página de exibição do título
             //form controller;
