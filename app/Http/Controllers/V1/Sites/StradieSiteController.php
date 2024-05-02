@@ -16,7 +16,7 @@ class StradieSiteController extends Controller
     public function index()
     {
         //
-        return view('v1.Site.Stradie.index');
+        return view('V1.Site.Stradie.index');
     }
 
     /**

@@ -10,10 +10,11 @@
 
     <div class="card custom-card">
         <div class="card-header d-flex justify-content-between">
-            <div class="card-title">{{$attributes[':title-card'] ?? 'Adicionar usuário'}}</div>
+            <div class="card-title">{{$attributes[':title-card'] ?? 'Atribuir um usuario'}}</div>
             <div class="d-flex">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary" data-modaluser="search">Adicionar</button>
+                    <button type="button" class="btn btn-primary" data-modaluser="search">Atribuir
+                        usuario</button>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="visually-hidden">Toggle Dropdown</span>

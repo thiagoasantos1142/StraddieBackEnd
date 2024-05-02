@@ -90,16 +90,8 @@ Route::middleware([
 
         Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
 
-        Route::get('/aprove/{id}', [FileController::class, 'aprove'])->name('aprove.file');
-        
-        Route::get('/reject/{id}', [FileController::class, 'reject'])->name('reject.file');
-
     });
-
     Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
-
-    
-    Route::post('/uploadFile', [FileController::class, 'uploadFile'])->name('uploadFile');
 
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 

@@ -8,8 +8,6 @@
 @endsection
 
 @section('content')
-
-
 	
                     <!-- PAGE-HEADER -->
                     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
@@ -21,29 +19,6 @@
                             </ol>
                         </div> 
                     </div>
-
-                                
-                
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
                     <!-- PAGE-HEADER END -->
 
                     <!-- CONTAINER -->
@@ -136,7 +111,6 @@
                                                                         <div class="mt-sm-0 mt-2">
                                                                             <button class="btn btn-sm btn-primary">Análise de Documentos</button>
                                                                         </div>
-                                                                        
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <ul class="list-group">
@@ -168,11 +142,10 @@
                                                                                                     <i class="fe fe-more-vertical"></i>
                                                                                                 </a>
                                                                                                 <ul class="dropdown-menu">
-                                                                                                    <li><a class="dropdown-item view-button" data-file-id="{{ $file->id }}">Visualizar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item upload-modal-button" data-bs-toggle="modal" data-bs-target="#uploadModal" data-file-id="{{ $file->id }}">Carregar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item aprove-button" data-file-id="{{ $file->id }}">Aprovar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item reject-button" data-file-id="{{ $file->id }}">Rejeitar Arquivo</a></li>  
-                                                                                                   
+                                                                                                    <li><a class="dropdown-item" href="#">Visualizar</a></li>                                                                                        
+                                                                                                    <li><a class="dropdown-item" href="#">Carregar arquivo</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Aprovar</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Rejeitar</a></li>
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </div>
@@ -183,8 +156,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>                                                      
-                                                        </div>                                                         
-                                                                     
+                                                        </div> 
                                                     @endforeach                                                   
                                                 </div>
                                                 <div class="tab-pane fs-13 p-5" id="lawyer-settings" role="tabpanel">                                                   
@@ -263,11 +235,10 @@
                                                                                                     <i class="fe fe-more-vertical"></i>
                                                                                                 </a>
                                                                                                 <ul class="dropdown-menu">
-                                                                                                    <li><a class="dropdown-item view-button" data-file-id="{{ $file->id }}">Visualizar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item upload-modal-button" data-bs-toggle="modal" data-bs-target="#uploadModal" data-file-id="{{ $file->id }}">Carregar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item aprove-button" data-file-id="{{ $file->id }}">Aprovar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item reject-button" data-file-id="{{ $file->id }}">Rejeitar Arquivo</a></li>  
-                                                                                                   
+                                                                                                    <li><a class="dropdown-item" href="#">Visualizar</a></li>                                                                                        
+                                                                                                    <li><a class="dropdown-item" href="#">Carregar arquivo</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Aprovar</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Rejeitar</a></li>
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </div>
@@ -344,11 +315,10 @@
                                                                                                     <i class="fe fe-more-vertical"></i>
                                                                                                 </a>
                                                                                                 <ul class="dropdown-menu">
-                                                                                                    <li><a class="dropdown-item view-button" data-file-id="{{ $file->id }}">Visualizar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item upload-modal-button" data-bs-toggle="modal" data-bs-target="#uploadModal" data-file-id="{{ $file->id }}">Carregar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item aprove-button" data-file-id="{{ $file->id }}">Aprovar Arquivo</a></li>  
-                                                                                                    <li><a class="dropdown-item reject-button" data-file-id="{{ $file->id }}">Rejeitar Arquivo</a></li>  
-                                                                                                   
+                                                                                                    <li><a class="dropdown-item" href="#">Visualizar</a></li>                                                                                        
+                                                                                                    <li><a class="dropdown-item" href="#">Carregar arquivo</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Aprovar</a></li>
+                                                                                                    <li><a class="dropdown-item" href="#">Rejeitar</a></li>
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </div>
@@ -508,43 +478,9 @@
                             </div>
                         </div>
                         <!-- ROW-1 CLOSED -->
-                       
-                        <!-- Conteúdo do arquivo -->
-                           
-                        
-
                     </div>
                     <!-- CONTAINER CLOSED -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="uploadModal-" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="uploadModalLabel">Carregar Arquivo: </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Formulário para carregar o arquivo -->
-                                    <form action="{{ route('uploadFile') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="fileId" id="fileId" value="">
-                                        <div class="mb-3">
-                                            <label for="file" class="form-label">Selecione o arquivo</label>
-                                            <input type="file" class="form-control" id="file" name="file">
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Exibindo o fileId -->
-                                            <p>: <span id="fileId"></span></p>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-     
-                  
 @endsection
 
 @section('scripts')

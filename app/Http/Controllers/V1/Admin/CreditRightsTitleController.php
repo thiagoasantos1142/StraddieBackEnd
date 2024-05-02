@@ -122,6 +122,10 @@ class CreditRightsTitleController extends Controller
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
+            if ($creditRightsTitle && $request->user_id) {
+                UsersCreditRightsTitle::create(["user_id" => $request->user_id, "credit_rights_title_id" => $creditRightsTitle->id]);
+            }
+
             // Salva o link do arquivo na tabela files
             $document = new File();
             $document->credit_rights_title_id = $creditRightsTitle->id;
@@ -145,6 +149,10 @@ class CreditRightsTitleController extends Controller
         } else {
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
+
+            if ($creditRightsTitle && $request->user_id) {
+                UsersCreditRightsTitle::create(["user_id" => $request->user_id, "credit_rights_title_id" => $creditRightsTitle->id]);
+            }
 
             // Redireciona para a página de exibição do título
             //form controller;
@@ -218,23 +226,9 @@ class CreditRightsTitleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(string $id)
     {
         //
-        try {
-            //code...
-            $title = CreditRightsTitle::find($id);
-            $title->delete();
-        } catch (\Throwable $th) {
-            //throw $th;
-            if ($request->ajax()) {
-                return response()->json(["message" => $th->getMessage()], 422);
-            }
-        }
-
-        if ($request->ajax()) {
-            return response()->json(["message" => "success."]);
-        }
     }
 
     public function addUserTitle(Request $request)
