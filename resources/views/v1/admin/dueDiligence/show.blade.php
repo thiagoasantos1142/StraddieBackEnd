@@ -27,7 +27,8 @@
                         <!-- ROW-1 OPEN -->
                         <div class="row justify-content-center">
                             <div class="col-lg-7 col-xl-10 col-xxl-10">
-                                <form method="POST" action="{{ route('dueDiligence.store') }}" enctype="multipart/form-data">
+                                                         
+                                <form method="POST" action="{{ route('dueDiligence.aprove', ['id' => $dueDiligence->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                    
                                     <div class="card custom-card">
@@ -364,7 +365,7 @@
                                                                             </div>
                                                                             <div class="input-group">
                                                                                 <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo" min="0" max="100">
+                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo">
                                                                                
                                                                             </div>
                                                                         </div>
@@ -379,12 +380,13 @@
                                                                     <p class="fs-12 mb-0 text-muted">Informações sobre os vaores de Honorários.</p>
                                                                 </div>
                                                                 <div class="col-xl-6">
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
-                                                                        <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Informe se os honorários estão destacados na Ação Judicial</p>
-                                                                        </div>
+                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
+                                                                            <div>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Disponíveis para receber ofertas</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Os valores de Honorários estão disponíveis para receber ofertas?</p>
+                                                                            </div>                                                                                                                                                  
                                                                     </div>
+                                                                   
                                                                     <div class="mt-3 mt-sm-0">
                                                                         <div class="custom-toggle-switch float-sm-end">
                                                                             <input id="toggle-switch2" name="toggle-switch2" type="checkbox">
@@ -393,11 +395,11 @@
                                                                     </div>
                                                                       <!-- Campos adicionais a serem exibidos/ocultados -->
                                                                     <div id="fields-fee-value" style="display: none;">
-                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                            <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Disponíveis para receber ofertas</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Os valores de Honorários estão disponíveis para receber ofertas?</p>
-                                                                            </div>                                                                                                                                                  
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
+                                                                            <div class="mail-security-settings">
+                                                                                <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Informe se os honorários estão destacados na Ação Judicial</p>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="mt-3 mt-sm-0">
                                                                             <div class="custom-toggle-switch float-sm-end">
@@ -409,11 +411,11 @@
                                                                     <div id="fields-fee-value2" style="display: none;">
                                                                         <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
                                                                             <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem do destaque:</p>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem dos Honorários</p>
                                                                                 <p class="fs-12 mb-0 text-muted">Qual o percentual dos honorários Advocatícios?</p>
                                                                             </div>
                                                                             <div class="input-group">
-                                                                                <input type="number" id="percentual-destaque" name="percentual-destaque" class="form-control" placeholder="Informe o percentual" min="0" max="100">
+                                                                                <input type="number" id="percentage-fee" name="percentage-fee" class="form-control" placeholder="Informe o percentual" min="0" max="100">
                                                                                 <span class="input-group-text">%</span>
                                                                             </div>
                                                                         </div>
@@ -421,11 +423,11 @@
                                                                         <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
                                                                             <div>
                                                                                 <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao cliente:</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado do destaque?</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado dos honorários?</p>
                                                                             </div>
                                                                             <div class="input-group">
                                                                                 <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo" min="0" max="100">
+                                                                                <input type="number" id="fee-value" name="fee-value" class="form-control" placeholder="Informe o valor atualizado dos honorários">
                                                                                
                                                                             </div>
                                                                         </div>
@@ -435,41 +437,23 @@
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Unknown Chats</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to unknown chats.</p>
-                                                                </div>
-                                                                <div class="col-xl-8">
-                                                                    <div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio" name="unknown-messages-default" id="unknown-messages-show1">
-                                                                            <label class="form-check-label" for="unknown-messages-show1">
-                                                                                Show
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio" name="unknown-messages-default" id="unknown-messages-hide2" checked="">
-                                                                            <label class="form-check-label" for="unknown-messages-hide2">
-                                                                                Hide
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                     </div>
                                         <div class="card-footer">
                                             <div class="float-end">
-                                                <button class="btn btn-light m-1">
-                                                   Cancelar dueDiligence
+                                               <!-- Botão de cancelar a due diligence -->
+                                               <button type="button" " class="btn btn-danger" onclick="confirmCancellation({{ $dueDiligence->id }})">Cancelar Due Diligence</button>
+
+
+                                                <!-- Botão de salvar -->
+                                                <button type="button" onclick="return verifyFields();" class="btn btn-primary">
+                                                    Avançar
                                                 </button>
-                                                <button class="btn btn-primary m-1">
-                                                    Aprovar dueDiligence
+
+
+                                                    
                                                 </button>
                                             </div>
                                         </div>
@@ -576,6 +560,113 @@
             });
             
         </script>
+
+        <script>
+            // Função para verificar se pelo menos um dos campos toggle-switch1 ou toggle-switch2 está marcado
+            function verifyFields() {
+                var toggle1 = document.getElementById('toggle-switch1').checked;
+                var toggle2 = document.getElementById('toggle-switch2').checked;
+
+                
+                if(toggle1 && !toggle2){
+                    // Verifica se o campo main-value está preenchido
+                    var mainValue = document.getElementById('main-value').value.trim();
+                    
+                    if (mainValue !== '') {
+                        // Se o campo main-value estiver preenchido, permite o avanço
+                        return true;
+                    }else{
+                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        alert('Por favor, preencha o campo: Qual o valor atualizado do titulo?.');
+                        return false;
+                        
+                    }
+                }else if (toggle2 && !toggle1){
+                     // Verifica se o campo percentage-fee está preenchido
+                     var percentageFee = document.getElementById('percentage-fee').value.trim();
+
+                    if (percentageFee !== '') {
+                        // Se o campo fee-value estiver preenchido, permite o avanço
+                        var feeValue = document.getElementById('fee-value').value.trim();
+
+                        if (feeValue !== '') {
+
+                            return true;
+                        }else{
+
+                            // Se o campo main-value não  estiver preenchido, não permite o avanço
+                            alert('Por favor, preencha o campo: Valor atualizado para os  Honorários?.');
+                            return false;
+
+                        }
+                    }else{
+                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        alert('Por favor, preencha o campo: Qual o percentual dos Honorários?.');
+                        return false;
+                        
+                    }
+                }else if (toggle2 && toggle1){
+
+                    // Verifica se o campo main-value está preenchido
+                    var mainValue = document.getElementById('main-value').value.trim();
+                    // Verifica se o campo percentage-fee está preenchido
+                    var percentageFee = document.getElementById('percentage-fee').value.trim();
+                    // Se o campo fee-value estiver preenchido, permite o avanço
+                    var feeValue = document.getElementById('fee-value').value.trim();
+                    
+                    if (mainValue == '') {
+                         // Se o campo main-value não  estiver preenchido, não permite o avanço
+                         alert('Por favor, preencha o campo: Valor atualizado para o saldo principal?.');
+                        return false;
+                    }
+
+                    if (feeValue !== '') {
+                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        alert('Por favor, preencha o campo: Valor atualizado para os Honorários?.');
+                            return false;                        
+                    }
+
+                    
+                    if (percentageFee !== '') {
+                         // Se o campo main-value não  estiver preenchido, não permite o avanço
+                         alert('Por favor, preencha o campo: Qual o percentual dos Honorários?.');
+                        return false;                     
+                    }
+
+                    return true;
+                }else {
+
+                     // Se nenhum togle foi selecionado
+                     alert('Por favor, selecione pelo menos um dos parametros e informe os Valores para o vencimento principal ou para os honorários.');
+                     return false;         
+                }
+                
+               
+            }
+        </script>
+
+
+
+        <script>
+            function confirmCancellation(dueDiligenceId) {
+                var confirmation = confirm("Tem certeza que deseja cancelar esta Due Diligence?");
+                if (confirmation) {
+                    // Enviar uma solicitação POST usando AJAX
+                    axios.post('/dashboard/dueDiligence/cancel/' + dueDiligenceId)
+                        .then(function(response) {
+                            // Lidar com a resposta se necessário
+                            console.log(response.data);
+                            // Redirecionar ou fazer qualquer outra ação necessária após o cancelamento
+                            window.location.reload(); // Recarregar a página como exemplo
+                        })
+                        .catch(function(error) {
+                            // Lidar com erros de solicitação, se houver
+                            console.error(error);
+                        });
+                }
+            }
+        </script>
+
 
         <script>
             // Captura o elemento do toggle switch

@@ -68,6 +68,9 @@ Route::middleware([
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
         Route::resource('/dueDiligence', DueDiligenceController::class);
+        Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
+        Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
+       
         Route::resource('/users', UserController::class);
 
         Route::resource('/files', FileController::class);
