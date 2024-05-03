@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\Organization;
+use App\Models\V1\Admin\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -95,5 +97,10 @@ class User extends Authenticatable
     public function usersTitles()
     {
         return $this->belongsToMany(CreditRightsTitle::class, 'users_credit_rights_titles', 'user_id', 'credit_rights_title_id');
+    }
+
+    public function role()
+    {
+        return $this->hasOne(UserRole::class, 'user_id', 'id');
     }
 }

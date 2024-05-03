@@ -59,43 +59,46 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::group(['prefix' => 'dashboard'], function () {
-        Route::resource('/organization', OrganizationController::class);
-        Route::resource('/address', AddressController::class);
+    Route::group(['middleware' => ['can:define-access-admin']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::resource('/organization', OrganizationController::class);
+            Route::resource('/address', AddressController::class);
 
-        Route::resource('/file', AddressController::class);
-        Route::resource('/lawyer', LawyerController::class);
-        Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
-        Route::resource('/dueDiligence', DueDiligenceController::class);
-        Route::resource('/users', UserController::class);
+            Route::resource('/file', AddressController::class);
+            Route::resource('/lawyer', LawyerController::class);
+            Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
+            Route::resource('/dueDiligence', DueDiligenceController::class);
+            Route::resource('/users', UserController::class);
 
-        Route::resource('/files', FileController::class);
-        Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
-        Route::resource('/crtLawyer', CrtLawyerController::class);
-        Route::resource('/contacts', ContactsController::class);
-        Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
-        Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
-        Route::resource('/assets', AssetsController::class);
-        Route::resource('crtType', CrtTypeController::class);
+            Route::resource('/files', FileController::class);
+            Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
+            Route::resource('/crtLawyer', CrtLawyerController::class);
+            Route::resource('/contacts', ContactsController::class);
+            Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
+            Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
+            Route::resource('/assets', AssetsController::class);
+            Route::resource('crtType', CrtTypeController::class);
 
-        Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
-        Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
-        Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+            Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
+            Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
+            Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
 
-        Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class, 'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
-        Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
-        Route::post('/deleteLawyerToUser', [LawyerController::class, 'deleteLawyerToUser'])->name('deleteLawyerToUser');
+            Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class, 'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
+            Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
+            Route::post('/deleteLawyerToUser', [LawyerController::class, 'deleteLawyerToUser'])->name('deleteLawyerToUser');
 
 
-        Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
+            Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
+        });
+        Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
 
+        Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+
+        Route::get('profile', [PagesController::class, 'profile'])->name('profile');
     });
-    Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
 
-    Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 
-    Route::get('profile', [PagesController::class, 'profile'])->name('profile');
 
 
 

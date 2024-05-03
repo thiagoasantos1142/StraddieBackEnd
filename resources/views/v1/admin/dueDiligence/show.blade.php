@@ -598,9 +598,4 @@
             });
             
         </script>
-
-
-
-
-
 @endsection
