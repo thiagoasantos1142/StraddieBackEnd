@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lawyer;
 use App\Models\User;
 use App\Models\UserType;
 use App\Rules\NameAndSurname;
@@ -60,28 +61,35 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required', 'string','min:5', 'max:255', new NameAndSurname],
+                'name' => ['required', 'string', 'min:5', 'max:255', new NameAndSurname],
                 //'email' => "unique:users,email|email|max:255",
                 //'cpf' => "unique:users,cpf|max:20",
                 //'phone' => 'required|max:20'
             ]
         );
 
-        
+        if ($request->user_type_id == 4) {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string|max:255',
+                'OAB_number' => 'required|string|max:255',
+                'UF' => 'required|string|max:255'
+            ]);
+        }
+
+
         if ($validator->fails()) {
-            if($request->ajax()){
+            if ($request->ajax()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
+
         $request->merge(['password' => $request->cpf]);
-        
-        if($request->ajax()){
+
+        if ($request->ajax()) {
             try {
                 $user = User::create($request->all());
                 //code...
@@ -92,8 +100,13 @@ class UserController extends Controller
 
             return response()->json($user, 200);
         }
-        
+
         $user = User::create($request->all());
+        if ($request->user_type_id == 4) {
+            $request->merge(['user_id' => $user->id]);
+            Lawyer::create($request->all());
+        }
+
         return redirect()->route('users.show', ['user' => $user->id]);
     }
 

@@ -29,6 +29,7 @@ export default defineConfig({
                 'resources/assets/js/pages/formDocuments.js',
                 'resources/assets/js/components/selectTypeTitle.js',
                 'resources/assets/js/components/addUserInCreditRigthTitle.js',
+                'resources/assets/js/pages/adminCreate.js',
                 // Resources assets js file paths
                 'resources/assets/js/add-products',
                 'resources/assets/js/advancedform',

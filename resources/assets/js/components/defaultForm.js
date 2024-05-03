@@ -22,4 +22,8 @@ function addFunctionToForm() {
     })
 }
 
+function addInputInForm(){
+
+}
+
 addFunctionToForm();
