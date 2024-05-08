@@ -11,7 +11,10 @@ use Illuminate\Support\Str;
 
 class FileController extends Controller
 {
+    public function uploadFile(Request $request)
+    {
 
+    }
 
     public function upload(Request $request)
     {

@@ -61,19 +61,23 @@ Route::middleware([
 ])->group(function () {
     Route::group(['middleware' => ['can:define-access-admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
         Route::group(['prefix' => 'dashboard'], function () {
             Route::resource('/organization', OrganizationController::class);
             Route::resource('/address', AddressController::class);
 
-        Route::resource('/file', AddressController::class);
-        Route::resource('/lawyer', LawyerController::class);
-        Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
-        Route::resource('/dueDiligence', DueDiligenceController::class);
-        Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
-        Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
        
-        Route::resource('/users', UserController::class);
-
+            Route::resource('/lawyer', LawyerController::class);
+            Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
+            Route::resource('/dueDiligence', DueDiligenceController::class);
+            Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
+            Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
+            
+            Route::resource('/file', AddressController::class);
+            Route::resource('/users', UserController::class);
+            Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
+            Route::post('uploadFile',  [FileController::class, 'uploadFile'])->name('uploadFile');
+                
             Route::resource('/files', FileController::class);
             Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
             Route::resource('/crtLawyer', CrtLawyerController::class);
@@ -91,9 +95,10 @@ Route::middleware([
             Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
             Route::post('/deleteLawyerToUser', [LawyerController::class, 'deleteLawyerToUser'])->name('deleteLawyerToUser');
 
-
-            Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
+            
         });
+
+        
         Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
 
         Route::post('/user/update', [UserController::class, 'update'])->name('user.update');

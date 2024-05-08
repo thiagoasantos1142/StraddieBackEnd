@@ -17,6 +17,6 @@ class DueDiligence extends Model
     
     public function status()
     {
-        return $this->belongsTo(DueDiligenceStatuses::class, 'statuses_id');
+        return $this->belongsTo(DueDiligenceStatuses::class, 'status_id');
     }
 }

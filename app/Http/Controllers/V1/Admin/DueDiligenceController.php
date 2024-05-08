@@ -89,39 +89,40 @@ class DueDiligenceController extends Controller
                     $file->status_id = 1;
                     $file->save();
                 }
-
-                $docTypeLawyerKycIds = $request->input('doc_type_kyc_law_ids');
-
-        $lawyersIds = $creditRightsTitle->crtLawyers->pluck('lawyer_id')->toArray();
-        $lawyers = Lawyer::whereIn('id', $lawyersIds)->get();
-
-        foreach ($lawyers as $lawyer) {
-            foreach ($docTypeLawyerKycIds as $docTypeLawyerKycId) {
-                $file = new File;
-                $file->due_diligence_id = $dueDiligence->id;
-                $file->type_id = $docTypeLawyerKycId;
-                $file->category_id = 2;
-                $file->status_id = 1;
-
-                $file->user_id = $lawyer->user_id;
-                $file->save();
             }
+            $docTypeLawyerKycIds = $request->input('doc_type_kyc_law_ids');
+
+            $lawyersIds = $creditRightsTitle->crtLawyers->pluck('lawyer_id')->toArray();
+            $lawyers = Lawyer::whereIn('id', $lawyersIds)->get();
+
+            foreach ($lawyers as $lawyer) {
+                foreach ($docTypeLawyerKycIds as $docTypeLawyerKycId) {
+                    $file = new File;
+                    $file->due_diligence_id = $dueDiligence->id;
+                        $file->type_id = $docTypeLawyerKycId;
+                        $file->category_id = 2;
+                        $file->status_id = 1;
+
+                        $file->user_id = $lawyer->user_id;
+                        $file->save();
+                }
+            }
+
+            $docTypeTitleIds = $request->input('doc_type_title_ids');
+
+            foreach ($docTypeTitleIds as $docTypeTitleId) {
+                    $file = new File;
+                    $file->due_diligence_id  = $dueDiligence->id;
+                    $file->type_id = $docTypeTitleId;
+                    $file->credit_rights_title_id = $creditRightsTitle->id;
+                    $file->category_id = 2;
+
+                    $file->status_id = 1;
+                    $file->save();
+            }
+
+            return redirect()->route('dueDiligence.show', ['dueDiligence' => $dueDiligence->id]);
         }
-
-        $docTypeTitleIds = $request->input('doc_type_title_ids');
-
-        foreach ($docTypeTitleIds as $docTypeTitleId) {
-            $file = new File;
-            $file->due_diligence_id  = $dueDiligence->id;
-            $file->type_id = $docTypeTitleId;
-            $file->credit_rights_title_id = $creditRightsTitle->id;
-            $file->category_id = 2;
-
-            $file->status_id = 1;
-            $file->save();
-        }
-
-        return redirect()->route('dueDiligence.show', ['dueDiligence' => $dueDiligence->id]);
     }
 
     public function show(Request $request, string $id)
