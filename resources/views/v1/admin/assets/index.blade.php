@@ -33,8 +33,8 @@
                     <div class="card-header d-flex justify-content-between">
                         <div class="card-title">Ativos</div>
                         <div class="d-flex">
-                            <a href="{{ route('organization.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar empresa</a>
+                            <a href="{{ route('assets.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                                    class="fa fa-plus-square me-2"></i>Adicionar ativo</a>
                         </div>
                     </div>
                     <div id="filter-assets" data-filters="{{json_encode($crtTypes)}}"></div>
@@ -176,7 +176,7 @@
                         return `
                         <div class="btn-list">
                             <a
-                                href="/dashboard/creditRightsTitle/${data}">
+                                href="/dashboard/assets/${data}">
                                 <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                     type="button"><i class="bi bi-pencil-square"></i></button>
                             </a>
