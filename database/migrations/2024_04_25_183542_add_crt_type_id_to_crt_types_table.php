@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('credit_rights_titles', function (Blueprint $table) {
            
-            $table->foreignId('crt_type_id')->nullable()->constrained('crt_types');
+            //$table->foreignId('crt_type_id')->nullable()->constrained('crt_types');
             
             
         });
