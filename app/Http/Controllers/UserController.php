@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserType;
 use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -54,9 +55,16 @@ class UserController extends Controller
 
     public function create()
     {
+        $user = Auth::user();
+        $typeUser = UserType::get();
+        //type users filter
+        if (in_array($user->role->role_id, [5])) {
+            $typeUser = UserType::where('id', 5)->get();
+        }
+
         $dataForm = $this->formCreateUpdate();
 
-        return view('v1.admin.users.create', compact('dataForm'));
+        return view('v1.admin.users.create', compact('dataForm', 'typeUser'));
     }
 
     public function store(Request $request)
@@ -65,7 +73,7 @@ class UserController extends Controller
             $request->all(),
             [
                 'name' => ['required', 'string', 'min:5', 'max:255', new NameAndSurname],
-                //'email' => "unique:users,email|email|max:255",
+                'email' => "unique:users,email|email|max:255",
                 //'cpf' => "unique:users,cpf|max:20",
                 //'phone' => 'required|max:20'
             ]
@@ -278,12 +286,6 @@ class UserController extends Controller
                     "identifier_title" => 'title',
                     "options" => UserType::get()
                 ],
-                // [
-                //     "label" => "Organização",
-                //     "name" => "organization_id",
-                //     "col" => "4",
-                //     "value" => $data->organization_id ?? null
-                // ],
                 [
                     "label" => "Título",
                     "name" => "title",
