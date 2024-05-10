@@ -31,48 +31,33 @@
             <div class="col-xl-12">
                 <div class="card custom-card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">File Export Datatable</div>
+                        <div class="card-title">Ativos</div>
                         <div class="d-flex">
                             <a href="{{ route('organization.create') }}" class="btn btn-primary btn-block float-end my-2"><i
                                     class="fa fa-plus-square me-2"></i>Adicionar empresa</a>
                         </div>
                     </div>
+                    <div id="filter-assets" data-filters="{{json_encode($crtTypes)}}"></div>
+                    <div id="filter-assets-origin-debitors" data-filters="{{json_encode($crtOriginDebitors)}}"></div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="file-export" class="table text-nowrap w-100">
+                            <table id="assets-table" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Razão social</th>
-                                        <th>cnpj</th>
-                                        <th>email</th>
-                                        <th>created at</th>
-                                        <th>ação</th>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>número do processo</th>
+                                        <th>Crédito a venda</th>
+                                        <th>Valor do crédito</th>
+                                        <th>Honorários a venda</th>
+                                        <th>Valor do honorario</th>
+                                        <th>Percentual do honorario</th>
+                                        <th>Criada em</th>
+                                        <th>Açoes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($organizations as $organization)
-                                        <tr>
-                                            <td>{{ $organization->nome_fantasia }}</td>
-                                            <td>{{ $organization->razao_social }}</td>
-                                            <td>{{ $organization->cnpj }}</td>
-                                            <td>{{ $organization->email }}</td>
-                                            <td>{{ $organization->created_at }}</td>
-                                            <td class="align-middle">
-                                                <div class="btn-list">
-                                                    <a href="{{ route('organization.show', ['organization' => $organization->id]) }}">
-                                                        <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
-                                                            type="button"><i class="bi bi-pencil-square"></i></button>
-                                                    </a>
-                                                    <a href="">
-                                                        <button
-                                                            class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
-                                                            type="button"><i class="bi bi-trash"></i></button>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -99,7 +84,112 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
-        $('#file-export').DataTable({
+        console.log('Hello');
+        const table = $('#assets-table').DataTable({
+            "ajax": {
+                "url": "/dashboard/assets", // URL para a fonte de dados
+                "dataSrc": "data" // Campo para os dados (se não especificado, usa "data")
+            },
+            // "columnDefs": [{
+            //         "targets": [2, 5],
+            //         "className": 'custom-cel'
+            //     }, // Largura da primeira célula (0)
+            //     {
+            //         // "targets": 0, // Índice da coluna alvo
+            //         // "createdCell": function(td, cellData, rowData, row, col) {
+            //         //     // Adiciona uma classe personalizada ao <td> da primeira coluna
+            //         //     $(td).addClass('minha-classe');
+            //         //     // Outras personalizações podem ser feitas aqui
+            //         // }
+            //         // "min-width": "20%",
+            //         // "width": "20%",
+            //         // "targets": 1
+            //     }, // Largura da segunda célula (1)
+            //     // Adicione mais definições de coluna conforme necessário
+            // ],
+            "columns": [{
+                    "data": "id"
+                }, // Campo "nome" do JSON
+                {
+                    "data": "title"
+                }, // Campo "nome" do JSON
+                {
+                    "data": "process_number"
+                }, // Campo "nome" do JSON
+                {
+                    "data": "main_credit_for_sale",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>Sim</p>`
+                        }
+                        return `<p>Não</p>`;
+                    }
+                },
+                {
+                    "data": "main_credit_for_sale",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>${row.negotiated_value}</p>`
+                        }
+                        return 'N/A';
+                    }
+                },
+                {
+                    "data": "contractual_fees_for_sale",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>Sim</p>`
+                        }
+                        return `<p>Não</p>`;
+                    }
+                },
+                {
+                    "data": "contractual_fees_for_sale",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>${row.negotiated_fee_value}</p>`
+                        }
+                        return 'N/A';
+                    }
+                },
+                {
+                    "data": "highlighted_contractual_fee",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>${row.percentage_contractual_fee}</p>`
+                        }
+                        return 'N/A';
+                    }
+                },
+                {
+                    "data": "created_at"
+                }, // Campo "nome" do JSON
+                {
+                    "data": "id",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        return `
+                        <div class="btn-list">
+                            <a
+                                href="/dashboard/creditRightsTitle/${data}">
+                                <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
+                                    type="button"><i class="bi bi-pencil-square"></i></button>
+                            </a>
+                            <a href="">
+                                <button
+                                    class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
+                                    type="button"><i class="bi bi-trash"></i></button>
+                            </a>
+                        </div>
+                        `;
+                    }
+                },
+            ],
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'

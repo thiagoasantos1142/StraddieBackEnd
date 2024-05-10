@@ -85,7 +85,7 @@
                                             
                                             <td>{{ $dueDiligence->crt->principal_amount }}</td>
 
-                                            <td>{{ $dueDiligence->status->title }}</td>
+                                            <td>{{ $dueDiligence->status->title ?? '' }}</td>
 
 
 
