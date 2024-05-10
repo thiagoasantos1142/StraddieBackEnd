@@ -37,8 +37,8 @@
                                     class="fa fa-plus-square me-2"></i>Adicionar ativo</a>
                         </div>
                     </div>
-                    <div id="filter-assets" data-filters="{{json_encode($crtTypes)}}"></div>
-                    <div id="filter-assets-origin-debitors" data-filters="{{json_encode($crtOriginDebitors)}}"></div>
+                    <div id="filter-assets" data-filters="{{ json_encode($crtTypes) }}"></div>
+                    <div id="filter-assets-origin-debitors" data-filters="{{ json_encode($crtOriginDebitors) }}"></div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="assets-table" class="table text-nowrap w-100">
@@ -168,7 +168,16 @@
                     }
                 },
                 {
-                    "data": "count_offer"
+                    "data": "count_offer",
+                    "render": function(data, type, row, meta) {
+                        if (data == '0') {
+                            return `<button type="button" class='btn btn-danger' placeholder="" value="" disabled>${data}</button>`
+                        } else if (data >= 1 && data <= 5) {
+                            return `<button type="button" class='btn btn-warning' placeholder="" value="" disabled>${data}</button>`
+                        } else {
+                            return `<button type="button" class='btn btn-success' placeholder="" value="" disabled>${data}</button>`
+                        }
+                    }
                 }, // Campo "nome" do JSON
                 {
                     "data": "created_at"

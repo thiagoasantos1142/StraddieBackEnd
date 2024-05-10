@@ -75,7 +75,7 @@ class AvailableAsset extends Model
     {
         $count = Offers::where('available_asset_id', $this->id)->count();
         if (!$count) {
-            return 'N/A';
+            return '0';
         }
         $value = $count;
         return $value;
