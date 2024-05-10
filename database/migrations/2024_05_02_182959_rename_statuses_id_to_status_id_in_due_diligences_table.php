@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-          Schema::table('due_diligences', function (Blueprint $table) {
-            //$table->dropForeign(['statuses_id']);
-            $table->dropColumn('statuses_id');
+        Schema::table('due_diligences', function (Blueprint $table) {
+            
+            $table->dropConstrainedForeignId('statuses_id');
+
+        });
+            
+        Schema::table('due_diligences', function (Blueprint $table) {
             $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
         });
