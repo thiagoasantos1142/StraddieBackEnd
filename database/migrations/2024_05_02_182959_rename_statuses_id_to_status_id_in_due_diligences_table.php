@@ -18,7 +18,7 @@ return new class extends Migration
         });
             
         Schema::table('due_diligences', function (Blueprint $table) {
-            $table->unsignedBigInteger('status_id')->nullable();
+          //  $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('due_diligence_statuses')->onDelete('cascade');
         });
     }
