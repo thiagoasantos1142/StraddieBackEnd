@@ -97,6 +97,7 @@ Route::middleware([
             Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
             Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
             Route::resource('/assets', AssetsController::class);
+            Route::post('/assets/makeOffer', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::resource('crtType', CrtTypeController::class);
 
             Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
