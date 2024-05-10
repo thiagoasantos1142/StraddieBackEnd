@@ -47,11 +47,11 @@
                                         <th>Id</th>
                                         <th>Nome</th>
                                         <th>número do processo</th>
-                                        <th>Crédito a venda</th>
-                                        <th>Valor do crédito</th>
+                                        <th>Principal a venda</th>
+                                        <th>Valor do negociado</th>
                                         <th>Honorários a venda</th>
-                                        <th>Valor do honorario</th>
-                                        <th>Percentual do honorario</th>
+                                        <th>Valor do honorário</th>
+                                        <th>Percentual do honorário</th>
                                         <th>Ofertas</th>
                                         <th>Criada em</th>
                                         <th>Açoes</th>
@@ -112,10 +112,10 @@
                     "data": "id"
                 }, // Campo "nome" do JSON
                 {
-                    "data": "title"
+                    "data": "due_diligence.crt.title"
                 }, // Campo "nome" do JSON
                 {
-                    "data": "process_number"
+                    "data": "due_diligence.crt.process_number"
                 }, // Campo "nome" do JSON
                 {
                     "data": "main_credit_for_sale",

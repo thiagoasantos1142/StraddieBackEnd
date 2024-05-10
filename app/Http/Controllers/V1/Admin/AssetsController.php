@@ -47,7 +47,7 @@ class AssetsController extends Controller
                     return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
                         $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                     });
-                })->get()
+                })->with('due_diligence.crt')->get()
             ]);
         }
 
