@@ -73,7 +73,7 @@ class AvailableAsset extends Model
 
     public function getCountOfferAttribute($value)
     {
-        $count = Offers::where('available_assets_id', $this->id)->count();
+        $count = Offers::where('available_asset_id', $this->id)->count();
         if (!$count) {
             return 'N/A';
         }
