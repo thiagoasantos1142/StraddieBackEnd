@@ -20,11 +20,20 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Form Advanced</h1>
+        <div class="card-header d-flex justify-content-between">
+            <div class="card-title"></div>
+            <div class="d-flex">
+                <a href="{{ route('assets.makeOffer', ['creditRightsTitleId' => $availableAsset->id]) }}" class="btn btn-primary btn-block float-end my-2">
+                    <i class="fa fa-plus-square me-2"></i>Fazer Oferta
+                </a>
+            </div>
+
+        </div>
+        <h1 class="page-title">Ativo Disponivel</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Forms</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Form Advanced</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Ativos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ativo Disponivel</li>
             </ol>
         </div>
     </div>
