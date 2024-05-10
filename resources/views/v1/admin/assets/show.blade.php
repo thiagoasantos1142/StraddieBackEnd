@@ -34,207 +34,195 @@
     <div class="main-container container-fluid">
         <div class="row">
             <div class="col-md-12 row">
-                <div class="col-xl-3 col-md-6">
-                    <a href="#section-address">
-                        <div class="card ribbone-card">
-                            <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
-                                        class="fa fa-bolt"></i></span></div>
-                            <div class="card-body  p-6">
-                                <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">adicione um endereço a empresa</p>
+               @if($availableAsset->offers->count() >= 1)
+                    <div class="col-xl-3 col-md-6">
+                        <a href="#section-offers">
+                            <div class="card ribbone-card">
+                                <div class="power-ribbone power-ribbone-top-right text-success"><span class="bg-success"><i
+                                            class="fa fa-bolt"></i></span></div>
+                                <div class="card-body  p-6">
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Este Ativo já recebeu {{$availableAsset->offers->count()}} ofertas.</h6>    
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @else
                 <div class="col-xl-3 col-md-6">
-                    <a href="#address">
-                        <div class="card ribbone-card">
-                            <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
-                                        class="fa fa-bolt"></i></span></div>
-                            <div class="card-body  p-6">
-                                <h6 class="card-subtitle mb-2 text-dark fw-bold">Complete o cadastro.</h6>
-                                <p class="card-text">Atribua um usuario a sua empresa</p>
+                        <a href="#section-offers">
+                            <div class="card ribbone-card">
+                                <div class="power-ribbone power-ribbone-top-right text-danger"><span class="bg-danger"><i
+                                            class="fa fa-bolt"></i></span></div>
+                                <div class="card-body  p-6">
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Este Ativo ainda não recebeu nenhuma oferta.</h6>                                
+                                                         
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endif                
             </div>
 
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Dados da empresa</h4>
+                        <h4 class="card-title">Dados do Ativo</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('organization.store') }}">
+                        <form method="POST" action="{{ route('assets.store') }}">
                             @csrf
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="razao" class="form-label">Razão social</label>
+                                        <label for="razao" class="form-label">Numero do processo:</label>
                                         <input type="text"
-                                            class="form-control  @error('razao_social') is-invalid @enderror" id="razao"
-                                            name="razao_social" placeholder="Razão social"
-                                            value="{{ old('razao_social') ?? ($organization->razao_social ?? '') }}"
+                                            class="form-control  @error('process_number') is-invalid @enderror" id="process_number"
+                                            name="process_number" placeholder="Numero do processo"
+                                            value="{{ old('process_number') ?? ($availableAsset->dueDiligence->crt->process_number ?? '') }}"
                                             disabled>
-                                        @error('razao_social')
+                                        @error('process_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="fantasy" class="form-label">Nome fantasia</label>
+                                        <label for="fantasy" class="form-label">Valor principal do titulo</label>
                                         <input type="text"
-                                            class="form-control @error('nome_fantasia') is-invalid @enderror" id="fantasy"
-                                            name="nome_fantasia" placeholder="Nome fantasia"
-                                            value="{{ old('nome_fantasia') ?? ($organization->nome_fantasia ?? '') }}"
+                                            class="form-control @error('main_value') is-invalid @enderror" id="fantasy"
+                                            name="main_value" placeholder="Valor principal"
+                                            value="{{ old('main_value') ?? ($availableAsset->dueDiligence->crt->principal_amount ?? '') }}"
                                             disabled>
-                                        @error('nome_fantasia')
+                                        @error('main_value')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-5 mb-0">
+                                        <label for="origin_debtor" class="form-label">Origem do débito</label>
+                                        <input type="text" class="form-control @error('origin_debtor') is-invalid @enderror"
+                                            id="origin_debtor" name="origin_debtor" placeholder="Origem do débito"
+                                            value="{{ old('origin_debtor') ?? ($availableAsset->dueDiligence->crt->crtOriginDebtor->title ?? '') }}" disabled>
+                                        @error('origin_debtor')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-5 mb-0">
+                                        <label for="nature_credit" class="form-label">Natureza do crédito</label>
+                                        <input type="text"
+                                            class="form-control @error('nature_credit') is-invalid @enderror"
+                                            id="nature_credit" name="nature_credit" placeholder="Natureza do crédito"
+                                            value="{{ old('nature_credit') ?? ($availableAsset->dueDiligence->crt->crtNatureCredit->title  ?? '') }}"
+                                            disabled>
+                                        @error('nature_credit')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div> 
+                                    <div class="form-group col-md-5 mb-0">
+                                        <label for="main_credit_for_sale" class="form-label">O valor principal do titulo está disponível para receber oferta?</label>
+                                        <input type="button" class='{{$availableAsset->main_credit_for_sale == 1 ? "btn btn-success" : "btn btn-danger"}}' 
+                                            id="municipal" name="main_credit_for_sale" placeholder=""
+                                            value="{{ old('main_credit_for_sale') ?? ($availableAsset->main_credit_for_sale == 1 ? 'Sim' : 'Não') }}"
+                                            disabled>
+                                        @error('main_credit_for_sale')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
-                                        <label for="cnpj" class="form-label">Cnpj</label>
-                                        <input type="text" class="form-control @error('cnpj') is-invalid @enderror"
-                                            id="cnpj" name="cnpj" placeholder="cnpj"
-                                            value="{{ old('cnpj') ?? ($organization->cnpj ?? '') }}" disabled>
-                                        @error('cnpj')
+                                        <label for="negotiated_main_value" class="form-label">Valor prévio negociado</label>
+                                        <input type="negotiated_main_value" class="form-control @error('negotiated_main_value') is-invalid @enderror"
+                                            id="negotiated_main_value" name="negotiated_main_value" placeholder="E-mail"
+                                            value="{{ old('negotiated_main_value') ?? ($availableAsset->negotiated_main_value ?? '') }}" disabled>
+                                        @error('negotiated_main_value')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="estadual" class="form-label">Inscrição estadual (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('state_registration') is-invalid @enderror"
-                                            id="estadual" name="state_registration" placeholder="Inscrição estadual"
-                                            value="{{ old('state_registration') ?? ($organization->state_registration ?? '') }}"
+
+                                    <div class="form-group col-md-4 mb-0">
+                                        <label for="contractual_fees_for_sale" class="form-label">Os valores dos Honorários estão disponíveis para receber oferta?</label>
+                                        <input type="button" class='{{$availableAsset->contractual_fees_for_sale == 1 ? "btn btn-success" : "btn btn-danger"}}' 
+                                            id="contractual_fees_for_sale" name="contractual_fees_for_sale" placeholder=""
+                                            value="{{ old('contractual_fees_for_sale') ?? ($availableAsset->contractual_fees_for_sale == 1 ? 'Sim' : 'Não') }}"
                                             disabled>
-                                        @error('state_registration')
+                                        @error('contractual_fees_for_sale')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-3 mb-0">
-                                        <label for="municipal" class="form-label">Inscrição municipal (não
-                                            obrigatório)</label>
-                                        <input type="text"
-                                            class="form-control @error('municipal_registration') is-invalid @enderror"
-                                            id="municipal" name="municipal_registration" placeholder="Inscrição municipal"
-                                            value="{{ old('municipal_registration') ?? ($organization->municipal_registration ?? '') }}"
-                                            disabled>
-                                        @error('municipal_registration')
+                                    <div class="form-group col-md-4 mb-0">
+                                        <label for="percentage_contractual_fee" class="form-label">Percentual dos honorários</label>
+                                        <input type="percentage_contractual_fee" class="form-control @error('percentage_contractual_fee') is-invalid @enderror"
+                                            id="percentage_contractual_fee" name="percentage_contractual_fee" placeholder="percentage_contractual_fee"
+                                            value="{{ old('contractual_fees_for_sale') ?? ($availableAsset->percentage_contractual_fee ?? 'N/A') }} %" disabled>
+                                        @error('percentage_contractual_fee')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" placeholder="E-mail"
-                                            value="{{ old('email') ?? ($organization->email ?? '') }}" disabled>
-                                        @error('email')
+                                    <div class="form-group col-md-4 mb-0">
+                                        <label for="negotiated_fee_value" class="form-label">Valor negociado dos honorários</label>
+                                        <input type="negotiated_fee_value" class="form-control @error('negotiated_fee_value') is-invalid @enderror"
+                                            id="negotiated_fee_value" name="negotiated_fee_value" placeholder="negotiated_fee_value"
+                                            value="{{ old('negotiated_fee_value') ?? ($availableAsset->contractual_fees_for_sale == 1 ? $availableAsset->negotiated_fee_value : 'N/A') }}" disabled>
+                                        @error('negotiated_fee_value')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6 mb-0">
-                                        <label for="entidade_type" class="form-label">Tipo instituição</label>
-                                        <select class="form-select @error('entidade_type_id') is-invalid @enderror"
-                                            name="entidade_type_id" disabled>
-                                            <option>Disabled select</option>
-                                            <option value='1' @if (old('entidade_type_id') == 1) selected @endif>
-                                                Disabled 1</option>
-                                            <option value='2'>Disabled 2</option>
-                                            <option value='3'>Disabled 3</option>
-                                        </select>
-                                        @error('entidade_type_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                   
                                 </div>
-                            </div>
-                            <div class="d-flex flex-row-reverse">
-                                <button class="btn btn-primary mt-4 mb-0" type="submit">Editar</button>
-                            </div>
+                            </div>                            
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6">
-                <div class="card custom-card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            Atribuir um usuario
+                    </div>                    
+                </div> 
+                <div class="col-xl-5" id="section-title">
+                      
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="card-title">Due Diligence geradora deste ativo</div>                                        
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
-                                data-bs-toggle="modal" data-bs-target="#largemodal">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Atribuir um usuario +</p>
-                                </div>
-                            </a>
-                            <a href="" onclick="event.preventDefault();" class="col-md-6" data-bs-toggle="modal"
-                                data-bs-target="#largemodal">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Atribuir um usuario existente +</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6" id="section-address">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">Endereços</div>
-                        <div class="d-flex">
-                            <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
-                                class="btn btn-primary btn-block float-end"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar endereço</a>
-                        </div>
-                    </div>
-                    <ul class="list-group list-group-flush" data-addresses>
-                        @foreach ($organization->addresses as $addresse)
-                            <li class="list-group-item" data-idaddress="{{ $addresse->id }}">
-                                <div class="d-flex flex-row justify-content-between">
-                                    <div class="d-flex mt-2">
-                                        <div>
-                                            <a class="nav-link border rounded-pill avatar avatar-sm bg-light me-2"
-                                                href="javascript:void(0);"><i class="fe fe-map-pin"></i></a>
+                        <a href="{{ route('dueDiligence.show', ['dueDiligence' => $availableAsset->dueDiligence->id]) }}" target="_blank" class="stretched-link">
+                            <ul class="list-group list-group-flush" data-title>                                       
+                                <li class="list-group-item" data-idtitle="{{ $availableAsset->dueDiligence->id }}">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <div class="d-flex mt-2">                                                   
+                                            <div class="ms-2" id="line-dueDiligence">
+                                                <p class="fs-13 fw-600 mb-0">Status: {{ $availableAsset->dueDiligence->status->title }}</p>                                                           
+                                            </div>
                                         </div>
-                                        <div class="ms-2" id="line-addresses">
-                                            <p class="fs-13 fw-600 mb-0">{{ $addresse->zip }}</p>
-                                            <p class="fs-12 text-muted">CEP: {{ $addresse->zip }}, CIDADE:
-                                                {{ $addresse->city_id }}<br>BAIRRO: {{ $addresse->neighborhood }}<br>N:
-                                                {{ $addresse->street_number }}<br>COMPLEMENTO: {{ $addresse->complement }}
-                                            </p>
+                                        <div class="d-flex">                                                    
+                                            <a href="javascript:void(0);" 
+                                                        class="btn btn-primary btn-block float-end">Visualizar DueDiligence</a>
                                         </div>
                                     </div>
-                                    <div class="btn-list">
-                                        <button class="btn btn-sm btn-icon btn-info-light rounded-circle" type="button"
-                                            data-modaladdress data-typeaction="update"><i class="bi bi-pencil-square"></i></button>
-                                        <button class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
-                                            type="button"><i class="bi bi-trash"></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @if ($organization->addresses->count() == 0)
-                        <div class="card-body">
-                            <a href="" onclick="event.preventDefault();" class="col-md-6 mb-4 mb-md-0"
-                                data-bs-toggle="modal" data-bs-target="#address">
-                                <div class="dropzone d-flex justify-content-center align-items-center">
-                                    <p class="fs-4 mb-0">Adicione um endereço +</p>
-                                </div>
-                            </a>
+                                </li>
+                            </ul>
+                        </a>                                    
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="card-title">Titulo de direito creditório originador deste ativo</div>                                        
                         </div>
-                    @endif
-                </div>
+                            <a href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $availableAsset->dueDiligence->crt->id]) }}" target="_blank" class="stretched-link">
+                                <ul class="list-group list-group-flush" data-title>                                       
+                                    <li class="list-group-item" data-idtitle="{{ $availableAsset->dueDiligence->crt->id }}">
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <div class="d-flex mt-2">                                                   
+                                                <div class="ms-2" id="line-addresses">
+                                                    <p class="fs-13 fw-600 mb-0">{{ $availableAsset->dueDiligence->crt->title }}</p>                                                           
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">                                                    
+                                                <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
+                                                        class="btn btn-primary btn-block float-end">Visualizar Título</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </a>                                    
+                        </div>
+                    </div>
+                </div>              
             </div>
-        </div>
+               
+        </div>     
     </div>
 
-    <x-v1.admin.modal.createAddress :organization-id="$organization->id"></x-v1.admin.modal.createAddress>
+    
 @endsection
 
 @section('scripts')

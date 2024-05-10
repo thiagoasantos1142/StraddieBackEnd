@@ -28,9 +28,9 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = [1];
             return in_array($user->role->role_id, $roleAccess);
         });
-        // Gate::define('define-access-user', function (User $user) {
-        //     $roleAccess = [1];
-        //     return in_array($user->role->role_id, $roleAccess);
-        // });
+        Gate::define('define-access-company', function (User $user) {
+            $roleAccess = [5];
+            return in_array($user->role->role_id, $roleAccess);
+        });
     }
 }

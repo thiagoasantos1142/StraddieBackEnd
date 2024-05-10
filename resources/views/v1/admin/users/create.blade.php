@@ -53,48 +53,38 @@
                                 <div class="form-group col-md-6 mb-0">
                                     <label for="name" class="form-label ">Nome e sobrenome</label>
                                     <input type="text" class="form-control   " id="name" name="name"
-                                        placeholder="Nome e sobrenome" value="" data-input="">
+                                        placeholder="Nome e sobrenome" value="{{old('name') ?? ''}}" data-input="">
                                 </div>
                                 <div class="form-group col-md-6 mb-0">
                                     <label for="email" class="form-label ">E-mail</label>
                                     <input type="text" class="form-control   " id="email" name="email"
-                                        placeholder="E-mail" value="" data-input="">
+                                        placeholder="E-mail" value="{{old('email') ?? ''}}" data-input="">
                                 </div>
                                 <div class="form-group col-md-4 mb-0">
                                     <label for="cpf" class="form-label ">Cpf</label>
                                     <input type="text" class="form-control   " id="cpf" name="cpf"
-                                        placeholder="Cpf" value="" data-input="">
+                                        placeholder="Cpf" value="{{old('cpf') ?? ''}}" data-input="">
                                 </div>
                                 <div class="form-group col-md-4 mb-0">
                                     <label for="user_type_id" class="form-label ">Tipo do usuário</label>
                                     <select class="form-select  " id="user_type_id" name="user_type_id" data-input="">
                                         <option>Disabled select</option>
-                                        <option value="1">
-                                            Admin
-                                        </option>
-                                        <option value="2">
-                                            Operador
-                                        </option>
-                                        <option value="3">
-                                            Originador
-                                        </option>
-                                        <option value="4">
-                                            Advogado
-                                        </option>
-                                        <option value="5">
-                                            Cliente Organization
-                                        </option>
+                                        @foreach ($typeUser as $type)
+                                            <option value="{{ $type->id }}">
+                                                {{ $type->title }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-4 mb-0">
                                     <label for="title" class="form-label ">Título</label>
                                     <input type="text" class="form-control   " id="title" name="title"
-                                        placeholder="Título" value="" data-input="">
+                                        placeholder="Título" value="{{old('title') ?? ''}}" data-input="">
                                 </div>
                                 <div class="form-group col-md-12 mb-0">
                                     <label for="bio" class="form-label ">Bio</label>
                                     <input type="text" class="form-control   " id="bio" name="bio"
-                                        placeholder="Bio" value="" data-input="">
+                                        placeholder="Bio" value="{{old('bio') ?? ''}}" data-input="">
                                 </div>
                             </div>
                             <div class="d-flex flex-row-reverse">
@@ -116,12 +106,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="name" class="form-label ">Nome e sobrenome</label>
-                                        <input type="text" class="form-control   " id="name" name="name"
+                                        <input type="text" class="form-control   " id="name_layer" name="name_layer"
                                             placeholder="Nome e sobrenome" value="" data-input="">
                                     </div>
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="title" class="form-label ">Título</label>
-                                        <input type="text" class="form-control   " id="title" name="title"
+                                        <input type="text" class="form-control   " id="title_layer" name="title_layer"
                                             placeholder="Título" value="" data-input="">
                                     </div>
                                     <div class="form-group col-md-6 mb-0">

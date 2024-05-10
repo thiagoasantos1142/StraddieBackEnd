@@ -59,9 +59,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    
+    Route::group(['middleware' => ['can:define-access-company, can:define-access-admin']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::resource('/users', UserController::class);
+        });
+    });
+
     Route::group(['middleware' => ['can:define-access-admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        
         Route::group(['prefix' => 'dashboard'], function () {
             Route::resource('/organization', OrganizationController::class);
             Route::resource('/address', AddressController::class);
@@ -110,9 +117,6 @@ Route::middleware([
 
         Route::get('profile', [PagesController::class, 'profile'])->name('profile');
     });
-
-
-
 
 
     // Route::get('notify-list', [PagesController::class, 'notify_list']);

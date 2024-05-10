@@ -237,6 +237,5 @@ class DueDiligenceController extends Controller
             return redirect()->back()->withErrors('Due Diligence não encontrada');
 
         }
-
     }
 }
