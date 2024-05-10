@@ -35,10 +35,10 @@ class AvailableAsset extends Model
     }
 
 
-    
+
     public function getNegotiatedMainValueAttribute($value)
     {
-        return 'R$ ' . number_format($value, 2, ',', '.');
+        return CustomHelpers::formatMoney($value);
     }
 
     public function setNegotiatedMainValueAttribute($value)
@@ -46,11 +46,11 @@ class AvailableAsset extends Model
         $this->attributes['negotiated_main_value'] = CustomHelpers::removeFormatMoney($value);
     }
 
-    
-    
+
+
     public function getNegotiatedFeeValueAttribute($value)
     {
-        return 'R$ ' . number_format($value, 2, ',', '.');
+        return CustomHelpers::formatMoney($value);
     }
 
     public function setNegotiatedFeeValueAttribute($value)
@@ -58,4 +58,13 @@ class AvailableAsset extends Model
         $this->attributes['negotiated_fee_value'] = CustomHelpers::removeFormatMoney($value);
     }
 
+    public function getNegotiatedValueAttribute($value)
+    {
+        return CustomHelpers::formatMoney($value);
+    }
+
+    public function getPercentageContractualFeeAttribute($value)
+    {
+        return CustomHelpers::formatPercentage($value);
+    }
 }

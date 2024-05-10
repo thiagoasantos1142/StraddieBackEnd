@@ -50,4 +50,13 @@ class CustomHelpers
         $removePinters = str_replace('.', '', $value);
         return str_replace(',', '.', $removePinters);
     }
+
+    public static function formatMoney($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+    public static function formatPercentage($value)
+    {
+        return number_format($value, 0, ',', '.') . '%';
+    }
 }
