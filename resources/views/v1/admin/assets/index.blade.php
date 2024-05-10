@@ -52,6 +52,7 @@
                                         <th>Honorários a venda</th>
                                         <th>Valor do honorario</th>
                                         <th>Percentual do honorario</th>
+                                        <th>Ofertas</th>
                                         <th>Criada em</th>
                                         <th>Açoes</th>
                                     </tr>
@@ -166,6 +167,9 @@
                         return 'N/A';
                     }
                 },
+                {
+                    "data": "count_offer"
+                }, // Campo "nome" do JSON
                 {
                     "data": "created_at"
                 }, // Campo "nome" do JSON

@@ -5,10 +5,13 @@ namespace App\Models\V1\Admin;
 use App\Helpers\CustomHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Stmt\Return_;
 
 class AvailableAsset extends Model
 {
     use HasFactory;
+
+    protected $appends = ['count_offer'];
 
     public function due_diligence()
     {
@@ -66,5 +69,15 @@ class AvailableAsset extends Model
     public function getPercentageContractualFeeAttribute($value)
     {
         return CustomHelpers::formatPercentage($value);
+    }
+
+    public function getCountOfferAttribute($value)
+    {
+        $count = Offers::where('available_assets_id', $this->id)->count();
+        if (!$count) {
+            return 'N/A';
+        }
+        $value = $count;
+        return $value;
     }
 }
