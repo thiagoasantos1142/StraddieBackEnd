@@ -381,8 +381,8 @@
                                                                     </div>
                                                                     <div class="mt-3 mt-sm-0">
                                                                         <div class="custom-toggle-switch float-sm-end">
-                                                                            <input id="toggle-switch1" name="toggle-switch1" type="checkbox">
-                                                                            <label for="toggle-switch1" class="label-primary mb-1"></label>
+                                                                            <input id="main_credit_for_sale" name="main_credit_for_sale" type="checkbox">
+                                                                            <label for="main_credit_for_sale" class="label-primary mb-1"></label>
                                                                         </div>
                                                                     </div>
                                                                     <!-- Campos adicionais a serem exibidos/ocultados -->
@@ -395,7 +395,7 @@
                                                                             </div>
                                                                             <div class="input-group">
                                                                                 <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="main-value" name="main-value" class="form-control" placeholder="Informe o valor atualizado do titulo">
+                                                                                <input type="number" id="main_value" name="main_value" class="form-control" placeholder="Informe o valor atualizado do titulo">
                                                                                
                                                                             </div>
                                                                         </div>
@@ -419,12 +419,12 @@
                                                                    
                                                                     <div class="mt-3 mt-sm-0">
                                                                         <div class="custom-toggle-switch float-sm-end">
-                                                                            <input id="toggle-switch2" name="toggle-switch2" type="checkbox">
-                                                                            <label for="toggle-switch2" class="label-primary mb-1"></label>
+                                                                            <input id="contractual_fees_for_sale" name="contractual_fees_for_sale" type="checkbox">
+                                                                            <label for="contractual_fees_for_sale" class="label-primary mb-1"></label>
                                                                         </div>
                                                                     </div>
                                                                       <!-- Campos adicionais a serem exibidos/ocultados -->
-                                                                    <div id="fields-fee-value" style="display: none;">
+                                                                    <div id="fields-fee_value" style="display: none;">
                                                                         <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
                                                                             <div class="mail-security-settings">
                                                                                 <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
@@ -433,19 +433,19 @@
                                                                         </div>
                                                                         <div class="mt-3 mt-sm-0">
                                                                             <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="toggle-switch3" name="toggle-switch3" type="checkbox">
-                                                                                <label for="toggle-switch3" class="label-primary mb-1"></label>
+                                                                                <input id="highlighted_contractual_fee" name="highlighted_contractual_fee" type="checkbox">
+                                                                                <label for="highlighted_contractual_fee" class="label-primary mb-1"></label>
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </div>
-                                                                    <div id="fields-fee-value2" style="display: none;">
+                                                                    <div id="fields-fee_value2" style="display: none;">
                                                                         <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
                                                                             <div>
                                                                                 <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem dos Honorários</p>
                                                                                 <p class="fs-12 mb-0 text-muted">Qual o percentual dos honorários Advocatícios?</p>
                                                                             </div>
                                                                             <div class="input-group">
-                                                                                <input type="number" id="percentage-fee" name="percentage-fee" class="form-control" placeholder="Informe o percentual" min="0" max="100">
+                                                                                <input type="number" id="percentage_fee" name="percentage_fee" class="form-control" placeholder="Informe o percentual" min="0" max="100">
                                                                                 <span class="input-group-text">%</span>
                                                                             </div>
                                                                         </div>
@@ -457,7 +457,7 @@
                                                                             </div>
                                                                             <div class="input-group">
                                                                                 <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="fee-value" name="fee-value" class="form-control" placeholder="Informe o valor atualizado dos honorários">
+                                                                                <input type="number" id="fee_value" name="fee_value" class="form-control" placeholder="Informe o valor atualizado dos honorários">
                                                                                
                                                                             </div>
                                                                         </div>
@@ -478,7 +478,7 @@
 
 
                                                 <!-- Botão de salvar -->
-                                                <button type="button" onclick="return verifyFields();" class="btn btn-primary">
+                                                <button type="submit" onclick="return verifyFields();" class="btn btn-primary">
                                                     Avançar
                                                 </button>
 
@@ -584,7 +584,7 @@
 
         <script>
             // Captura o elemento do toggle switch
-            const toggleSwitch = document.getElementById('toggle-switch1');
+            const toggleSwitch = document.getElementById('main_credit_for_sale');
 
             // Captura o elemento dos campos adicionais
             const camposAdicionais = document.getElementById('campos-adicionais');
@@ -605,10 +605,10 @@
 
         <script>
             // Captura o elemento do toggle switch
-            const toggleSwitch2 = document.getElementById('toggle-switch2');
+            const toggleSwitch2 = document.getElementById('contractual_fees_for_sale');
 
             // Captura o elemento dos campos adicionais
-            const fieldsFeeValue = document.getElementById('fields-fee-value');
+            const fieldsFeeValue = document.getElementById('fields-fee_value');
 
               // Adiciona um event listener para quando o toggle switch for clicado
               toggleSwitch2.addEventListener('change', function() {
@@ -626,75 +626,75 @@
         </script>
 
         <script>
-            // Função para verificar se pelo menos um dos campos toggle-switch1 ou toggle-switch2 está marcado
+            // Função para verificar se pelo menos um dos campos main_credit_for_sale ou contractual_fees_for_sale está marcado
             function verifyFields() {
-                return true;
-                    }else{
-                var toggle1 = document.getElementById('toggle-switch1').checked;
-                var toggle2 = document.getElementById('toggle-switch2').checked;
+               
+                var toggle1 = document.getElementById('main_credit_for_sale').checked;
+                var toggle2 = document.getElementById('contractual_fees_for_sale').checked;
 
                 
                 if(toggle1 && !toggle2){
-                    // Verifica se o campo main-value está preenchido
-                    var mainValue = document.getElementById('main-value').value.trim();
+                    // Verifica se o campo main_value está preenchido
+                    var mainValue = document.getElementById('main_value').value.trim();
                     
                     if (mainValue !== '') {
-                        // Se o campo main-value estiver preenchido, permite o avanço
+                        // Se o campo main_value estiver preenchido, permite o avanço
                         return true;
                     }else{
-                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        // Se o campo main_value não  estiver preenchido, não permite o avanço
                         alert('Por favor, preencha o campo: Qual o valor atualizado do titulo?.');
                         return false;
                         
                     }
                 }else if (toggle2 && !toggle1){
-                     // Verifica se o campo percentage-fee está preenchido
-                     var percentageFee = document.getElementById('percentage-fee').value.trim();
+                     // Verifica se o campo percentage_fee está preenchido
+                     var percentageFee = document.getElementById('percentage_fee').value.trim();
 
                     if (percentageFee !== '') {
-                        // Se o campo fee-value estiver preenchido, permite o avanço
-                        var feeValue = document.getElementById('fee-value').value.trim();
+                        // Se o campo fee_value estiver preenchido, permite o avanço
+                        var feeValue = document.getElementById('fee_value').value.trim();
 
                         if (feeValue !== '') {
 
                             return true;
+
                         }else{
 
-                            // Se o campo main-value não  estiver preenchido, não permite o avanço
+                            // Se o campo main_value não  estiver preenchido, não permite o avanço
                             alert('Por favor, preencha o campo: Valor atualizado para os  Honorários?.');
                             return false;
 
                         }
                     }else{
-                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        // Se o campo main_value não  estiver preenchido, não permite o avanço
                         alert('Por favor, preencha o campo: Qual o percentual dos Honorários?.');
                         return false;
                         
                     }
                 }else if (toggle2 && toggle1){
 
-                    // Verifica se o campo main-value está preenchido
-                    var mainValue = document.getElementById('main-value').value.trim();
-                    // Verifica se o campo percentage-fee está preenchido
-                    var percentageFee = document.getElementById('percentage-fee').value.trim();
-                    // Se o campo fee-value estiver preenchido, permite o avanço
-                    var feeValue = document.getElementById('fee-value').value.trim();
+                    // Verifica se o campo main_value está preenchido
+                    var mainValue = document.getElementById('main_value').value.trim();
+                    // Verifica se o campo percentage_fee está preenchido
+                    var percentageFee = document.getElementById('percentage_fee').value.trim();
+                    // Se o campo fee_value estiver preenchido, permite o avanço
+                    var feeValue = document.getElementById('fee_value').value.trim();
                     
                     if (mainValue == '') {
-                         // Se o campo main-value não  estiver preenchido, não permite o avanço
+                         // Se o campo main_value não  estiver preenchido, não permite o avanço
                          alert('Por favor, preencha o campo: Valor atualizado para o saldo principal?.');
                         return false;
                     }
 
                     if (feeValue !== '') {
-                        // Se o campo main-value não  estiver preenchido, não permite o avanço
+                        // Se o campo main_value não  estiver preenchido, não permite o avanço
                         alert('Por favor, preencha o campo: Valor atualizado para os Honorários?.');
                             return false;                        
                     }
 
                     
                     if (percentageFee !== '') {
-                         // Se o campo main-value não  estiver preenchido, não permite o avanço
+                         // Se o campo main_value não  estiver preenchido, não permite o avanço
                          alert('Por favor, preencha o campo: Qual o percentual dos Honorários?.');
                         return false;                     
                     }
@@ -738,10 +738,10 @@
 
         <script>
             // Captura o elemento do toggle switch
-            const toggleSwitch3 = document.getElementById('toggle-switch3');
+            const toggleSwitch3 = document.getElementById('highlighted_contractual_fee');
 
             // Captura o elemento dos campos adicionais
-            const fieldsFeeValue2 = document.getElementById('fields-fee-value2');
+            const fieldsFeeValue2 = document.getElementById('fields-fee_value2');
 
               // Adiciona um event listener para quando o toggle switch for clicado
               toggleSwitch3.addEventListener('change', function() {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Lawyer;
 use App\Models\User;
+use App\Models\V1\Admin\AvailableAsset;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\DueDiligence;
 use App\Models\V1\Admin\File;
@@ -127,25 +128,115 @@ class DueDiligenceController extends Controller
 
     public function show(Request $request, string $id)
     {
+        $validator = \Validator::make(
+            $request->all(),
+            [
+                
+                //'email' => "unique:users,email|email|max:255",
+                //'cpf' => "unique:users,cpf|max:20",
+                //'phone' => 'required|max:20'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $dueDiligence = DueDiligence::find($id);
 
+        if($dueDiligence){
 
-        $creditRightsTitle = CreditRightsTitle::find($dueDiligence->crt->id);
+            $creditRightsTitle = CreditRightsTitle::find($dueDiligence->crt->id);
 
-        $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
+            $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
 
-        $documentsTypesKYCPF = FileType::where('type', 'KYC-PF')->get(); 
-        
-        $documentsTypesTitle = FileType::where('type', 'CRT')->get();
+            $documentsTypesKYCPF = FileType::where('type', 'KYC-PF')->get(); 
+            
+            $documentsTypesTitle = FileType::where('type', 'CRT')->get();
 
-        $documentsTypesCND = FileType::where('type', 'CND')->get();
+            $documentsTypesCND = FileType::where('type', 'CND')->get();
 
-        $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
+            $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
 
-        $files = File::where('due_diligence_id', $dueDiligence->id)->get();
-        
+            $files = File::where('due_diligence_id', $dueDiligence->id)->get();
+            
 
-        return view('v1.admin.dueDiligence.show', compact('dueDiligence', 'creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND', 'files'));
+            return view('v1.admin.dueDiligence.show', compact('dueDiligence', 'creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND', 'files'));
+    
+
+        }else{
+
+            return redirect()->back()->withErrors('Due Diligence não encontrada');
+        }
+    }
+
+    public function aprove(Request $request, $id){
+
+        $validator = \Validator::make(
+            $request->all(),
+            [
+                
+                //'email' => "unique:users,email|email|max:255",
+                //'cpf' => "unique:users,cpf|max:20",
+                //'phone' => 'required|max:20'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $dueDiligence = DueDiligence::find($id);
+
+        if($dueDiligence){
+
+            if($dueDiligence->status_id == 3){
+
+                return redirect()->back()->withErrors('Está Due Diligence já está aprovada');
+            }
+
+            if($dueDiligence->status_id == 4 || $dueDiligence->status_id == 5){
+
+                return redirect()->back()->withErrors('Está Due Diligence já está cancelada ou rejeitada, não é possivel mais aprova-la');
+            }
+
+            if($dueDiligence->status_id == 1 || $dueDiligence->status_id == 2 ){
+
+                $dueDiligence->status_id = 3;
+                $dueDiligence->save();
+
+              //  dd($dueDiligence->id);
+
+                $available_asset = New AvailableAsset;
+
+                $available_asset->due_diligence_id = $dueDiligence->id;     
+                
+                if($request->highlighted_contractual_fee){
+
+                    $available_asset->highlighted_contractual_fee = 1;                    
+                    $available_asset->negotiated_fee_value = $request->fee_value;
+                    $available_asset->contractual_fees_for_sale = 1;
+                    $available_asset->percentage_contractual_fee = $request->percentage_contractual_fee;
+
+                }
+
+                if($request->main_credit_for_sale){
+
+                    $available_asset->main_credit_for_sale = 1; 
+                    $available_asset->negotiated_main_value = $request->main_value;
+                }
+                    
+                
+                $available_asset->save();
+
+                return redirect()->route('dueDiligence.show', ['dueDiligence' => $dueDiligence->id]);
+            }
+
+        }else{
+
+            return redirect()->back()->withErrors('Due Diligence não encontrada');
+
+        }
+
     }
 }
