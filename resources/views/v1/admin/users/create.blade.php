@@ -39,7 +39,7 @@
     @endif
 
     <div class="main-container container-fluid">
-        <form method="POST" action="http://localhost:8000/dashboard/users" id="default-form">
+        <form method="POST" action="{{ route('users.store') }}" id="default-form">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

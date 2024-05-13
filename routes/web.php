@@ -51,6 +51,8 @@ Route::middleware([
             Route::resource('/users', UserController::class);
             Route::resource('/assets', AssetsController::class);
             Route::resource('/offers', OfferController::class);
+            
+            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
         });
 
         Route::group(['middleware' => ['can:define-access--admin']], function () {
@@ -78,8 +80,6 @@ Route::middleware([
             Route::resource('/contacts', ContactsController::class);
             Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
             Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
-            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
-            Route::post('/assets/makeOffer', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::resource('crtType', CrtTypeController::class);
 
             Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
