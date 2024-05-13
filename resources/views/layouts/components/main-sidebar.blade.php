@@ -11,7 +11,7 @@
     </div>
     <!-- End::main-sidebar-header -->
 
-    @can('define-access-admin')
+    @can('define-access--admin')
         <!-- Start::main-sidebar -->
         <div class="main-sidebar" id="sidebar-scroll">
 
@@ -107,7 +107,7 @@
         </div>
     @endcan
 
-    @can('define-access-company')
+    @can('define-access--company-admin')
         <div class="main-sidebar" id="sidebar-scroll">
             <!-- Start::nav -->
             <nav class="main-menu-container nav nav-pills flex-column sub-open">

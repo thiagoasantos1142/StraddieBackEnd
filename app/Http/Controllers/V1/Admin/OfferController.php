@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\V1\Admin\Offers;
+use App\Models\V1\Admin\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +17,7 @@ class OfferController extends Controller
         $user = Auth::user();
         $organizationId = $user->organization_id;
         //
-        $offres = Offers::where('organizations_id', $organizationId)->where('user_id', $user->id)->with('category')->with('offer_status')->get();
+        $offres = Offer::where('organizations_id', $organizationId)->where('user_id', $user->id)->with('category')->with('offer_status')->get();
     
         if ($request->ajax()) {
             return response()->json(["data" => $offres], 200);

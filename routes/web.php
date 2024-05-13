@@ -47,13 +47,13 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'dashboard'], function () {
 
-        Route::group(['middleware' => ['can:define-access-company, can:define-access-admin']], function () {
+        Route::group(['middleware' => ['can:define-access--company-admin']], function () {
             Route::resource('/users', UserController::class);
             Route::resource('/assets', AssetsController::class);
             Route::resource('/offers', OfferController::class);
         });
 
-        Route::group(['middleware' => ['can:define-access-admin']], function () {
+        Route::group(['middleware' => ['can:define-access--admin']], function () {
             Route::resource('/organization', OrganizationController::class);
             Route::resource('/address', AddressController::class);
 
