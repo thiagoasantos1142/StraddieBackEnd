@@ -50,7 +50,7 @@
                                 <div class="power-ribbone power-ribbone-top-right text-success"><span class="bg-success"><i
                                             class="fa fa-bolt"></i></span></div>
                                 <div class="card-body  p-6">
-                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Este Ativo já recebeu {{$availableAsset->offers->count()}} ofertas.</h6>    
+                                    <h6 class="card-subtitle mb-2 text-dark fw-bold">Este Ativo já recebeu {{$availableAsset->offers->count()}} ofert{{$availableAsset->offers->count() == 1 ?"a.":"as."}}</h6>    
                                 </div>
                             </div>
                         </a>

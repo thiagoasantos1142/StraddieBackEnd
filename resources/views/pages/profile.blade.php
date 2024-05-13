@@ -945,15 +945,17 @@
                                                                                         <div class="media mt-0 flex-wrap overflow-visible">
                                                                                             <div class="media-user me-2">
                                                                                                 <div class="avatar-list avatar-list-stacked">
-                                                                                                    @foreach($user->organization->users as $user)
-                                                                                                        <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
-                                                                                                    @endforeach
-                                                                                                    @php
-                                                                                                        $userCount = $user->organization->users->count();
-                                                                                                        $message = ($userCount == 1) ? 'usuário' : 'usuários';
-                                                                                                    @endphp
-                                                                                                    @if ($userCount > 5)
-                                                                                                        <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                                                    @if($user->organization)
+                                                                                                        @foreach($user->organization->users as $user)
+                                                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
+                                                                                                        @endforeach
+                                                                                                        @php
+                                                                                                            $userCount = $user->organization->users->count();
+                                                                                                            $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                                        @endphp
+                                                                                                        @if ($userCount > 5)
+                                                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                                                        @endif
                                                                                                     @endif
                                                                                                 </div>
                                                                                             </div>
