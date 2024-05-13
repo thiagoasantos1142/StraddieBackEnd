@@ -941,42 +941,41 @@
                                                                             <div class="row align-items-center">
                                                                                 <div class="col">
                                                                                     <p class="m-0 mb-2 fw-600">Beneficiários</p>
-                                                                                    <div class="card-footer user-pro-2">
-                                                                                        <div class="media mt-0 flex-wrap overflow-visible">
-                                                                                            <div class="media-user me-2">
-                                                                                                <div class="avatar-list avatar-list-stacked">
-                                                                                                    @if($user->organization)
-                                                                                                        @foreach($user->organization->users as $user)
-                                                                                                            <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
-                                                                                                        @endforeach
-                                                                                                        @php
-                                                                                                            $userCount = $user->organization->users->count();
-                                                                                                            $message = ($userCount == 1) ? 'usuário' : 'usuários';
-                                                                                                        @endphp
-                                                                                                        @if ($userCount > 5)
-                                                                                                            <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
-                                                                                                        @endif
-                                                                                                    @endif
+                                                                                    @if($user->organization)
+                                                                                        <div class="card-footer user-pro-2">
+                                                                                            <div class="media mt-0 flex-wrap overflow-visible">
+                                                                                                <div class="media-user me-2">
+                                                                                                    <div class="avatar-list avatar-list-stacked">                                                                                                    
+                                                                                                            @foreach($user->organization->users as $user)
+                                                                                                                <span class="avatar brround avatar-sm cover-image" data-bs-image-src="{{ asset('build/assets/images/users/' . $user->id . '.jpg') }}"></span>
+                                                                                                            @endforeach
+                                                                                                            @php
+                                                                                                                $userCount = $user->organization->users->count();
+                                                                                                                $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                                            @endphp
+                                                                                                            @if ($userCount > 5)
+                                                                                                                <span class="avatar brround avatar-sm cover-image bg-primary">+{{ $userCount - 5 }}</span>
+                                                                                                            @endif
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="media-body flex-fill">
-                                                                                                <p class="mb-0 ms-2">
-                                                                                                    @php
-                                                                                                        $userCount = $user->organization->users->count();
-                                                                                                        $message = ($userCount == 1) ? 'usuário' : 'usuários';
-                                                                                                    @endphp
-                                                                                                    {{ $userCount }} {{ $message }} associado(s) a esse Título.
-                                                                                                </p>
-                                                                                            </div>
-                                                                                            <div>
-                                                                                                <div class="d-flex mt-1">
-                                                                                                    <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
-                                                                                                    <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
-                                                                                                    <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
+                                                                                                <div class="media-body flex-fill">
+                                                                                                        <p class="mb-0 ms-2">
+                                                                                                            @php
+                                                                                                                $userCount = $user->organization->users->count();
+                                                                                                                $message = ($userCount == 1) ? 'usuário' : 'usuários';
+                                                                                                            @endphp
+                                                                                                            {{ $userCount }} {{ $message }} associado(s) a esse Título.
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                <div>
+                                                                                                    <div class="d-flex mt-1">
+                                                                                                        <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-heart"></i></span></a>
+                                                                                                        <a aria-label="anchor" class="new me-2 text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-message-square"></i></span></a>
+                                                                                                        <a aria-label="anchor" class="new text-muted fs-16" href="JavaScript:void(0);"><span class=""><i class="fe fe-share-2"></i></span></a>
+                                                                                                    </div>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                            </div>                                                                                        
+                                                                                        @endif
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-auto">
