@@ -14,7 +14,12 @@ use App\Models\V1\Admin\CrtNatureCredit;
 use App\Models\V1\Admin\CrtNatureObligation;
 use App\Models\V1\Admin\CrtOriginDebtor;
 use App\Models\V1\Admin\CrtSpecies;
+use App\Models\V1\Admin\Offer;
+use App\Models\V1\Admin\OfferCategory;
+use App\Models\V1\Admin\Offers;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssetsController extends Controller
 {
@@ -119,6 +124,35 @@ class AssetsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function makeOffer(Request $request, string $assetId)
+    {
+        $asset = AvailableAsset::where('id', $assetId)->first();
+
+        $loggedUser = Auth::user();
+
+        if($asset){
+
+            $offer = New Offer;
+
+            $offer->available_asset_id = $asset->id;
+            $offer->offer_date = Carbon::now();
+            $offer->offer_deadline = Carbon::now()->addDays(10);
+            $offer->status_id = 1;
+            $offer->value = $request->offer_main_value;
+            $offer->user_id = $loggedUser->id;
+            $offer->offer_category_id = 1;
+
+            $offer->save();
+
+            return redirect()->back()->withMessage('Oferta realizada com sucesso.');  
+
+        }else{
+
+            return redirect()->back()->withErrors('Ativo não encontrado');    
+        }
+
     }
 
     public function formCreateUpdate($data)

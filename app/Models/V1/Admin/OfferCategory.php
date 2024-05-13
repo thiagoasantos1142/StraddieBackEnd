@@ -5,7 +5,7 @@ namespace App\Models\V1\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Offers extends Model
+class OfferCategory extends Model
 {
     use HasFactory;
 }

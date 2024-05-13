@@ -22,12 +22,12 @@
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
         <div class="card-header d-flex justify-content-between">
             <div class="card-title"></div>
+            <!-- Button trigger modal -->
             <div class="d-flex">
-                <a href="{{ route('assets.makeOffer', ['creditRightsTitleId' => $availableAsset->id]) }}" class="btn btn-primary btn-block float-end my-2">
+                <button type="button" class="btn btn-primary btn-block float-end my-2" data-bs-toggle="modal" data-bs-target="#offerModal">
                     <i class="fa fa-plus-square me-2"></i>Fazer Oferta
-                </a>
+                </button>
             </div>
-
         </div>
         <h1 class="page-title">Ativo Disponivel</h1>
         <div>
@@ -157,7 +157,7 @@
                                         <label for="percentage_contractual_fee" class="form-label">Percentual dos honorários</label>
                                         <input type="percentage_contractual_fee" class="form-control @error('percentage_contractual_fee') is-invalid @enderror"
                                             id="percentage_contractual_fee" name="percentage_contractual_fee" placeholder="percentage_contractual_fee"
-                                            value="{{ old('contractual_fees_for_sale') ?? ($availableAsset->percentage_contractual_fee ?? 'N/A') }} %" disabled>
+                                            value="{{ old('contractual_fees_for_sale') ?? ($availableAsset->percentage_contractual_fee ?? 'N/A') }}" disabled>
                                         @error('percentage_contractual_fee')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -226,9 +226,62 @@
                         </div>
                     </div>
                 </div>              
+            </div>               
+        </div> 
+                
+        <!-- Modal -->
+        <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="offerModalLabel">Fazer Oferta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if($availableAsset->main_credit_for_sale == 1)
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="offerMainValue">
+                                    <label class="form-check-label" for="offerMainValue">Fazer oferta para o valor principal?</label>
+                                </div>
+                                <div id="mainValueFields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="offer_main_value">Valor da Oferta</label>
+                                        <input type="text" class="form-control" id="offer_main_value">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mainValueInstallments">Quantidade de Parcelas</label>
+                                        <input type="number" class="form-control" id="mainValueInstallments">
+                                    </div>
+                                </div>
+                            @endif
+                            @if($availableAsset->contractual_fees_for_sale == 1)
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="offerFeeValue">
+                                    <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
+                                </div>
+                                <div id="feeValueFields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="feeValue">Valor da Oferta</label>
+                                        <input type="text" class="form-control" id="feeValue">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="feeValueInstallments">Quantidade de Parcelas</label>
+                                        <input type="number" class="form-control" id="feeValueInstallments">
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" onclick="makeOffer()">Fazer Oferta</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-               
-        </div>     
+        </div>
+    
     </div>
 
     
@@ -270,4 +323,35 @@
 
     <!-- FORMELEMENTS JS -->
     @vite('resources/assets/js/formelementadvnced.js')
+
+    <script>
+    // Function to toggle main value fields
+    document.getElementById('offerMainValue').addEventListener('change', function() {
+        var mainValueFields = document.getElementById('mainValueFields');
+        if (this.checked) {
+            mainValueFields.style.display = 'block';
+        } else {
+            mainValueFields.style.display = 'none';
+        }
+    });
+
+    // Function to toggle fee value fields
+    document.getElementById('offerFeeValue').addEventListener('change', function() {
+        var feeValueFields = document.getElementById('feeValueFields');
+        if (this.checked) {
+            feeValueFields.style.display = 'block';
+        } else {
+            feeValueFields.style.display = 'none';
+        }
+    });
+
+    // Function to handle making offer
+    function makeOffer() {
+        // You can implement your logic to handle making offer here
+        alert('Oferta realizada com sucesso!');
+        // Close modal
+        var modal = new bootstrap.Modal(document.getElementById('offerModal'));
+        modal.hide();
+    }
+</script>
 @endsection
