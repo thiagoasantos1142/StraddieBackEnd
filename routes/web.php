@@ -78,7 +78,6 @@ Route::middleware([
             Route::resource('/contacts', ContactsController::class);
             Route::get('/varas/{courtId}', [CourtsController::class, 'getCourtVaras']);
             Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
-            Route::resource('/assets', AssetsController::class);
             Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::post('/assets/makeOffer', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::resource('crtType', CrtTypeController::class);
