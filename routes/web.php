@@ -39,6 +39,7 @@ Route::get('index', [DashboardController::class, 'index']);
 Route::get('landing-page', [LandingpageController::class, 'landing_page']);
 Route::resource('/form-documents', FormDocuments::class);
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -49,10 +50,11 @@ Route::middleware([
 
         Route::group(['middleware' => ['can:define-access--company-admin']], function () {
             Route::resource('/users', UserController::class);
+            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::resource('/assets', AssetsController::class);
             Route::resource('/offers', OfferController::class);
             
-            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
+            
         });
 
         Route::group(['middleware' => ['can:define-access--admin']], function () {

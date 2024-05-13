@@ -16,7 +16,7 @@ class Offer extends Model
     }
     public function offer_status()
     {
-        return $this->hasOne(OfferStatuse::class, 'id', 'statuses_id');
+        return $this->hasOne(OfferStatus::class, 'id', 'status_id');
     }
     public function getCreatedAtAttribute($value)
     {

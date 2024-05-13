@@ -77,8 +77,7 @@
                         <h4 class="card-title">Dados do Ativo</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('assets.store') }}">
-                            @csrf
+                     
                             <div class="">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 mb-0">
@@ -173,8 +172,7 @@
                                     </div>
                                    
                                 </div>
-                            </div>                            
-                        </form>
+                            </div>  
                     </div>                    
                 </div> 
                 <div class="col-xl-5" id="section-title">

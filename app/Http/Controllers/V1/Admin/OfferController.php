@@ -18,7 +18,7 @@ class OfferController extends Controller
         $organizationId = $user->organization_id;
         //
         $offres = Offer::where('organization_id', $organizationId)->where('user_id', $user->id)->with('category')->with('offer_status')->get();
-    
+        
         if ($request->ajax()) {
             return response()->json(["data" => $offres], 200);
         }
