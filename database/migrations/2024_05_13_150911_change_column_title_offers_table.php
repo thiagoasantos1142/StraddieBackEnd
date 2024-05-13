@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('offers', function (Blueprint $table) {
           
-            $table->dropConstrainedForeignId('offer_category_id');
-            $table->dropColumn('offer_category_id');            
+            //$table->dropConstrainedForeignId('offer_category_id');
+            //$table->dropColumn('offer_category_id');            
            
 
             $table->dropConstrainedForeignId('offer_status_id');
