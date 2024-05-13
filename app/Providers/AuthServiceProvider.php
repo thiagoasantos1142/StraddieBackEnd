@@ -24,12 +24,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('define-access-admin', function (User $user) {
+        Gate::define('define-access--admin', function (User $user) {
             $roleAccess = [1];
             return in_array($user->role->role_id, $roleAccess);
         });
-        Gate::define('define-access-company', function (User $user) {
-            $roleAccess = [5];
+        Gate::define('define-access--company-admin', function (User $user) {
+            $roleAccess = [5, 1];
             return in_array($user->role->role_id, $roleAccess);
         });
     }

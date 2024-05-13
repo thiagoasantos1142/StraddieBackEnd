@@ -19,6 +19,7 @@ use App\Http\Controllers\V1\Admin\ContactsController;
 use App\Http\Controllers\V1\Admin\CrtLawyerController;
 use App\Http\Controllers\V1\Admin\CrtTypeController;
 use App\Http\Controllers\V1\Admin\FormDocuments;
+use App\Http\Controllers\V1\Admin\OfferController;
 use App\Http\Controllers\V1\Admin\UsersCreditRigtsTitleController;
 use App\Http\Controllers\V1\Sites\StradieSiteController;
 
@@ -46,12 +47,13 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'dashboard'], function () {
 
-        Route::group(['middleware' => ['can:define-access-company, can:define-access-admin']], function () {
+        Route::group(['middleware' => ['can:define-access--company-admin']], function () {
             Route::resource('/users', UserController::class);
             Route::resource('/assets', AssetsController::class);
+            Route::resource('/offers', OfferController::class);
         });
 
-        Route::group(['middleware' => ['can:define-access-admin']], function () {
+        Route::group(['middleware' => ['can:define-access--admin']], function () {
             Route::resource('/organization', OrganizationController::class);
             Route::resource('/address', AddressController::class);
 
