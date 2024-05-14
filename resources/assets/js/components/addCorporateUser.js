@@ -101,10 +101,10 @@ async function updateUserCorporate(userId, objectData, element, func = () => { }
             if (func && typeof func === 'function') {
                 func();
             }
-            openAlert('success', 'endereço salvo com sucesso.');
+            openAlert('success', 'Advogado atribuido com sucesso.');
         })
         .catch(function (error) {
-            openAlert('alert', 'Erro ao salvar endereço.');
+            openAlert('alert', 'Erro ao atribuir advogado.');
             console.error('Erro ao enviar formulário:', error);
         });
 }
@@ -238,9 +238,10 @@ async function createElementInList(userId) {
 }
 
 async function getUser(userId, func = () => { }) {
+    const route = mainComponent.find('[name="search_dataroute"]').val();
 
     try {
-        const response = await axios.get(`/dashboard/users/${userId}`);
+        const response = await axios.get(route?`${route}/${userId}` : `/dashboard/users/${userId}`);
         if (func && typeof func === 'function') {
             func();
         }
