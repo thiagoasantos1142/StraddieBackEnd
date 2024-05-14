@@ -71,11 +71,10 @@ Route::middleware([
             Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
             Route::post('uploadFile',  [FileController::class, 'uploadFile'])->name('uploadFile');
 
-            Route::post('file/aprove/{id}',  [FileController::class, 'aprove'])->name('aprove.file');
+            Route::get('file/aprove/{id}',  [FileController::class, 'aprove'])->name('aprove.file');
             Route::get('file/reject/{id}',  [FileController::class, 'reject'])->name('reject.file');
 
-            Route::post('file/aprove',  [FileController::class, 'aprove'])->name('aprove.file');
-
+            
             Route::resource('/files', FileController::class);
             Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
             Route::resource('/crtLawyer', CrtLawyerController::class);
