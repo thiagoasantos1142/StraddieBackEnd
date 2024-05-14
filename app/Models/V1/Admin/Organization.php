@@ -9,10 +9,13 @@ use App\Models\OrganizationType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organization extends Model
 {
     use HasFactory;
+
+    use SoftDeletes;
 
     protected $fillable = ['user_id', 'organization_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id', 'email'];
 

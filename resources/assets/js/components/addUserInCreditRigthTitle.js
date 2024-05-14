@@ -137,9 +137,14 @@ async function handlerInStep() {
     }
 }
 
+function addUserInInput({ id, name }) {
+    $('#user_id').val(id);
+    $('#user').val(name);
+    $('[data-modal="addUserInCreditRigthTitle"]').modal('hide');
+}
 
 async function internalSaveUser() {
     const data = $('[id="add-new-user"]').serialize();
-    await saveUser(data, () => { window.location.reload() });
+    await saveUser(data, (data) => { addUserInInput(data) });
 }
 

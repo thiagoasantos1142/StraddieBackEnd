@@ -60,14 +60,16 @@
                                             <td>{{ $organization->created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-list">
-                                                    <a href="{{ route('organization.show', ['organization' => $organization->id]) }}">
+                                                    <a
+                                                        href="{{ route('organization.show', ['organization' => $organization->id]) }}">
                                                         <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                                             type="button"><i class="bi bi-pencil-square"></i></button>
                                                     </a>
-                                                    <a href="">
+                                                    <a href="javascript:void(0);">
                                                         <button
                                                             class="btn btn-sm btn-icon btn-secondary-light rounded-circle"
-                                                            type="button"><i class="bi bi-trash"></i></button>
+                                                            type="button" data-delete="{{ $organization->id }}"><i
+                                                                class="bi bi-trash"></i></button>
                                                     </a>
                                                 </div>
                                             </td>
@@ -106,5 +108,5 @@
             ],
         });
     </script>
-    {{-- @vite('resources/assets/js/table-data.js') --}}
+    @vite('resources/assets/js/pages/organization.js')
 @endsection

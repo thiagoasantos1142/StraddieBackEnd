@@ -107,6 +107,21 @@ async function saveUser(data, func = () => { }) {
     }
 }
 
+//organization
+async function deletOrganization(organizationId, func = () => { }) {
+    try {
+        const response = await axios.delete(`/dashboard/organization/${organizationId}`);
+        openAlert('success', 'empresa deletada com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', 'Erro ao deletar empresa.');
+        console.error('Erro:', error);
+    }
+}
+
 
 
 
@@ -116,5 +131,6 @@ export {
     saveDocument,
     getAllCrtTypes,
     getAllUsers,
-    saveUser
+    saveUser,
+    deletOrganization
 }

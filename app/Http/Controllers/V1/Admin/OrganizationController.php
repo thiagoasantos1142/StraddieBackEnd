@@ -34,7 +34,7 @@ class OrganizationController extends Controller
     {
         $organisation_types = OrganizationType::all();
         $dataForm = $this->formCreateUpdate();
-        return view('v1.admin.organization.create', compact('organisation_types','dataForm'));
+        return view('v1.admin.organization.create', compact('organisation_types', 'dataForm'));
     }
 
     /**
@@ -100,8 +100,8 @@ class OrganizationController extends Controller
                 // 'municipal_registration' => 'string',
                 'organization_type_id' => 'required|int',
                 'email' => 'required|email',
-                ]
-            );
+            ]
+        );
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -117,9 +117,14 @@ class OrganizationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         //
+        Organization::destroy($id);
+
+        if ($request->ajax()) {
+            return response()->json(['message' => 'success.']);
+        }
     }
 
     public function formCreateUpdate($data = null)
