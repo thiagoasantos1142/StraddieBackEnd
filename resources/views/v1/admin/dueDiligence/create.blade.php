@@ -29,7 +29,7 @@
                             <div class="col-lg-7 col-xl-10 col-xxl-10">
                                 <form method="POST" action="{{ route('dueDiligence.store') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="text" name="creditRightsTitleId" value="{{$creditRightsTitle->id}}" class="hidden">
+                                    <input type="hidden" name="creditRightsTitleId" value="{{$creditRightsTitle->id}}">
                                                                                            
                                     <div class="card custom-card">
                                         <div class="card-header d-sm-flex d-block">
