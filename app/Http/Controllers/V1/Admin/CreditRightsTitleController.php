@@ -173,12 +173,20 @@ class CreditRightsTitleController extends Controller
         //form controller;
         $users = User::get();
         $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
-        $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-        $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
-            $query->where('credit_rights_title_id', $id);
-        })->get();
 
-        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers'));
+        if($creditRightsTitle){
+            $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
+            $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
+                $query->where('credit_rights_title_id', $id);
+            })->get();
+
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers'));
+
+        }else{
+            
+            return redirect()->back()->withErrors('Titulo não encontrado.');
+
+        }
     }
 
     /**
