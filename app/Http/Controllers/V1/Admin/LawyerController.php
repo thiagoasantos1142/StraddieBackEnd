@@ -15,7 +15,7 @@ class LawyerController extends Controller
         if ($request->ajax()) {
             $search = $request->input('search');
 
-            if(!isset($search)){
+            if (!isset($search)) {
                 return response()->json(Lawyer::all());
             }
 
@@ -36,10 +36,14 @@ class LawyerController extends Controller
         return view('v1.admin.lawyer.index', compact('lawyers'));
     }
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         //pegar as informaçoes do adv
         $lawyer = Lawyer::with('users')->find($id);
+
+        if ($request->ajax()) {
+            return response()->json($lawyer, 200);
+        }
 
         $dataForm = $this->formCreateUpdate($lawyer); //localizado em config
 
