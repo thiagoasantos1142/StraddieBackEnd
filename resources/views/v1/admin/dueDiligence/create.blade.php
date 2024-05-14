@@ -46,14 +46,8 @@
                                                     <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
                                                     href="#title-settings" aria-selected="true">Informações Sobre o titulo</a>
                                                 </li>
-                                                <li class="nav-item m-1">
-                                                    <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
-                                                    href="#highlights" aria-selected="true">Destaques</a>
-                                                </li>
-                                                <li class="nav-item m-1">
-                                                    <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
-                                                    href="#additional-settings" aria-selected="true">Informações Adicionais</a>
-                                                </li>
+                                               
+                                                
                                                 
                                             </ul>
                                         </div>
@@ -244,126 +238,8 @@
                                                             </div>                                                        
                                                         </div>
                                                 </div>
-                                                <div class="tab-pane fs-13 p-0" id="additional-settings"
-                                                    role="tabpanel">
-                                                    <ul class="list-group list-group-flush list-unstyled">
-                                                    
-                                                        
-                                                        <li class="list-group-item">
-                                                            
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="tab-pane fs-13 p-0" id="highlights"
-                                                    role="tabpanel">
-                                                    <ul class="list-group list-group-flush list-unstyled">
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Logging In</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to logging into our email account and taking down account if any mischevious action happended.</p>
-                                                                </div>
-                                                                <div class="col-xl-8">
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
-                                                                        <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Max Limit for login attempts</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Account will freeze for 24hrs while attempt to login with wrong credentials for selected number of times</p>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Account Freeze time management</p>
-                                                                            <p class="fs-12 mb-0 text-muted">You can change the time for the account freeze when attempts for </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Password Requirements</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to password strength.</p>
-                                                                </div>
-                                                                <div class="col-xl-8">
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
-                                                                        <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Minimun number of characters in the password</p>
-                                                                            <p class="fs-12 mb-0 text-muted">There should be a minimum number of characters for a password to be validated that shouls be set here.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Contain A Number</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain a number.</p>
-                                                                        </div>
-                                                                        <div class="mt-3 mt-sm-0">
-                                                                            <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-number" name="toggleswitchsize6" type="checkbox">
-                                                                                <label for="password-number" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Contain A Special Character</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain a special Character.</p>
-                                                                        </div>
-                                                                        <div class="mt-3 mt-sm-0">
-                                                                            <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-special-character" name="toggleswitchsize7" type="checkbox" checked>
-                                                                                <label for="password-special-character" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Atleast One Capital Letter</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Password should contain atleast one capital letter.</p>
-                                                                        </div>
-                                                                        <div class="mt-3 mt-sm-0">
-                                                                            <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="password-capital" name="toggleswitchsize8" type="checkbox" checked>
-                                                                                <label for="password-capital" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                        <div>
-                                                                            <p class="fs-14 mb-1 fw-semibold">Maximun Password Length</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Maximum password lenth should be selected here.</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Unknown Chats</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Security settings related to unknown chats.</p>
-                                                                </div>
-                                                                <div class="col-xl-8">
-                                                                    <div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio" name="unknown-messages-default" id="unknown-messages-show1">
-                                                                            <label class="form-check-label" for="unknown-messages-show1">
-                                                                                Show
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio" name="unknown-messages-default" id="unknown-messages-hide2" checked="">
-                                                                            <label class="form-check-label" for="unknown-messages-hide2">
-                                                                                Hide
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                               
+                                                
                                             </div>
                                     </div>
                                         <div class="card-footer">
