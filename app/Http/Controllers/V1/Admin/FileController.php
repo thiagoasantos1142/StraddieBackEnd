@@ -154,7 +154,7 @@ class FileController extends Controller
         // Verifica se o documento existe
         if ($file) {
             // Obtém o caminho completo do arquivo
-            dd($file->path);
+      
             // Gera a URL temporária de download do arquivo         
             $temporaryUrl = Storage::disk('s3')->temporaryUrl($file->path, now()->addHour()); // Temporário por 1 hora
             
