@@ -244,11 +244,9 @@
                                     </div>
                                         <div class="card-footer">
                                             <div class="float-end">
-                                                <button class="btn btn-light m-1">
-                                                    Reset All
-                                                </button>
+                                                
                                                 <button class="btn btn-primary m-1">
-                                                    Save Changes
+                                                    Iniciar Due Diligence
                                                 </button>
                                             </div>
                                         </div>
