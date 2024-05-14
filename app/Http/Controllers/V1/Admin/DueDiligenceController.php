@@ -61,7 +61,7 @@ class DueDiligenceController extends Controller
         if($creditRightsTitle){
             $dueDiligence = new DueDiligence;
             $dueDiligence->credit_rights_title_id = $creditRightsTitle->id;
-            $dueDiligence->statuses_id = 1;
+            $dueDiligence->status_id = 1;
             $dueDiligence->save();
     
             $docTypeUserKycIds = $request->input('doc_type_kyc_user_ids');
