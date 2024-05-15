@@ -1,3 +1,5 @@
+import { saveUser } from "./requestsaxios";
+
 //global component
 let mainComponent = null;
 const actionBtnRemove = $('[name="action_btnremove"]').val();
@@ -33,7 +35,7 @@ async function getUsers(val) {
     const route = mainComponent.find('[name="search_dataroute"]').val();
 
 
-    await axios.get(route?`${route}?search=${val}` : `/dashboard/users?search=${val}`)
+    await axios.get(route ? `${route}?search=${val}` : `/dashboard/users?search=${val}`)
         .then(function (response) {
             createLinesUserAdd(response.data);
         })
@@ -86,12 +88,34 @@ function createLinesTable(arrayData) {
 
 async function updateUserCorporate(userId, objectData, element, func = () => { }) {
     // pegar as info do form agora
+    const route = mainComponent.find('[name="route_update"]').val();
+
+    if (objectData === 0) {
+        $(mainComponent).find('[name="addUser"]').modal('hide')
+
+        if ($('input[name="users_ids[]"][value="' + userId + '"]').length === 0) {
+            if (route.includes("/crtLawyer")) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'laywers_ids[]',
+                    value: userId
+                }).appendTo('[data-setUsersSelected]');
+            } else {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'users_ids[]',
+                    value: userId
+                }).appendTo('[data-setUsersSelected]');
+            }
+        }
+        return;
+    }
+
     const data = {
         user_id: userId,
         ...objectData
     };
 
-    const route = mainComponent.find('[name="route_update"]').val();
 
     await axios.post(route, data)
         .then(function (response) {
@@ -241,7 +265,7 @@ async function getUser(userId, func = () => { }) {
     const route = mainComponent.find('[name="search_dataroute"]').val();
 
     try {
-        const response = await axios.get(route?`${route}/${userId}` : `/dashboard/users/${userId}`);
+        const response = await axios.get(route ? `${route}/${userId}` : `/dashboard/users/${userId}`);
         if (func && typeof func === 'function') {
             func();
         }
@@ -252,6 +276,35 @@ async function getUser(userId, func = () => { }) {
     }
 }
 
+function initFunctionsBtnModal() {
+    const btnCreateUser = $('[data-modaluser="addAndSearch"]');
+    const modalUser = $('#create_user');
+    const modalLaywer = $('#create_laywer');
 
+    btnCreateUser.on('click', function () {
+        mainComponent = $(this).parents("[name='container-main']");
+        const route = mainComponent.find('[name="route_update"]').val();
+
+        if (route.includes("/crtLawyer")) {
+            modalLaywer.modal('show');
+        } else {
+            modalUser.modal('show');
+        }
+    })
+
+    $('[data-saveUser]').on('click', async function () {
+        const formUser = $('#form-add-user').serialize();
+        console.log($('#form-add-user'));
+        const formLaywer = $('#form-add-user');
+
+        if ($(this).data('saveuser') == 'laywer') {
+            await saveUser(formUser);
+        } else {
+            await saveUser(formUser);
+        }
+    })
+}
+
+initFunctionsBtnModal();
 addRemoveCorporateBtn();
 

@@ -111,9 +111,6 @@
         <!-- Footer opened -->
         @include('layouts.components.footer')
         <!-- End Footer -->
-
-        @yield('modals')
-
     </div>
     <!-- END PAGE-->
 
