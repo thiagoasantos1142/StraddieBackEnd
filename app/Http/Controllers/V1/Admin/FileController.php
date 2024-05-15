@@ -59,7 +59,7 @@ class FileController extends Controller
     public function aprove($id)
     {
         $user = \Auth::user(); 
-
+      
         if($user->user_type_id == 1){
 
             $file = File::find($id);
