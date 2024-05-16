@@ -85,12 +85,8 @@
 
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="class" class="form-label">Classe do titulo</label>
-                                        <input type="text" class="form-control @error('class') is-invalid @enderror"
-                                            id="class" name="class" placeholder="Classe"
-                                            value="{{ old('class') ?? '' }}">
-                                        @error('class')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <input type="text" class="form-control
+                                            id="class" name="class" placeholder="Classe">                                        
                                     </div>
 
                                     <div class="form-group col-md-6 mb-0">
