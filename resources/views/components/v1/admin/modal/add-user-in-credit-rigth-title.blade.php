@@ -52,7 +52,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-btnback style="display: none">Voltar</button>
-                <button type="button" class="btn btn-primary" data-saver>Continuar</button>
+                <button type="button" class="btn btn-primary" data-continue>Continuar</button>
             </div>
         </div>
     </div>
