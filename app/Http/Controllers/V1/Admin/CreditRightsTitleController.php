@@ -88,8 +88,8 @@ class CreditRightsTitleController extends Controller
         // Validação dos dados do formulário
         $validator = Validator::make($request->all(), [
             'process_number' => 'required|string|max:255',
-            'class' => 'required',
-            'title' => 'string',
+            //'class' => 'required',
+            //'title' => 'string',
             'specie_id' => 'required',
             'court_id' => 'required|int',
             'nature_credit_id' => 'required',
