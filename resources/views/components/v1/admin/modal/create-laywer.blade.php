@@ -1,5 +1,5 @@
 <!-- Cria um novo user -->
-<div id="create_user" class="modal fade" role="dialog" data-modal="createUser">
+<div id="create_laywer" class="modal fade" role="dialog" data-modal="createUser">
     <div class="modal-dialog modal-lg " role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <form id="form-add-user">
+                    <form id="form_add_lawyer">
                         <div class="form-row">
                             <div class="form-group col-md-6 mb-0">
                                 <label for="title" class="form-label">Nome</label>
@@ -30,7 +30,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-btnback style="display: none">Voltar</button>
-                <button type="button" class="btn btn-primary" data-saveUser="user">Continuar</button>
+                <button type="button" class="btn btn-primary" data-saveUser="laywer">Continuar</button>
             </div>
         </div>
     </div>
