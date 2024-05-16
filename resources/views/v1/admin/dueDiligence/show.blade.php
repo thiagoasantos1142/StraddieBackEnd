@@ -12,15 +12,24 @@
 
 	
                     <!-- PAGE-HEADER -->
-                    <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-                        <h1 class="page-title">Iniciar Due Diligence</h1>
-                        <div>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Due Diligence</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Iniciar</li>
-                            </ol>
-                        </div> 
-                    </div>
+                    <div class="page-header d-flex justify-content-center border-bottom mb-4">
+                        <h1 class="page-title text-center">DueDiligence Status:     
+                                                    <button  type="button" 
+                                                             class='{{
+                                                                        ($dueDiligence->status_id == 1 ? "btn btn-outline-primary" :
+                                                                        ($dueDiligence->status_id == 2 ? "btn btn-secondary-primary" :
+                                                                        ($dueDiligence->status_id == 3 ? "btn btn-outline-success" :
+                                                                        ($dueDiligence->status_id == 4 ? "btn btn-outline-danger" :
+                                                                        "btn btn-outline-warning"))))
+                                                                    }}
+                                                                    '> 
+                                                        {{$dueDiligence->status->title??'Sem informação'}}</button>
+                        </h1>
+                       
+                        <ol class="breadcrumb">
+                                
+                        </ol>
+                    </div> 
 
                                 
                 
@@ -73,10 +82,13 @@
                                                 </li>
                                                 <li class="nav-item m-1">
                                                     <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
+                                                    href="#contracts-settings" aria-selected="true">Contratos</a>
+                                                </li>
+                                                <li class="nav-item m-1">
+                                                    <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
                                                     href="#highlights" aria-selected="true">Parametros para a Geração do Ativo</a>
                                                 </li>
                                                 </li>
-                                                
                                             </ul>
                                         </div>
                                         <div class="card-body p-0">
@@ -92,15 +104,22 @@
                                                                                 <div class="ms-3">
                                                                                     <h5 class="mb-1">{{ $user->name }}</h5>
                                                                                     <p class="mb-0">{{ $user->title }}</p>
+                                                                                    @if($user->name == '' || $user->cpf == '' || $user->email == '' || $user->phone == '' || $user->addresses->count() == 0)
+                                                                                        <div class="row">
+                                                                                            <button type="button" class="btn btn-secondary-gradient"><i class="ri-vip-crown-2-line"></i> Cadastro inclompleto</button>
+                                                                                        </div>
+                                                                                    @endif   
                                                                                 </div>
                                                                                 
                                                                             </div>
+                                                                       
                                                                             <div class="btn-group mt-sm-0 mt-2">
-                                                                                <button class="btn btn-primary">Ver usuário</button>
+                                                                                <a href="{{ route('users.show', ['user' => $user->id]) }}">
+                                                                                    <button class="btn btn-lg btn-outline-primary "
+                                                                                        type="button">Ver usuário</i></button>
+                                                                                </a>
                                                                             </div>
-                                                                            <div class="text-end">
-                                                                                <button class="btn btn-secondary-light"><i class="ri-vip-crown-2-line"></i> Beneficiário Principal</button>
-                                                                            </div>                                                                        
+                                                                                                                                               
                                                                         </div>
                                                                         <br>
 
@@ -196,27 +215,34 @@
                                                                     <div class="card-body">                                                                      
                                                                         <div class="d-sm-flex d-block align-items-top mb-4 justify-content-between">                                                                        
                                                                             <div>                                                                        
-                                                                                <p class="fs-14 mb-1 fw-semibold">
-                                                                                    @if( $lawyer->user )
-
-                                                                                        {{ $lawyer->user->name }}
-                                                                                    @else
-
-                                                                                        {{ $lawyer->name }}
-
-                                                                                    @endif
-                                                                                </p>
-                                                                                <p class="fs-12 text-muted mb-0">Título: {{$lawyer->title}}</p><br>
-                                                                                <p class="fs-14 mb-1 fw-semibold">OAB: {{$lawyer->OAB_number}}</p>
-                                                                            </div>                                                                                                                                     
+                                                                                <p class="fs-14 mb-1 fw-semibold">{{ $lawyer->user->name ?? 'vazio'}}</p>
+                                                                                <p class="fs-12 text-muted mb-0">Título: {{$lawyer->title ?? 'vazio'}}</p><br>
+                                                                                <p class="fs-14 mb-1 fw-semibold">OAB: {{$lawyer->OAB_number ?? 'Vazio'}}</p>
+                                                                                @if($lawyer->user->name == '' || $lawyer->user->cpf == '' || $lawyer->user->email == '' || $lawyer->user->phone == '' || $lawyer->user->addresses->count() == 0)
+                                                                                    <div class="row">
+                                                                                        <button type="button" class="btn btn-secondary-gradient"><i class="ri-vip-crown-2-line"></i> Cadastro inclompleto</button>
+                                                                                    </div>
+                                                                                @endif  
+                                                                               
+                                                                            </div>  
+                                                                            <div class="btn-group mt-sm-0 mt-2">
+                                                                                    <a href="{{ route('users.show', ['user' => $lawyer->user->id]) }}">
+                                                                                        <button class="btn btn-lg btn-outline-primary "
+                                                                                            type="button">Ver usuário</i></button>
+                                                                                    </a>
+                                                                                </div>                                                                                                                                   
                                                                         </div>
+                                                                       
                                                                         <div class="d-sm-flex d-block align-items-top mb-4 justify-content-between">
                                                                             <div>
                                                                                 <p class="fs-14 mb-2 fw-semibold">Dados pessoais</p>
                                                                                 @if($lawyer->user)
                                                                                     <p class="fs-12 text-muted mb-0">Nome: {{$lawyer->user->name}}</p>                                                                        
-                                                                                    <p class="fs-12 text-muted mb-0">CPF: {{$lawyer->user->cpf}}</p>                                                                    
-                                                                                    <p class="fs-12 text-muted mb-0">Phone: {{$lawyer->user->contacts[1]->phone}}</p>                                                                    
+                                                                                    <p class="fs-12 text-muted mb-0">CPF: {{$lawyer->user->cpf}}</p> 
+                                                                                    @foreach ( $lawyer->user->contacts as $contact )
+                                                                                        <p class="fs-12 text-muted mb-0">Phone: {{$contact->phone ?? 'vazio'}}</p> 
+                                                                                    @endforeach                                                                  
+                                                                                                                                                      
                                                                                     <p class="fs-12 text-muted mb-0">Email: {{$lawyer->user->email}}</p> 
                                                                                 @else   
                                                                                     <p class="fs-12 text-muted mb-0">Sem dados pessoais cadastrados.</p>
@@ -292,17 +318,23 @@
                                                                                 <p class="fs-18 mb-1 fw-bold">
                                                                                 {{$creditRightsTitle->title}}
                                                                                 </p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Tipo do título:                        </b>{{$creditRightsTitle->class}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0">Tipo do título:                        </b>{{$creditRightsTitle->title}}</p><br>
                                                                                 <b><p class="fs-14 text-muted mb-0">Classe:                                </b>{{$creditRightsTitle->class}}</p><br>
                                                                                 <b><p class="fs-14 text-muted mb-0">Numero do processo:                   </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Origem do débito:                     </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Natureza do Crédito:                  </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0d">Natureza do Obrigação:                </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Orgão Julgador:                       </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Vara do tribunal:                     </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Data da distribuíção do processo:     </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Numero do processo:                   </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                        </div>                                                                                                                                     
+                                                                                <b><p class="fs-14 text-muted mb-0">Origem do débito:                     </b>{{$creditRightsTitle->crtOriginDebtor->title ?? 'vazio'}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0">Natureza do Crédito:                  </b>{{$creditRightsTitle->crtNatureCredit->title ?? 'vazio'}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0d">Natureza do Obrigação:                </b>{{$creditRightsTitle->crtNatureObligation->title ?? 'vazio'}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0">Orgão Julgador:                       </b>{{$creditRightsTitle->court->title ?? 'vazio'}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0">Vara do tribunal:                     </b>{{$creditRightsTitle->vara->title ?? 'vazio'}}</p><br>
+                                                                                <b><p class="fs-14 text-muted mb-0">Data da distribuíção do processo:     </b>{{$creditRightsTitle->distribution_date ?? 'vazio'}}</p><br>
+                                                                                
+                                                                        </div>   
+                                                                        <div class="btn-group mt-sm-0 mt-2">
+                                                                                    <a href="{{ route('creditRightsTitle.show', ['creditRightsTitle' => $creditRightsTitle->id]) }}">
+                                                                                        <button class="btn btn-lg btn-outline-primary "
+                                                                                            type="button">Visualizar Título</i></button>
+                                                                                    </a>
+                                                                                </div>                                                                                                                                    
                                                                     </div>   
                                                                 </div>
                                                             </div>

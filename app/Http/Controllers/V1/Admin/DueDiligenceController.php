@@ -156,7 +156,7 @@ class DueDiligenceController extends Controller
 
             $documentsTypesCND = FileType::where('type', 'CND')->get();
 
-            $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
+            $lawyers = Lawyer::with('user')->whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
 
             $files = File::where('due_diligence_id', $dueDiligence->id)->get();
             

@@ -35,6 +35,16 @@ class CreditRightsTitle extends Model
         return $this->belongsTo(CrtNatureCredit::class, 'nature_credit_id');
     }
 
+    public function crtNatureObligation()
+    {
+        return $this->belongsTo(CrtNatureObligation::class, 'nature_credit_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(DueDiligenceStatuses::class, 'nature_credit_id');
+    }
+
     public function court()
     {
         return $this->belongsTo(Court::class, 'court_id');

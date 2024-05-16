@@ -19,7 +19,7 @@ class Lawyer extends Model
     ];
     public function user()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(User::class);
     }
     public function users()
     {
