@@ -85,8 +85,12 @@
 
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="class" class="form-label">Classe do titulo</label>
-                                        <input type="text" class="form-control
-                                            id="class" name="class" placeholder="Classe">                                        
+                                        <input type="text" class="form-control @error('class') is-invalid @enderror"
+                                            id="class" name="class" placeholder="Classe"
+                                            value="{{ old('class') ?? '' }}">
+                                        @error('class')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group col-md-6 mb-0">
@@ -252,6 +256,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div data-setUsersSelected>
+
+                                </div>
+                                <x-v1.admin.modal.addCorporateUser :data-component="0" :show-data="[]" :routeUpdate="route('creditRightsTitle.add.user')"
+                                    :routeDelete="route('deleteUsersCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
+
+                                <x-v1.admin.modal.addCorporateUser :data-component="0" :show-data="[]" :search-dataroute="route('lawyer.index')"
+                                    :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')"
+                                    ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
                             </div>
                         </form>
                     </div>
@@ -260,11 +273,14 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('modals')
     <x-v1.admin.modal.select-type-title />
     <x-v1.admin.modal.add-user-in-credit-rigth-title />
+    <x-v1.admin.modal.create-user />
+
 @endsection
 
 @section('scripts')

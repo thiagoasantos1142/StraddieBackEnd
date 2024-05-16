@@ -81,9 +81,9 @@
     </div>
 </div>
 
-
-@push('scripts')
-    @parent
-    @vite('resources/assets/js/components/addCorporateUser.js')
-@endpush
+@if (isset($attributes[':loadScript']))
+    @push('scripts')
+        @vite('resources/assets/js/components/addCorporateUser.js')
+    @endpush
+@endif
 <!-- CONTAINER CLOSED -->
