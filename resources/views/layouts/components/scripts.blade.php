@@ -25,3 +25,5 @@
 <script src="{{ asset('build/assets/awersome-alert.js') }}"></script>
 
 @yield('scripts')
+
+@stack('scripts')

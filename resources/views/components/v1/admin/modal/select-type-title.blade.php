@@ -26,7 +26,6 @@
     </div>
 </div>
 
-@section('scripts')
-    @parent
+@push('scripts')
     @vite('resources/assets/js/components/selectTypeTitle.js');
-@endsection
+@endpush
