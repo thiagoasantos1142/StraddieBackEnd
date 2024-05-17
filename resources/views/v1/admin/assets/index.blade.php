@@ -45,13 +45,14 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Nome</th>
+                                        <th>Origiem do Débito</th>
+                                        <th>Natureza da obrigação</th>
                                         <th>número do processo</th>
                                         <th>Principal a venda</th>
-                                        <th>Valor do negociado</th>
-                                        <th>Honorários a venda</th>
-                                        <th>Valor do honorário</th>
+                                        <th>Valor negociado</th>
+                                        <th>Honorários a venda</th>                                        
                                         <th>Percentual do honorário</th>
+                                        <th>Valor negociado (fee)</th>
                                         <th>Ofertas</th>
                                         <th>Criada em</th>
                                         <th>Açoes</th>
@@ -112,8 +113,13 @@
                     "data": "id"
                 }, // Campo "nome" do JSON
                 {
-                    "data": "due_diligence.crt.title"
-                }, // Campo "nome" do JSON
+                    "data": "due_diligence.crt.crt_origin_debtor.title"
+                }, 
+                {
+                    "data": "due_diligence.crt.crt_nature_credit.title"
+                }, 
+                
+                // Campo "nome" do JSON
                 {
                     "data": "due_diligence.crt.process_number"
                 }, // Campo "nome" do JSON
@@ -128,11 +134,11 @@
                     }
                 },
                 {
-                    "data": "main_credit_for_sale",
+                    "data": "negotiated_main_value",
                     "render": function(data, type, row, meta) {
                         // Renderização personalizada para a segunda coluna, se necessário
                         if (!!data) {
-                            return `<p>${row.negotiated_value}</p>`
+                            return `<p>${row.negotiated_main_value}</p>`
                         }
                         return 'N/A';
                     }
@@ -148,16 +154,6 @@
                     }
                 },
                 {
-                    "data": "contractual_fees_for_sale",
-                    "render": function(data, type, row, meta) {
-                        // Renderização personalizada para a segunda coluna, se necessário
-                        if (!!data) {
-                            return `<p>${row.negotiated_fee_value}</p>`
-                        }
-                        return 'N/A';
-                    }
-                },
-                {
                     "data": "highlighted_contractual_fee",
                     "render": function(data, type, row, meta) {
                         // Renderização personalizada para a segunda coluna, se necessário
@@ -167,6 +163,17 @@
                         return 'N/A';
                     }
                 },
+                {
+                    "data": "negotiated_fee_value",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        if (!!data) {
+                            return `<p>${row.negotiated_fee_value}</p>`
+                        }
+                        return 'N/A';
+                    }
+                },
+             
                 {
                     "data": "count_offer",
                     "render": function(data, type, row, meta) {

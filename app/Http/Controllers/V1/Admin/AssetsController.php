@@ -35,12 +35,12 @@ class AssetsController extends Controller
      */
     public function index(Request $request)
     {
-        $assets = AvailableAsset::with('due_diligence.crt')->get();
+        $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
 
         $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
         $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
 
-
+        
         if ($request->ajax()) {
             // due_diligence.crt
             return response()->json([
@@ -52,10 +52,10 @@ class AssetsController extends Controller
                     return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
                         $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                     });
-                })->with('due_diligence.crt')->get()
+                })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
             ]);
         }
-
+       
         $crtTypes = CrtType::get();
         $crtOriginDebitors = CrtOriginDebtor::get();
         return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));

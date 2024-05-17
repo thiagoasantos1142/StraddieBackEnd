@@ -15,6 +15,17 @@ class DueDiligence extends Model
         return $this->belongsTo(CreditRightsTitle::class, 'credit_rights_title_id');
     }
 
+    public function crtOriginDebtor()
+    {
+        return $this->hasOneThrough(
+            CrtOriginDebtor::class, // Model destino
+            CreditRightsTitle::class, // Model intermediária
+            'id', // Chave estrangeira na model intermediária (CreditRightsTitle)
+            'id', // Chave estrangeira na model de destino (CrtOriginDebtor)
+            'credit_rights_title_id', // Chave local na model de origem (DueDiligence)
+            'origin_debtor_id' // Chave local na model intermediária (CreditRightsTitle)
+        );
+    }
     
     public function status()
     {
