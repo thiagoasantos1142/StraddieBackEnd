@@ -100,15 +100,14 @@ class CreditRightsTitleController extends Controller
             'crt_type_id' => 'required'
         ]);
 
-        if ($request->new_vara) {
+        if (isset($request->vara_id)) {
             $courtVara = new CourtVara();
             $courtVara->title = $request->new_title_vara;
             $courtVara->uf = $request->uf_vara_tribunal;
+            $courtVara->court_id = $request->court_id;
             $courtVara->save();
-            $request->merge(["vara_id" => $courtVara->id]);
+            $request->merge(['vara_id' => $courtVara->id]);
         }
-
-
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
