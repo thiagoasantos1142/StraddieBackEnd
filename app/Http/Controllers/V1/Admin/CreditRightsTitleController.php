@@ -87,8 +87,8 @@ class CreditRightsTitleController extends Controller
         // Validação dos dados do formulário
         $validator = Validator::make($request->all(), [
             'process_number' => 'required|string|max:255',
-           // 'class' => 'required',
-          //  'title' => 'string',
+            // 'class' => 'required',
+            //  'title' => 'string',
             'specie_id' => 'required',
             'court_id' => 'required|int',
             'nature_credit_id' => 'required',
@@ -99,6 +99,16 @@ class CreditRightsTitleController extends Controller
             'file' => 'file',
             'crt_type_id' => 'required'
         ]);
+
+        if ($request->new_vara) {
+            $courtVara = new CourtVara();
+            $courtVara->title = $request->new_title_vara;
+            $courtVara->uf = $request->uf_vara_tribunal;
+            $courtVara->save();
+            $request->merge(["vara_id" => $courtVara->id]);
+        }
+
+
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -174,18 +184,16 @@ class CreditRightsTitleController extends Controller
         $users = User::get();
         $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
 
-        if($creditRightsTitle){
+        if ($creditRightsTitle) {
             $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
             $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
                 $query->where('credit_rights_title_id', $id);
             })->get();
 
             return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers'));
+        } else {
 
-        }else{
-            
             return redirect()->back()->withErrors('Titulo não encontrado.');
-
         }
     }
 
@@ -208,7 +216,7 @@ class CreditRightsTitleController extends Controller
             [
                 'process_number' => 'required|string|max:255',
 
-               // 'title' => 'string',
+                // 'title' => 'string',
                 'specie_id' => 'string',
                 'court_id' => 'required',
                 'nature_credit_id' => 'required',
