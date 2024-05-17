@@ -105,10 +105,3 @@
         </div>
     </div>
 </div>
-
-
-@section('scripts')
-    @parent
-    @vite('resources/assets/js/components/addCorporateUser.js')
-@endsection
-<!-- CONTAINER CLOSED -->

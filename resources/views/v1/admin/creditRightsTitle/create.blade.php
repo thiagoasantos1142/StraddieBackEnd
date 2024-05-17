@@ -260,11 +260,11 @@
 
                                 </div>
                                 <x-v1.admin.modal.addCorporateUser :data-component="0" :show-data="[]" :routeUpdate="route('creditRightsTitle.add.user')"
-                                    :routeDelete="route('deleteUsersCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
+                                    :routeDelete="route('deleteUsersCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
                                 <x-v1.admin.modal.addCorporateUser :data-component="0" :show-data="[]" :search-dataroute="route('lawyer.index')"
                                     :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')"
-                                    ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
+                                    ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
                             </div>
                         </form>
                     </div>
@@ -280,6 +280,7 @@
     <x-v1.admin.modal.select-type-title />
     <x-v1.admin.modal.add-user-in-credit-rigth-title />
     <x-v1.admin.modal.create-user />
+    <x-v1.admin.modal.create-laywer />
 
 @endsection
 

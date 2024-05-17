@@ -282,6 +282,7 @@ function initFunctionsBtnModal() {
     const modalLaywer = $('#create_laywer');
 
     btnCreateUser.on('click', function () {
+        
         mainComponent = $(this).parents("[name='container-main']");
         const route = mainComponent.find('[name="route_update"]').val();
 
@@ -294,13 +295,16 @@ function initFunctionsBtnModal() {
 
     $('[data-saveUser]').on('click', async function () {
         const formUser = $('#form-add-user').serialize();
-        console.log($('#form-add-user'));
-        const formLaywer = $('#form-add-user');
-
+        const formLaywer = $('#form_add_lawyer').serialize();
+        
         if ($(this).data('saveuser') == 'laywer') {
-            await saveUser(formUser);
+            const response = await saveUser(formLaywer);
+            createElementInList(response.data.id);
+            modalLaywer.modal('hide');
         } else {
-            await saveUser(formUser);
+            const response = await saveUser(formUser);
+            createElementInList(response.data.id);
+            modalUser.modal('hide');
         }
     })
 }
