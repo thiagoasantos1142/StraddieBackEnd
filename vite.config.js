@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import path from 'path';
+import { presets as babelPresets } from './babel.config';
 
 export default defineConfig({
     plugins: [
@@ -122,6 +123,9 @@ export default defineConfig({
                 }
             ]
         }),
+        {
+            babel: babelPresets
+        },
         {
             name: 'blade',
             handleHotUpdate({ file, server }) {

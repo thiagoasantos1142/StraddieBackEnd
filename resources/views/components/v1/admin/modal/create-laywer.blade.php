@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Criar um usuário</h5>
+                <h5 class="modal-title">Criar um advogado</h5>
             </div>
             <div class="modal-body">
                 <div>
@@ -15,8 +15,23 @@
                                     value="">
                             </div>
                             <div class="form-group col-md-6 mb-0">
-                                <label for="title" class="form-label">E-mail</label>
-                                <input type="text" class="form-control" name="email" placeholder="Email"
+                                <label for="title" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="titulo"
+                                    value="">
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label for="OAB_number" class="form-label">Número da OAB</label>
+                                <input type="text" class="form-control" id="OAB_number" name="OAB_number" placeholder="OAB"
+                                    value="">
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label for="UF" class="form-label">UF</label>
+                                <input type="text" class="form-control" id="UF" name="UF" placeholder="UF"
+                                    value="">
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email"
                                     value="">
                             </div>
                             <div class="form-group col-md-6 mb-0">

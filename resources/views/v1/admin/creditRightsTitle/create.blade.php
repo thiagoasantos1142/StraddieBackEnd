@@ -124,10 +124,23 @@
                                         <select class="form-select select js-example-basic-single" id="vara_id"
                                             name="vara_id" required>
                                             <option value="">Selecione uma Vara do tribunal</option>
+                                            <option value="new_vara">Adicionar nova vara tribunal</option>
                                             <!-- Os options serão preenchidos dinamicamente usando JavaScript -->
                                         </select>
                                     </div>
 
+
+                                    <div class="form-group col-md-6 mb-0" style="display: none" id="show_new_title_vara">
+                                        <label for="new_title_vara" class="form-label">Nome da nova vara tribunal</label>
+                                        <input type="text" class="form-control" id="new_title_vara" name="new_title_vara"
+                                            placeholder="nome vara tribunal" value="">
+                                    </div>
+
+                                    <div class="form-group col-md-6 mb-0" style="display: none" id="show_uf_vara_tribunal">
+                                        <label for="uf_vara_tribunal" class="form-label">Uf vara tribunal</label>
+                                        <input type="text" class="form-control" id="uf_vara_tribunal" name="uf_vara_tribunal"
+                                            placeholder="uf_vara_tribunal" value="">
+                                    </div>
 
 
                                     <div class="form-group col-md-6 mb-0">
@@ -144,7 +157,8 @@
 
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="nature_obligation_id" class="form-label">Natureza da obrigação</label>
-                                        <select class="form-select" id="nature_obligation_id" name="nature_obligation_id">
+                                        <select class="form-select" id="nature_obligation_id"
+                                            name="nature_obligation_id">
                                             <option value="">Selecione a natureza da obrigação</option>
                                             @foreach ($nature_obligations as $nature_obligation)
                                                 <option value="{{ $nature_obligation->id }}"
@@ -263,13 +277,12 @@
                                     :routeDelete="route('deleteUsersCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 
                                 <x-v1.admin.modal.addCorporateUser :data-component="0" :show-data="[]" :search-dataroute="route('lawyer.index')"
-                                    :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')"
-                                    ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
+                                    :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"
+                                    ::loadScript></x-v1.admin.modal.addCorporateUser>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -281,7 +294,6 @@
     <x-v1.admin.modal.add-user-in-credit-rigth-title />
     <x-v1.admin.modal.create-user />
     <x-v1.admin.modal.create-laywer />
-
 @endsection
 
 @section('scripts')
@@ -301,7 +313,8 @@
                         success: function(data) {
                             $('#vara_id').empty();
                             $('#vara_id').append(
-                                '<option value="">Selecione uma Vara do tribunal</option>');
+                                '<option value="">Selecione uma Vara do tribunal</option><option value="new_vara">Adicionar nova vara tribunal</option>'
+                            );
                             $.each(data, function(key, value) {
                                 $('#vara_id').append('<option value="' + key + '">' +
                                     value + '</option>');
@@ -310,8 +323,21 @@
                     });
                 } else {
                     $('#vara_id').empty();
-                    $('#vara_id').append('<option value="">Selecione uma Vara do tribunal</option>');
+                    $('#vara_id').append(
+                        '<option value="">Selecione uma Vara do tribunal</option><option value="new_vara">Adicionar nova vara tribunal</option>'
+                    );
                 }
+            });
+
+            $('#vara_id').change(function() {
+                console.log($(this).val());
+                if ($(this).val() == 'new_vara') {
+                    $('#show_new_title_vara').fadeIn('slow');
+                    $('#show_uf_vara_tribunal').fadeIn('slow');
+                    return;
+                }
+                $('#show_new_title_vara').fadeOut('slow');
+                $('#show_uf_vara_tribunal').fadeOut('slow');
             });
         });
     </script>
