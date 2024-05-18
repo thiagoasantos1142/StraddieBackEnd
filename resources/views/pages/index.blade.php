@@ -11,11 +11,11 @@
         
                     <!-- PAGE-HEADER -->
                     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-                        <h1 class="page-title">Dashboard</h1>
+                        <h1 class="page-title">Painel</h1>
                         <div>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">{{$user->userType->title}}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Painel</li>
                             </ol>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-start">
                                                             <div class="flex-grow-1">
-                                                                <p class="mb-0">Total Usuários</p>
+                                                                <p class="mb-0">Usuários cadastrados</p>
                                                                 <span class="fs-5">{{$totalUsers}}</span>
                                                                 <span class="fs-12 text-success ms-1"><i
                                                                         class="ti ti-trending-up mx-1"></i>{{$percentageGrowthUsers}}%</span>
@@ -55,7 +55,7 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-start">
                                                             <div class="flex-grow-1">
-                                                                <p class="mb-0">Total Adv</p>
+                                                                <p class="mb-0">Advogados cadastrados</p>
                                                                 <span class="fs-5">{{$totalLawyers}}</span>
                                                                 <span class="fs-12 text-secondary ms-1"><i
                                                                         class="ti ti-trending-down mx-1"></i>{{$percentageGrowthLawyers}}%</span>
@@ -75,7 +75,7 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-start">
                                                             <div class="flex-grow-1">
-                                                                <p class="mb-0">Total titulos cadastrados</p>
+                                                                <p class="mb-0">Titulos cadastrados</p>
                                                                 <span class="fs-5">{{$totalCreditRightsTitles}}</span>
                                                                 <span class="fs-12 text-success ms-1"><i
                                                                         class="ti ti-trending-up mx-1"></i>{{$percentageGrowthCreditRightsTitles}}%</span>
@@ -95,7 +95,7 @@
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-start flex-wrap gap-1">
                                                             <div class="flex-grow-1">
-                                                                <p class="mb-0">Empresas </p>
+                                                                <p class="mb-0">Empresas cadastrados</p>
                                                                 <span class="fs-5">{{$totalOrganizations}}</span>
                                                                 <span class="fs-12 text-success ms-1"><i
                                                                         class="ti ti-trending-up mx-1"></i>0.5%</span>
@@ -111,28 +111,18 @@
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                                 <div class="card">
+                                                                                                       
                                                     <div class="card-body">
                                                         <div class="d-flex align-items-center mb-3 flex-wrap gap-1">
-                                                            <span
-                                                                class="avatar avatar-md stat-avatar rounded-circle text-bg-warning fs-18 min-w-fit-content me-2">
+                                                            <span class="avatar avatar-md stat-avatar rounded-circle text-bg-warning fs-18 min-w-fit-content me-2">
                                                                 <i class="bi bi-bag-check"></i>
                                                             </span>
-                                                            <p class="mb-0 flex-grow-1">Valor Total em ativos disponíveis
-                                                            </p>
+                                                            <p class="mb-0 flex-grow-1">Valor em ativos disponíveis</p>
                                                         </div>
-                                                        <span class="fs-5">R$ 12.987.327</span>
-                                                        <span class="fs-12 text-warning ms-1"><i
-                                                                class="ti ti-trending-up mx-1"></i>3.5%</span>
-                                                        <div class="fw-normal d-flex align-items-center mb-2 mt-4">
-                                                            <p class="mb-0 flex-grow-1">Active Sales</p>
-                                                            <span>3,274</span>
-                                                        </div>
-                                                        <div class="progress custom-progress-1" style="height: 5px;">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 50%;" aria-valuenow="25" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
-                                                        </div>
+                                                        <span class="fs-5">{{ $totalNegotiatedValue }}</span>
+                                                        <span class="fs-12 text-warning ms-1"><i class="ti ti-trending-up mx-1"></i>3.5%</span>
                                                     </div>
+
                                                     <div class="card-footer p-0 text-center">
                                                         <div class="d-grid">
                                                             <a href="javascript:void(0);"
@@ -151,13 +141,17 @@
                                                                     class="avatar avatar-md stat-avatar rounded-circle text-bg-primary fs-18 min-w-fit-content me-2">
                                                                     <i class="bi bi-bar-chart"></i>
                                                                 </span>
-                                                                <p class="mb-0 flex-grow-1">Total Faturamento</p>
+                                                                <p class="mb-0 flex-grow-1">Faturamento</p>
                                                             </div>
                                                             <span class="fs-5">{{$totalRevenue}}</span>
                                                             <span class="fs-12 text-success ms-1"><i
                                                                     class="ti ti-trending-up mx-1"></i>{{$percentageGrowthRevenue}}%</span>
                                                         </div>
                                                         <div id="totalRevenue"></div>
+                                                        <div class="card-footer p-0 text-center">
+                                                      
+                                                        
+                                                    </div>
                                                     </div>
                                                 </div>
                                             </div>
