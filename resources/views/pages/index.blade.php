@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-        
+   
                     <!-- PAGE-HEADER -->
                     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
                         <h1 class="page-title">Painel</h1>
@@ -20,7 +20,26 @@
                         </div>
                     </div>
                     <!-- PAGE-HEADER END -->
+                    @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
                     <!-- CONTAINER -->
                     <div class="main-container container-fluid">
 

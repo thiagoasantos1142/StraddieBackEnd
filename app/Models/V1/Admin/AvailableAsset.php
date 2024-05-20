@@ -99,4 +99,12 @@ class AvailableAsset extends Model
         $value = str_replace(['R$', '.', ','], ['', '', '.'], $value);
         return (float) $value;
     }
+
+     // Opcional: Adicionar acessor para total_negotiated_value se necessário
+     public function getTotalNegotiatedValueAttribute()
+     {
+         $mainValue = self::parseCurrency($this->negotiated_main_value);
+         $feeValue = self::parseCurrency($this->negotiated_fee_value);
+         return $mainValue + $feeValue;
+     }
 }

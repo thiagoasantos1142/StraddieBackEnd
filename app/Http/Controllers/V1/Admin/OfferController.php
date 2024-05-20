@@ -15,14 +15,24 @@ class OfferController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $organizationId = $user->organization_id;
-        //
-        $offres = Offer::where('organization_id', $organizationId)->where('user_id', $user->id)->with('category')->with('offer_status')->get();
-        
-        if ($request->ajax()) {
-            return response()->json(["data" => $offres], 200);
+
+        if($user->user_type_id == 1){
+            
+            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'offer_status')->get();
+          
+
+            if ($request->ajax()) {
+              
+                return response()->json(['data' => $offers]);
+            }
+
+            return view('v1.admin.offers.index', compact('offers'));
+
+        }else{ 
+
+            return redirect()->back()->withErrors('Você não tem permissão para acessar as ofertas');    
         }
-        return view('v1.admin.offers.index', compact('offres'));
+      
     }
 
     /**

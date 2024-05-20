@@ -10,6 +10,10 @@ class Offer extends Model
 {
     use HasFactory;
 
+    public function asset()
+    {
+        return $this->belongsTo(AvailableAsset::class, 'available_asset_id');
+    }
     public function category()
     {
         return $this->hasOne(OfferCategorie::class, 'id', 'offer_category_id');
