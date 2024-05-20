@@ -1,8 +1,9 @@
-import { saveUser } from "./requestsaxios";
+import { saveUser, saveOrganization } from "./requestsaxios";
 
 //global component
 let mainComponent = null;
 const actionBtnRemove = $('[name="action_btnremove"]').val();
+let typeFormPf = true;
 
 $('[data-modaluser]').on('click', function () {
     switch ($(this).data('modaluser')) {
@@ -282,7 +283,7 @@ function initFunctionsBtnModal() {
     const modalLaywer = $('#create_laywer');
 
     btnCreateUser.on('click', function () {
-        
+
         mainComponent = $(this).parents("[name='container-main']");
         const route = mainComponent.find('[name="route_update"]').val();
 
@@ -294,21 +295,51 @@ function initFunctionsBtnModal() {
     })
 
     $('[data-saveUser]').on('click', async function () {
-        const formUser = $('#form-add-user').serialize();
+        const formUserPf = $('#form-add-user-pf').serialize();
+        const formUserPj = $('#form-add-user-pj').serialize();
         const formLaywer = $('#form_add_lawyer').serialize();
-        
+
         if ($(this).data('saveuser') == 'laywer') {
             const response = await saveUser(formLaywer);
             createElementInList(response.data.id);
             modalLaywer.modal('hide');
         } else {
-            const response = await saveUser(formUser);
-            createElementInList(response.data.id);
+            if (typeFormPf) {
+                const response = await saveUser(formUserPf);
+                createElementInList(response.data.id);
+            } else {
+                const response = await saveOrganization(formUserPj);
+                createElementInList(response.data.id);
+            }
             modalUser.modal('hide');
         }
     })
 }
 
+function openPjOrPf() {
+    const modalUser = $('[data-modal="createUser"]');
+    const modalLawyer = $('[data-modal="createLawyer"]');
+
+    const btnOpenPfUser = modalUser.find('[data-openform="PF"]');
+    const btnOpenPjUser = modalUser.find('[data-openform="PJ"]');
+
+    const formOpenPfUser = modalUser.find('[data-typeform="PF"]');
+    const formOpenPjUser = modalUser.find('[data-typeform="PJ"]');
+
+    btnOpenPfUser.on('click', function () {
+        formOpenPfUser.fadeIn();
+        formOpenPjUser.hide();
+        typeFormPf = true;
+    });
+    btnOpenPjUser.on('click', function () {
+        formOpenPjUser.fadeIn();
+        formOpenPfUser.hide();
+        typeFormPf = false;
+    });
+
+}
+
+openPjOrPf();
 initFunctionsBtnModal();
 addRemoveCorporateBtn();
 

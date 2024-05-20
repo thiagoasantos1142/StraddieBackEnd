@@ -42,6 +42,26 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->ajax()) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'nome_fantasia' => 'required|string|max:255',
+                    'cnpj' => 'required|string|min:14|max:18',
+                    'email' => 'required|email'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            $organization = Organization::create($request->all());
+
+            return response()->json($organization, 200);
+        }
+
+
         $validator = Validator::make(
             $request->all(),
             [

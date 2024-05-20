@@ -1,5 +1,5 @@
 <!-- Cria um novo user -->
-<div id="create_laywer" class="modal fade" role="dialog" data-modal="createUser">
+<div id="create_laywer" class="modal fade" role="dialog" data-modal="createLawyer">
     <div class="modal-dialog modal-lg " role="document">
         <div class="modal-content">
             <div class="modal-header">

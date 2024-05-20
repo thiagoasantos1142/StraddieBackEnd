@@ -122,6 +122,21 @@ async function deletOrganization(organizationId, func = () => { }) {
     }
 }
 
+async function saveOrganization(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/organization`, data);
+        console.log("@response", response);
+        openAlert('success', 'organização salva com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', 'Erro ao salvar organização.');
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
 
 
 
@@ -132,5 +147,6 @@ export {
     getAllCrtTypes,
     getAllUsers,
     saveUser,
-    deletOrganization
+    deletOrganization,
+    saveOrganization
 }
