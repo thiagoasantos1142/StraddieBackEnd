@@ -64,6 +64,7 @@
                                         <th>Número do proeesso</th>
                                         <th>Valor da oferta</th>
                                         <th>Status</th>
+                                        <th>Titular da oferta</th>
                                         <th>Data da oferta</th>
                                     </tr>
                                 </thead>
@@ -125,6 +126,9 @@
                 },
                 {
                     "data": "offer_status.title"
+                },
+                {
+                    "data": "offer_holder.nome_fantasia"
                 },
                 {
                     "data": "created_at"

@@ -18,7 +18,7 @@ class OfferController extends Controller
 
         if($user->user_type_id == 1){
             
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'offer_status')->get();
+            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'offer_status', 'offerHolder')->get();
           
 
             if ($request->ajax()) {
