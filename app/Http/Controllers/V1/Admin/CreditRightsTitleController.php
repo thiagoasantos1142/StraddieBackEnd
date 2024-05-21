@@ -132,6 +132,7 @@ class CreditRightsTitleController extends Controller
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
             if (isset($request->users_ids)) {
+                
                 foreach ($request->users_ids as $key => $id) {
                     UsersCreditRightsTitle::create([
                         'user_id' => $id,

@@ -62,7 +62,7 @@
                             </div>
                             <div class="form-group col-md-6 mb-0">
                                 <label for="title" class="form-label">CPF</label>
-                                <input type="text" class="form-control" name="cpf" placeholder="Cpf"
+                                <input type="text" class="form-control cpf" name="cpf" placeholder="Cpf"
                                     value="">
                             </div>
                         </div>

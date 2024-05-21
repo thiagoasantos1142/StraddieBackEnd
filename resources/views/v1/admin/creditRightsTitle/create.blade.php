@@ -184,7 +184,7 @@
                                     <div class="form-group col-md-6 mb-0">
                                         <label for="principal_amount" class="form-label">Valor principal da causa</label>
 
-                                        <input class="form-control @error('principal_amount') is-invalid @enderror"
+                                        <input class="form-control money @error('principal_amount') is-invalid @enderror"
                                             type="text" id="principal_amount" name="principal_amount"
                                             placeholder="Valor principal da causa"
                                             value="{{ old('principal_amount') ?? '' }}">
@@ -343,20 +343,7 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            // Aplicar máscara de moeda brasileira
-            $('#principal_amount').mask('000.000.000,00', {
-                reverse: true
-            });
-
-            // // Validar entrada para aceitar apenas números
-            // $('#principal_amount').on('input', function() {
-            //     // Remover caracteres não numéricos
-            //     var sanitized = $(this).val().replace(/[^0-9]/g, '');
-            //     // Atualizar o valor no campo
-            //     $(this).val(sanitized);
-            // });
-        });
+        
     </script>
     <!-- Adicione um bloco de script para inicializar o Select2 -->
     <script>
