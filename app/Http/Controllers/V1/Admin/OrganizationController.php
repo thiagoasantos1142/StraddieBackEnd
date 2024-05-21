@@ -52,6 +52,8 @@ class OrganizationController extends Controller
                 ]
             );
 
+            $request->merge(["organization_type_id" => 1]);
+
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
@@ -87,8 +89,13 @@ class OrganizationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
+        if ($request->ajax()) {
+            $organization = Organization::find($id);
+            return response()->json($organization, 200);
+        }
+
         //form controller;
         $users = User::get();
         $organization = Organization::with('addresses')->with('users_organization')->find($id);

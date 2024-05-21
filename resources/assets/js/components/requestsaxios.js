@@ -55,7 +55,6 @@ async function saveDocument(data, func = () => { }) {
 
     try {
         const response = await axios.post(`/upload/file`, data);
-        console.log("@response", response);
         openAlert('success', 'telefone salvo com sucesso.');
         if (func && typeof func === 'function') {
             func(response.data);
@@ -125,7 +124,6 @@ async function deletOrganization(organizationId, func = () => { }) {
 async function saveOrganization(data, func = () => { }) {
     try {
         const response = await axios.post(`/dashboard/organization`, data);
-        console.log("@response", response);
         openAlert('success', 'organização salva com sucesso.');
         if (func && typeof func === 'function') {
             func(response.data);
@@ -137,7 +135,32 @@ async function saveOrganization(data, func = () => { }) {
     }
 }
 
+async function getOrganization(organizationId, func = () => { }) {
+    try {
+        const response = await axios.get(`/dashboard/organization/${organizationId}`);
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
 
+//lawyer
+async function saveLawyer(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/lawyer`, data);
+        openAlert('success', 'organização salva com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
 
 
 export {
@@ -148,5 +171,7 @@ export {
     getAllUsers,
     saveUser,
     deletOrganization,
-    saveOrganization
+    saveOrganization,
+    getOrganization,
+    saveLawyer
 }

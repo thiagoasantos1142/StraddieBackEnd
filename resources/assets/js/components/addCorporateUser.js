@@ -1,4 +1,4 @@
-import { saveUser, saveOrganization } from "./requestsaxios";
+import { saveUser, saveOrganization, getOrganization, saveLawyer } from "./requestsaxios";
 
 //global component
 let mainComponent = null;
@@ -55,7 +55,7 @@ function createLinesUserAdd(data) {
     $('[data-adduserincorporate]').on('click', function () {
         const userId = $(this).data('adduserincorporate');
         const objectData = mainComponent.find('[name="data_component"]').val() && JSON.parse($('[name="data_component"]').val());
-        updateUserCorporate(userId, objectData, this, createElementInList(userId));
+        updateUserCorporate(userId, objectData, this, createElementInList(userId, 'USER'));
     });
 }
 
@@ -93,7 +93,6 @@ async function updateUserCorporate(userId, objectData, element, func = () => { }
 
     if (objectData === 0) {
         $(mainComponent).find('[name="addUser"]').modal('hide')
-
         if ($('input[name="users_ids[]"][value="' + userId + '"]').length === 0) {
             if (route.includes("/crtLawyer")) {
                 $('<input>').attr({
@@ -132,6 +131,38 @@ async function updateUserCorporate(userId, objectData, element, func = () => { }
             openAlert('alert', 'Erro ao atribuir advogado.');
             console.error('Erro ao enviar formulário:', error);
         });
+}
+
+async function includUserInCreditRigthTitle(userId, typeUser) {
+    switch (typeUser) {
+        case 'USER':
+            console.log("Incluindo user");
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'users_ids[]',
+                value: userId
+            }).appendTo('[data-setUsersSelected]');
+            break;
+        case 'ORGANIZATION':
+            console.log("Incluindo organization");
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'organizations_ids[]',
+                value: userId
+            }).appendTo('[data-setUsersSelected]');
+            break;
+        case 'LAWYER':
+            console.log("Incluindo lawyer");
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'lawyers_ids[]',
+                value: userId
+            }).appendTo('[data-setUsersSelected]');
+            break;
+
+        default:
+            break;
+    }
 }
 
 async function deletRegister(userId, objectData, element, func = () => { }) {
@@ -185,6 +216,9 @@ function addRemoveCorporateBtn() {
     $('[data-removeusercorporate]').on('click', function () {
         removeUserCorporate(this);
     })
+    $('[data-removeuserorganization]').on('click', function () {
+        removeUserOrganization(this);
+    })
 }
 
 function removeUserCorporate(element) {
@@ -218,6 +252,36 @@ function removeUserCorporate(element) {
     })
 }
 
+function removeUserOrganization(element) {
+    mainComponent = $(element).parents("[name='container-main']");
+    Swal.fire({
+        title: 'Remover colaborador?',
+        text: "Esta ação irá remover o colaborador da empresa. Tem certeza que deseja continuar?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, remover agora!',
+        cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            //executar a função de update para remover
+            //verificar qual rota executar
+            if (actionBtnRemove === 'update') {
+                const data = JSON.parse($('[name="data_component"]').val());
+                const nullDate = setKeysNull(data);
+                await updateUserCorporate($(element).data('removeusercorporate'), nullDate, null, null);
+            } else if (actionBtnRemove === 'delete') {
+                //executar outra rota
+                const objectData = mainComponent.find('[name="data_component"]').val() && JSON.parse($('[name="data_component"]').val());
+                await deletRegister($(element).data('removeusercorporate'), objectData, null, null);
+            }
+
+            removeListUser(element);
+        }
+    })
+}
+
 function setKeysNull(obj) {
     var keys = Object.keys(obj);
     var newObj = {};
@@ -231,35 +295,82 @@ function setKeysNull(obj) {
 
 function removeListUser(element) {
     const liElement = $(element).parent().parent();
-    console.log($(element).parent().parent());
     liElement.fadeOut();
     setTimeout(() => {
         liElement.remove();
     }, 300);
 }
 
-async function createElementInList(userId) {
+async function createElementInList(userId, type,) {
     //verifica se o elemento já existe
     //usar o this para pegar apenas desta tabela
-
-    const element = mainComponent.find(`[data-removeusercorporate="${userId}"]`);
-    if (!!element.length) {
-        return;
+    if (type == 'USER') {
+        const element = mainComponent.find(`[data-removeusercorporate="${userId}"]`);
+        if (!!element.length) {
+            return;
+        }
+        const { data } = await getUser(userId);
+        const newdiv = `
+        <li>
+            <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
+                <div>
+                    <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
+                        width="25" height="25" class="rounded-circle me-2">${data?.name}
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" data-removeusercorporate=${data?.id}><i class="fe fe-minus me-2"></i>remover</button>
+            </a>
+        </li>
+        `
+        mainComponent.find(`[name="show-date"]`).append(newdiv);
+        addRemoveCorporateBtn();
     }
-    const { data } = await getUser(userId);
-    const newdiv = `
-    <li>
-        <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
-            <div>
-                <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
-                    width="25" height="25" class="rounded-circle me-2">${data?.name}
-            </div>
-            <button type="button" class="btn btn-sm btn-secondary" data-removeusercorporate=${data?.id}><i class="fe fe-minus me-2"></i>remover</button>
-        </a>
-    </li>
-    `
-    mainComponent.find(`[name="show-date"]`).append(newdiv);
-    addRemoveCorporateBtn();
+
+    if (type == 'ORGANIZATION') {
+        const element = mainComponent.find(`[data-removeuserorganization="${userId}"]`);
+        if (!!element.length) {
+            return;
+        }
+        const { data } = await getOrganization(userId);
+
+        const newdiv = `
+        <li>
+            <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
+                <div>
+                    <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
+                        width="25" height="25" class="rounded-circle me-2">${data?.nome_fantasia}
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" data-removeuserorganization=${data?.id}><i class="fe fe-minus me-2"></i>remover</button>
+            </a>
+        </li>
+        `
+        mainComponent.find(`[name="show-date"]`).append(newdiv);
+        addRemoveCorporateBtn();
+    }
+
+    if (type == 'LAWYER') {
+        const element = mainComponent.find(`[data-removeusercorporate="${userId}"]`);
+        if (!!element.length) {
+            return;
+        }
+
+        const { data } = await getUser(userId);
+
+        const newdiv = `
+        <li>
+            <a class="dropdown-item d-flex flex-row justify-content-between" href="javascript:void(0);">
+                <div>
+                    <img src="http://localhost:9000/build/assets/images/users/1.jpg" alt="img"
+                        width="25" height="25" class="rounded-circle me-2">${data?.name}
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" data-removeusercorporate=${data?.id}><i class="fe fe-minus me-2"></i>remover</button>
+            </a>
+        </li>
+        `
+        mainComponent.find(`[name="show-date"]`).append(newdiv);
+        addRemoveCorporateBtn();
+    }
+
+
 }
 
 async function getUser(userId, func = () => { }) {
@@ -300,16 +411,25 @@ function initFunctionsBtnModal() {
         const formLaywer = $('#form_add_lawyer').serialize();
 
         if ($(this).data('saveuser') == 'laywer') {
-            const response = await saveUser(formLaywer);
-            createElementInList(response.data.id);
-            modalLaywer.modal('hide');
+            const response = await saveLawyer(formLaywer, async function (data) {
+                try {
+                    await createElementInList(data.id, 'LAWYER');
+                    includUserInCreditRigthTitle(response.data.id, 'LAWYER');
+                    modalLaywer.modal('hide');
+                } catch (error) {
+
+                }
+            });
         } else {
             if (typeFormPf) {
                 const response = await saveUser(formUserPf);
-                createElementInList(response.data.id);
+                createElementInList(response.data.id, 'USER');
+                includUserInCreditRigthTitle(response.data.id, 'USER');
             } else {
                 const response = await saveOrganization(formUserPj);
-                createElementInList(response.data.id);
+                createElementInList(response.data.id, 'ORGANIZATION');
+                //colocar um dif aqui
+                includUserInCreditRigthTitle(response.data.id, 'ORGANIZATION');
             }
             modalUser.modal('hide');
         }

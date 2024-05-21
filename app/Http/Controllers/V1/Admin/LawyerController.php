@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lawyer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LawyerController extends Controller
 {
@@ -59,13 +60,41 @@ class LawyerController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'OAB_number' => 'required|string|max:255',
-            'UF' => 'required|string|max:255',
-            //'user_id' => 'required|exists:users,id',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'title' => 'required|string|max:255',
+                'OAB_number' => 'required|string|max:255',
+                'UF' => 'required|string|max:255',
+                //'user_id' => 'required|exists:users,id',
+            ]
+        );
+
+        if ($request->ajax()) {
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            try {
+                //code...
+                $request->merge(["user_type_id" => 4]);
+                $user = User::create($request->all());
+    
+                $request->merge(["user_id" => $user->id]);
+                $lawyer = Lawyer::create($request->all());
+
+                $lawyer = $lawyer::with('user')->find($lawyer->id);
+    
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response()->json(['errors' => $th->getMessage()], 422);
+            }
+
+
+            return response()->json($lawyer);
+        }
 
         Lawyer::create($request->all());
 

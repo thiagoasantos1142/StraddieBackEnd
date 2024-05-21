@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CrtLawyer;
 use App\Models\Lawyer;
 use App\Models\OrganizationType;
 use App\Models\User;
@@ -100,7 +101,7 @@ class CreditRightsTitleController extends Controller
             'crt_type_id' => 'required'
         ]);
 
-        if (isset($request->vara_id)) {
+        if (isset($request->vara_id) && $request->vara_id === "new_vara") {
             $courtVara = new CourtVara();
             $courtVara->title = $request->new_title_vara;
             $courtVara->uf = $request->uf_vara_tribunal;
@@ -112,7 +113,6 @@ class CreditRightsTitleController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
 
         // Verifica se um arquivo foi enviado
         if ($request->hasFile('file')) {
@@ -130,6 +130,33 @@ class CreditRightsTitleController extends Controller
 
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());
+
+            if (isset($request->users_ids)) {
+                foreach ($request->users_ids as $key => $id) {
+                    UsersCreditRightsTitle::create([
+                        'user_id' => $id,
+                        'credit_rights_title_id' => $creditRightsTitle->id
+                    ]);
+                }
+            }
+
+            if (isset($request->lawyers_ids)) {
+                foreach ($request->lawyers_ids as $key => $id) {
+                    CrtLawyer::create([
+                        'lawyer_id' => $id,
+                        'credit_rights_title_id' => $creditRightsTitle->id
+                    ]);
+                }
+            }
+
+            if (isset($request->organizations_ids)) {
+                foreach ($request->organizations_ids as $key => $id) {
+                    CrtLawyer::create([
+                        'organizations_id' => $id,
+                        'credit_rights_titles_id' => $creditRightsTitle->id
+                    ]);
+                }
+            }
 
             if ($creditRightsTitle && $request->user_id) {
                 UsersCreditRightsTitle::create(["user_id" => $request->user_id, "credit_rights_title_id" => $creditRightsTitle->id]);
