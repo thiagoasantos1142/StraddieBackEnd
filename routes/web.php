@@ -53,6 +53,16 @@ Route::middleware([
             Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
             Route::resource('/assets', AssetsController::class);
             Route::resource('/offers', OfferController::class);
+            Route::get('profile', [PagesController::class, 'profile'])->name('profile');
+            
+            
+        });
+
+        Route::group(['middleware' => ['can:define-access-beneficiary']], function () {
+            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
+            Route::resource('/assets', AssetsController::class);
+            Route::resource('/offers', OfferController::class);
+            Route::get('profile', [PagesController::class, 'profile'])->name('profile');
             
             
         });

@@ -32,5 +32,9 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = [5, 1];
             return in_array($user->user_type_id, $roleAccess);
         });
+        Gate::define('define-access-beneficiary', function (User $user) {
+            $roleAccess = [3];
+            return in_array($user->user_type_id, $roleAccess);
+        });
     }
 }
