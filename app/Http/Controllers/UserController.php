@@ -121,12 +121,13 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         // Validação dos dados recebidos do formulário
-        $request->validate([
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+           
             'email' => [
                 'nullable',
-                "required|email|max:255",
+                'email',
+                'max:255',
                 Rule::unique('users', 'email')->ignore($id),
             ],
             'phone' => 'max:20',
@@ -138,62 +139,93 @@ class UserController extends Controller
                 'max:20'
             ]
         ]);
-
-        $name = $request->input('firstName') . ' ' . $request->input('lastName');
-
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
         // Obtém o usuário atual
-        $user = auth()->user();
+        $loggedUser = auth()->user();
 
+        $alterUser = User::where('id', $id)->first();
+
+       
         // Obtém o CPF do formulário
         $cpf = $request->input('cpf');
-
+       
         // Valida e limpa o CPF
-        $cleanedCPF = $this->validateAndCleanCPF($cpf);
-
-        // Verifica se o CPF é válido
-        if ($cleanedCPF === null) {
-            // CPF inválido
-            return redirect()->back()->with('error', 'CPF inválido.');
+        if($cpf != NULL){
+            $cleanedCPF = $this->validateAndCleanCPF($cpf);
+             // Verifica se o CPF é válido
+            if ($cleanedCPF === 'erro') {           
+                // CPF inválido
+                return redirect()->back()->withErros('CPF inválido.');
+            }
         }
-
-        try {
-            // Atualiza os dados do usuário
-            $user->update([
-                'name' => $name,
-                'title' => $request->input('title'),
-                'email' => $request->input('email'),
-                'cpf' => $cleanedCPF,
-                'bio' => $request->input('bio'),
-                // Adicione outros campos para atualizar conforme necessário
-            ]);
-
-            // Verifica se houve alterações nos dados de contato
-            foreach ($user->contacts as $contact) {
-                // Limpa e valida o número de telefone
-                $cleanedPhone = $this->cleanAndValidatePhoneNumber($request->input('phone'));
-
-                // Verifica se o número de telefone é válido
-                if ($cleanedPhone !== null) {
-                    // Se for válido, atualiza e salva o número de telefone
-
-                    if ($contact->phone !== $request->input('phone')) {
-                        $contact->phone = $cleanedPhone;
-                        $contact->save();
-                    }
-                } else {
-                    // Se não for válido, retorna um erro
-                    return redirect()->back()->with('error', 'Número de telefone inválido.');
+      
+       
+        
+        if($loggedUser->id != $alterUser->id){
+            
+            if($loggedUser->user_type_id == 1){
+                try {
+                    
+                    // Atualiza os dados do usuário
+                    $alterUser->update([
+                        'name' => $request->input('name'),
+                        'title' => $request->input('title'),
+                        'email' => $request->input('email'),
+                        'cpf' => $cleanedCPF ?? null,  
+                        'bio' => $request->input('bio'),
+                        // Adicione outros campos para atualizar conforme necessário
+                    ]);        
+                    $alterUser->user_type_id = $request->input('user_type_id');
+                    $alterUser->save();
+                    
+                    // Redireciona de volta para a página do perfil do usuário
+                    return redirect()->back()->with('success', 'Perfil atualizado com sucesso.');
+                    
+                } catch (\Exception $e) {
+                    
+                    // Se ocorrer um erro, redireciona de volta para a página do perfil do usuário
+                    // com uma mensagem de erro
+                    return redirect()->back()->withErrors('error', 'Erro ao atualizar perfil');
                 }
+            }else{
+                
+                return redirect()->back()->withErrors('Sem permissão para realizar essa operação.');
             }
 
-
-            // Redireciona de volta para a página do perfil do usuário
-            return redirect()->route('profile')->with('success', 'Perfil atualizado com sucesso.');
-        } catch (\Exception $e) {
-            // Se ocorrer um erro, redireciona de volta para a página do perfil do usuário
-            // com uma mensagem de erro
-            return redirect()->route('profile')->with('error', 'Erro ao atualizar perfil: ' . $e->getMessage());
+        }else{
+            
+            try { 
+                // Atualiza os dados do usuário
+                $alterUser->update([
+                    'name' => $request->input('name'),
+                    'title' => $request->input('title'),
+                    'email' => $request->input('email'),
+                    'cpf' => $cleanedCPF ?? null,                      
+                    
+                    'bio' => $request->input('bio'),
+                    // Adicione outros campos para atualizar conforme necessário
+                ]);
+    
+                
+                // Redireciona de volta para a página do perfil do usuário
+                return redirect()->back()->with('success','Seus dados foram alterados com sucesso.');
+                
+            } catch (\Exception $e) {  
+                // Se ocorrer um erro, redireciona de volta para a página do perfil do usuário
+                // com uma mensagem de erro
+                return redirect()->back()->withErrors('error', 'Erro ao atualizar perfil');
+            }
+           
+            
         }
+
+        
+       
+      
     }
 
     protected function validateAndCleanCPF($cpf)
@@ -203,12 +235,12 @@ class UserController extends Controller
 
         // Verifica se o CPF possui 11 dígitos
         if (strlen($cpf) !== 11) {
-            return null; // CPF inválido
+            return 'erro'; // CPF inválido
         }
 
         // Verifica se todos os dígitos do CPF são iguais
         if (preg_match('/(\d)\1{10}/', $cpf)) {
-            return null; // CPF inválido
+            return 'erro'; // CPF inválido
         }
 
         // Calcula os dígitos verificadores do CPF

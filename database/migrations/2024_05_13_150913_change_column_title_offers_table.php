@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('offers', function (Blueprint $table) {
           
-            $table->dropConstrainedForeignId('offer_category_id');
-            $table->dropConstrainedForeignId('offer_status_id');
+            //$table->dropConstrainedForeignId('offer_category_id');
+            ///$table->dropConstrainedForeignId('offer_status_id');
            
 
         }); 
@@ -22,9 +22,9 @@ return new class extends Migration
 
         Schema::table('offers', function (Blueprint $table) {
 
-            $table->string('title')->nullable()->change();
-            $table->foreignId('offer_category_id')->constrained('offer_categories')->nullable();
-            $table->foreignId('status_id')->constrained('offer_statuses')->nullable();
+           // $table->string('title')->nullable()->change();
+            //$table->foreignId('offer_category_id')->constrained('offer_categories')->nullable();
+           // $table->foreignId('status_id')->constrained('offer_statuses')->nullable();
             
         });
     }

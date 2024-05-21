@@ -8,12 +8,32 @@
 
 @section('content')
     <!-- PAGE-HEADER -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Minhas ofertas</h1>
+        <h1 class="page-title">Ofertas</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Empresa</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Minhas ofertas</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Ofertas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Todas as ofertas</li>
             </ol>
         </div>
     </div>
@@ -31,24 +51,20 @@
             <div class="col-xl-12">
                 <div class="card custom-card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">Ativos</div>
-                        <div class="d-flex">
-                            <a href="{{ route('assets.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar ativo</a>
-                        </div>
-                    </div>
-                    {{-- <div id="filter-assets" data-filters="{{ json_encode($crtTypes) }}"></div> --}}
-                    {{-- <div id="filter-assets-origin-debitors" data-filters="{{ json_encode($crtOriginDebitors) }}"></div> --}}
+                        <div class="card-title">Ofertas</div>                        
+                    </div>                    
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="assets-table" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Titulo</th>
-                                        <th>Categoria</th>
-                                        <th>Valor</th>
+                                       
+                                        <th>Id do título</th>
+                                        <th>Beneficiários</th>
+                                        <th>Número do proeesso</th>
+                                        <th>Valor da oferta</th>
                                         <th>Status</th>
+                                        <th>Titular da oferta</th>
                                         <th>Data da oferta</th>
                                     </tr>
                                 </thead>
@@ -87,20 +103,32 @@
                 "dataSrc": "data" // Campo para os dados (se não especificado, usa "data")
             },
             "columns": [
+               
                 {
-                    "data": "id"
+                    "data": "asset.due_diligence.crt.id"
                 },
                 {
-                    "data": "title"
+                    "data": null,
+                    "render": function(data, type, row) {
+                        if (row.asset && row.asset.due_diligence && row.asset.due_diligence.crt && row.asset.due_diligence.crt.users_titles) {
+                            return row.asset.due_diligence.crt.users_titles.map(user => 
+                                `<button class="btn btn-outline-primary">${user.name}</button>`
+                            ).join("<br>");
+                        }
+                        return '';
+                    }
                 },
                 {
-                    "data": "category.title"
+                    "data": "asset.due_diligence.crt.process_number"
                 },
                 {
                     "data": "value"
                 },
                 {
                     "data": "offer_status.title"
+                },
+                {
+                    "data": "offer_holder.nome_fantasia"
                 },
                 {
                     "data": "created_at"

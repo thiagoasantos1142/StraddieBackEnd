@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\V1\Admin\AvailableAsset;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\User;
 use App\Models\Lawyer;
@@ -88,6 +89,10 @@ class DashboardController extends Controller
          $totalRevenue = Payment::where('payment_status_id', '2')->sum('amount');
 
          $percentageGrowthRevenue = $totalRevenue - $totalRevenue;
+
+         $statusIds = [1, 2];
+         $totalNegotiatedValue = AvailableAsset::getTotalNegotiatedValue([1,2]);
+         $availableAssets = AvailableAsset::whereIn('status_id', [1,2])->get();
         
         return view('pages.index', ['user'                                  =>      $user, 
                                     'totalUsers'                            =>      User::all()->count(), 
@@ -99,7 +104,8 @@ class DashboardController extends Controller
                                     'totalOrganizations'                    =>      Organization::all()->count(),
                                     'percentageGrowthOrganizations'         =>      $percentageGrowthOrganizations,
                                     'totalRevenue'                          =>      $totalRevenue,
-                                    'percentageGrowthRevenue'               =>      $percentageGrowthRevenue]);
+                                    'percentageGrowthRevenue'               =>      $percentageGrowthRevenue,
+                                    'totalNegotiatedValue'                       =>      $totalNegotiatedValue]);
 
     }
 

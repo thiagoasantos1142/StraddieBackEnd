@@ -16,6 +16,16 @@
 
 @section('content')
     <!-- PAGE-HEADER -->
+
+    <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
+        <h1 class="page-title">Títulos</h1>
+        <div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Títulos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Títulos</li>
+            </ol>
+        </div>
+    </div>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -36,15 +46,6 @@
             {{ session('error') }}
         </div>
     @endif
-    <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Títulos</h1>
-        <div>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Títulos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Títulos</li>
-            </ol>
-        </div>
-    </div>
     <!-- PAGE-HEADER END -->
 
     {{-- <div class="alert alert-solid-secondary alert-dismissible fs-15 fade show mb-4 mx-3">

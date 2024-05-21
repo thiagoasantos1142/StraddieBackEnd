@@ -11,7 +11,7 @@ class AvailableAsset extends Model
 {
     use HasFactory;
 
-    protected $appends = ['count_offer'];
+    protected $appends = ['total_negotiated_value', 'count_offer'];
 
     public function due_diligence()
     {
@@ -80,4 +80,31 @@ class AvailableAsset extends Model
         $value = $count;
         return $value;
     }
+    public static function getTotalNegotiatedValue($statusIds)
+    {
+        $assets = self::whereIn('status_id', $statusIds)->get();
+
+        $total = $assets->sum(function($asset) {
+            $mainValue = self::parseCurrency($asset->negotiated_main_value);
+            $feeValue = self::parseCurrency($asset->negotiated_fee_value);
+            return $mainValue + $feeValue;
+        });
+
+        return 'R$ ' . number_format($total, 2, ',', '.');
+    }
+
+    private static function parseCurrency($value)
+    {
+        // Remove "R$", pontos e converte a vírgula para ponto decimal
+        $value = str_replace(['R$', '.', ','], ['', '', '.'], $value);
+        return (float) $value;
+    }
+
+     // Opcional: Adicionar acessor para total_negotiated_value se necessário
+     public function getTotalNegotiatedValueAttribute()
+     {
+         $mainValue = self::parseCurrency($this->negotiated_main_value);
+         $feeValue = self::parseCurrency($this->negotiated_fee_value);
+         return $mainValue + $feeValue;
+     }
 }
