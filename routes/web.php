@@ -71,6 +71,10 @@ Route::middleware([
             Route::resource('/organization', OrganizationController::class);
             Route::resource('/address', AddressController::class);
 
+            Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
+            Route::resource('/assets', AssetsController::class);
+            Route::resource('/offers', OfferController::class);
+
             Route::resource('/lawyer', LawyerController::class);
             Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
             Route::resource('/dueDiligence', DueDiligenceController::class);
