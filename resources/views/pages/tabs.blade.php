@@ -555,7 +555,7 @@
                                 <div class="card">
                                     <div class="card-header justify-content-between">
                                         <div>
-                                            <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" class="" alt="logo">
+                                            <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="" alt="logo">
                                         </div>
                                         <ul class="nav nav-pills" id="header-tab" role="tablist">
                                             <li class="nav-item" role="presentation">
@@ -834,7 +834,7 @@
                                     </div>
                                     <div class="card-footer justify-content-between d-flex">
                                         <div>
-                                            <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" class="" alt="logo">
+                                            <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="" alt="logo">
                                         </div>
                                         <ul class="nav nav-pills" id="footer-tab" role="tablist">
                                             <li class="nav-item" role="presentation">

@@ -12,7 +12,7 @@
                                     <div class="horizontal-logo">
                                         <a href="{{url('index')}}" class="header-logo">
                                             <img src="{{asset('build/assets/images/brand/desktop-logo.png')}}" alt="logo" class="desktop-logo">
-                                            <img src="{{asset('build/assets/images/brand/desktop-dark.png')}}" alt="logo" class="desktop-white">
+                                            <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="logo" class="desktop-white">
                                         </a>
                                     </div>
                                 </div>

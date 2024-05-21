@@ -12,7 +12,7 @@
                 <!-- CONTAINER OPEN -->                
                 <div class="">
                     <div class="text-center">
-                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/desktop-dark.png')}}" class="header-brand-img m-0" alt=""></a>
+                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="header-brand-img m-0" alt=""></a>
                     </div>
                 </div>
                 <div class="container-lg">

@@ -11,7 +11,7 @@
         
                 <div class="">
                     <div class="text-center">
-                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/desktop-dark.png')}}" class="header-brand-img" alt=""></a>
+                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="header-brand-img" alt=""></a>
                     </div>
                 </div>
                 

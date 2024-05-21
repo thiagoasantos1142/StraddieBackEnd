@@ -10,10 +10,10 @@
 							<div class="header-element">
 								<div class="horizontal-logo">
 									<a href="{{url('index')}}" class="header-logo">
-										<img src="{{asset('build/assets/images/brand/desktop-logo.png')}}" alt="logo" class="desktop-logo">
-										<img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="logo" class="toggle-logo">
-										<img src="{{asset('build/assets/images/brand/desktop-dark.png')}}" alt="logo" class="desktop-dark">
-										<img src="{{asset('build/assets/images/brand/toggle-dark.png')}}" alt="logo" class="toggle-dark">
+										<img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="logo" class="desktop-logo">
+										<img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="logo" class="toggle-logo">
+										<img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="logo" class="desktop-dark">
+										<img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="logo" class="toggle-dark">
 									</a>
 								</div>
 							</div>

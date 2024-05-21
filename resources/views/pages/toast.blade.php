@@ -67,7 +67,7 @@
                                         <div class="card-content">
                                             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                 <div class="toast-header">
-                                                    <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                    <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                     <strong class="me-auto">Bootstrap</strong>
                                                     <small>11 mins ago</small>
                                                     <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>
@@ -91,7 +91,7 @@
                                         <div class="card-content">
                                             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                 <div class="toast-header">
-                                                    <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                    <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                     <strong class="me-auto">Bootstrap</strong>
                                                     <small>11 mins ago</small>
                                                     <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>
@@ -214,7 +214,7 @@
                                                 <div class="col-lg-6 col-xl-3 col-sm-6">
                                                     <div class="toast show bg-primary tx-fixed-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                         <div class="toast-header flex-wrap">
-                                                            <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                            <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                             <strong class="me-auto text-primary">Bootstrap</strong>
                                                             <small>11 mins ago</small>
                                                             <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>
@@ -505,7 +505,7 @@
                                             <div class="toast-container position-static">
                                                 <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                     <div class="toast-header">
-                                                        <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                        <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                         <strong class="me-auto">Bootstrap</strong>
                                                         <small class="text-muted">just now</small>
                                                         <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>
@@ -516,7 +516,7 @@
                                                 </div>
                                                 <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                     <div class="toast-header">
-                                                        <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                        <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                         <strong class="me-auto">Bootstrap</strong>
                                                         <small class="text-muted">2 secs ago</small>
                                                         <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>
@@ -542,7 +542,7 @@
                                             <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100 h-180">
                                                 <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                                                     <div class="toast-header">
-                                                        <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="" class="me-2" height="18">
+                                                        <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="" class="me-2" height="18">
                                                         <strong class="me-auto">Bootstrap</strong>
                                                         <small>11 mins ago</small>
                                                         <button aria-label="Close" class="btn-close fs-20" data-bs-dismiss="toast"><span aria-hidden="true">×</span></button>

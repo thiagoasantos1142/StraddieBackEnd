@@ -31,7 +31,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="avatar-md">
-                                                <img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" alt="brand-logo">
+                                                <img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" alt="brand-logo">
                                             </div>
                                             <div class="ms-2">
                                                 <div class="h6 mb-0">

@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="card-body">
                                         <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-                                            <a class="" href="javascript:void(0);"><img src="{{asset('build/assets/images/brand/toggle-logo.png')}}" class="" alt="logo"></a>
+                                            <a class="" href="javascript:void(0);"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="" alt="logo"></a>
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item">
                                                     <a class="nav-link active" href="#scrollspyHeading1">First</a>
