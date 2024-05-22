@@ -7,12 +7,12 @@
         <meta charset="UTF-8">
         <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="vexel – Laravel Bootstrap 5  Admin & Dashboard Template">
-        <meta name="author" content="Spruko Technologies Private Limited">
+        <meta name="description" content="Straddie Capital">
+        <meta name="author" content="Clin Technologies">
         <meta name="keywords" content="admin panel template, admin dashboard template, admin panel, bootstrap admin template, dashboard, laravel, bootstrap dashboard, admin dashboard, admin panel laravel template, laravel framework, admin laravel, laravel admin panel.">
 
         <!-- TITLE -->
-        <title>Vexel – Laravel Bootstrap 5 Admin &amp; Dashboard Template </title>
+        <title>Straddie Capital </title>
 
         <!-- Authentication JS -->
         @vite('resources/assets/js/authentication-main.js')
