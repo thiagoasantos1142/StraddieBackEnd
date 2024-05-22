@@ -131,7 +131,7 @@
                                    
 
             {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$creditRightsTitle->users_titles" :routeUpdate="route('creditRightsTitle.add.user')"
+            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$userPfAndPj" :routeUpdate="route('creditRightsTitle.add.user')"
                 :routeDelete="route('deleteUsersCreditRigtsTitle')"
                 ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
 

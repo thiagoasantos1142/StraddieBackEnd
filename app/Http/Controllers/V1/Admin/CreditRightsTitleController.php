@@ -19,6 +19,7 @@ use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\CrtType;
+use App\Models\V1\Admin\OrganizationsCreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
@@ -132,7 +133,7 @@ class CreditRightsTitleController extends Controller
             $creditRightsTitle = CreditRightsTitle::create($request->all());
 
             if (isset($request->users_ids)) {
-                
+
                 foreach ($request->users_ids as $key => $id) {
                     UsersCreditRightsTitle::create([
                         'user_id' => $id,
@@ -152,7 +153,7 @@ class CreditRightsTitleController extends Controller
 
             if (isset($request->organizations_ids)) {
                 foreach ($request->organizations_ids as $key => $id) {
-                    CrtLawyer::create([
+                    OrganizationsCreditRightsTitle::create([
                         'organizations_id' => $id,
                         'credit_rights_titles_id' => $creditRightsTitle->id
                     ]);
@@ -209,7 +210,9 @@ class CreditRightsTitleController extends Controller
     {
         //form controller;
         $users = User::get();
-        $creditRightsTitle = CreditRightsTitle::with('users_titles')->find($id);
+        $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query){
+            $query->select('id', 'name');
+        }])->find($id);
 
         if ($creditRightsTitle) {
             $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
@@ -217,7 +220,16 @@ class CreditRightsTitleController extends Controller
                 $query->where('credit_rights_title_id', $id);
             })->get();
 
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers'));
+            $corporateClients = OrganizationsCreditRightsTitle::where('credit_rights_titles_id', $id)->with(['organizations' => function ($query){
+                $query->select('id', 'nome_fantasia as name');
+            }])->first();
+
+            $clientsPf = $creditRightsTitle->users_titles;
+            $clientsPj = $corporateClients->organizations;
+
+            $userPfAndPj = $clientsPf->union($clientsPj);
+
+            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers', 'userPfAndPj'));
         } else {
 
             return redirect()->back()->withErrors('Titulo não encontrado.');
