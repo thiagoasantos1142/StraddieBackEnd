@@ -37,9 +37,14 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->user_type_id, $userType);
         });
 
-        Gate::define('can-add-crt', function (User $user) {
-            $roleAccess = $user->roles;
-            return in_array($user->user_type_id, $roleAccess);
+        Gate::define('view-users', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(2, $roleAccess); // Assumindo que o role_id para "Visualizar Usuários" é 2
+        });
+
+        Gate::define('edit-users', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(2, $roleAccess); // Assumindo que o role_id para "Visualizar Usuários" é 2
         });
     }
 }

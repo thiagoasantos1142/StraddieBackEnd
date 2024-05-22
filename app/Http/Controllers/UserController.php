@@ -6,6 +6,7 @@ use App\Models\Lawyer;
 use App\Models\User;
 use App\Models\UserType;
 use App\Rules\NameAndSurname;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +17,11 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-users', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar usuários.');
+        }
         if ($request->ajax()) {
             $search = $request->input('search');
 
@@ -40,8 +46,18 @@ class UserController extends Controller
 
     public function show(Request $request, string $id)
     {
-        if ($request->ajax()) {
-            $user = User::find($id);
+        $user = User::find($id);
+
+         // Verificar se o usuário está tentando visualizar seu próprio perfil
+        if (auth()->id() !== $user->id) {
+            // Verificar se o usuário tem a permissão para visualizar outros usuários
+            if (!Gate::allows('view-users')) {
+                // Se não tiver permissão, lance uma exceção de autorização
+                abort(403, 'Você não tem permissão para visualizar usuários.');
+            }
+        }
+
+        if ($request->ajax()) {            
             return response()->json($user, 200);
         }
 
