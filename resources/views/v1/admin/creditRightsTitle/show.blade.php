@@ -138,7 +138,7 @@
             {{-- @aqui --}}
             {{-- //a base de dados deve ser lawer --}}
             <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
-                :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
+                :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
 
 
         </div>
@@ -181,6 +181,12 @@
                     </div>
                 </div>
             </div>
+@endsection
+
+@section('modals')
+    <x-v1.admin.modal.add-user-in-credit-rigth-title />
+    <x-v1.admin.modal.create-user />
+    <x-v1.admin.modal.create-laywer />
 @endsection
 
 @section('scripts')
