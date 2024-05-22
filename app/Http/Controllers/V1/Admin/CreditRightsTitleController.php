@@ -210,7 +210,7 @@ class CreditRightsTitleController extends Controller
     {
         //form controller;
         $users = User::get();
-        $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query){
+        $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query) {
             $query->select('id', 'name');
         }])->find($id);
 
@@ -220,15 +220,23 @@ class CreditRightsTitleController extends Controller
                 $query->where('credit_rights_title_id', $id);
             })->get();
 
-            $corporateClients = OrganizationsCreditRightsTitle::where('credit_rights_titles_id', $id)->with(['organizations' => function ($query){
+            $corporateClients = OrganizationsCreditRightsTitle::where('credit_rights_titles_id', $id)->with(['organizations' => function ($query) {
                 $query->select('id', 'nome_fantasia as name');
             }])->first();
 
-            dd($corporateClients);
-            $clientsPf = $creditRightsTitle->users_titles;
-            $clientsPj = $corporateClients->organizations;
+            if (isset($corporateClients)) {
+                $clientsPj = $corporateClients->organizations;
+                $userPfAndPj = $clientsPj;
+            }
+            if (isset($creditRightsTitle)) {
+                $clientsPf = $creditRightsTitle->users_titles;
+                $userPfAndPj = $clientsPf;
+            }
 
-            $userPfAndPj = $clientsPf->union($clientsPj);
+            if (isset($corporateClients) && isset($creditRightsTitle)) {
+                $userPfAndPj = $clientsPf->union($clientsPj);
+            }
+
 
             return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers', 'userPfAndPj'));
         } else {
