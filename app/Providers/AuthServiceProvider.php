@@ -39,12 +39,69 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('view-users', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(2, $roleAccess); // Assumindo que o role_id para "Visualizar Usuários" é 2
+            return in_array(1, $roleAccess); // role_id para "Visualizar Usuários" é 1
         });
 
+        Gate::define('create-users', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(2, $roleAccess); 
+        });
         Gate::define('edit-users', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(2, $roleAccess); // Assumindo que o role_id para "Visualizar Usuários" é 2
+            return in_array(3, $roleAccess); 
         });
+
+        Gate::define('view-crt', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(4, $roleAccess);
+        });
+
+        Gate::define('create-crt', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(5, $roleAccess);
+        });
+        Gate::define('edit-crt', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(6, $roleAccess); 
+        });
+
+        Gate::define('view-dueDiligence', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(7, $roleAccess); 
+        });
+
+        Gate::define('create-dueDiligence', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(8, $roleAccess); 
+        });
+        Gate::define('aprove-dueDiligence', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(9, $roleAccess);
+        });
+
+        Gate::define('view-asset', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(10, $roleAccess); 
+        });
+
+        Gate::define('cancel-asset', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(11, $roleAccess); 
+        });
+        Gate::define('view-offer', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(12, $roleAccess); 
+        });
+
+        Gate::define('make-offer', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(13, $roleAccess); 
+        });
+        Gate::define('accept-offer', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(14, $roleAccess); 
+        });
+
+
     }
 }
