@@ -13,4 +13,9 @@ class OrganizationsCreditRightsTitle extends Model
         'organizations_id',
         'credit_rights_titles_id',
     ];
+
+    public function organizations()
+    {
+        return $this->hasMany(Organization::class, 'id', 'organizations_id');
+    }
 }
