@@ -19,6 +19,7 @@ use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\CrtType;
+use App\Models\V1\Admin\OrganizationsCreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
 use Illuminate\Http\Request;
@@ -152,7 +153,7 @@ class CreditRightsTitleController extends Controller
 
             if (isset($request->organizations_ids)) {
                 foreach ($request->organizations_ids as $key => $id) {
-                    CrtLawyer::create([
+                    OrganizationsCreditRightsTitle::create([
                         'organizations_id' => $id,
                         'credit_rights_titles_id' => $creditRightsTitle->id
                     ]);
