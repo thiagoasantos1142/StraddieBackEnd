@@ -224,6 +224,7 @@ class CreditRightsTitleController extends Controller
                 $query->select('id', 'nome_fantasia as name');
             }])->first();
 
+            dd($corporateClients);
             $clientsPf = $creditRightsTitle->users_titles;
             $clientsPj = $corporateClients->organizations;
 
