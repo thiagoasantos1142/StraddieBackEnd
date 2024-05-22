@@ -17,14 +17,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-         // Inserir dados padrão
-         DB::table('roles')->insert([
-            ['id' => 1,'title' => 'Cadastrar'],
-            ['id' => 2,'title' => 'Aprovar'],
-            ['id' => 3,'title' => 'Fazer oferta'],
-            ['id' => 4,'title' => 'Aceitar oferta'],
-            ['id' => 5,'title' => 'Recusar oferta'],
-        ]);
+       
     }
 
     /**
@@ -32,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('roles');
     }
 };

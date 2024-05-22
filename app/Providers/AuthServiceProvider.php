@@ -25,15 +25,20 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('define-access--admin', function (User $user) {
-            $roleAccess = [1];
-            return in_array($user->user_type_id, $roleAccess);
+            $userType = [1];
+            return in_array($user->user_type_id, $userType);
         });
         Gate::define('define-access--company-admin', function (User $user) {
-            $roleAccess = [5, 1];
-            return in_array($user->user_type_id, $roleAccess);
+            $userType = [5, 1];
+            return in_array($user->user_type_id, $userType);
         });
         Gate::define('define-access-beneficiary', function (User $user) {
-            $roleAccess = [3];
+            $userType = [3];
+            return in_array($user->user_type_id, $userType);
+        });
+
+        Gate::define('can-add-crt', function (User $user) {
+            $roleAccess = $user->roles;
             return in_array($user->user_type_id, $roleAccess);
         });
     }
