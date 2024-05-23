@@ -91,6 +91,11 @@ Route::middleware([
         Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
         Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
         Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
+        Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
+        Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
+        Route::post('/save-lawyer-in-crt', [CreditRightsTitleController::class, 'addLawyerInTitle']);
+        Route::post('/save-organization-incrt', [CreditRightsTitleController::class, 'addOrganizationInTitle']);
+        Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
 
         Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class, 'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
         Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');

@@ -234,7 +234,9 @@ class CreditRightsTitleController extends Controller
             }
 
             if (isset($corporateClients) && isset($creditRightsTitle)) {
-                $userPfAndPj = $clientsPf->union($clientsPj);
+                $clientsPj = $corporateClients->organizations;
+                $clientsPf = $creditRightsTitle->users_titles;
+                $userPfAndPj = $clientsPf->merge($clientsPj);
             }
 
 
@@ -307,6 +309,22 @@ class CreditRightsTitleController extends Controller
         );
 
         return response()->json(["message" => "success."], 200);
+    }
+
+    public function addLawyerInTitle(Request $request)
+    {
+        CrtLawyer::updateOrCreate(
+            ['lawyer_id' => $request->lawyer_id, 'credit_rights_title_id' => $request->credit_rights_title_id],
+            $request->all()
+        );
+    }
+
+    public function addOrganizationInTitle(Request $request)
+    {
+        OrganizationsCreditRightsTitle::updateOrCreate(
+            ['organizations_id' => $request->organizations_id, 'credit_rights_titles_id' => $request->credit_rights_title_id],
+            $request->all()
+        );
     }
 
     public function deleteUserTitle(Request $request)

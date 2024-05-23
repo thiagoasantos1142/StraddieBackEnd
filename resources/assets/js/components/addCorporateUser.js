@@ -1,4 +1,6 @@
-import { saveUser, saveOrganization, getOrganization, saveLawyer } from "./requestsaxios";
+import { saveUser, saveOrganization, getOrganization, saveLawyer, saveUserInCrt, saveLawyerInCrt, saveOrganizationInCrt } from "./requestsaxios";
+const existCrt = $($('[name="data_component"]')[0]).val();
+const creditRigthTitles = JSON.parse(existCrt);
 
 //global component
 let mainComponent = null;
@@ -142,6 +144,13 @@ async function includUserInCreditRigthTitle(userId, typeUser) {
                 name: 'users_ids[]',
                 value: userId
             }).appendTo('[data-setUsersSelected]');
+            if (creditRigthTitles?.credit_rights_title_id) {
+                //executa a função que salva no crédito
+                var formData = new FormData();
+                formData.append('credit_rights_title_id', creditRigthTitles?.credit_rights_title_id);
+                formData.append('user_id', userId);
+                saveUserInCrt(formData);
+            }
             break;
         case 'ORGANIZATION':
             console.log("Incluindo organization");
@@ -150,6 +159,14 @@ async function includUserInCreditRigthTitle(userId, typeUser) {
                 name: 'organizations_ids[]',
                 value: userId
             }).appendTo('[data-setUsersSelected]');
+
+            if (creditRigthTitles?.credit_rights_title_id) {
+                //executa a função que salva no crédito
+                var formData = new FormData();
+                formData.append('credit_rights_titles_id', creditRigthTitles?.credit_rights_title_id);
+                formData.append('organizations_id', userId);
+                saveOrganizationInCrt(formData);
+            }
             break;
         case 'LAWYER':
             console.log("Incluindo lawyer");
@@ -158,6 +175,14 @@ async function includUserInCreditRigthTitle(userId, typeUser) {
                 name: 'lawyers_ids[]',
                 value: userId
             }).appendTo('[data-setUsersSelected]');
+
+            if (creditRigthTitles?.credit_rights_title_id) {
+                //executa a função que salva no crédito
+                var formData = new FormData();
+                formData.append('credit_rights_title_id', creditRigthTitles?.credit_rights_title_id);
+                formData.append('lawyer_id', userId);
+                saveLawyerInCrt(formData);
+            }
             break;
 
         default:
@@ -428,7 +453,7 @@ function initFunctionsBtnModal() {
             } else {
                 const response = await saveOrganization(formUserPj);
                 createElementInList(response.data.id, 'ORGANIZATION');
-                //colocar um dif aqui
+                //@aqui deve ser diferente se não n salva
                 includUserInCreditRigthTitle(response.data.id, 'ORGANIZATION');
             }
             modalUser.modal('hide');

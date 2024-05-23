@@ -162,6 +162,49 @@ async function saveLawyer(data, func = () => { }) {
     }
 }
 
+// crtController
+async function saveUserInCrt(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/credit-rights-title`, data);
+        openAlert('success', 'organização salva com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+async function saveLawyerInCrt(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/save-lawyer-in-crt`, data);
+        openAlert('success', 'organização salva com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+async function saveOrganizationInCrt(data, func = () => { }) {
+    try {
+        const response = await axios.post(`/dashboard/save-organization-incrt`, data);
+        openAlert('success', 'organização salva com sucesso.');
+        if (func && typeof func === 'function') {
+            func(response.data);
+        }
+        return response;
+    } catch (error) {
+        openAlert('alert', JSON.stringify(error.response.data.errors));
+        console.error('Erro ao enviar formulário:', error);
+    }
+}
+
+
+
 
 export {
     savePhoneUser,
@@ -173,5 +216,8 @@ export {
     deletOrganization,
     saveOrganization,
     getOrganization,
-    saveLawyer
+    saveLawyer,
+    saveUserInCrt,
+    saveLawyerInCrt,
+    saveOrganizationInCrt
 }
