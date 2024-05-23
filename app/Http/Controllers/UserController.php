@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lawyer;
 use App\Models\User;
 use App\Models\UserType;
+use App\Models\V1\Admin\Organization;
 use App\Rules\NameAndSurname;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-         // Verificar se o usuário tem a permissão para visualizar outros usuários
+        // Verificar se o usuário tem a permissão para visualizar outros usuários
         if (!Gate::allows('view-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar usuários.');
@@ -29,15 +30,29 @@ class UserController extends Controller
                 return response()->json(User::get(), 200);
             }
 
+            $organizations = Organization::where('email', 'like', "%$search%")
+                ->orWhere('cnpj', 'like', "%$search%")
+                ->orWhere('nome_fantasia', 'like', "%$search%")
+                ->select(['id', 'nome_fantasia as name', 'email'])
+                ->get();
+
             $users = User::where('email', 'like', "%$search%")
                 ->orWhere('id', 'like', "%$search%")
                 ->orWhere('name', 'like', "%$search%")
                 ->orWhere('cpf', 'like', "%$search%")
+                ->select(['id', 'name', 'email'])
                 ->latest()
                 ->limit(10)
                 ->get();
 
-            return response()->json($users, 200);
+            if (isset($organizations) && isset($users)) {
+                $userPfAndPj = $users->merge($organizations);
+                return response()->json($userPfAndPj, 200);
+            } else if (isset($users)) {
+                return response()->json($users, 200);
+            } else if (isset($organizations)) {
+                return response()->json($organizations, 200);
+            };
         }
 
         $users = User::get();
@@ -48,7 +63,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-         // Verificar se o usuário está tentando visualizar seu próprio perfil
+        // Verificar se o usuário está tentando visualizar seu próprio perfil
         if (auth()->id() !== $user->id) {
             // Verificar se o usuário tem a permissão para visualizar outros usuários
             if (!Gate::allows('view-users')) {
@@ -57,7 +72,7 @@ class UserController extends Controller
             }
         }
 
-        if ($request->ajax()) {            
+        if ($request->ajax()) {
             return response()->json($user, 200);
         }
 
@@ -71,8 +86,8 @@ class UserController extends Controller
 
     public function create()
     {
-         // Verificar se o usuário tem a permissão para criar outros usuários
-         if (!Gate::allows('create-users', auth())) {
+        // Verificar se o usuário tem a permissão para criar outros usuários
+        if (!Gate::allows('create-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar usuários.');
         }
@@ -91,8 +106,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-         // Verificar se o usuário tem a permissão para criar outros usuários
-         if (!Gate::allows('view-users', auth())) {
+        // Verificar se o usuário tem a permissão para criar outros usuários
+        if (!Gate::allows('view-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar usuários.');
         }
@@ -148,26 +163,25 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
-       // Obtém o usuário atual
-       $loggedUser = auth()->user();
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
 
-       $alterUser = User::where('id', $id)->first();
+        $alterUser = User::where('id', $id)->first();
 
         // Verificar se o usuário está tentando atualizar seu próprio perfil
-       if ($loggedUser !== $alterUser->id) {
+        if ($loggedUser !== $alterUser->id) {
 
-             // Verificar se o usuário tem a permissão para visualizar outros usuários
+            // Verificar se o usuário tem a permissão para visualizar outros usuários
             if (!Gate::allows('create-users', auth())) {
                 // Se não tiver permissão, lance uma exceção de autorização
                 abort(403, 'Você não tem permissão para visualizar usuários.');
             }
+        }
 
-        } 
-       
         // Validação dos dados recebidos do formulário
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-           
+
             'email' => [
                 'nullable',
                 'email',
@@ -183,90 +197,81 @@ class UserController extends Controller
                 'max:20'
             ]
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-       
-        
 
-       
+
+
+
         // Obtém o CPF do formulário
         $cpf = $request->input('cpf');
-       
+
         // Valida e limpa o CPF
-        if($cpf != NULL){
+        if ($cpf != NULL) {
             $cleanedCPF = $this->validateAndCleanCPF($cpf);
-             // Verifica se o CPF é válido
-            if ($cleanedCPF === 'erro') {           
+            // Verifica se o CPF é válido
+            if ($cleanedCPF === 'erro') {
                 // CPF inválido
                 return redirect()->back()->withErros('CPF inválido.');
             }
         }
-      
-       
-        
-        if($loggedUser->id != $alterUser->id){
-            
-            if($loggedUser->user_type_id == 1){
+
+
+
+        if ($loggedUser->id != $alterUser->id) {
+
+            if ($loggedUser->user_type_id == 1) {
                 try {
-                    
+
                     // Atualiza os dados do usuário
                     $alterUser->update([
                         'name' => $request->input('name'),
                         'title' => $request->input('title'),
                         'email' => $request->input('email'),
-                        'cpf' => $cleanedCPF ?? null,  
+                        'cpf' => $cleanedCPF ?? null,
                         'bio' => $request->input('bio'),
                         // Adicione outros campos para atualizar conforme necessário
-                    ]);        
+                    ]);
                     $alterUser->user_type_id = $request->input('user_type_id');
                     $alterUser->save();
-                    
+
                     // Redireciona de volta para a página do perfil do usuário
                     return redirect()->back()->with('success', 'Perfil atualizado com sucesso.');
-                    
                 } catch (\Exception $e) {
-                    
+
                     // Se ocorrer um erro, redireciona de volta para a página do perfil do usuário
                     // com uma mensagem de erro
                     return redirect()->back()->withErrors('error', 'Erro ao atualizar perfil');
                 }
-            }else{
-                
+            } else {
+
                 return redirect()->back()->withErrors('Sem permissão para realizar essa operação.');
             }
+        } else {
 
-        }else{
-            
-            try { 
+            try {
                 // Atualiza os dados do usuário
                 $alterUser->update([
                     'name' => $request->input('name'),
                     'title' => $request->input('title'),
                     'email' => $request->input('email'),
-                    'cpf' => $cleanedCPF ?? null,                      
-                    
+                    'cpf' => $cleanedCPF ?? null,
+
                     'bio' => $request->input('bio'),
                     // Adicione outros campos para atualizar conforme necessário
                 ]);
-    
-                
+
+
                 // Redireciona de volta para a página do perfil do usuário
-                return redirect()->back()->with('success','Seus dados foram alterados com sucesso.');
-                
-            } catch (\Exception $e) {  
+                return redirect()->back()->with('success', 'Seus dados foram alterados com sucesso.');
+            } catch (\Exception $e) {
                 // Se ocorrer um erro, redireciona de volta para a página do perfil do usuário
                 // com uma mensagem de erro
                 return redirect()->back()->withErrors('error', 'Erro ao atualizar perfil');
             }
-           
-            
         }
-
-        
-       
-      
     }
 
     protected function validateAndCleanCPF($cpf)

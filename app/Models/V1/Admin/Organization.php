@@ -19,6 +19,9 @@ class Organization extends Model
 
     protected $fillable = ['user_id', 'organization_type_id', 'cnpj', 'main_CNAE', 'nome_fantasia', 'razao_social', 'state_registration', 'municipal_registration', 'UF', 'website', 'cnpj_opening_date', 'contacts_id', 'addresses_id', 'email'];
 
+    protected $appends = [
+        'is_pj'
+    ];
 
     public function users()
     {
@@ -57,5 +60,10 @@ class Organization extends Model
     public function setCnpjAttribute($value)
     {
         $this->attributes['cnpj'] = CustomHelpers::removeFormat($value);
+    }
+
+    public function getIsPjAttribute()
+    {
+        return  "true";
     }
 }

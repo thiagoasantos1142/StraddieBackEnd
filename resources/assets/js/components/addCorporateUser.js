@@ -55,14 +55,21 @@ function createLinesUserAdd(data) {
     usersTable.html(elementsTable);
     //add function btns
     $('[data-adduserincorporate]').on('click', function () {
+        // @aqui verificar se é pj para outro procedimento de adicionar user
         const userId = $(this).data('adduserincorporate');
+        const is_pj = $(this).data('ispj');
         const objectData = mainComponent.find('[name="data_component"]').val() && JSON.parse($('[name="data_component"]').val());
+        if (is_pj) {
+            createElementInList(userId, 'ORGANIZATION');
+            includUserInCreditRigthTitle(userId, 'ORGANIZATION');
+            return;
+        }
         updateUserCorporate(userId, objectData, this, createElementInList(userId, 'USER'));
     });
 }
 
 
-const USER_LINE_ELEMRNT = (id, name, email, OAB) => `
+const USER_LINE_ELEMRNT = (id, name, email, OAB, is_pj) => `
     <li class="list-group-item br-ts-5 br-te-5">
         <div class="d-flex align-items-center">
             <span class="avatar avatar-md rounded-circle">
@@ -75,15 +82,15 @@ const USER_LINE_ELEMRNT = (id, name, email, OAB) => `
                 <small class="text-muted fs-12">${email || `OAB: ${OAB}`}</small>
             </div>
             <div class="ms-auto">
-            <button type="button" class="btn btn-sm btn-primary" data-adduserincorporate="${id}"><i class="fe fe-plus me-2"></i>Atribuir</button>
+            <button type="button" class="btn btn-sm btn-primary" data-adduserincorporate="${id}" data-ispj="${is_pj}"><i class="fe fe-plus me-2"></i>Atribuir</button>
             </div>
         </div>
     </li>
     `
 
 function createLinesTable(arrayData) {
-    const finalArray = arrayData.map(({ id, name, email, OAB_number = null }) => {
-        return USER_LINE_ELEMRNT(id, name, email, OAB_number);
+    const finalArray = arrayData.map(({ id, name, email, OAB_number = null, is_pj = false }) => {
+        return USER_LINE_ELEMRNT(id, name, email, OAB_number, is_pj);
     });
     return finalArray.join("");
 }
@@ -452,8 +459,8 @@ function initFunctionsBtnModal() {
                 includUserInCreditRigthTitle(response.data.id, 'USER');
             } else {
                 const response = await saveOrganization(formUserPj);
-                createElementInList(response.data.id, 'ORGANIZATION');
                 //@aqui deve ser diferente se não n salva
+                createElementInList(response.data.id, 'ORGANIZATION');
                 includUserInCreditRigthTitle(response.data.id, 'ORGANIZATION');
             }
             modalUser.modal('hide');

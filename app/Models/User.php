@@ -65,6 +65,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'is_pj'
     ];
 
     public function userType()
@@ -76,7 +77,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
-   
+
     // Método para obter as IDs das roles
     public function getRoleIdsAttribute(): array
     {
@@ -108,5 +109,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->hasOne(UserRole::class, 'user_id', 'id');
+    }
+
+    public function getIsPjAttribute()
+    {
+        return  "false";
     }
 }
