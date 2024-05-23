@@ -19,6 +19,7 @@ use App\Models\V1\Admin\CrtSpecies;
 use App\Models\V1\Admin\CourtVara;
 use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\CrtType;
+use App\Models\V1\Admin\Organization;
 use App\Models\V1\Admin\OrganizationsCreditRightsTitle;
 use App\Models\V1\Admin\Specie;
 use App\Models\V1\Admin\UsersCreditRightsTitle;
@@ -220,12 +221,10 @@ class CreditRightsTitleController extends Controller
                 $query->where('credit_rights_title_id', $id);
             })->get();
 
-            $corporateClients = OrganizationsCreditRightsTitle::where('credit_rights_titles_id', $id)->with(['organizations' => function ($query) {
-                $query->select('id', 'nome_fantasia as name');
-            }])->first();
+            $corporateClients = Organization::whereIn('id', OrganizationsCreditRightsTitle::where('credit_rights_titles_id',$id)->pluck('organizations_id'))->select('id', 'nome_fantasia as name')->get();
 
             if (isset($corporateClients)) {
-                $clientsPj = $corporateClients->organizations;
+                $clientsPj = $corporateClients;
                 $userPfAndPj = $clientsPj;
             }
             if (isset($creditRightsTitle)) {
@@ -234,7 +233,7 @@ class CreditRightsTitleController extends Controller
             }
 
             if (isset($corporateClients) && isset($creditRightsTitle)) {
-                $clientsPj = $corporateClients->organizations;
+                $clientsPj = $corporateClients;
                 $clientsPf = $creditRightsTitle->users_titles;
                 $userPfAndPj = $clientsPf->merge($clientsPj);
             }

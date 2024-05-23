@@ -109,6 +109,64 @@
                                                             </div>
                                                         </div>
                                                     @endforeach
+
+                                                    @foreach ($usersPj as $user)
+                                                        <div class="d-sm-flex align-items-center flex-wrap gap-2">
+                                                            <div class="mb-0 me-5 d-flex align-items-center">
+                                                                <div class="ms-3">
+                                                                    <h5 class="mb-1">{{ $user->nome_fantasia }}</h5>
+                                                                    <p class="mb-0">{{ $user->title }}</p>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="btn-group mt-sm-0 mt-2">
+                                                                <button class="btn btn-primary">Ver usuário</button>
+                                                            </div>
+                                                            <div class="text-end">
+                                                                <button class="btn btn-secondary-light"><i
+                                                                        class="ri-vip-crown-2-line"></i> Beneficiário
+                                                                    Principal</button>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+
+                                                        <div
+                                                            class="d-sm-flex d-block align-items-top mb-4 justify-content-between">
+                                                            <div>
+                                                                <p class="fs-14 mb-1 fw-semibold">Dados pessoais</p>
+                                                                <label for="email-address" class="form-label"><b>E-mail:
+                                                                    </b>{{ $user->email }}</label>
+                                                                <label for="email-address" class="form-label"><b>CPF:
+                                                                    </b>{{ $user->cpf }}</label>
+                                                                @foreach ($user->contacts as $contact)
+                                                                    <label for="phone" class="form-label"><b>Telefone:
+                                                                        </b>{{ $contact->phone }}</label>
+                                                                @endforeach
+
+                                                                @if ($user->addresses->count() == 0)
+                                                                    <div class="ms-3">
+                                                                        <button class="btn btn-secondary-light"><i
+                                                                                class="fa fa-map-marker"
+                                                                                aria-hidden="true"></i> Nenhum endereço
+                                                                            cadastrado</button>
+                                                                    </div>
+                                                                @else
+                                                                    @foreach ($user->addresses as $address)
+                                                                        <label for="street-address"
+                                                                            class="form-label"><b>Rua:
+                                                                            </b>{{ $address->street }}</label>
+                                                                        <label for="neighborhood-address"
+                                                                            class="form-label"><b>Bairro:
+                                                                            </b>{{ $address->neighborhood }}</label>
+                                                                        <label for="city-address"
+                                                                            class="form-label"><b>Cidade:
+                                                                            </b>{{ $address->city->title }}</label>
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
                                                     <div class="mb-6 main-content-label">Envio de documentos</div>
                                                     <div class="form-group mb-0">
                                                         <div class="row">

@@ -10,6 +10,8 @@ use App\Models\V1\Admin\CreditRightsTitle;
 use App\Models\V1\Admin\DueDiligence;
 use App\Models\V1\Admin\File;
 use App\Models\V1\Admin\FileType;
+use App\Models\V1\Admin\Organization;
+use App\Models\V1\Admin\OrganizationsCreditRightsTitle;
 use Illuminate\Http\Request;
 
 class DueDiligenceController extends Controller
@@ -28,6 +30,8 @@ class DueDiligenceController extends Controller
 
         $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
 
+        $usersPj = Organization::whereIn('id', OrganizationsCreditRightsTitle::where('credit_rights_titles_id',$credit_rights_title_id)->pluck('organizations_id'))->get();
+
         $documentsTypesKYCPF = FileType::where('type', 'KYC-PF')->get(); 
         
         $documentsTypesTitle = FileType::where('type', 'CRT')->get();
@@ -36,7 +40,7 @@ class DueDiligenceController extends Controller
 
         $lawyers = Lawyer::whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
        
-        return view('v1.admin.dueDiligence.create', compact('creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND'));
+        return view('v1.admin.dueDiligence.create', compact('creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND', 'usersPj'));
     }
 
     public function store(Request $request)
