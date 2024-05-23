@@ -24,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('define-access--admin', function (User $user) {
+        Gate::define('access-admin', function (User $user) {
             $userType = [1];
             return in_array($user->user_type_id, $userType);
         });
@@ -46,10 +46,17 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(2, $roleAccess); 
         });
+
         Gate::define('edit-users', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(3, $roleAccess); 
         });
+
+        Gate::define('edit-roles', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(15, $roleAccess); 
+        });
+        
 
         Gate::define('view-crt', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
@@ -97,7 +104,7 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(13, $roleAccess); 
         });
-        
+
         Gate::define('accept-offer', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(14, $roleAccess); 

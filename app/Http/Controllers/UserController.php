@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lawyer;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserType;
 use App\Models\V1\Admin\Organization;
@@ -61,9 +62,10 @@ class UserController extends Controller
 
     public function show(Request $request, string $id)
     {
-        $user = User::find($id);
-
-        // Verificar se o usuário está tentando visualizar seu próprio perfil
+        
+        $user = User::with('addresses', 'roles')->with('contacts')->find($id);
+        
+         // Verificar se o usuário está tentando visualizar seu próprio perfil
         if (auth()->id() !== $user->id) {
             // Verificar se o usuário tem a permissão para visualizar outros usuários
             if (!Gate::allows('view-users')) {
@@ -72,15 +74,16 @@ class UserController extends Controller
             }
         }
 
-        if ($request->ajax()) {
-            return response()->json($user, 200);
-        }
+       
+        if ($request->ajax()) {            
+            return response()->json($user, 200);        }
 
-        $user = User::with('addresses')->with('contacts')->find($id);
-
+        
+        $roles = Role::all();
+        
         $dataForm = $this->formCreateUpdate($user);
 
-        return view('v1.admin.users.show', compact('user', 'dataForm'));
+        return view('v1.admin.users.show', compact('user', 'roles', 'dataForm'));
     }
 
 
@@ -274,6 +277,35 @@ class UserController extends Controller
         }
     }
 
+    public function updateRoles(Request $request, string $id)
+    {
+        if(Auth::user()->user_type_id == 1){
+            // Verificar se o usuário tem a permissão para visualizar outros usuários
+            if (!Gate::allows('edit-users', auth())) {
+
+                // Se não tiver permissão, lance uma exceção de autorização
+                abort(403, 'Você não tem permissão para editar usuários.');
+
+                 // Verificar se o usuário tem a permissão para visualizar outros usuários
+                if (!Gate::allows('edit-roles', auth())) {
+                    // Se não tiver permissão, lance uma exceção de autorização
+                    abort(403, 'Você não tem permissão para editar permissões.');
+                }
+            }
+           
+        }
+
+        $alterUser = User::find($id);
+
+         // Receber as roles enviadas no request
+        $roles = $request->input('roles', []);
+
+        // Atualizar as roles do usuário
+        $alterUser->roles()->sync($roles);
+
+        return redirect()->route('users.show', $alterUser->id)->with('success', 'Permissões atualizadas com sucesso.');
+    }
+    
     protected function validateAndCleanCPF($cpf)
     {
         // Remove caracteres especiais do CPF

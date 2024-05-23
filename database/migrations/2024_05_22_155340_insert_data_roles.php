@@ -31,7 +31,9 @@ return new class extends Migration
                 
             ['id' => 12,'title' => 'Visualizar ofertas'],
             ['id' => 13,'title' => 'Realizar oferta'],        
-            ['id' => 14,'title' => 'Aceitar oferta']
+            ['id' => 14,'title' => 'Aceitar oferta'],
+
+            ['id' => 15,'title' => 'Editar Permissões']
 
             
         ]);
