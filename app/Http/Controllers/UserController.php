@@ -71,6 +71,12 @@ class UserController extends Controller
 
     public function create()
     {
+         // Verificar se o usuário tem a permissão para criar outros usuários
+         if (!Gate::allows('create-users', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar usuários.');
+        }
+
         $user = Auth::user();
         $typeUser = UserType::get();
         //type users filter
@@ -85,6 +91,12 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+         // Verificar se o usuário tem a permissão para criar outros usuários
+         if (!Gate::allows('view-users', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar usuários.');
+        }
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -136,6 +148,22 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+       // Obtém o usuário atual
+       $loggedUser = auth()->user();
+
+       $alterUser = User::where('id', $id)->first();
+
+        // Verificar se o usuário está tentando atualizar seu próprio perfil
+       if ($loggedUser !== $alterUser->id) {
+
+             // Verificar se o usuário tem a permissão para visualizar outros usuários
+            if (!Gate::allows('create-users', auth())) {
+                // Se não tiver permissão, lance uma exceção de autorização
+                abort(403, 'Você não tem permissão para visualizar usuários.');
+            }
+
+        } 
+       
         // Validação dos dados recebidos do formulário
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -160,10 +188,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
        
-        // Obtém o usuário atual
-        $loggedUser = auth()->user();
-
-        $alterUser = User::where('id', $id)->first();
+        
 
        
         // Obtém o CPF do formulário
