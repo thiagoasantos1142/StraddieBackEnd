@@ -61,7 +61,21 @@
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('users.update', ['user' => $user->id])"
                 :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
+                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">Funções Habilitadas</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tags">
+                                            @foreach ($user->roles as $role)
+                                                <a class="tag alert bg-light">
+                                                    {{ $role->title }}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
 
+                                </div>
             <div class="col-xl-6" id="section-address">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
