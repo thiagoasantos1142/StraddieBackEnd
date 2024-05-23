@@ -136,8 +136,8 @@
                                                                 <p class="fs-14 mb-1 fw-semibold">Dados pessoais</p>
                                                                 <label for="email-address" class="form-label"><b>E-mail:
                                                                     </b>{{ $user->email }}</label>
-                                                                <label for="email-address" class="form-label"><b>CPF:
-                                                                    </b>{{ $user->cpf }}</label>
+                                                                <label for="email-address" class="form-label"><b>CNPJ:
+                                                                    </b>{{ $user->cnpj }}</label>
                                                                 @foreach ($user->contacts as $contact)
                                                                     <label for="phone" class="form-label"><b>Telefone:
                                                                         </b>{{ $contact->phone }}</label>
