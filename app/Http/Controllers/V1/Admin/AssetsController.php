@@ -18,6 +18,7 @@ use App\Models\V1\Admin\Offer;
 use App\Models\V1\Admin\OfferCategory;
 use App\Models\V1\Admin\Offers;
 use Carbon\Carbon;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,6 +83,24 @@ class AssetsController extends Controller
      */
     public function show(string $id)
     {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
+
+        // Obtém o asset pelo ID
+        $asset = AvailableAsset::with(['due_diligence.crt.users_titles'])->findOrFail($id);
+
+        // Obtém os beneficiários associados ao asset
+        $beneficiaries = $asset->due_diligence->crt->users_titles;
+
+        // Verificar se o usuário está nos beneficiários
+        $isBeneficiary = $beneficiaries->contains($loggedUser);
+     
+        // Verificar se o usuário tem permissão para visualizar o asset
+        if (!$isBeneficiary && !Gate::allows('view-asset', $asset)) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar esse ativo.');
+        }
+
         //form controller;
         $users = User::get();
         $availableAsset = AvailableAsset::with('dueDiligence.crt.users_titles', 'dueDiligence.crt.crtLawyers')->find($id);

@@ -72,7 +72,7 @@ class AuthServiceProvider extends ServiceProvider
             return in_array(6, $roleAccess); 
         });
 
-        Gate::define('view-dueDiligence', function (User $user) {
+        Gate::define('view-dueDiligences', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(7, $roleAccess); 
         });
@@ -86,7 +86,7 @@ class AuthServiceProvider extends ServiceProvider
             return in_array(9, $roleAccess);
         });
 
-        Gate::define('view-asset', function (User $user) {
+        Gate::define('view-assets', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(10, $roleAccess); 
         });
@@ -95,7 +95,7 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(11, $roleAccess); 
         });
-        Gate::define('view-offer', function (User $user) {
+        Gate::define('view-offers', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(12, $roleAccess); 
         });
@@ -108,6 +108,21 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('accept-offer', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(14, $roleAccess); 
+        });
+
+        Gate::define('view-users-organization', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(15, $roleAccess);
+        });
+
+        Gate::define('create-users-organization', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(16, $roleAccess); 
+        });
+
+        Gate::define('edit-users-organization', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(17, $roleAccess); 
         });
 
 
