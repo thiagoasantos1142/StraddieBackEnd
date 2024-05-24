@@ -12,12 +12,24 @@ use App\Models\V1\Admin\File;
 use App\Models\V1\Admin\FileType;
 use App\Models\V1\Admin\Organization;
 use App\Models\V1\Admin\OrganizationsCreditRightsTitle;
+use Gate;
 use Illuminate\Http\Request;
 
 class DueDiligenceController extends Controller
 {
     public function index()
     {
+
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();         
+      
+        // Verificar se o usuário tem a permissão para visualizar outros usuários
+      if (!Gate::allows('view-dueDiligences', auth())) {
+          // Se não tiver permissão, lance uma exceção de autorização
+          abort(403, 'Você não tem permissão para visualizar Due Dilogence.');
+      }
+
+      
         //mostrar todas os titulos
         $dueDiligences = DueDiligence::all();
 
@@ -26,7 +38,29 @@ class DueDiligenceController extends Controller
 
     public function create($credit_rights_title_id)
     {
-        $creditRightsTitle = CreditRightsTitle::find($credit_rights_title_id);
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+       if (!Gate::allows('create-dueDiligence', auth())) {
+           // Se não tiver permissão, lance uma exceção de autorização
+           abort(403, 'Você não tem permissão para criar Due Dilogence.');
+       }
+
+
+       $creditRightsTitle = CreditRightsTitle::find($credit_rights_title_id);
+
+       if (!$creditRightsTitle->users_titles()->exists()) {
+
+            return redirect()->back()->withErrors('O Credit Rights Title deve ter pelo menos um beneficiário associado.')->withInput();
+        }
+
+        if (!$creditRightsTitle->crtLawyers()->exists()) {
+            
+            return redirect()->back()->withErrors('O Credit Rights Title deve ter pelo menos um advogado associado.')->withInput();
+        }
+
+        
 
         $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
 

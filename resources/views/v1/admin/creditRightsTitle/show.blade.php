@@ -19,6 +19,7 @@
 
 @section('content')
     <!-- PAGE-HEADER -->
+    
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
         <div class="card-header d-flex justify-content-between">
             <div class="card-title"></div>
@@ -38,12 +39,31 @@
         
     </div>
     <!-- PAGE-HEADER END -->
+     @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <!-- CONTAINER -->
     <div class="main-container container-fluid">
         <div class="row">
             <div class="col-md-12 row">
-                @if(!$creditRightsTitle->users_titles->count())
+                @if(!$creditRightsTitle->users_titles->count() && !$creditRightsTitle->organizations_titles->count())
                     <div class="col-xl-3 col-md-6">
                         <a href="#users">
                             <div class="card ribbone-card">
@@ -56,9 +76,7 @@
                             </div>
                         </a>
                     </div>
-                @endif                
-            </div>
-            <div class="col-md-12 row">
+                @endif  
                 @if(!$creditRightsTitle->crtLawyers->count())
                     <div class="col-xl-3 col-md-6">
                         <a href="#users">
@@ -72,8 +90,9 @@
                             </div>
                         </a>
                     </div>
-                @endif                
+                @endif                 
             </div>
+            
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
                 :dataForm="$dataForm"></x-v1.admin.form.defaultForm>

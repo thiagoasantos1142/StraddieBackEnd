@@ -52,29 +52,56 @@ class CreditRightsTitleController extends Controller
         }
 
         //mostrar todas os titulos
-        
-        if ($request->ajax()) {
+        if($loggedUser->user_type_id == 1){
+            if ($request->ajax()) {
 
-            $request->all();
-            $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+                $request->all();
+                $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
 
-            return response()->json(["data" => CreditRightsTitle::with('users_titles')
-                ->with('court')
-                ->with('crtOriginDebtor')
-                ->with('CrtNatureCredit')
-                ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
-                    return $query->whereIn('crt_types_id', $filterCtrTypesId);
-                })
-                ->get()]);
+                return response()->json(["data" => CreditRightsTitle::with('users_titles')
+                    ->with('court')
+                    ->with('crtOriginDebtor')
+                    ->with('CrtNatureCredit')
+                    ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
+                        return $query->whereIn('crt_types_id', $filterCtrTypesId);
+                    })
+                    ->get()]);
+            }
+
+
+
+            $ctrTypes = CrtType::get();
+
+            $creditRightsTitles = CreditRightsTitle::all();
+
+            return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
+
+        }else{
+
+            if ($request->ajax()) {
+
+                $request->all();
+                $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+
+                return response()->json(["data" => CreditRightsTitle::with('users_titles')
+                    ->with('court')
+                    ->with('crtOriginDebtor')
+                    ->with('CrtNatureCredit')
+                    ->where('created_by', $loggedUser->id)
+                    ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
+                        return $query->whereIn('crt_types_id', $filterCtrTypesId);
+                    })
+                    ->get()]);
+            }
+
+
+
+            $ctrTypes = CrtType::get();
+
+            $creditRightsTitles = CreditRightsTitle::where('created_by', $loggedUser->id);
+
+            return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
         }
-
-
-
-        $ctrTypes = CrtType::get();
-
-        $creditRightsTitles = CreditRightsTitle::all();
-
-        return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
     }
 
     /**
@@ -82,6 +109,16 @@ class CreditRightsTitleController extends Controller
      */
     public function create()
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('create-crt', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para criar Titulos.');
+        }
+
+
         $courts = Court::all();
         $varas = CourtVara::all();
         $species = CrtSpecies::all();
@@ -97,6 +134,15 @@ class CreditRightsTitleController extends Controller
      */
     public function store(Request $request)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('create-crt', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para criar Titulos.');
+        }
+
         // Validação dos dados do formulário
         $validator = Validator::make($request->all(), [
             'process_number' => 'required|string|max:255',
@@ -219,6 +265,14 @@ class CreditRightsTitleController extends Controller
      */
     public function show(string $id)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-crt', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para criar Titulos.');
+        }
         //form controller;
         $users = User::get();
         $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query) {
