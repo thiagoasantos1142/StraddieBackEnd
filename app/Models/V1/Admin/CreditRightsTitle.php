@@ -76,7 +76,7 @@ class CreditRightsTitle extends Model
     }
     public function organizations_titles()
     {
-        return $this->belongsToMany(Organization::class, 'users_credit_rights_titles', 'credit_rights_title_id', 'user_id');
+        return $this->belongsToMany(Organization::class, 'organizations_credit_rights_titles', 'credit_rights_titles_id', 'organizations_id');
     }
     public function files()
     {

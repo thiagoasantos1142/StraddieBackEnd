@@ -50,13 +50,13 @@ class DueDiligenceController extends Controller
 
        $creditRightsTitle = CreditRightsTitle::find($credit_rights_title_id);
 
-       if (!$creditRightsTitle->users_titles()->exists()) {
+       if (!$creditRightsTitle->users_titles()->exists() && !$creditRightsTitle->organizations_titles()->exists()) {
 
             return redirect()->back()->withErrors('O Credit Rights Title deve ter pelo menos um beneficiário associado.')->withInput();
         }
 
         if (!$creditRightsTitle->crtLawyers()->exists()) {
-            
+
             return redirect()->back()->withErrors('O Credit Rights Title deve ter pelo menos um advogado associado.')->withInput();
         }
 
