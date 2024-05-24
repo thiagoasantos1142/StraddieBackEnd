@@ -36,30 +36,73 @@ class AssetsController extends Controller
      */
     public function index(Request $request)
     {
-        $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
-
-        $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
-        $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
-
-        
-        if ($request->ajax()) {
-            // due_diligence.crt
-            return response()->json([
-                "data" => AvailableAsset::when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
-                        $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
-                    });
-                })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
-                        $query->whereIn('origin_debtor_id', $crtOriginDebitors);
-                    });
-                })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
-            ]);
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();
+         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-assets', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar Ativos.');
         }
+
+        if($loggedUser->user_type_id == 1){
+            $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
+
+            $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+            $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
+    
+            
+            if ($request->ajax()) {
+                // due_diligence.crt
+                return response()->json([
+                    "data" => AvailableAsset::when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
+                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
+                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
+                        });
+                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
+                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
+                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
+                        });
+                    })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
+                ]);
+            }
+           
+            $crtTypes = CrtType::get();
+            $crtOriginDebitors = CrtOriginDebtor::get();
+            return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
+        }
+
+        if($loggedUser->user_type_id == 5){
+        
+            $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
+
+            $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+            $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
+    
+            
+            if ($request->ajax()) {
+                // due_diligence.crt
+                return response()->json([
+                    "data" => AvailableAsset::when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
+                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
+                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
+                        });
+                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
+                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
+                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
+                        });
+                    })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
+                ]);
+            }
+           
+            $crtTypes = CrtType::get();
+            $crtOriginDebitors = CrtOriginDebtor::get();
+            return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
+        
+        }
+
        
-        $crtTypes = CrtType::get();
-        $crtOriginDebitors = CrtOriginDebtor::get();
-        return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
     }
 
     /**
@@ -94,9 +137,10 @@ class AssetsController extends Controller
 
         // Verificar se o usuário está nos beneficiários
         $isBeneficiary = $beneficiaries->contains($loggedUser);
-     
+        
+       
         // Verificar se o usuário tem permissão para visualizar o asset
-        if (!$isBeneficiary && !Gate::allows('view-asset', $asset)) {
+        if (!Gate::allows('view-assets', auth()) && !$isBeneficiary ) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar esse ativo.');
         }
@@ -147,6 +191,16 @@ class AssetsController extends Controller
 
     public function makeOffer(Request $request, string $assetId)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();
+         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('make-offer', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para realizar ofertas.');
+        }
+
         $asset = AvailableAsset::where('id', $assetId)->first();
 
         $loggedUser = Auth::user();

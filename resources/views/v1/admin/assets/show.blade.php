@@ -23,11 +23,13 @@
         <div class="card-header d-flex justify-content-between">
             <div class="card-title"></div>
             <!-- Button trigger modal -->
-            <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-block float-end my-2" data-bs-toggle="modal" data-bs-target="#offerModal">
-                    <i class="fa fa-plus-square me-2"></i>Fazer Oferta
-                </button>
-            </div>
+            @can('make-offers')
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary btn-block float-end my-2" data-bs-toggle="modal" data-bs-target="#offerModal">
+                        <i class="fa fa-plus-square me-2"></i>Fazer Oferta
+                    </button>
+                </div>
+            @endcan
         </div>
         <h1 class="page-title">Ativo Disponivel</h1>
         <div>
@@ -190,10 +192,12 @@
                                                 <p class="fs-13 fw-600 mb-0">Status: {{ $availableAsset->dueDiligence->status->title }}</p>                                                           
                                             </div>
                                         </div>
-                                        <div class="d-flex">                                                    
-                                            <a href="javascript:void(0);" 
-                                                        class="btn btn-primary btn-block float-end">Visualizar DueDiligence</a>
-                                        </div>
+                                        @can('view-dueDiligences')
+                                            <div class="d-flex">                                                    
+                                                <a href="javascript:void(0);" 
+                                                            class="btn btn-primary btn-block float-end">Visualizar DueDiligence</a>
+                                            </div>
+                                        @endcan
                                     </div>
                                 </li>
                             </ul>
@@ -213,10 +217,12 @@
                                                     <p class="fs-13 fw-600 mb-0">{{ $availableAsset->dueDiligence->crt->title }}</p>                                                           
                                                 </div>
                                             </div>
-                                            <div class="d-flex">                                                    
-                                                <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
-                                                        class="btn btn-primary btn-block float-end">Visualizar Título</a>
-                                            </div>
+                                            @can('view-crt')
+                                                <div class="d-flex">                                                    
+                                                    <a href="javascript:void(0);" data-modaladdress data-typeaction="create"
+                                                            class="btn btn-primary btn-block float-end">Visualizar Título</a>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </li>
                                 </ul>
@@ -228,57 +234,59 @@
         </div> 
                 
         <!-- Modal -->
-        <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="offerModalLabel">Fazer Oferta</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        @can('make-offers')
+            <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="offerModalLabel">Fazer Oferta</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                @if($availableAsset->main_credit_for_sale == 1)
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="offerMainValue">
+                                        <label class="form-check-label" for="offerMainValue">Fazer oferta para o valor principal?</label>
+                                    </div>
+                                    <div id="mainValueFields" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="offer_main_value">Valor da Oferta</label>
+                                            <input type="text" class="form-control" id="offer_main_value">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="mainValueInstallments">Quantidade de Parcelas</label>
+                                            <input type="number" class="form-control" id="mainValueInstallments">
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($availableAsset->contractual_fees_for_sale == 1)
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="offerFeeValue">
+                                        <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
+                                    </div>
+                                    <div id="feeValueFields" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="feeValue">Valor da Oferta</label>
+                                            <input type="text" class="form-control" id="feeValue">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="feeValueInstallments">Quantidade de Parcelas</label>
+                                            <input type="number" class="form-control" id="feeValueInstallments">
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary" onclick="makeOffer()">Fazer Oferta</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            @if($availableAsset->main_credit_for_sale == 1)
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="offerMainValue">
-                                    <label class="form-check-label" for="offerMainValue">Fazer oferta para o valor principal?</label>
-                                </div>
-                                <div id="mainValueFields" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="offer_main_value">Valor da Oferta</label>
-                                        <input type="text" class="form-control" id="offer_main_value">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="mainValueInstallments">Quantidade de Parcelas</label>
-                                        <input type="number" class="form-control" id="mainValueInstallments">
-                                    </div>
-                                </div>
-                            @endif
-                            @if($availableAsset->contractual_fees_for_sale == 1)
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="offerFeeValue">
-                                    <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
-                                </div>
-                                <div id="feeValueFields" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="feeValue">Valor da Oferta</label>
-                                        <input type="text" class="form-control" id="feeValue">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="feeValueInstallments">Quantidade de Parcelas</label>
-                                        <input type="number" class="form-control" id="feeValueInstallments">
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" onclick="makeOffer()">Fazer Oferta</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endcan
     
     </div>
 
