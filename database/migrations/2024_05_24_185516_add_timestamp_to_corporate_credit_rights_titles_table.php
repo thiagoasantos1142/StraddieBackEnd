@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('organizations_credit_rights_titles', function (Blueprint $table) {
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 
