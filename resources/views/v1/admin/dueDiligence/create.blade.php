@@ -283,17 +283,17 @@
                                                     <div class="d-sm-flex d-block align-items-top mb-4 justify-content-between">                                                                    
                                                         <div>                                                                        
                                                             <p class="fs-18 mb-1 fw-bold">
-                                                                                {{$creditRightsTitle->title}}
-                                                                                </p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Tipo do título:                        </b>{{$creditRightsTitle->title}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Classe:                                </b>{{$creditRightsTitle->class}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Numero do processo:                   </b>{{$creditRightsTitle->process_number}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Origem do débito:                     </b>{{$creditRightsTitle->crtOriginDebtor->title ?? 'vazio'}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Natureza do Crédito:                  </b>{{$creditRightsTitle->crtNatureCredit->title ?? 'vazio'}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0d">Natureza do Obrigação:                </b>{{$creditRightsTitle->crtNatureObligation->title ?? 'vazio'}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Orgão Julgador:                       </b>{{$creditRightsTitle->court->title ?? 'vazio'}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Vara do tribunal:                     </b>{{$creditRightsTitle->vara->title ?? 'vazio'}}</p><br>
-                                                                                <b><p class="fs-14 text-muted mb-0">Data da distribuíção do processo:     </b>{{$creditRightsTitle->distribution_date ?? 'vazio'}}</p><br>
+                                                                {{$creditRightsTitle->title}}
+                                                            </p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Tipo do título:                        </b>{{$creditRightsTitle->title}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Classe:                                </b>{{$creditRightsTitle->class}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Numero do processo:                   </b>{{$creditRightsTitle->process_number}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Origem do débito:                     </b>{{$creditRightsTitle->crtOriginDebtor->title ?? 'vazio'}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Natureza do Crédito:                  </b>{{$creditRightsTitle->crtNatureCredit->title ?? 'vazio'}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0d">Natureza do Obrigação:                </b>{{$creditRightsTitle->crtNatureObligation->title ?? 'vazio'}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Orgão Julgador:                       </b>{{$creditRightsTitle->court->title ?? 'vazio'}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Vara do tribunal:                     </b>{{$creditRightsTitle->vara->title ?? 'vazio'}}</p><br>
+                                                            <b><p class="fs-14 text-muted mb-0">Data da distribuíção do processo:     </b>{{$creditRightsTitle->distribution_date ?? 'vazio'}}</p><br>
                                                                                 
                                                         </div>   
                                                         <div class="btn-group mt-sm-0 mt-2">

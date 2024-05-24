@@ -4,6 +4,7 @@ namespace App\Models\V1\Admin;
 
 use App\Helpers\CustomHelpers;
 use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +26,21 @@ class CreditRightsTitle extends Model
 
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->created_by = Auth::id();
+            }
+        });
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
     public function crtOriginDebtor()
     {
         return $this->belongsTo(CrtOriginDebtor::class, 'origin_debtor_id');
@@ -77,5 +92,7 @@ class CreditRightsTitle extends Model
     {
         $this->attributes['principal_amount'] = CustomHelpers::removeFormatMoney($value);
     }
+
+    
 
 }

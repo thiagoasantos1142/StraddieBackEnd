@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\V1\Admin\Court;
 
 use App\Models\V1\Admin\File;
+use Gate;
 use Illuminate\Support\Str;
 
 use App\Models\V1\Admin\CrtNatureCredit;
@@ -41,8 +42,17 @@ class CreditRightsTitleController extends Controller
      */
     public function index(Request $request)
     {
-        //mostrar todas os titulos
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-crt', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar Titulos.');
+        }
 
+        //mostrar todas os titulos
+        
         if ($request->ajax()) {
 
             $request->all();

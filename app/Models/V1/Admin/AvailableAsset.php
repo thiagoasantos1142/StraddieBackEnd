@@ -3,6 +3,8 @@
 namespace App\Models\V1\Admin;
 
 use App\Helpers\CustomHelpers;
+use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Stmt\Return_;
@@ -10,6 +12,22 @@ use PhpParser\Node\Stmt\Return_;
 class AvailableAsset extends Model
 {
     use HasFactory;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (Auth::check()) {
+                $model->created_by = Auth::id();
+            }
+        });
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
     protected $appends = ['total_negotiated_value', 'count_offer'];
 
