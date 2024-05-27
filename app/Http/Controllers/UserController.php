@@ -120,7 +120,11 @@ class UserController extends Controller
             [
                 'name' => ['required', 'string', 'min:5', 'max:255', new NameAndSurname],
                 'email' => "unique:users,email|email|max:255",
-                'cpf' => "unique:users,cpf,'nullable'|max:20",
+                'cpf' => [
+                    'nullable',
+                    'max:20',
+                    Rule::unique('users', 'cpf')->whereNotNull('cpf')
+                ],
                 // 'phone' => 'required|max:20'
             ]
         );
