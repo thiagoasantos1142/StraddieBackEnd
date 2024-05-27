@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrganizationType;
 use App\Models\User;
 use App\Models\V1\Admin\Organization;
+use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -17,14 +18,39 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        //mostrar todas as empresas
-        $organizations = Organization::with('users_organization')->get();
-
-        if ($request->ajax()) {
-            return response()->json($organizations, 200);
+          // Obtém o usuário atual
+          $loggedUser = auth()->user();         
+      
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-organizations', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar Empresas.');
         }
 
-        return view('v1.admin.organization.index', compact('organizations'));
+        if($loggedUser->user_type_id == 1){
+
+            //mostrar todas as empresas
+            $organizations = Organization::with('users_organization')->get();
+
+            if ($request->ajax()) {
+                return response()->json($organizations, 200);
+            }
+
+            return view('v1.admin.organization.index', compact('organizations'));
+
+        }
+        else{
+
+            //mostrar a empresa desse user
+            $organizations = Organization::with('users_organization')->where('id', $loggedUser->organization_id)->get();
+
+            if ($request->ajax()) {
+                return response()->json($organizations, 200);
+            }
+
+            return view('v1.admin.organization.index', compact('organizations'));
+        }
+      
     }
 
     /**
@@ -32,6 +58,15 @@ class OrganizationController extends Controller
      */
     public function create()
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+       if (!Gate::allows('create-organizations', auth())) {
+           // Se não tiver permissão, lance uma exceção de autorização
+           abort(403, 'Você não tem permissão para visualizar Empresas.');
+       }
+
         $organisation_types = OrganizationType::all();
         $dataForm = $this->formCreateUpdate();
         return view('v1.admin.organization.create', compact('organisation_types', 'dataForm'));
@@ -42,6 +77,15 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+       if (!Gate::allows('create-organizations', auth())) {
+           // Se não tiver permissão, lance uma exceção de autorização
+           abort(403, 'Você não tem permissão para visualizar Empresas.');
+       }
+
         if ($request->ajax()) {
             $validator = Validator::make(
                 $request->all(),
@@ -91,16 +135,32 @@ class OrganizationController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        if ($request->ajax()) {
-            $organization = Organization::find($id);
-            return response()->json($organization, 200);
-        }
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+       if (!Gate::allows('view-organizations', auth())) {
+           // Se não tiver permissão, lance uma exceção de autorização
+           abort(403, 'Você não tem permissão para visualizar Empresas.');
+       }
 
-        //form controller;
-        $users = User::get();
-        $organization = Organization::with('addresses')->with('users_organization')->find($id);
-        $dataForm = $this->formCreateUpdate($organization); //localizado em config
-        return view('v1.admin.organization.show', compact('organization', 'dataForm', 'users'));
+       if($loggedUser->user_type_id == 1 || $loggedUser->organization_id == $id){
+
+            if ($request->ajax()) {
+                $organization = Organization::find($id);
+                return response()->json($organization, 200);
+            }
+
+            //form controller;
+            $users = User::get();
+            
+            $organization = Organization::with('addresses')->with('users_organization')->find($id);
+            $dataForm = $this->formCreateUpdate($organization); //localizado em config
+
+            return view('v1.admin.organization.show', compact('organization', 'dataForm', 'users'));
+            
+        }
+       
     }
 
     /**
@@ -116,6 +176,14 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('create-organizations', auth())) {
+           // Se não tiver permissão, lance uma exceção de autorização
+           abort(403, 'Você não tem permissão para visualizar Empresas.');
+        }
         //
         $validator = Validator::make(
             $request->all(),
@@ -129,16 +197,18 @@ class OrganizationController extends Controller
                 'email' => 'required|email',
             ]
         );
+        if($loggedUser->user_type_id == 1 || $loggedUser->organization_id == $id){
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $organization = Organization::find($id);
+
+            $organization->update($request->all());
+
+            return redirect()->route('organization.show', ['organization' => $organization->id]);
         }
-
-        $organization = Organization::find($id);
-
-        $organization->update($request->all());
-
-        return redirect()->route('organization.show', ['organization' => $organization->id]);
     }
 
     /**
