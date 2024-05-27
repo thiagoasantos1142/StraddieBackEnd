@@ -101,7 +101,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('view-assets', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(1, $roleAccess); 
+            return in_array(10, $roleAccess); 
         });
 
         Gate::define('cancel-asset', function (User $user) {

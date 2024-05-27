@@ -135,9 +135,11 @@
                 {
                     "data": null,
                     "render": function(data, type, row) {
-                        if (row.asset && row.due_diligence && row.due_diligence.crt && row.due_diligence.crt.users_titles) {
+                        if (row?.due_diligence?.crt?.users_titles) {
                             return row.due_diligence.crt.users_titles.map(user => 
-                                `<button class="btn btn-outline-primary">${user.name}</button>`
+                            `<a href="/dashboard/users/${user.id}" target="_blank">
+                                <button class="btn btn-outline-primary">${user.name}</button>
+                            </a>`
                             ).join("<br>");
                         }
                         return '';
