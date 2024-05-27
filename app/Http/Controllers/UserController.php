@@ -19,71 +19,136 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
+
         // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-users', auth())) {
+        if (!Gate::allows('view-users', $loggedUser)) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar usuários.');
         }
-        if ($request->ajax()) {
-            $search = $request->input('search');
 
-            if (!isset($search)) {
-                return response()->json(User::get(), 200);
+        if($loggedUser->user_type_id == 1){
+
+            if ($request->ajax()) {
+                $search = $request->input('search');
+    
+                if (!isset($search)) {
+                    return response()->json(User::get(), 200);
+                }
+    
+                $organizations = Organization::where('email', 'like', "%$search%")
+                    ->orWhere('cnpj', 'like', "%$search%")
+                    ->orWhere('nome_fantasia', 'like', "%$search%")
+                    ->select(['id', 'nome_fantasia as name', 'email'])
+                    ->get();
+    
+                $users = User::where('email', 'like', "%$search%")
+                    ->orWhere('id', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%")
+                    ->orWhere('cpf', 'like', "%$search%")
+                    ->select(['id', 'name', 'email'])
+                    ->latest()
+                    ->limit(10)
+                    ->get();
+    
+                if (isset($organizations) && isset($users)) {
+                    $userPfAndPj = $users->merge($organizations);
+                    return response()->json($userPfAndPj, 200);
+                } else if (isset($users)) {
+                    return response()->json($users, 200);
+                } else if (isset($organizations)) {
+                    return response()->json($organizations, 200);
+                };
             }
+    
+            $users = User::get();
+            return view('v1.admin.users.index', compact('users'));
 
-            $organizations = Organization::where('email', 'like', "%$search%")
-                ->orWhere('cnpj', 'like', "%$search%")
-                ->orWhere('nome_fantasia', 'like', "%$search%")
-                ->select(['id', 'nome_fantasia as name', 'email'])
-                ->get();
+        }else{
 
-            $users = User::where('email', 'like', "%$search%")
-                ->orWhere('id', 'like', "%$search%")
-                ->orWhere('name', 'like', "%$search%")
-                ->orWhere('cpf', 'like', "%$search%")
-                ->select(['id', 'name', 'email'])
-                ->latest()
-                ->limit(10)
-                ->get();
+            if ($request->ajax()) {
+                $search = $request->input('search');
+    
+                if (!isset($search)) {
+                    return response()->json(User::where('id', $loggedUser->id), 200);
+                }
+    
+                $organizations = Organization::where('id', $loggedUser->organization_id)
+                    ->where('email', 'like', "%$search%")
+                    ->orWhere('cnpj', 'like', "%$search%")
+                    ->orWhere('nome_fantasia', 'like', "%$search%")
+                    ->select(['id', 'nome_fantasia as name', 'email'])
+                    ->get();
+    
+                $users = User::where('id', $loggedUser->id)
+                    ->where('email', 'like', "%$search%")
+                    ->orWhere('id', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%")
+                    ->orWhere('cpf', 'like', "%$search%")
+                    ->select(['id', 'name', 'email'])
+                    ->latest()
+                    ->limit(10)
+                    ->get();
+    
+                if (isset($organizations) && isset($users)) {
+                    $userPfAndPj = $users->merge($organizations);
+                    return response()->json($userPfAndPj, 200);
+                } else if (isset($users)) {
+                    return response()->json($users, 200);
+                } else if (isset($organizations)) {
+                    return response()->json($organizations, 200);
+                };
+            }
+    
+            $users = User::where('id', $loggedUser->id)->get();
+            return view('v1.admin.users.index', compact('users'));
 
-            if (isset($organizations) && isset($users)) {
-                $userPfAndPj = $users->merge($organizations);
-                return response()->json($userPfAndPj, 200);
-            } else if (isset($users)) {
-                return response()->json($users, 200);
-            } else if (isset($organizations)) {
-                return response()->json($organizations, 200);
-            };
         }
-
-        $users = User::get();
-        return view('v1.admin.users.index', compact('users'));
+        
     }
 
     public function show(Request $request, string $id)
-    {
+    {   
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
+
+        // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-users', $loggedUser)) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar usuários.');
+        }
         
-        $user = User::with('addresses', 'roles')->with('contacts')->find($id);
-        
-         // Verificar se o usuário está tentando visualizar seu próprio perfil
-        if (auth()->id() !== $user->id) {
-            // Verificar se o usuário tem a permissão para visualizar outros usuários
-            if (!Gate::allows('view-users')) {
-                // Se não tiver permissão, lance uma exceção de autorização
-                abort(403, 'Você não tem permissão para visualizar usuários.');
+        if($loggedUser->user_type_id == 1 || $loggedUser->id == $id){
+
+            $user = User::with('addresses', 'roles')->with('contacts')->find($id);
+            
+            // Verificar se o usuário está tentando visualizar seu próprio perfil
+            if (auth()->id() !== $user->id) {
+                // Verificar se o usuário tem a permissão para visualizar outros usuários
+                if (!Gate::allows('view-users')) {
+                    // Se não tiver permissão, lance uma exceção de autorização
+                    abort(403, 'Você não tem permissão para visualizar usuários.');
+                }
             }
+
+        
+            if ($request->ajax()) {            
+                return response()->json($user, 200);        }
+
+            
+            $roles = Role::all();
+            
+            $dataForm = $this->formCreateUpdate($user);
+
+            return view('v1.admin.users.show', compact('user', 'roles', 'dataForm'));
+
+        }else{
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar usuários.');
         }
 
-       
-        if ($request->ajax()) {            
-            return response()->json($user, 200);        }
-
         
-        $roles = Role::all();
-        
-        $dataForm = $this->formCreateUpdate($user);
-
-        return view('v1.admin.users.show', compact('user', 'roles', 'dataForm'));
     }
 
 
@@ -110,7 +175,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // Verificar se o usuário tem a permissão para criar outros usuários
-        if (!Gate::allows('view-users', auth())) {
+        if (!Gate::allows('create-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar usuários.');
         }
