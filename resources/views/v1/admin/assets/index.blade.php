@@ -58,13 +58,14 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Origiem do Débito</th>
+                                        <th>Origiem do Débito</th> 
                                         <th>Natureza da obrigação</th>
-                                        <th>número do processo</th>
+                                        <th>Beneficiários</th>
+                                        <th>número do processo</th>                                      
+                                       
                                         <th>Principal a venda</th>
                                         <th>Valor negociado</th>
-                                        <th>Honorários a venda</th>                                        
-                                        <th>Percentual do honorário</th>
+                                        <th>Honorários a venda</th>           
                                         <th>Valor negociado (fee)</th>
                                         <th>Ofertas</th>
                                         <th>Criada em</th>
@@ -131,11 +132,24 @@
                 {
                     "data": "due_diligence.crt.crt_nature_credit.title"
                 }, 
-                
-                // Campo "nome" do JSON
                 {
+                    "data": null,
+                    "render": function(data, type, row) {
+                        if (row.asset && row.due_diligence && row.due_diligence.crt && row.due_diligence.crt.users_titles) {
+                            return row.due_diligence.crt.users_titles.map(user => 
+                                `<button class="btn btn-outline-primary">${user.name}</button>`
+                            ).join("<br>");
+                        }
+                        return '';
+                    }
+                },
+                 // Campo "nome" do JSON
+                 {
                     "data": "due_diligence.crt.process_number"
-                }, // Campo "nome" do JSON
+                }, 
+               
+                
+               // Campo "nome" do JSON
                 {
                     "data": "main_credit_for_sale",
                     "render": function(data, type, row, meta) {
@@ -166,16 +180,16 @@
                         return `<p>Não</p>`;
                     }
                 },
-                {
-                    "data": "highlighted_contractual_fee",
-                    "render": function(data, type, row, meta) {
-                        // Renderização personalizada para a segunda coluna, se necessário
-                        if (!!data) {
-                            return `<p>${row.percentage_contractual_fee}</p>`
-                        }
-                        return 'N/A';
-                    }
-                },
+                // {
+                //     "data": "highlighted_contractual_fee",
+                //     "render": function(data, type, row, meta) {
+                //         // Renderização personalizada para a segunda coluna, se necessário
+                //         if (!!data) {
+                //             return `<p>${row.percentage_contractual_fee}</p>`
+                //         }
+                //         return 'N/A';
+                //     }
+                // },
                 {
                     "data": "negotiated_fee_value",
                     "render": function(data, type, row, meta) {

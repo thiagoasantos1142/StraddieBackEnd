@@ -47,7 +47,7 @@ class AssetsController extends Controller
         }
 
         if($loggedUser->user_type_id == 1){
-            $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crtOriginDebtor')->get();
 
             $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
             $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
@@ -64,7 +64,7 @@ class AssetsController extends Controller
                         return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
                             $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                         });
-                    })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
+                    })->with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
                 ]);
             }
            
@@ -75,7 +75,7 @@ class AssetsController extends Controller
 
         if($loggedUser->user_type_id == 5){
         
-            $assets = AvailableAsset::with('due_diligence.crt', 'due_diligence.crtOriginDebtor')->get();
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crtOriginDebtor')->get();
 
             $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
             $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
@@ -92,7 +92,7 @@ class AssetsController extends Controller
                         return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
                             $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                         });
-                    })->with('due_diligence.crt', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
+                    })->with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
                 ]);
             }
            
