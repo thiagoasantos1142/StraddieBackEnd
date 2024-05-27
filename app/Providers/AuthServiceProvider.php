@@ -56,7 +56,20 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(15, $roleAccess); 
         });
-        
+        Gate::define('view-organizations', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(16, $roleAccess); // role_id para "Visualizar Usuários" é 1
+        });
+
+        Gate::define('create-organizations', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(17, $roleAccess); 
+        });
+
+        Gate::define('edit-organizations', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(18, $roleAccess); 
+        });
 
         Gate::define('view-crt', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
