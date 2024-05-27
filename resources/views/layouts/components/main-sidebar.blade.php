@@ -40,7 +40,7 @@
                         </a>
                     </li>
                 @endcan
-                @if(Gate::allows('view-users') || Gate::allows('view-users-organization'))
+                @if(Gate::allows('view-users') )
                     <li class="slide">
                         <a href="{{ url('dashboard/users') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"

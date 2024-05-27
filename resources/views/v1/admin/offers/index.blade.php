@@ -128,7 +128,7 @@
                     "data": "offer_status.title"
                 },
                 {
-                    "data": "offer_holder.nome_fantasia"
+                    "data": "offer_holder.nome_fantasia" ?? 'vazio'
                 },
                 {
                     "data": "created_at"

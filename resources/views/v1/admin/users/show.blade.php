@@ -60,7 +60,7 @@
         <div class="row">
 
             <x-v1.admin.form.defaultForm ::type="update" :action="route('users.update', ['user' => $user->id])"
-                :dataForm="$dataForm">
+                :dataForm="$dataForm" :permission="'edit-users'">
             </x-v1.admin.form.defaultForm>
             
             <div class="col-xl-6" id="section-address">

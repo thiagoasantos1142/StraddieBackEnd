@@ -30,13 +30,15 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card custom-card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">Usuários</div>
-                        <div class="d-flex">
-                            <a href="{{ route('users.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar Usuário</a>
+                    @can('create-user')
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="card-title">Usuários</div>
+                            <div class="d-flex">
+                                <a href="{{ route('users.create') }}" class="btn btn-primary btn-block float-end my-2"><i
+                                        class="fa fa-plus-square me-2"></i>Adicionar Usuário</a>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="file-export" class="table text-nowrap w-100">

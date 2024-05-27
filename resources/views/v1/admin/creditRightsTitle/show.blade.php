@@ -21,15 +21,17 @@
     <!-- PAGE-HEADER -->
     
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <div class="card-header d-flex justify-content-between">
-            <div class="card-title"></div>
-            <div class="d-flex">
-                <a href="{{ route('dueDiligence.create', ['creditRightsTitleId' => $creditRightsTitle->id]) }}" class="btn btn-primary btn-block float-end my-2">
-                    <i class="fa fa-plus-square me-2"></i>Iniciar Due Diligence
-                </a>
-            </div>
+        @can('create-dueDiligence')
+            <div class="card-header d-flex justify-content-between">
+                <div class="card-title"></div>
+                <div class="d-flex">
+                    <a href="{{ route('dueDiligence.create', ['creditRightsTitleId' => $creditRightsTitle->id]) }}" class="btn btn-primary btn-block float-end my-2">
+                        <i class="fa fa-plus-square me-2"></i>Iniciar Due Diligence
+                    </a>
+                </div>
 
-        </div>
+            </div>
+        @endcan
         <div>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Títulos de direitos Creditórios</a></li>
@@ -94,8 +96,12 @@
             </div>
             
 
-            <x-v1.admin.form.defaultForm ::type="update" :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
-                :dataForm="$dataForm"></x-v1.admin.form.defaultForm>
+            <x-v1.admin.form.defaultForm 
+                :type="'update'" 
+                :action="route('creditRightsTitle.update', ['creditRightsTitle' => $creditRightsTitle->id])"
+                :dataForm="$dataForm"
+                :permission="'edit-crt'">
+            </x-v1.admin.form.defaultForm>
 
                 <div class="row mb-3">
                     <div class="col-sm-2">
@@ -148,17 +154,17 @@
                     </div>
                 </div>
                                    
-
-            {{-- @aqui --}}
-            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$userPfAndPj" :routeUpdate="route('creditRightsTitle.add.user')"
-                :routeDelete="route('deleteUsersCreditRigtsTitle')"
-                ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
-
-            {{-- @aqui --}}
-            {{-- //a base de dados deve ser lawer --}}
-            <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
-                :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
-
+            @can('edit-crt')
+                
+                <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$userPfAndPj" :routeUpdate="route('creditRightsTitle.add.user')"
+                    :routeDelete="route('deleteUsersCreditRigtsTitle')"
+                    ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
+           
+            
+                {{-- //a base de dados deve ser lawer --}}
+                <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
+                    :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
+            @endcan
 
         </div>
     </div>

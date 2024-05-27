@@ -24,10 +24,10 @@ class DueDiligenceController extends Controller
         $loggedUser = auth()->user();         
       
         // Verificar se o usuário tem a permissão para visualizar outros usuários
-      if (!Gate::allows('view-dueDiligences', auth())) {
-          // Se não tiver permissão, lance uma exceção de autorização
-          abort(403, 'Você não tem permissão para visualizar Due Dilogence.');
-      }
+        if (!Gate::allows('view-dueDiligences', auth()) && $loggedUser->user_type_id != 1) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar Due Dilogence.');
+        }
 
       
         //mostrar todas os titulos
@@ -42,9 +42,9 @@ class DueDiligenceController extends Controller
         $loggedUser = auth()->user();         
       
          // Verificar se o usuário tem a permissão para visualizar outros usuários
-       if (!Gate::allows('create-dueDiligence', auth())) {
+       if (!Gate::allows('create-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
            // Se não tiver permissão, lance uma exceção de autorização
-           abort(403, 'Você não tem permissão para criar Due Dilogence.');
+           abort(403, 'Você não tem permissão para criar Due Diligence.');
        }
 
 
@@ -79,6 +79,14 @@ class DueDiligenceController extends Controller
 
     public function store(Request $request)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('create-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para criar Due Diligence.');
+        }
 
         $validator = \Validator::make(
             $request->all(),
@@ -166,6 +174,15 @@ class DueDiligenceController extends Controller
 
     public function show(Request $request, string $id)
     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();         
+      
+         // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('view-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar Due Diligence.');
+        }
+
         $validator = \Validator::make(
             $request->all(),
             [
@@ -208,7 +225,16 @@ class DueDiligenceController extends Controller
         }
     }
 
-    public function aprove(Request $request, $id){
+    public function aprove(Request $request, $id)
+    {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();         
+      
+        // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('aprove-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+             // Se não tiver permissão, lance uma exceção de autorização
+             abort(403, 'Você não tem permissão para aprovar Due Diligence.');
+        }
 
         $validator = \Validator::make(
             $request->all(),

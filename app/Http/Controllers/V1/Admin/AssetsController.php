@@ -214,8 +214,9 @@ class AssetsController extends Controller
             $offer->offer_deadline = Carbon::now()->addDays(10);
             $offer->status_id = 1;
             $offer->value = $request->offer_main_value;
-            $offer->user_id = $loggedUser->id;
-            $offer->offer_category_id = 1;
+            $offer->user_id = $loggedUser->id;            
+            $offer->organization_id = $loggedUser->organization_id;
+            //$offer->offer_category_id = 1;
 
             $offer->save();
 

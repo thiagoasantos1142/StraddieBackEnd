@@ -9,11 +9,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        <h1 class="page-title">Empresas</h1>
+        <h1 class="page-title">Ativos</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Gerenciar Empresas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Empresas</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">visualizar</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ativos</li>
             </ol>
         </div>
     </div>
@@ -49,13 +49,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card custom-card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">Ativos</div>
-                        <div class="d-flex">
-                            <a href="{{ route('assets.create') }}" class="btn btn-primary btn-block float-end my-2"><i
-                                    class="fa fa-plus-square me-2"></i>Adicionar ativo</a>
-                        </div>
-                    </div>
+                    
                     <div id="filter-assets" data-filters="{{ json_encode($crtTypes) }}"></div>
                     <div id="filter-assets-origin-debitors" data-filters="{{ json_encode($crtOriginDebitors) }}"></div>
                     <div class="card-body">

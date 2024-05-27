@@ -23,7 +23,7 @@
         <div class="card-header d-flex justify-content-between">
             <div class="card-title"></div>
             <!-- Button trigger modal -->
-            @can('make-offers')
+            @can('make-offer')
                 <div class="d-flex">
                     <button type="button" class="btn btn-primary btn-block float-end my-2" data-bs-toggle="modal" data-bs-target="#offerModal">
                         <i class="fa fa-plus-square me-2"></i>Fazer Oferta
@@ -31,11 +31,11 @@
                 </div>
             @endcan
         </div>
-        <h1 class="page-title">Ativo Disponivel</h1>
+        <h1 class="page-title">Ativo</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">Ativos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ativo Disponivel</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Ativo</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Disponivel</li>
             </ol>
         </div>
     </div>
@@ -234,7 +234,7 @@
         </div> 
                 
         <!-- Modal -->
-        @can('make-offers')
+        @can('make-offer')
             <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">

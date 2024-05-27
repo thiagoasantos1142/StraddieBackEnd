@@ -81,6 +81,7 @@ class CreditRightsTitleController extends Controller
             if ($request->ajax()) {
 
                 $request->all();
+                
                 $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
 
                 return response()->json(["data" => CreditRightsTitle::with('users_titles')
@@ -265,20 +266,40 @@ class CreditRightsTitleController extends Controller
      */
     public function show(string $id)
     {
+        
          // Obtém o usuário atual
-         $loggedUser = auth()->user();         
+         $loggedUser = auth()->user();
+
+         // Obtém o crt pelo ID
+         $creditRightsTitle = CreditRightsTitle::find($id);
+ 
+         // Obtém os beneficiários associados ao asset
+         $beneficiaries = $creditRightsTitle->users_titles;
+         $organizations = $creditRightsTitle->organizations_titles;
+         
+
+         // Verificar se o usuário está nos beneficiários
+         $isBeneficiary = $beneficiaries->contains($loggedUser);
       
-          // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-crt', auth())) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para criar Titulos.');
-        }
+         // Verificar se o usuário está associado a alguma organização beneficiária
+         $isOrganizationBeneficiary = $organizations->contains(function ($organization) use ($loggedUser) {
+             return $organization->users->contains($loggedUser);
+         });
+ 
+         // Verificar se o usuário tem permissão para visualizar o asset
+         if (!Gate::allows('view-crt', $loggedUser) && !$isBeneficiary && !$isOrganizationBeneficiary) {
+             // Se não tiver permissão, lance uma exceção de autorização
+             abort(403, 'Você não tem permissão para visualizar este título.');
+         }
+
+
         //form controller;
         $users = User::get();
+      
         $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query) {
             $query->select('id', 'name');
         }])->find($id);
-
+ 
         if ($creditRightsTitle) {
             $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
             $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
@@ -323,6 +344,15 @@ class CreditRightsTitleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();         
+        $creditRightsTitle = CreditRightsTitle::find($id);
+        
+        // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (!Gate::allows('edit-crt', auth())) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para editar este Titulo.');
+        }
 
         $validator = Validator::make(
             $request->all(),

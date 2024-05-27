@@ -51,10 +51,12 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="d-flex flex-row-reverse">
-                    <button class="btn btn-primary mt-4 mb-0" type="button"
-                        data-saveform="{{ $attributes[':type'] }}">{{ $attributes[':type'] === 'update' ? 'Editar' : 'Salvar' }}</button>
-                </div>
+                @can($attributes['permission'])
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn btn-primary mt-4 mb-0" type="button"
+                            data-saveform="{{ $attributes[':type'] }}">{{ $attributes[':type'] === 'update' ? 'Editar' : 'Salvar' }}</button>
+                    </div>
+                @endcan
             </form>
         </div>
     </div>

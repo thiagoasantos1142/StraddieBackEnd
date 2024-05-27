@@ -92,7 +92,7 @@ class UserController extends Controller
         // Verificar se o usuário tem a permissão para criar outros usuários
         if (!Gate::allows('create-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar usuários.');
+            abort(403, 'Você não tem permissão para criar usuários.');
         }
 
         $user = Auth::user();
@@ -175,9 +175,9 @@ class UserController extends Controller
         if ($loggedUser !== $alterUser->id) {
 
             // Verificar se o usuário tem a permissão para visualizar outros usuários
-            if (!Gate::allows('create-users', auth())) {
+            if (!Gate::allows('edit-users', auth())) {
                 // Se não tiver permissão, lance uma exceção de autorização
-                abort(403, 'Você não tem permissão para visualizar usuários.');
+                abort(403, 'Você não tem permissão para editar usuários.');
             }
         }
 
