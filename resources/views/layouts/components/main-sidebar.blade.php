@@ -78,7 +78,7 @@
                         </a>
                     </li>
                 @endcan
-                @can('view-dueDiligences')  
+                @can('access-admin')  
                     <li class="slide">
                         <a href="{{ url('dashboard/dueDiligence') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
