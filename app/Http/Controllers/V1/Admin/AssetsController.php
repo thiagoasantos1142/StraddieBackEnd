@@ -189,45 +189,7 @@ class AssetsController extends Controller
         //
     }
 
-    public function makeOffer(Request $request, string $assetId)
-    {
-         // Obtém o usuário atual
-         $loggedUser = auth()->user();
-         
-      
-          // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('make-offer', auth())) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para realizar ofertas.');
-        }
-
-        $asset = AvailableAsset::where('id', $assetId)->first();
-
-        $loggedUser = Auth::user();
-
-        if($asset){
-
-            $offer = New Offer;
-
-            $offer->available_asset_id = $asset->id;
-            $offer->offer_date = Carbon::now();
-            $offer->offer_deadline = Carbon::now()->addDays(10);
-            $offer->status_id = 1;
-            $offer->value = $request->offer_main_value;
-            $offer->user_id = $loggedUser->id;            
-            $offer->organization_id = $loggedUser->organization_id;
-            //$offer->offer_category_id = 1;
-
-            $offer->save();
-
-            return redirect()->back()->withMessage('Oferta realizada com sucesso.');  
-
-        }else{
-
-            return redirect()->back()->withErrors('Ativo não encontrado');    
-        }
-
-    }
+   
 
     public function formCreateUpdate($data)
     {

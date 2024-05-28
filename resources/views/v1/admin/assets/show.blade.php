@@ -253,12 +253,9 @@
                                     <div id="mainValueFields" style="display: none;">
                                         <div class="mb-3">
                                             <label for="offer_main_value">Valor da Oferta</label>
-                                            <input type="text" class="form-control" id="offer_main_value">
+                                            <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="mainValueInstallments">Quantidade de Parcelas</label>
-                                            <input type="number" class="form-control" id="mainValueInstallments">
-                                        </div>
+                                       
                                     </div>
                                 @endif
                                 @if($availableAsset->contractual_fees_for_sale == 1)
@@ -269,12 +266,9 @@
                                     <div id="feeValueFields" style="display: none;">
                                         <div class="mb-3">
                                             <label for="feeValue">Valor da Oferta</label>
-                                            <input type="text" class="form-control" id="feeValue">
+                                            <input type="text" class="form-control" name="feeValue" id="feeValue">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="feeValueInstallments">Quantidade de Parcelas</label>
-                                            <input type="number" class="form-control" id="feeValueInstallments">
-                                        </div>
+                                       
                                     </div>
                                 @endif
                             </div>
@@ -353,6 +347,10 @@
 
     // Function to handle making offer
     function makeOffer() {
+
+        var mainValue = document.getElementById('offer_main_value').value.trim();
+        var feeValue = document.getElementById('feeValue').value.trim();
+        
         // You can implement your logic to handle making offer here
         alert('Oferta realizada com sucesso!');
         // Close modal
