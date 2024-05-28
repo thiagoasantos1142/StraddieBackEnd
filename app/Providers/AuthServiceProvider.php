@@ -90,11 +90,11 @@ class AuthServiceProvider extends ServiceProvider
             return in_array(7, $roleAccess); 
         });
 
-        Gate::define('create-dueDiligence', function (User $user) {
+        Gate::define('create-dueDiligences', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(8, $roleAccess); 
         });
-        Gate::define('aprove-dueDiligence', function (User $user) {
+        Gate::define('aprove-dueDiligences', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(9, $roleAccess);
         });
