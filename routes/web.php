@@ -45,36 +45,33 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard', function() {
+        if (auth()->user()->user_type_id !== 1) {
+            return redirect()->route('profile');
+        }
+        return app(DashboardController::class)->index();
+    })->name('dashboard');
+
     Route::group(['prefix' => 'dashboard'], function () {
-
-
-
         Route::group(['middleware' => ['can:access-admin']], function () {
             Route::resource('/dueDiligence', DueDiligenceController::class);
             Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
             Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
             Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
-            Route::post('/users/update/roles/{id}', [UserController::class, 'updateRoles'])->name('updateRoles');
-           
-            
-            
         });
-     
-        Route::resource('/users', UserController::class);
 
-       
+        Route::post('/users/update/roles/{id}', [UserController::class, 'updateRoles'])->name('updateRoles');
+        Route::resource('/users', UserController::class);
         Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
 
         Route::post('/assets/makeOffer/{assetId}', [AssetsController::class, 'makeOffer'])->name('assets.makeOffer');
         Route::resource('/assets', AssetsController::class);
         Route::resource('/offers', OfferController::class);
-            
 
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
-           
 
         Route::resource('/file', AddressController::class);
         Route::get('/download/{id}', [FileController::class, 'download'])->name('download.file');
@@ -83,7 +80,6 @@ Route::middleware([
         Route::get('file/aprove/{id}',  [FileController::class, 'aprove'])->name('aprove.file');
         Route::get('file/reject/{id}',  [FileController::class, 'reject'])->name('reject.file');
 
-            
         Route::resource('/files', FileController::class);
         Route::resource('/usersCreditRigtsTitle', UsersCreditRigtsTitleController::class);
         Route::resource('/crtLawyer', CrtLawyerController::class);
@@ -93,21 +89,14 @@ Route::middleware([
 
         Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
         Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
-        Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
-        Route::post('/add-user-corporate', [UserController::class, 'addUserCorporate'])->name('corporate.add.user');
-        Route::post('/credit-rights-title', [CreditRightsTitleController::class, 'addUserTitle'])->name('creditRightsTitle.add.user');
         Route::post('/save-lawyer-in-crt', [CreditRightsTitleController::class, 'addLawyerInTitle']);
         Route::post('/save-organization-incrt', [CreditRightsTitleController::class, 'addOrganizationInTitle']);
-        Route::post('/add-user-lawyer', [LawyerController::class, 'addUserLawyer'])->name('lawyer.add.user');
-
         Route::post('/deleteUsersCreditRigtsTitle', [UsersCreditRigtsTitleController::class, 'customDeleteRoute'])->name('deleteUsersCreditRigtsTitle');
         Route::post('/deleteLawyerCreditRigtsTitle', [CrtLawyerController::class, 'customDeleteRoute'])->name('deleteLawyerCreditRigtsTitle');
         Route::post('/deleteLawyerToUser', [LawyerController::class, 'deleteLawyerToUser'])->name('deleteLawyerToUser');
-     
 
         Route::post('/upload/file', [FileController::class, 'upload'])->name('upload.file');
         Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
         Route::get('profile', [PagesController::class, 'profile'])->name('profile');
-
     });
 });

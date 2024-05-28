@@ -95,9 +95,9 @@
 
             <!--app-content open-->
             <div class="main-content app-content mt-0">
-
+                
                 @yield('content')
-
+                
             </div>
             <!-- END APP-CONTENT -->
 
