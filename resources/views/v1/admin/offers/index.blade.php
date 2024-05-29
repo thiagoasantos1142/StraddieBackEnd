@@ -64,6 +64,7 @@
                                         <th>Número do proeesso</th>
                                         <th>Valor da oferta</th>
                                         <th>Status</th>
+                                        <th>Categoria</th>
                                         <th>Titular da oferta</th>
                                         <th>Data da oferta</th>
                                     </tr>
@@ -96,49 +97,65 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
-        console.log('Hello');
+        
         const table = $('#assets-table').DataTable({
-            "ajax": {
-                "url": "/dashboard/offers", // URL para a fonte de dados
-                "dataSrc": "data" // Campo para os dados (se não especificado, usa "data")
-            },
-            "columns": [
-               
-                {
-                    "data": "asset.due_diligence.crt.id"
-                },
-                {
-                    "data": null,
-                    "render": function(data, type, row) {
-                        if (row.asset && row.asset.due_diligence && row.asset.due_diligence.crt && row.asset.due_diligence.crt.users_titles) {
-                            return row.asset.due_diligence.crt.users_titles.map(user => 
-                                `<button class="btn btn-outline-primary">${user.name}</button>`
-                            ).join("<br>");
-                        }
-                        return '';
-                    }
-                },
-                {
-                    "data": "asset.due_diligence.crt.process_number"
-                },
-                {
-                    "data": "value"
-                },
-                {
-                    "data": "offer_status.title"
-                },
-                {
-                    "data": "offer_holder.nome_fantasia" ?? 'vazio'
-                },
-                {
-                    "data": "created_at"
-                },
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-        });
+    "ajax": {
+        "url": "/dashboard/offers", // URL para a fonte de dados
+        "dataSrc": "data" // Campo para os dados (se não especificado, usa "data")
+    },
+    "columns": [
+        {
+            "data": "asset.due_diligence.crt.id"
+        },
+        {
+            "data": null,
+            "render": function(data, type, row) {
+                if (row.asset && row.asset.due_diligence && row.asset.due_diligence.crt && row.asset.due_diligence.crt.users_titles) {
+                    return row.asset.due_diligence.crt.users_titles.map(user => 
+                        `<button class="btn btn-outline-primary">${user.name}</button>`
+                    ).join("<br>");
+                } else if (row.user) {
+                    return `<button class="btn btn-outline-primary">${row.user.name}</button>`;
+                }
+                return 'Sem informação';
+            }
+        },
+        {
+            "data": "asset.due_diligence.crt.process_number"
+        },
+        {
+            "data": "value"
+        },
+        {
+            "data": "status.title"
+        },
+        {
+            "data": "category.title"
+        },
+        {
+            "data": null,
+            "render": function(data, type, row) {
+                if (row.organization) {
+                    return `<span style="color: blue">${row.organization.nome_fantasia}</span>`;
+                } else if (row.user) {
+                    return `<span style="color: green">${row.user.name}</span>`;
+                }
+                return 'Sem informação';
+            }
+        },
+
+
+        {
+            "data": "created_at"
+        },
+    ],
+    dom: 'Bfrtip',
+    buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+    ],
+});
+
+    
     </script>
     {{-- @vite('resources/assets/js/table-data.js') --}}
 @endsection

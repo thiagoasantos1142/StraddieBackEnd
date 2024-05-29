@@ -247,8 +247,8 @@
                             <div class="modal-body">
                                 @if($availableAsset->main_credit_for_sale == 1)
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="offerMainValue">
-                                        <label class="form-check-label" for="offerMainValue">Fazer oferta para o valor principal?</label>
+                                        <input type="checkbox" class="form-check-input" name='offerMainValue' id="offerMainValue">
+                                        <label class="form-check-label"  for="offerMainValue">Fazer oferta para o valor principal?</label>
                                     </div>
                                     <div id="mainValueFields" style="display: none;">
                                         <div class="mb-3">
@@ -260,7 +260,7 @@
                                 @endif
                                 @if($availableAsset->contractual_fees_for_sale == 1)
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="offerFeeValue">
+                                        <input type="checkbox" class="form-check-input" name='offerFeeValue' id="offerFeeValue">
                                         <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
                                     </div>
                                     <div id="feeValueFields" style="display: none;">

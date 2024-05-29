@@ -30,8 +30,8 @@ class OfferController extends Controller
 
         if($loggedUser->user_type_id == 1){
             
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'offer_status', 'offerHolder')->get();
-          
+            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')->get();
+            
 
             if ($request->ajax()) {
               
@@ -81,7 +81,7 @@ class OfferController extends Controller
 
        if($asset){
 
-            if($request->offer_main_value != ''){
+            if($request->offerMainValue){
 
                 $offer = New Offer;
 
@@ -92,13 +92,13 @@ class OfferController extends Controller
                 $offer->value = $request->offer_main_value;
                 $offer->user_id = $loggedUser->id;            
                 $offer->organization_id = $loggedUser->organization_id;
-                //$offer->offer_category_id = 1;
+                $offer->offer_category_id = 1;
 
                 $offer->save();
 
             }
 
-            if($request->feeValue != ''){
+            if($request->offerFeeValue){
 
                 $offer = New Offer;
 
@@ -109,7 +109,7 @@ class OfferController extends Controller
                 $offer->value = $request->feeValue;
                 $offer->user_id = $loggedUser->id;            
                 $offer->organization_id = $loggedUser->organization_id;
-                //$offer->offer_category_id = 1;
+                $offer->offer_category_id = 2;
 
                 $offer->save();
 
