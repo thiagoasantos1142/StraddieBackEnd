@@ -47,53 +47,53 @@ class AssetsController extends Controller
         }
 
         if($loggedUser->user_type_id == 1){
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crtOriginDebtor')->get();
 
             $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
             $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
+
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
+                                    ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
+                                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
+                                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
+                                        });
+                                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
+                                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
+                                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
+                                        });
+                                    })->get();            
     
             
             if ($request->ajax()) {
-                // due_diligence.crt
-                return response()->json([
-                    "data" => AvailableAsset::when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
-                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
-                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
-                        });
-                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
-                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
-                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
-                        });
-                    })->with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
-                ]);
+
+                return response()->json(['data' => $assets]);
             }
            
             $crtTypes = CrtType::get();
             $crtOriginDebitors = CrtOriginDebtor::get();
             return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
+
         }
 
         if($loggedUser->user_type_id == 5){
-        
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crtOriginDebtor')->get();
 
             $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
             $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
+
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
+                                    ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
+                                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
+                                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
+                                        });
+                                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
+                                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
+                                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
+                                        });
+                                    })->get();            
     
             
             if ($request->ajax()) {
-                // due_diligence.crt
-                return response()->json([
-                    "data" => AvailableAsset::when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
-                        return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
-                            $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
-                        });
-                    })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
-                        return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
-                            $query->whereIn('origin_debtor_id', $crtOriginDebitors);
-                        });
-                    })->with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')->get()
-                ]);
+
+                return response()->json(['data' => $assets]);
             }
            
             $crtTypes = CrtType::get();
@@ -102,7 +102,49 @@ class AssetsController extends Controller
         
         }
 
-       
+        if($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 4){
+        
+            
+
+            $filterAssetsCtrTypes = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+            $crtOriginDebitors = isset($request->crtOriginDebitorsId) ? explode(",", $request->crtOriginDebitorsId) : null;
+
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
+                                ->whereHas('due_diligence.crt', function ($query) use ($loggedUser) {
+                                    $query->whereHas('users_titles', function ($query) use ($loggedUser) {
+                                        $query->where('user_id', $loggedUser->id);
+                                    })
+                                    ->orWhereHas('crtLawyers', function ($query) use ($loggedUser) {
+                                        $query->where('lawyer_id', $loggedUser->id);
+                                    });
+                                })
+                                ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
+                                    return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
+                                        $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
+                                    });
+                                })
+                                ->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
+                                    return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
+                                        $query->whereIn('origin_debtor_id', $crtOriginDebitors);
+                                    });
+                                })
+                                ->get();
+
+            
+            if ($request->ajax()) {
+
+                return response()->json(['data' => $assets]);
+            }
+
+            $crtTypes = CrtType::get();
+            $crtOriginDebitors = CrtOriginDebtor::get();
+
+            return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
+        
+        }
+
+       return redirect()->back()->withErrors('Você não tem permissão para acessar as ofertas');
+    
     }
 
     /**

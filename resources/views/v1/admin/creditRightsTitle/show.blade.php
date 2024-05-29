@@ -21,7 +21,7 @@
     <!-- PAGE-HEADER -->
     
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        @can('create-dueDiligence')
+        @can('create-dueDiligences')
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title"></div>
                 <div class="d-flex">
