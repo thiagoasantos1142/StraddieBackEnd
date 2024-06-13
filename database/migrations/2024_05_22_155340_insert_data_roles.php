@@ -33,11 +33,12 @@ return new class extends Migration
             ['id' => 13,'title' => 'Realizar oferta'],        
             ['id' => 14,'title' => 'Aceitar oferta'],
 
-            ['id' => 15,'title' => 'Editar Permissões'],            
-            
-            ['id' => 16,'title' => 'Visualizar Usuários empresa'],
-            ['id' => 17,'title' => 'Cadastrar Usuários empresa'],
-            ['id' => 18,'title' => 'Editar Usuários empresa'],
+            ['id' => 15,'title' => 'Editar Permissões'],     
+
+            ['id' => 16,'title' => 'Visualizar Empresas'],
+            ['id' => 17,'title' => 'Cadastrar Empresas'],              
+            ['id' => 18,'title' => 'Editar Empresas'],  
+                     
             
         ]);
     }

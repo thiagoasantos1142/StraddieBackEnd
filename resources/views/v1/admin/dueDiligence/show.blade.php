@@ -704,7 +704,7 @@
                         
                     }
                 }else if (toggle2 && toggle1){
-
+                    alert('aqui.');
                     // Verifica se o campo main_value está preenchido
                     var mainValue = document.getElementById('main_value').value.trim();
                     // Verifica se o campo percentage_fee está preenchido
