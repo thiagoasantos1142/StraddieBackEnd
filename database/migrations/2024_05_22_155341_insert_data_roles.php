@@ -29,15 +29,16 @@ return new class extends Migration
             ['id' => 10,'title'  => 'Visualizar Ativos'],                                   
             ['id' => 11,'title' => 'Cancelar Ativos'], 
                 
-            ['id' => 12,'title' => 'Visualizar ofertas'],
-            ['id' => 13,'title' => 'Realizar oferta'],        
-            ['id' => 14,'title' => 'Aceitar oferta'],
+            ['id' => 12,'title' => 'Visualizar ofertas realizadas'],
+            ['id' => 13,'title' => 'Visualizar ofertas recebidas'],
+            ['id' => 14,'title' => 'Realizar oferta'],        
+            ['id' => 15,'title' => 'Aceitar oferta'],
 
-            ['id' => 15,'title' => 'Editar Permissões'],     
+            ['id' => 16,'title' => 'Editar Permissões'],     
 
-            ['id' => 16,'title' => 'Visualizar Empresas'],
-            ['id' => 17,'title' => 'Cadastrar Empresas'],              
-            ['id' => 18,'title' => 'Editar Empresas'],  
+            ['id' => 17,'title' => 'Visualizar Empresas'],
+            ['id' => 18,'title' => 'Cadastrar Empresas'],              
+            ['id' => 19,'title' => 'Editar Empresas'],  
                      
             
         ]);
