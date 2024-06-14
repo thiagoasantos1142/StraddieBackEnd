@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'user_type_id' => 3, // Defina o tipo de usuário desejado
         ]);
         
-        $roles = [4,5];
+        $roles = [4,5,13,15];
 
         $userRoles = new UserRole();
         $userRoles->assignRole($user, $roles);
