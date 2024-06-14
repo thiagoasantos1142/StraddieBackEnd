@@ -104,19 +104,45 @@
                         </a>
                     </li>
                 @endcan
-                @can('view-offers')  
+                @can('view-offers-made')  
                     <li class="slide">
-                        <a href="{{ url('dashboard/offers') }}" class="side-menu__item">
+                        <a href="{{ url('dashboard/myOffers/made') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
                                 viewBox="0 0 24 24" width="24px" fill="#000000">
                                 <path d="M0 0h24v24H0V0z" fill="none" />
                                 <path
                                     d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
                             </svg>
-                            <span class="side-menu__label">Ofertas</span>
+                            <span class="side-menu__label">Ofertas realizadas</span>
                         </a>
                     </li>
-                @endcan                 
+                @endcan       
+                @can('view-offers-received')  
+                    <li class="slide">
+                        <a href="{{ url('dashboard/myOffers/received') }}" class="side-menu__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
+                                viewBox="0 0 24 24" width="24px" fill="#000000">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
+                            </svg>
+                            <span class="side-menu__label">Ofertas recebidas</span>
+                        </a>
+                    </li>
+                @endcan      
+                @can('access-admin')  
+                    <li class="slide">
+                        <a href="{{ url('dashboard/offers/') }}" class="side-menu__item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
+                                viewBox="0 0 24 24" width="24px" fill="#000000">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path
+                                    d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
+                            </svg>
+                            <span class="side-menu__label">Todas as Ofertas</span>
+                        </a>
+                    </li>
+                @endcan                  
             </ul>
         </nav>
     </div>

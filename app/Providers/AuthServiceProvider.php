@@ -54,21 +54,21 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('edit-roles', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(15, $roleAccess); 
+            return in_array(16, $roleAccess); 
         });
         Gate::define('view-organizations', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(16, $roleAccess); // role_id para "Visualizar Usuários" é 1
+            return in_array(17, $roleAccess); // role_id para "Visualizar Usuários" é 1
         });
 
         Gate::define('create-organizations', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(17, $roleAccess); 
+            return in_array(18, $roleAccess); 
         });
 
         Gate::define('edit-organizations', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
-            return in_array(18, $roleAccess); 
+            return in_array(19, $roleAccess); 
         });
 
         Gate::define('view-crt', function (User $user) {
@@ -108,19 +108,23 @@ class AuthServiceProvider extends ServiceProvider
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(11, $roleAccess); 
         });
-        Gate::define('view-offers', function (User $user) {
+        Gate::define('view-offers-made', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(12, $roleAccess); 
         });
-
-        Gate::define('make-offer', function (User $user) {
+        Gate::define('view-offers-received', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(13, $roleAccess); 
         });
 
-        Gate::define('accept-offer', function (User $user) {
+        Gate::define('make-offer', function (User $user) {
             $roleAccess = $user->roles->pluck('id')->toArray();
             return in_array(14, $roleAccess); 
+        });
+
+        Gate::define('accept-offer', function (User $user) {
+            $roleAccess = $user->roles->pluck('id')->toArray();
+            return in_array(15, $roleAccess); 
         });
 
         

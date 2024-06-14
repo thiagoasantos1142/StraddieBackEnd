@@ -25,7 +25,7 @@
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title"></div>
                 <div class="d-flex">
-                    <a href="{{ route('dueDiligence.create', ['creditRightsTitleId' => $creditRightsTitle->id]) }}" class="btn btn-primary btn-block float-end my-2">
+                    <a href="{{ route('due-Diligence.create', ['creditRightsTitleId' => $creditRightsTitle->id]) }}" class="btn btn-primary btn-block float-end my-2">
                         <i class="fa fa-plus-square me-2"></i>Iniciar Due Diligence
                     </a>
                 </div>

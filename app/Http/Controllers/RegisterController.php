@@ -26,8 +26,11 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type_id' => 3, // Defina o tipo de usuário desejado
+            'user_type_id' => 3, // Define o tipo de usuário "originador" como 3
         ]);
+
+        $user->user_type_id = 3; // Define o tipo de usuário "originador" como 3
+        $user->save();
         
         $roles = [4,5,13,15];
 

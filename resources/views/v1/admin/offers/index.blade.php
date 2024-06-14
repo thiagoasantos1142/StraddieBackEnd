@@ -100,7 +100,7 @@
         
         const table = $('#assets-table').DataTable({
     "ajax": {
-        "url": "/dashboard/offers", // URL para a fonte de dados
+        "url": "{{ $url }}", // URL para a fonte de dados
         "dataSrc": "data" // Campo para os dados (se não especificado, usa "data")
     },
     "columns": [

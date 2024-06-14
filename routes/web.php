@@ -77,6 +77,8 @@ Route::middleware([
         Route::post('/assets/makeOffer/{assetId}', [OfferController::class, 'makeOffer'])->name('assets.makeOffer');
         Route::resource('/assets', AssetsController::class);
         Route::resource('/offers', OfferController::class);
+        Route::get('/myOffers/made', [OfferController::class, 'offersMade'])->name('offers.made');        
+        Route::get('/myOffers/received', [OfferController::class, 'offersReceived'])->name('offers.received');
 
         Route::resource('/lawyer', LawyerController::class);
         Route::resource('/creditRightsTitle', CreditRightsTitleController::class);
