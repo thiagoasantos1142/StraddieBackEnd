@@ -1,111 +1,74 @@
 
-@extends('layouts.custom-master1')
+<x-guest-layout>
+    <x-authentication-card>
+        <x-slot name="logo">
+            <x-authentication-card-logo />
+        </x-slot>
 
-@section('styles')
+        <x-validation-errors class="mb-4" />
+
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('register.originador') }}">
+            @csrf
+            <div class="text-center mb-4">
+                                            <h4 class="mb-1">Cadastro</h4>
+                                            <p>Crie uma conta para continuar.</p>
+                                        </div>
+            <div>
+                <x-label for="name" value="{{ __('Nome completo') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="username" />
+            </div>
+            <br>
+            <div>
+                <x-label for="email" value="{{ __('Email') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Crie uma senha') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="{{ __('Confirme a sua senha') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="current-password" />
+            </div>
+
+            <div class="block mt-4">
+                <label for="remember_me" class="flex items-center">
+                    <x-checkbox id="remember_me" name="remember" />
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Lembrar meu login') }}</span>
+                </label>
+            </div>
+
+           
+            <div class="flex items-center justify-center mt-4">
+                <x-button class="ml-4">
+                    {{ __('Crie uma conta') }}
+                </x-button>
+            </div>
 
 
+            
+            <div class="flex items-center justify-center mt-4">       
+                Já possui conta? 
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                    {{ __('Login') }}
+                </a>
+                
+            </div>
+           
 
-@endsection
-
-@section('content')
-	
-                <!-- CONTAINER OPEN -->
-                <div class="">
-                    <div class="text-center">
-                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="header-brand-img m-1" alt=""></a>
-                    </div>
-                </div>
-                <div class="container-lg">
-                    <div class="row mt-4 justify-content-center mx-0">
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="card shadow-none">
-                                <div class="card-body p-sm-6">
-                                    <div class="text-center mb-4">
-                                        <h4 class="mb-1">Sign Up</h4>
-                                        <p>Sign up to your account to continue.</p>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="mb-3">
-                                                <label class="mb-2 fw-500">Full Name<span class="text-danger ms-1">*</span></label>
-                                                <input class="form-control ms-0" type="text" placeholder="Enter First Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="mb-3">
-                                                <label class="mb-2 fw-500">Email<span class="text-danger ms-1">*</span></label>
-                                                <input class="form-control ms-0" type="email" placeholder="Enter your Email">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="mb-3">
-                                                <label class="mb-2 fw-500">Create a Password<span class="text-danger ms-1">*</span></label>
-                                                <div class="input-group has-validation">
-                                                    <input type="password" class="form-control ms-0 border-end-0" placeholder="Create a Password"  id="signup-password" 
-                                                        required>
-                                                     <button class="btn btn-light" onclick="createpassword('signup-password',this)" type="button" id="button-addon2"><i class="ri-eye-off-line align-middle"></i></button>
-                                                    <div class="invalid-feedback">
-                                                        Please choose a username.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="mb-3">
-                                                <label class="mb-2 fw-500">Confirm Password<span class="text-danger ms-1">*</span></label>
-                                                <div class="input-group has-validation">
-                                                    <input type="password" class="form-control ms-0 border-end-0" placeholder="Confirm your Password" id="signup-confirmpassword"
-                                                        required>
-                                                        <button class="btn btn-light" onclick="createpassword('signup-confirmpassword',this)" type="button" id="button-addon21"><i class="ri-eye-off-line align-middle"></i></button>
-                                                    <div class="invalid-feedback">
-                                                        Please choose a username.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-12">
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                                <label class="form-check-label tx-15" for="flexCheckChecked">
-                                                    Remember me
-                                                </label>
-                                                </div>
-                                            <div class="d-grid mb-3">
-                                                <a href="{{url('index')}}" class="btn btn-primary"> Create an Account</a>
-                                            </div>
-                                            <div class="text-center">
-                                                <p class="mb-0 tx-14">Already have an account ?
-                                                    <a href="{{url('login')}}" class="tx-primary ms-1 text-decoration-underline">Login</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="text-center mt-3 mb-2">Signup with</p>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="btn-list">
-                                            <button class="btn btn-icon bg-primary-transparent rounded-pill border-0" type="button">
-												<span class="btn-inner--icon"><i class="fa fa-facebook"></i></span>
-											</button>
-                                            <button class="btn btn-icon bg-primary-transparent rounded-pill border-0" type="button">
-                                                    <span class="btn-inner--icon"><i class="fa fa-google"></i></span>
-                                                </button>
-                                            <button class="btn btn-icon bg-primary-transparent rounded-pill border-0" type="button">
-                                                    <span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
-                                                </button>
-                                            <button class="btn btn-icon bg-primary-transparent rounded-pill border-0" type="button">
-                                                    <span class="btn-inner--icon"><i class="fa fa-linkedin"></i></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-9 d-none"></div>
-                    </div>
-                </div>
-                <!-- CONTAINER CLOSED -->
-
-@endsection
+                       
+                    </form>
+                  
+    </x-authentication-card>
+</x-guest-layout>
 
 @section('scripts')
 	

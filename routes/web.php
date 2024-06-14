@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminuIController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\V1\Admin\DashboardController;
 use App\Http\Controllers\V1\Admin\DueDiligenceController;
 use App\Http\Controllers\V1\Admin\FileController;
@@ -40,6 +42,10 @@ Route::get('index', [DashboardController::class, 'index']);
 Route::get('landing-page', [LandingpageController::class, 'landing_page']);
 Route::resource('/form-documents', FormDocuments::class);
 
+Route::get('register', [AuthenticationController::class, 'register']);
+Route::post('registerOriginador', [RegisterController::class, 'storeOriginador'])->name('register.originador');
+
+
 Route::get('chat', [AdminuIController::class, 'chat']);
 
 Route::middleware([
@@ -60,7 +66,7 @@ Route::middleware([
             Route::resource('/dueDiligence', DueDiligenceController::class);
             Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
             Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
-            Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('dueDiligence.create');
+            Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('due-Diligence.create');
         });
 
         Route::post('/users/update/roles/{id}', [UserController::class, 'updateRoles'])->name('updateRoles');
@@ -130,7 +136,6 @@ Route::middleware([
 
 
     // // Route::get('login', [AuthenticationController::class, 'login']);
-    // // Route::get('register', [AuthenticationController::class, 'register']);
     // Route::get('forgot-password', [AuthenticationController::class, 'forgot_password']);
     // Route::get('lockscreen', [AuthenticationController::class, 'lockscreen']);
     // Route::get('under-maintenance', [AuthenticationController::class, 'under_maintenance']);

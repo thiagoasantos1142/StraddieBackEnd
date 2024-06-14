@@ -177,7 +177,7 @@ class UserController extends Controller
         // Verificar se o usuário tem a permissão para criar outros usuários
         if (!Gate::allows('create-users', auth())) {
             // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar usuários.');
+            abort(403, 'Você não tem permissão para cadastrar usuários.');
         }
 
         $validator = Validator::make(
@@ -241,7 +241,7 @@ class UserController extends Controller
         $alterUser = User::where('id', $id)->first();
 
         // Verificar se o usuário está tentando atualizar seu próprio perfil
-        if ($loggedUser !== $alterUser->id) {
+        if ($loggedUser->id !== $alterUser->id) {
 
             // Verificar se o usuário tem a permissão para visualizar outros usuários
             if (!Gate::allows('edit-users', auth())) {
@@ -252,7 +252,9 @@ class UserController extends Controller
 
         // Validação dos dados recebidos do formulário
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required_without_all:firstName,lastName|string|max:255',
+            'firstName' => 'required_without:name|string|max:255',
+            'lastName' => 'required_without:name|string|max:255',
 
             'email' => [
                 'nullable',
@@ -291,15 +293,23 @@ class UserController extends Controller
         }
 
 
+         // Combinar os valores de 'name' ou 'firstName' e 'lastName'
+         if ($request->has('name')) {
+            $name = $request->input('name');
+        } else {
+            $name = $request->input('firstName') . ' ' . $request->input('lastName');
+        }
+
+       
 
         if ($loggedUser->id != $alterUser->id) {
 
             if ($loggedUser->user_type_id == 1) {
+                
                 try {
-
                     // Atualiza os dados do usuário
                     $alterUser->update([
-                        'name' => $request->input('name'),
+                        'name' => $name,
                         'title' => $request->input('title'),
                         'email' => $request->input('email'),
                         'cpf' => $cleanedCPF ?? null,
@@ -326,7 +336,7 @@ class UserController extends Controller
             try {
                 // Atualiza os dados do usuário
                 $alterUser->update([
-                    'name' => $request->input('name'),
+                    'name' => $name ,
                     'title' => $request->input('title'),
                     'email' => $request->input('email'),
                     'cpf' => $cleanedCPF ?? null,
