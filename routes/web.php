@@ -43,7 +43,7 @@ Route::get('landing-page', [LandingpageController::class, 'landing_page']);
 Route::resource('/form-documents', FormDocuments::class);
 
 Route::get('register', [AuthenticationController::class, 'register']);
-Route::get('registerOriginador', [RegisterController::class, 'storeOriginador'])->name('register.originador');
+Route::post('registerOriginador', [RegisterController::class, 'storeOriginador'])->name('register.originador');
 
 
 Route::get('chat', [AdminuIController::class, 'chat']);

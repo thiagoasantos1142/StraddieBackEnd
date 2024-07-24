@@ -26,7 +26,7 @@ class DueDiligenceController extends Controller
         // Verificar se o usuário tem a permissão para visualizar outros usuários
         if (!Gate::allows('view-dueDiligences', $loggedUser) && !Gate::allows('access-admin', $loggedUser)) {
             // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Due Dilogence.');
+            abort(403, 'Você não tem permissão para visualizar Due Diligence.');
         }
 
       
