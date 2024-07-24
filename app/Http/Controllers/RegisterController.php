@@ -25,7 +25,9 @@ class RegisterController extends Controller
       
         $user = User::create([
             'name' => $request->name,
+            'cpf' => $request->cpf,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'user_type_id' => 3, // Define o tipo de usuário "originador" como 3
         ]);
