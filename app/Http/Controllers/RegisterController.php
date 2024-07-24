@@ -14,7 +14,8 @@ class RegisterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',   
-            'cpf' => 'required|string|max:255|unique:users',           
+            'cpf' => 'required|string|max:255|unique:users',
+            'phone' => 'required|string|max:20|unique:users',        
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -22,12 +23,18 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-      
+        $formatedPhone = $this->cleanAndValidatePhoneNumber($request->phone);
+
+        if($formatedPhone === NULL){
+
+            return redirect()->back()->withErrors('Formato telefone invalido');
+        }
+
         $user = User::create([
             'name' => $request->name,
             'cpf' => $request->cpf,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $formatedPhone,
             'password' => Hash::make($request->password),
             'user_type_id' => 3, // Define o tipo de usuário "originador" como 3
         ]);
@@ -35,7 +42,7 @@ class RegisterController extends Controller
         $user->user_type_id = 3; // Define o tipo de usuário "originador" como 3
         $user->save();
         
-        $roles = [4,5,13,15];
+        $roles = [5,13,15];
 
         $userRoles = new UserRole();
         $userRoles->assignRole($user, $roles);
@@ -44,5 +51,20 @@ class RegisterController extends Controller
         auth()->login($user);
 
         return redirect()->route('profile'); // Redirecione para a página inicial ou outra página desejada
+    }
+
+    private function cleanAndValidatePhoneNumber($phone)
+    {
+        // Remove todos os caracteres não numéricos do número de telefone
+        $cleanedPhone = preg_replace('/\D/', '', $phone);
+
+        // Verifica se o número de telefone está no formato correto
+        if (preg_match('/^\d{10,11}$/', $cleanedPhone)) {
+            // Se for, retorna o número de telefone limpo
+            return $cleanedPhone;
+        } else {
+            // Se não for, retorna null
+            return null;
+        }
     }
 }
