@@ -25,8 +25,16 @@
             </div>
             <br>
             <div>
+                <x-label for="cpf" value="{{ __('cpf') }}" />
+                <x-input id="cpf" class="block mt-1 w-full" type="cpf" name="cpf" :value="old('cpf')" required autofocus autocomplete="cpf" />
+            </div>
+            <div>
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            </div>
+            <div>
+                <x-label for="phone" value="{{ __('Phone') }}" />
+                <x-input id="phone" class="block mt-1 w-full" type="phone" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
             </div>
 
             <div class="mt-4">
