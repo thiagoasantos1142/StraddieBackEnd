@@ -50,7 +50,7 @@ class RegisterController extends Controller
         $user->user_type_id = 3; // Define o tipo de usuário "originador" como 3
         $user->save();
         
-        $roles = [3,5,7,10,13,15];
+        $roles = [4,5,7,10,13,15];
 
         $userRoles = new UserRole();
         $userRoles->assignRole($user, $roles);
