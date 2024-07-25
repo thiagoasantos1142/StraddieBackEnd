@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\User;
 use App\Models\V1\Admin\UserRole;
 use Hash;
@@ -23,6 +24,16 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+       
+
+        $user = User::create([
+            'name' => $request->name,
+            'cpf' => $request->cpf,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_type_id' => 3, // Define o tipo de usuário "originador" como 3
+        ]);
+
         $formatedPhone = $this->cleanAndValidatePhoneNumber($request->phone);
 
         if($formatedPhone === NULL){
@@ -30,14 +41,11 @@ class RegisterController extends Controller
             return redirect()->back()->withErrors('Formato telefone invalido');
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'cpf' => $request->cpf,
-            'email' => $request->email,
-            'phone' => $formatedPhone,
-            'password' => Hash::make($request->password),
-            'user_type_id' => 3, // Define o tipo de usuário "originador" como 3
-        ]);
+        $contact = new Contact;
+        $contact->user_id = $user->id;
+        $contact->phone = $formatedPhone;
+        $contact->save();
+
 
         $user->user_type_id = 3; // Define o tipo de usuário "originador" como 3
         $user->save();
