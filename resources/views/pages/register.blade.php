@@ -1,4 +1,3 @@
-
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -16,35 +15,35 @@
         <form method="POST" action="{{ route('register.originador') }}">
             @csrf
             <div class="text-center mb-4">
-                                            <h4 class="mb-1">Cadastro</h4>
-                                            <p>Crie uma conta para continuar.</p>
-                                        </div>
+                <h4 class="mb-1">Cadastro</h4>
+                <p>Crie uma conta para continuar.</p>
+            </div>
             <div>
                 <x-label for="name" value="{{ __('Nome completo') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="username" />
             </div>
             <br>
             <div>
-                <x-label for="cpf" value="{{ __('cpf') }}" />
-                <x-input id="cpf" class="block mt-1 w-full" type="cpf" name="cpf" :value="old('cpf')" required autofocus autocomplete="cpf" />
+                <x-label for="cpf" value="{{ __('CPF') }}" />
+                <x-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" required autocomplete="cpf" />
             </div>
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
             <div>
-                <x-label for="phone" value="{{ __('Phone') }}" />
-                <x-input id="phone" class="block mt-1 w-full" type="phone" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
+                <x-label for="phone" value="{{ __('Telefone') }}" />
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autocomplete="phone" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Crie uma senha') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password_confirmation" value="{{ __('Confirme a sua senha') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="current-password" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             <div class="block mt-4">
@@ -54,33 +53,29 @@
                 </label>
             </div>
 
-           
             <div class="flex items-center justify-center mt-4">
                 <x-button class="ml-4">
                     {{ __('Crie uma conta') }}
                 </x-button>
             </div>
 
-
-            
             <div class="flex items-center justify-center mt-4">       
                 Já possui conta? 
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                     {{ __('Login') }}
                 </a>
-                
             </div>
-           
-
-                       
-                    </form>
-                  
+        </form>
     </x-authentication-card>
 </x-guest-layout>
 
 @section('scripts')
-	
-	    <!-- Show Password JS -->
-        <script src="{{asset('build/assets/show-password.js')}}"></script>
-
+    <!-- Inputmask JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#cpf').inputmask('999.999.999-99');
+            $('#phone').inputmask('(99) 99999-9999');
+        });
+    </script>
 @endsection
