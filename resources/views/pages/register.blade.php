@@ -70,12 +70,34 @@
 </x-guest-layout>
 
 @section('scripts')
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Inputmask JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#cpf').inputmask('999.999.999-99');
-            $('#phone').inputmask('(99) 99999-9999');
+        $(document).ready(function() {
+            alert('Script carregado!'); // Verificar se o script está sendo carregado
+
+            try {
+                var cpfElement = $('#cpf');
+                var phoneElement = $('#phone');
+
+                if (cpfElement.length > 0) {
+                    cpfElement.inputmask('999.999.999-99');
+                    console.log('Máscara CPF aplicada');
+                } else {
+                    console.log('Elemento CPF não encontrado');
+                }
+
+                if (phoneElement.length > 0) {
+                    phoneElement.inputmask('(99) 99999-9999');
+                    console.log('Máscara telefone aplicada');
+                } else {
+                    console.log('Elemento telefone não encontrado');
+                }
+            } catch (e) {
+                console.error('Erro ao aplicar máscara:', e);
+            }
         });
     </script>
 @endsection
