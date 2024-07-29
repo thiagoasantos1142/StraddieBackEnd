@@ -62,12 +62,14 @@ Route::middleware([
     })->name('dashboard');
 
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::group(['middleware' => ['can:access-admin']], function () {
-            Route::resource('/dueDiligence', DueDiligenceController::class);
-            Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
-            Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
-            Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('due-Diligence.create');
-        });
+
+       
+
+        Route::resource('/dueDiligence', DueDiligenceController::class);
+        Route::post('/dueDiligence/cancel/{id}', [DueDiligenceController::class, 'cancel'])->name('dueDiligence.cancel');
+        Route::post('/dueDiligence/aprove/{id}', [DueDiligenceController::class, 'aprove'])->name('dueDiligence.aprove');
+        Route::get('/due-diligence/create/{creditRightsTitleId}', [DueDiligenceController::class, 'create'])->name('due-Diligence.create');
+       
 
         Route::post('/users/update/roles/{id}', [UserController::class, 'updateRoles'])->name('updateRoles');
         Route::resource('/users', UserController::class);
