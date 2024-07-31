@@ -112,7 +112,7 @@ class OfferController extends Controller
             abort(403, 'Você não tem permissão para visualizar ofertas recebidas.');
         }
 
-        if ($loggedUser->user_type_id == 3) { // Beneficiário
+        if ($loggedUser->user_type_id == 3) { // originador
 
             $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
                              ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {

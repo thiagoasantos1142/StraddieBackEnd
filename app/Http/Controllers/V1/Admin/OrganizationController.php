@@ -18,17 +18,29 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-          // Obtém o usuário atual
-          $loggedUser = auth()->user();         
-      
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();         
+          
           // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-organizations', auth())) {
+        if (!Gate::allows('view-organizations', auth()) && $loggedUser->user_type_id != 1) {
             // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Empresas.');
+            //abort(403, 'Você não tem permissão para visualizar Empresas.');
+
+            $organizations = Organization::with('users_organization')
+                                        ->where('id', $loggedUser->id)
+                                        ->get();
+
+            
+
+            if ($request->ajax()) {
+                return response()->json($organizations, 200);
+            }
+   
+            return view('v1.admin.organization.index', compact('organizations'));
         }
 
-        if($loggedUser->user_type_id == 1){
 
+        if($loggedUser->user_type_id == 1){
             //mostrar todas as empresas
             $organizations = Organization::with('users_organization')->get();
 
@@ -38,17 +50,6 @@ class OrganizationController extends Controller
 
             return view('v1.admin.organization.index', compact('organizations'));
 
-        }
-        else{
-
-            //mostrar a empresa desse user
-            $organizations = Organization::with('users_organization')->where('id', $loggedUser->organization_id)->get();
-
-            if ($request->ajax()) {
-                return response()->json($organizations, 200);
-            }
-
-            return view('v1.admin.organization.index', compact('organizations'));
         }
       
     }

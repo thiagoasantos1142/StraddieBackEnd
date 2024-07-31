@@ -11,7 +11,7 @@
                     <div class="">
                         <div class="form-row">
                             <div class="form-group col-md-12 mb-0">
-                                <label for="crt_types_id" class="form-label">Usuários</label>
+                                <label for="crt_type_id" class="form-label">Usuários</label>
                                 <div class="d-flex flex-row">
                                     <select class="form-select add-user-in-credit-rigth-title" id="user_select"
                                         name="user_select"></select>

@@ -63,7 +63,7 @@ class CreditRightsTitleController extends Controller
                     ->with('crtOriginDebtor')
                     ->with('CrtNatureCredit')
                     ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
-                        return $query->whereIn('crt_types_id', $filterCtrTypesId);
+                        return $query->whereIn('crt_type_id', $filterCtrTypesId);
                     })
                     ->get()]);
             }
@@ -90,7 +90,7 @@ class CreditRightsTitleController extends Controller
                     ->with('CrtNatureCredit')
                     ->where('created_by', $loggedUser->id)
                     ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
-                        return $query->whereIn('crt_types_id', $filterCtrTypesId);
+                        return $query->whereIn('crt_type_id', $filterCtrTypesId);
                     })
                     ->get()]);
             }

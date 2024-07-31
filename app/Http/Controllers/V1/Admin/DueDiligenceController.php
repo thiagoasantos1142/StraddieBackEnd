@@ -19,19 +19,23 @@ class DueDiligenceController extends Controller
 {
     public function index()
     {
-
         // Obtém o usuário atual
-        $loggedUser = auth()->user();         
-      
-        // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-dueDiligences', $loggedUser) || !Gate::allows('access-admin', $loggedUser)) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Due Diligence.');
-        }
+        $loggedUser = auth()->user();
 
-      
-        //mostrar todas os titulos
-        $dueDiligences = DueDiligence::all();
+        // Verifica se o usuário é um administrador
+        if (Gate::allows('access-admin', $loggedUser)) {
+            // Administradores veem todas as Due Diligences
+            $dueDiligences = DueDiligence::all();
+        } else {
+            // Usuários comuns veem apenas as Due Diligences associadas aos CreditRightsTitles
+            $dueDiligences = DueDiligence::whereHas('crt.users_titles', function ($query) use ($loggedUser) {
+                $query->where('users.id', $loggedUser->id);
+            })
+            ->orWhereHas('crt.crtLawyers', function ($query) use ($loggedUser) {
+                $query->where('crt_lawyers.lawyer_id', $loggedUser->id);
+            })
+            ->get();
+        }
 
         return view('v1.admin.dueDiligence.index', compact('dueDiligences'));
     }
@@ -176,55 +180,45 @@ class DueDiligenceController extends Controller
     {
         // Obtém o usuário atual
         $loggedUser = auth()->user();         
-      
-        // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-dueDiligences', $loggedUser) ) {
-                           
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Due Dilogence.');
+
+        // Verifica se o usuário é um administrador
+        if (Gate::allows('access-admin', $loggedUser)) {
+
+            $dueDiligence = DueDiligence::find($id);
+
+        } else {
+            // Para usuários comuns, verifica se eles estão associados ao título
+            $dueDiligence = DueDiligence::where('id', $id)
+                ->whereHas('crt.users_titles', function ($query) use ($loggedUser) {
+                    $query->where('users.id', $loggedUser->id);
+                })
+                ->orWhereHas('crt.crtLawyers', function ($query) use ($loggedUser) {
+                    $query->where('lawyer_id', $loggedUser->id);
+                })
+                ->first();
         }
+
+        if (!$dueDiligence) {
+            return redirect()->back()->withErrors('Due Diligence não encontrada ou você não tem permissão para visualizá-la.');
+        }
+
+        $creditRightsTitle = CreditRightsTitle::find($dueDiligence->crt->id);
+
+        $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
+
+        $documentsTypesKYCPF = FileType::where('type', 'KYC-PF')->get(); 
         
-        $validator = \Validator::make(
-            $request->all(),
-            [
-                
-                //'email' => "unique:users,email|email|max:255",
-                //'cpf' => "unique:users,cpf|max:20",
-                //'phone' => 'required|max:20'
-            ]
-        );
+        $documentsTypesTitle = FileType::where('type', 'CRT')->get();
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $documentsTypesCND = FileType::where('type', 'CND')->get();
 
-        $dueDiligence = DueDiligence::find($id);
+        $lawyers = Lawyer::with('user')->whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
 
-        if($dueDiligence){
-
-            $creditRightsTitle = CreditRightsTitle::find($dueDiligence->crt->id);
-
-            $users = User::whereIn('id', $creditRightsTitle->users_titles()->pluck('user_id'))->get();
-
-            $documentsTypesKYCPF = FileType::where('type', 'KYC-PF')->get(); 
-            
-            $documentsTypesTitle = FileType::where('type', 'CRT')->get();
-
-            $documentsTypesCND = FileType::where('type', 'CND')->get();
-
-            $lawyers = Lawyer::with('user')->whereIn('id', $creditRightsTitle->crtLawyers()->pluck('lawyer_id'))->get();  
-
-            $files = File::where('due_diligence_id', $dueDiligence->id)->get();
-            
-
-            return view('v1.admin.dueDiligence.show', compact('dueDiligence', 'creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND', 'files'));
-    
-
-        }else{
-
-            return redirect()->back()->withErrors('Due Diligence não encontrada');
-        }
+        $files = File::where('due_diligence_id', $dueDiligence->id)->get();
+        
+        return view('v1.admin.dueDiligence.show', compact('dueDiligence', 'creditRightsTitle', 'users', 'lawyers', 'documentsTypesTitle', 'documentsTypesKYCPF', 'documentsTypesCND', 'files'));
     }
+
 
     public function aprove(Request $request, $id)
     {

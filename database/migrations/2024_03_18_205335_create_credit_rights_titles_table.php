@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('process_number', 255)->nullable();
             $table->string('title', 255);
             
-            $table->string('class', 45)->nullable();
+            $table->string('class', 999)->nullable();
 
             $table->foreignId('court_id')->constrained('courts')->nullable();
             $table->foreignId('specie_id')->constrained('crt_species')->nullable();
@@ -24,7 +24,8 @@ return new class extends Migration
             $table->foreignId('nature_credit_id')->constrained('crt_nature_credits')->nullable();            
             $table->foreignId('nature_obligation_id')->constrained('crt_nature_credits')->nullable();
             $table->foreignId('origin_debtor_id')->constrained('crt_origin_debtors')->nullable();
-            $table->foreignId('crt_types_id')->constrained('crt_types')->nullable();
+            $table->foreignId('crt_type_id')->constrained('crt_types')->nullable();
+            $table->foreignId('created_by')->constrained('users')->nullable();
            
             $table->date('distribution_date')->nullable();            
             $table->date('final_judgment_date')->nullable();            

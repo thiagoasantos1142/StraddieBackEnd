@@ -31,7 +31,7 @@ class AddressController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
         //criar um novo endereço.
         $validator = Validator::make($request->all(), [
             'zip' => 'required|string|min:8|max:9',

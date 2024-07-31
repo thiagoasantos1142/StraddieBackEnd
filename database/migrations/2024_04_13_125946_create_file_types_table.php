@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('file_types', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('title', 255);
-        //     $table->string('type', 30);
-        //     $table->timestamps();
-        // });
+         Schema::create('file_types', function (Blueprint $table) {
+             $table->id();
+             $table->string('title', 255);
+             $table->string('type', 30);
+             $table->timestamps();
+         });
     }
 
     /**

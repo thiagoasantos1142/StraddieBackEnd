@@ -12,7 +12,7 @@
                     <div class="">
                         <div class="form-row">
                             <div class="form-group col-md-12 mb-0">
-                                <label for="crt_types_id" class="form-label">Tipo</label>
+                                <label for="crt_type_id" class="form-label">Tipo</label>
                                 <select class="form-select" id="select_crt_type_id" name="select_crt_type_id"></select>
                             </div>
                         </div>

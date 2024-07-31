@@ -28,7 +28,7 @@
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
-                 @can('access-admin')
+                 
                     <li class="slide">
                         <a href="{{ url('index') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -39,8 +39,7 @@
                             <span class="side-menu__label">Dashboard</span>
                         </a>
                     </li>
-                @endcan
-                @if(Gate::allows('view-users') )
+                    
                     <li class="slide">
                         <a href="{{ url('dashboard/users') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -52,8 +51,7 @@
                         </a>
                     </li>
                     <!-- End::slide -->
-                @endif
-                @can('view-organizations')   
+                     
                     <li class="slide">
                         <a href="{{ url('dashboard/organization') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -64,8 +62,8 @@
                             <span class="side-menu__label">Empresas</span>
                         </a>
                     </li>
-                @endcan
-                @can('view-crt')
+                    
+                
                     <li class="slide">
                         <a href="{{ url('dashboard/creditRightsTitle') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -77,8 +75,7 @@
                             <span class="side-menu__label">Titulos</span>
                         </a>
                     </li>
-                @endcan
-                @can('view-dueDiligences')   
+                
                     <li class="slide">
                         <a href="{{ url('dashboard/dueDiligence') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -90,8 +87,7 @@
                             <span class="side-menu__label">Due Diligence</span>
                         </a>
                     </li>
-                @endcan
-                @can('view-assets')  
+              
                     <li class="slide">
                         <a href="{{ url('dashboard/assets') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -103,8 +99,7 @@
                             <span class="side-menu__label">Ativos</span>
                         </a>
                     </li>
-                @endcan
-                @can('view-offers-made')  
+                    
                     <li class="slide">
                         <a href="{{ url('dashboard/myOffers/made') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -116,8 +111,7 @@
                             <span class="side-menu__label">Ofertas realizadas</span>
                         </a>
                     </li>
-                @endcan       
-                @can('view-offers-received')  
+                    
                     <li class="slide">
                         <a href="{{ url('dashboard/myOffers/received') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -129,8 +123,7 @@
                             <span class="side-menu__label">Ofertas recebidas</span>
                         </a>
                     </li>
-                @endcan      
-                @can('access-admin')  
+                    
                     <li class="slide">
                         <a href="{{ url('dashboard/offers/') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -141,8 +134,7 @@
                             </svg>
                             <span class="side-menu__label">Todas as Ofertas</span>
                         </a>
-                    </li>
-                @endcan                  
+                    </li>             
             </ul>
         </nav>
     </div>
