@@ -126,16 +126,8 @@
                                                     data-bs-target="#editprofile" type="button" role="tab"
                                                     aria-controls="editprofile" aria-selected="false">Editar Perfil</button>
                                             </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="titulos-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#titulos" type="button" role="tab"
-                                                    aria-controls="titulos" aria-selected="false">Titulos cadastrados</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="assets-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#assets" type="button" role="tab"
-                                                    aria-controls="assets" aria-selected="false">Ativos Disponíveis</button>
-                                            </li>
+                                           
+                                          
                                         </ul>
                                     </div>
                                     <div class="card-body p-0">
@@ -843,16 +835,6 @@
                                                 </div>
                                             </div>
                                             
-
-                                            <!--                                             
-                                            End editprofile 
-                                            -->
-                                            <!--                                             
-                                                Inicio titulos  
-                                            -->
-                                            
-
-                                           
 
                                             
                                         </div>

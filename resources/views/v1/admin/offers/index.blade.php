@@ -136,9 +136,9 @@
             "data": null,
             "render": function(data, type, row) {
                 if (row.organization) {
-                    return `<span style="color: blue">${row.organization.nome_fantasia}</span>`;
+                    return `<span style="color: blue">'Confidencial'</span>`;
                 } else if (row.user) {
-                    return `<span style="color: green">${row.user.name}</span>`;
+                    return `<span style="color: green">'Confidencial'</span>`;
                 }
                 return 'Sem informação';
             }

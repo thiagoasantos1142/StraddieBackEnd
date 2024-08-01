@@ -42,68 +42,57 @@ class CreditRightsTitleController extends Controller
      */
     public function index(Request $request)
     {
-         // Obtém o usuário atual
-         $loggedUser = auth()->user();         
-      
-          // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-crt', auth())) {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
+
+        // Filtros opcionais
+        $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
+
+        // Verificar se o usuário tem a permissão para visualizar títulos ou se é administrador
+        if (Gate::allows('view-crt', auth()) || $loggedUser->user_type_id == 1) {
             // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Titulos.');
-        }
+            //abort(403, 'Você não tem permissão para visualizar Títulos.');
+        
+            $creditRightsTitles = CreditRightsTitle::with(['users_titles', 'court', 'crtOriginDebtor', 'crtNatureCredit'])
+                ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
+                    return $query->whereIn('crt_type_id', $filterCtrTypesId);
+                })
+                ->get();
 
-        //mostrar todas os titulos
-        if($loggedUser->user_type_id == 1){
             if ($request->ajax()) {
-
-                $request->all();
-                $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
-
-                return response()->json(["data" => CreditRightsTitle::with('users_titles')
-                    ->with('court')
-                    ->with('crtOriginDebtor')
-                    ->with('CrtNatureCredit')
-                    ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
-                        return $query->whereIn('crt_type_id', $filterCtrTypesId);
-                    })
-                    ->get()]);
+                return response()->json(["data" => $creditRightsTitles]);
             }
 
-
-
             $ctrTypes = CrtType::get();
-
-            $creditRightsTitles = CreditRightsTitle::all();
-
             return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
 
-        }else{
+        } else {
+            // Se o usuário não é administrador, mostrar apenas os títulos aos quais está associado
+            $creditRightsTitles = CreditRightsTitle::with(['users_titles', 'court', 'crtOriginDebtor', 'crtNatureCredit'])
+                ->whereHas('users_titles', function ($query) use ($loggedUser) {
+                    $query->where('user_id', $loggedUser->id);
+                })
+                ->orWhereHas('crtLawyers', function ($query) use ($loggedUser) {
+                    $query->where('user_id', $loggedUser->id);
+                })               
+                ->orWhereHas('organizations_titles', function ($query) use ($loggedUser) {
+                    $query->where('organizations.id', $loggedUser->organization_id);
+                })
+                ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
+                    return $query->whereIn('crt_type_id', $filterCtrTypesId);
+                })
+                ->orWhere('created_by', $loggedUser->id)
+                ->get();
 
             if ($request->ajax()) {
-
-                $request->all();
-                
-                $filterCtrTypesId = isset($request->ctrTypesId) ? explode(",", $request->ctrTypesId) : null;
-
-                return response()->json(["data" => CreditRightsTitle::with('users_titles')
-                    ->with('court')
-                    ->with('crtOriginDebtor')
-                    ->with('CrtNatureCredit')
-                    ->where('created_by', $loggedUser->id)
-                    ->when($filterCtrTypesId, function ($query, $filterCtrTypesId) {
-                        return $query->whereIn('crt_type_id', $filterCtrTypesId);
-                    })
-                    ->get()]);
+                return response()->json(["data" => $creditRightsTitles]);
             }
 
-
-
             $ctrTypes = CrtType::get();
-
-            $creditRightsTitles = CreditRightsTitle::where('created_by', $loggedUser->id);
-
             return view('v1.admin.creditRightsTitle.index', compact('creditRightsTitles', 'ctrTypes'));
         }
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -266,70 +255,66 @@ class CreditRightsTitleController extends Controller
      */
     public function show(string $id)
     {
-        
-         // Obtém o usuário atual
-         $loggedUser = auth()->user();
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
 
-         // Obtém o crt pelo ID
-         $creditRightsTitle = CreditRightsTitle::find($id);
- 
-         // Obtém os beneficiários associados ao asset
-         $beneficiaries = $creditRightsTitle->users_titles;
-         $organizations = $creditRightsTitle->organizations_titles;
-         
+        // Obtém o título de crédito pelo ID
+        $creditRightsTitle = CreditRightsTitle::with(['users_titles', 'organizations_titles', 'crtLawyers', 'creator'])->find($id);
 
-         // Verificar se o usuário está nos beneficiários
-         $isBeneficiary = $beneficiaries->contains($loggedUser);
-      
-         // Verificar se o usuário está associado a alguma organização beneficiária
-         $isOrganizationBeneficiary = $organizations->contains(function ($organization) use ($loggedUser) {
-             return $organization->users->contains($loggedUser);
-         });
- 
-         // Verificar se o usuário tem permissão para visualizar o asset
-         if (!Gate::allows('view-crt', $loggedUser) && !$isBeneficiary && !$isOrganizationBeneficiary) {
-             // Se não tiver permissão, lance uma exceção de autorização
-             abort(403, 'Você não tem permissão para visualizar este título.');
-         }
-
-
-        //form controller;
-        $users = User::get();
-      
-        $creditRightsTitle = CreditRightsTitle::with(['users_titles' => function ($query) {
-            $query->select('id', 'name');
-        }])->find($id);
- 
-        if ($creditRightsTitle) {
-            $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
-            $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
-                $query->where('credit_rights_title_id', $id);
-            })->get();
-
-            $corporateClients = Organization::whereIn('id', OrganizationsCreditRightsTitle::where('credit_rights_titles_id',$id)->pluck('organizations_id'))->select('id', 'nome_fantasia as name')->get();
-
-            if (isset($corporateClients)) {
-                $clientsPj = $corporateClients;
-                $userPfAndPj = $clientsPj;
-            }
-            if (isset($creditRightsTitle)) {
-                $clientsPf = $creditRightsTitle->users_titles;
-                $userPfAndPj = $clientsPf;
-            }
-
-            if (isset($corporateClients) && isset($creditRightsTitle)) {
-                $clientsPj = $corporateClients;
-                $clientsPf = $creditRightsTitle->users_titles;
-                $userPfAndPj = $clientsPf->merge($clientsPj);
-            }
-
-
-            return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers', 'userPfAndPj'));
-        } else {
-
-            return redirect()->back()->withErrors('Titulo não encontrado.');
+        if (!$creditRightsTitle) {
+            return redirect()->back()->withErrors('Título não encontrado.');
         }
+
+        // Verificar se o usuário está nos beneficiários
+        $isBeneficiary = $creditRightsTitle->users_titles->contains($loggedUser);
+
+        // Verificar se o usuário está associado a alguma organização beneficiária
+        $isOrganizationBeneficiary = $creditRightsTitle->organizations_titles->contains(function ($organization) use ($loggedUser) {
+            return $organization->users->contains($loggedUser);
+        });
+
+        // Verificar se o usuário é advogado associado ao título
+        $isLawyer = $creditRightsTitle->crtLawyers->contains('user_id', $loggedUser->id);
+
+        // Verificar se o usuário é o criador do título
+        $isCreator = $creditRightsTitle->created_by == $loggedUser->id;
+
+        // Verificar se o usuário tem permissão para visualizar o título
+        if (!Gate::allows('view-crt', $loggedUser) && !$isBeneficiary && !$isOrganizationBeneficiary && !$isLawyer && !$isCreator && $loggedUser->user_type_id != 1) {
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para visualizar este título.');
+        }
+
+        // Obter os dados adicionais necessários para a visualização
+        $users = User::get();
+        $dataForm = $this->formCreateUpdate($creditRightsTitle); //localizado em config
+        $lawyers = Lawyer::whereHas('crt_lawyer', function ($query) use ($id) {
+            $query->where('credit_rights_title_id', $id);
+        })->get();
+
+        $corporateClients = Organization::whereIn('id', OrganizationsCreditRightsTitle::where('credit_rights_titles_id', $id)->pluck('organizations_id'))
+            ->select('id', 'nome_fantasia as name')
+            ->get();
+
+        // Mesclar clientes PF e PJ para exibição
+        $userPfAndPj = collect();
+        if (isset($corporateClients)) {
+            $clientsPj = $corporateClients;
+            $userPfAndPj = $clientsPj;
+        }
+        if (isset($creditRightsTitle->users_titles)) {
+            $clientsPf = $creditRightsTitle->users_titles;
+            $userPfAndPj = $clientsPf;
+        }
+        if (isset($corporateClients) && isset($creditRightsTitle->users_titles)) {
+            $clientsPj = $corporateClients;
+            $clientsPf = $creditRightsTitle->users_titles;
+            $userPfAndPj = $clientsPf->merge($clientsPj);
+        }
+
+        return view('v1.admin.creditRightsTitle.show', compact('creditRightsTitle', 'dataForm', 'users', 'lawyers', 'userPfAndPj'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

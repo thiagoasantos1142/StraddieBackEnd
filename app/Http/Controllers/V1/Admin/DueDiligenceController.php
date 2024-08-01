@@ -22,10 +22,13 @@ class DueDiligenceController extends Controller
         // Obtém o usuário atual
         $loggedUser = auth()->user();
 
-        // Verifica se o usuário é um administrador
-        if (Gate::allows('access-admin', $loggedUser)) {
+        
+        // Verificar se o usuário tem a permissão para visualizar títulos ou se é administrador
+
+        if (Gate::allows('view-dueDilligence', auth()) || $loggedUser->user_type_id == 1) {        
             // Administradores veem todas as Due Diligences
             $dueDiligences = DueDiligence::all();
+
         } else {
             // Usuários comuns veem apenas as Due Diligences associadas aos CreditRightsTitles
             $dueDiligences = DueDiligence::whereHas('crt.users_titles', function ($query) use ($loggedUser) {
