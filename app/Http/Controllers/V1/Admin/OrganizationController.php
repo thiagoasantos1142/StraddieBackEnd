@@ -27,8 +27,8 @@ class OrganizationController extends Controller
             //abort(403, 'Você não tem permissão para visualizar Empresas.');
 
             $organizations = Organization::with('users_organization')
-                                        ->where('id', $loggedUser->id)
-                                        ->get();
+                                    ->where('id', $loggedUser->organization_id) // Usar organization_id do usuário logado                                
+                                    ->get();
 
             
 
