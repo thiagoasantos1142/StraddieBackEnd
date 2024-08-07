@@ -82,7 +82,7 @@ Route::middleware([
 
         Route::post('/assets/makeOffer/{assetId}', [OfferController::class, 'makeOffer'])->name('assets.makeOffer');
         Route::resource('/assets', AssetsController::class);
-        Route::resource('/offers', OfferController::class);
+        Route::get('/offers', [OfferController::class, 'index'])->name('offers.index');
         Route::get('/offers/received', [OfferController::class, 'getReceivedOffers'])->name('offers.received');
         Route::get('/offers/made', [OfferController::class, 'getMadeOffers'])->name('offers.made');
         
