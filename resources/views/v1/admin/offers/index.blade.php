@@ -182,7 +182,10 @@
                     "data": "status.title"
                 },
                 {
-                    "data": "category.title"
+                    "data": "category.title",
+                    "render": function(data, type, row) {
+                        return data ? data : "N/A"; // Ou use "" para string vazia
+                    }
                 },
                 {
                     "data": null,
