@@ -28,7 +28,7 @@ class Offer extends Model
     
     public function category()
     {
-        return $this->hasOne(OfferCategory::class, 'id', 'category_id');
+        return $this->hasOne(OfferCategory::class, 'id', 'offer_category_id');
     }
     public function status()
     {
