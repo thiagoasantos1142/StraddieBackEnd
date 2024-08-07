@@ -73,7 +73,7 @@ class CreditRightsTitleController extends Controller
                     $query->where('user_id', $loggedUser->id);
                 })
                 ->orWhereHas('crtLawyers', function ($query) use ($loggedUser) {
-                    $query->where('user_id', $loggedUser->id);
+                    $query->where('lawyer_id', $loggedUser->id);
                 })               
                 ->orWhereHas('organizations_titles', function ($query) use ($loggedUser) {
                     $query->where('organizations.id', $loggedUser->organization_id);
