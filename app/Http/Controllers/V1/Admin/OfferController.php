@@ -5,6 +5,8 @@ namespace App\Http\Controllers\V1\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\V1\Admin\AvailableAsset;
 use App\Models\V1\Admin\Offer;
+use Log;
+use Yajra\DataTables\DataTables;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -51,24 +53,24 @@ class OfferController extends Controller
       
     }
 
-    public function OffersMade(Request $request)
+    public function getMadeOffers(Request $request)
     {
          // Obtém o usuário atual
          $loggedUser = auth()->user();
-         
-      
-          // Verificar se o usuário tem a permissão para visualizar outros usuários
+
+          // Verificar se o usuário tem a permissão para visualizar
         if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
 
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')->get();
-            
-
             if ($request->ajax()) {
-              
-                return response()->json(['data' => $offers]);
+
+                $offers = Offer::query();
+                $offers::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category');
+
+                $table = Datatables::of($offers);
+                return $table->make(true);
+                
             }
 
-            $url = route('offers.made');
             
             return view('v1.admin.offers.index', compact('url', 'offers'));
             
@@ -90,7 +92,7 @@ class OfferController extends Controller
                 ->orWhere('created_by', $loggedUser->id)
                 ->orderBy('created_at', 'desc');
         
-            $table = Datatables::of($offers);
+            $table = DataTables::of($offers);
             
             return $table->make(true);
         
@@ -98,7 +100,7 @@ class OfferController extends Controller
         }
     }
 
-    public function OffersReceived(Request $request)
+    public function getReceivedOffers(Request $request)
     {
         // Obtém o usuário atual
         $loggedUser = auth()->user();
@@ -106,21 +108,30 @@ class OfferController extends Controller
           // Verificar se o usuário tem a permissão para visualizar outros usuários
         if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
 
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
+            $offers = Offer::query();
+
+            $offers::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
                              ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
                                  $query->where('user_id', $loggedUser->id);
-                             })
-                            ->get();
+                             });
+
+            $table = DataTables::of($offers);
+            
+            return $table->make(true);
             
         }
 
         if ($request->ajax()) {
 
-            $offers = Offer::with('asset.due_diligence.crt.crt_lawyers', 'status', 'organization', 'user', 'category')
-                            ->whereHas('asset.due_diligence.crt.crt_lawyers', function ($query) use ($loggedUser) {
+            $offers = Offer::with('asset.due_diligence.crt.crtLawyers', 'status', 'organization', 'user', 'category')
+                            ->whereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
                                 $query->where('lawyer_id', $loggedUser->id);
                             })
                             ->get();
+
+            $table = DataTables::of($offers);
+            
+            return $table->make(true);
         } 
     }
 
