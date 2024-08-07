@@ -17,34 +17,37 @@ class OfferController extends Controller
      */
     public function index(Request $request)
     {
-         // Obtém o usuário atual
-         $loggedUser = auth()->user();
+        //  // Obtém o usuário atual
+        //  $loggedUser = auth()->user();
          
       
-          // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('access-admin', auth())) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar todas as Ofertas.');
-        }
+        //   // Verificar se o usuário tem a permissão para visualizar outros usuários
+        // if (!Gate::allows('access-admin', auth())) {
+        //     // Se não tiver permissão, lance uma exceção de autorização
+        //     abort(403, 'Você não tem permissão para visualizar todas as Ofertas.');
+        // }
 
 
-        if($loggedUser->user_type_id == 1){
+        // if($loggedUser->user_type_id == 1){
             
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')->get();
+        //     $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')->get();
             
 
-            if ($request->ajax()) {
+        //     if ($request->ajax()) {
               
-                return response()->json(['data' => $offers]);
-            }
+        //         return response()->json(['data' => $offers]);
+        //     }
             
-            $url = route('offers.index');
-            return view('v1.admin.offers.index', compact('url', 'offers'));
+        //     $url = route('offers.index');
+        //     return view('v1.admin.offers.index', compact('url', 'offers'));
         
-        }else{ 
+        // }else{ 
 
-            return redirect()->back()->withErrors('Você não tem permissão para acessar todas as ofertas');    
-        }
+        //     return redirect()->back()->withErrors('Você não tem permissão para acessar todas as ofertas');    
+        // }
+
+        
+        return view('v1.admin.offers.index');
       
     }
 
@@ -55,14 +58,8 @@ class OfferController extends Controller
          
       
           // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('view-offers-made', auth())) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar Ofertas realizadas.');
-        }
+        if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
 
-
-        if($loggedUser->user_type_id == 1){
-            
             $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')->get();
             
 
@@ -74,31 +71,31 @@ class OfferController extends Controller
             $url = route('offers.made');
             
             return view('v1.admin.offers.index', compact('url', 'offers'));
-
-        }elseif($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 5){
-
-             
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'offer_status', 'offerHolder')
-                            ->where('user_id', $loggedUser->id)
-                            ->orWhere('organization_id', $loggedUser->organization_id)
-                            ->get();
-          
-
-            if ($request->ajax()) {
-              
-                return response()->json(['data' => $offers]);
-            }
-
-            $url = route('offers.made');
-
-            return view('v1.admin.offers.index', compact('url', 'offers'));
-
-
-        }else{ 
-
-            return redirect()->back()->withErrors('Você não tem permissão para acessar as ofertas realizadas');    
+            
         }
+        
+        if ($request->ajax()) {
+
+            $offers = Offer::query()
+                ->with('asset.due_diligence.crt.users_titles', 'offer_status', 'offerHolder')
+                ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
+                    // Beneficiários do título
+                    $query->where('user_id', $loggedUser->id);
+                })
+                ->orWhereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
+                    // Advogados associados ao título
+                    $query->where('lawyer_id', $loggedUser->id);
+                })
+                ->orWhere('organization_id', $loggedUser->organization_id)
+                ->orWhere('created_by', $loggedUser->id)
+                ->orderBy('created_at', 'desc');
+        
+            $table = Datatables::of($offers);
+            
+            return $table->make(true);
+        
       
+        }
     }
 
     public function OffersReceived(Request $request)
@@ -106,41 +103,25 @@ class OfferController extends Controller
         // Obtém o usuário atual
         $loggedUser = auth()->user();
         
-        // Verificar se o usuário tem a permissão para visualizar as ofertas recebidas
-        if (!Gate::allows('view-offers-received', auth())) {
-            // Se não tiver permissão, lance uma exceção de autorização
-            abort(403, 'Você não tem permissão para visualizar ofertas recebidas.');
-        }
-
-        if ($loggedUser->user_type_id == 3) { // originador
+          // Verificar se o usuário tem a permissão para visualizar outros usuários
+        if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
 
             $offers = Offer::with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
                              ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
                                  $query->where('user_id', $loggedUser->id);
                              })
                             ->get();
-                           
-        } elseif ($loggedUser->user_type_id == 4) { // Advogado
+            
+        }
+
+        if ($request->ajax()) {
 
             $offers = Offer::with('asset.due_diligence.crt.crt_lawyers', 'status', 'organization', 'user', 'category')
                             ->whereHas('asset.due_diligence.crt.crt_lawyers', function ($query) use ($loggedUser) {
                                 $query->where('lawyer_id', $loggedUser->id);
                             })
                             ->get();
-        } else {
-            return redirect()->back()->withErrors('Você não tem permissão para acessar as ofertas recebidas.');
-        }
-
-        if ($request->ajax()) {
-            return response()->json(['data' => $offers]);
-        }
-        
-        
-        $url = route('offers.received');
-
-       
-
-        return view('v1.admin.offers.index', compact('offers', 'url'));
+        } 
     }
 
     public function makeOffer(Request $request, string $assetId)

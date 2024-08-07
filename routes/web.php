@@ -46,6 +46,10 @@ Route::get('register', [AuthenticationController::class, 'register']);
 Route::post('registerOriginador', [RegisterController::class, 'storeOriginador'])->name('register.originador');
 
 
+Route::get('organizationRegistration', [AuthenticationController::class, 'organizationRegistration']);
+Route::post('organizationRegistration', [RegisterController::class, 'storeOrganization'])->name('register.organization');
+
+
 Route::get('chat', [AdminuIController::class, 'chat']);
 
 Route::middleware([

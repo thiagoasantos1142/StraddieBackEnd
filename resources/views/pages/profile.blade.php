@@ -432,7 +432,7 @@
                                                                                                         <label class="form-label">Tipo Sociedade Empresárial</label>
                                                                                                     </div>
                                                                                                     <div class="col-md-10">
-                                                                                                        <input type="text" class="form-control" placeholder="entidade_type" value="{{$user->organization->organizationType->title}}">
+                                                                                                        <input type="text" class="form-control" placeholder="entidade_type" value="{{$user->organization->organizationType->title ?? ''}}">
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -558,7 +558,7 @@
                                                                                                             <label class="form-label">Cidade</label>
                                                                                                         </div>
                                                                                                         <div class="col-md-10">
-                                                                                                            <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title }}">
+                                                                                                            <input type="text" class="form-control" placeholder="Cidade" value="{{ $address->city->title ?? ''}}">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -568,7 +568,7 @@
                                                                                                             <label class="form-label">Estado</label>
                                                                                                         </div>
                                                                                                         <div class="col-md-10">
-                                                                                                            <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->uf }}">
+                                                                                                            <input type="text" class="form-control" placeholder="Estado" value="{{ $address->city->state->uf ?? ''}}">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>

@@ -16,6 +16,11 @@ class AuthenticationController extends Controller
         return view('pages.register');
     }
 
+    public function organizationRegistration()
+    {
+        return view('pages.organizationRegistration');
+    }
+
     public function forgot_password()
     {
         return view('pages.forgot-password');
