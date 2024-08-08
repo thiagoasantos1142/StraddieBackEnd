@@ -123,7 +123,7 @@ class OfferController extends Controller
                 $offer->value = $request->offer_main_value;
                 $offer->user_id = $loggedUser->id;            
                 $offer->organization_id = $loggedUser->organization_id;
-                $offer->offer_category_id = 1;
+                $offer->category_id = 1;
 
                 $offer->save();
 
@@ -140,7 +140,7 @@ class OfferController extends Controller
                 $offer->value = $request->feeValue;
                 $offer->user_id = $loggedUser->id;            
                 $offer->organization_id = $loggedUser->organization_id;
-                $offer->offer_category_id = 2;
+                $offer->category_id = 2;
 
                 $offer->save();
 
