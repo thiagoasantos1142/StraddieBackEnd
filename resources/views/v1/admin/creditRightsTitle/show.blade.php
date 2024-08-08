@@ -19,9 +19,14 @@
 
 @section('content')
     <!-- PAGE-HEADER -->
-    
+    @php
+        $canCreateDueDiligences = auth()->user()->can('create-dueDiligences');
+        $canAccessAdmin = auth()->user()->can('access-admin');
+        $canEditCrt = auth()->user()->can('edit-crt'); 
+    @endphp
+
     <div class="page-header d-flex align-items-center justify-content-between border-bottom mb-4">
-        @can('create-dueDiligences')
+       @if($canCreateDueDiligences || $canAccessAdmin)
             <div class="card-header d-flex justify-content-between">
                 <div class="card-title"></div>
                 <div class="d-flex">
@@ -31,7 +36,7 @@
                 </div>
 
             </div>
-        @endcan
+        @endif
         <div>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Títulos de direitos Creditórios</a></li>
@@ -154,17 +159,17 @@
                     </div>
                 </div>
                                    
-            @can('edit-crt')
+                @if($canEditCrt || $canAccessAdmin)
                 
-                <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$userPfAndPj" :routeUpdate="route('creditRightsTitle.add.user')"
-                    :routeDelete="route('deleteUsersCreditRigtsTitle')"
-                    ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
-           
+                    <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$userPfAndPj" :routeUpdate="route('creditRightsTitle.add.user')"
+                        :routeDelete="route('deleteUsersCreditRigtsTitle')"
+                        ::action-btnremove="delete"></x-v1.admin.modal.addCorporateUser>
             
-                {{-- //a base de dados deve ser lawer --}}
-                <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
-                    :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
-            @endcan
+                
+                    {{-- //a base de dados deve ser lawer --}}
+                    <x-v1.admin.modal.addCorporateUser :data-component="['credit_rights_title_id' => $creditRightsTitle->id]" :show-data="$lawyers" :search-dataroute="route('lawyer.index')"
+                        :routeUpdate="route('crtLawyer.store')" ::title-card="Atribuir um advogado" :routeDelete="route('deleteLawyerCreditRigtsTitle')" ::action-btnremove="delete" ::loadScript></x-v1.admin.modal.addCorporateUser>
+                @endif
 
         </div>
     </div>
