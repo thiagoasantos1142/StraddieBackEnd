@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\V1\Admin\AvailableAsset;
+use App\Models\V1\Admin\AvailableAsset; 
 use App\Models\V1\Admin\Offer;
 use Gate;
 use Illuminate\Http\Request;
@@ -42,15 +42,7 @@ class OfferController extends Controller
         
         if ($request->ajax()) {
             $offers = Offer::query()
-                ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
-                ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
-                    // Beneficiários do título
-                    $query->where('user_id', $loggedUser->id);
-                })
-                ->orWhereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
-                    // Advogados associados ao título
-                    $query->where('lawyer_id', $loggedUser->id);
-                })
+                ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')             
                 ->orWhere('organization_id', $loggedUser->organization_id)
                 ->orWhere('offers.created_by', $loggedUser->id)
                 ->orderBy('offers.created_at', 'desc');
@@ -83,15 +75,22 @@ class OfferController extends Controller
         }
 
         if ($request->ajax()) {
-
-            $offers = Offer::with('asset.due_diligence.crt.users_titles', 'asset.due_diligence.crt.crtLawyers', 'status', 'organization', 'user', 'category')
-                            ->whereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
-                                $query->where('lawyer_id', $loggedUser->id);
-                            })
-                            ->get();
-
-            return response()->json(['data' => $offers]);
-        } 
+            $offers = Offer::query()
+                ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
+                ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
+                    // Beneficiários do título
+                    $query->where('user_id', $loggedUser->id);
+                })
+                ->orWhereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
+                    // Advogados associados ao título
+                    $query->where('lawyer_id', $loggedUser->id);
+                })
+                ->orderBy('offers.created_at', 'desc');
+            
+            $table = DataTables::of($offers);
+            
+            return $table->make(true);
+        }
     }
 
     public function makeOffer(Request $request, string $assetId)
