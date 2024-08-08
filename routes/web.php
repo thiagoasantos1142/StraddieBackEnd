@@ -80,11 +80,17 @@ Route::middleware([
         Route::resource('/organization', OrganizationController::class);
         Route::resource('/address', AddressController::class);
 
+        //Offers
         Route::post('/assets/makeOffer/{assetId}', [OfferController::class, 'makeOffer'])->name('assets.makeOffer');
         Route::resource('/assets', AssetsController::class);
         Route::get('/offers', [OfferController::class, 'index'])->name('offers.index');
         Route::get('/offers/received', [OfferController::class, 'getReceivedOffers'])->name('offers.received');
         Route::get('/offers/made', [OfferController::class, 'getMadeOffers'])->name('offers.made');
+        
+        Route::get('/offers/{id}', [OfferController::class, 'show'])->name('offers.show');        
+        Route::post('/offers/{offer}/accept', [OfferController::class, 'accept'])->name('offers.accept');
+        Route::post('/offers/{offer}/counter', [OfferController::class, 'counter'])->name('offers.counter');
+        //Offers
         
 
         Route::resource('/lawyer', LawyerController::class);

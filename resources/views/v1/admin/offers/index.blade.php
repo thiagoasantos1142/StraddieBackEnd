@@ -39,7 +39,8 @@
                             <div class="table-responsive">
                                 <table id="allOffers-table" class="table text-nowrap w-100">
                                     <thead>
-                                        <tr>
+                                        <tr>                                            
+                                            <th>Id da oferta</th>
                                             <th>Id do título</th>
                                             <th>Beneficiários</th>
                                             <th>Número do processo</th>
@@ -48,6 +49,7 @@
                                             <th>Categoria</th>
                                             <th>Titular da oferta</th>
                                             <th>Data da oferta</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -81,6 +83,7 @@
                                 <table id="received-table" class="table text-nowrap w-100">
                                     <thead>
                                         <tr>
+                                            <th>Id da oferta</th>
                                             <th>Id do título</th>
                                             <th>Beneficiários</th>
                                             <th>Número do processo</th>
@@ -88,7 +91,8 @@
                                             <th>Status</th>
                                             <th>Categoria</th>
                                             <th>Titular da oferta</th>
-                                            <th>Data da oferta</th>
+                                            <th>Data da oferta</th>                                            
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -107,6 +111,7 @@
                                 <table id="made-table" class="table text-nowrap w-100">
                                     <thead>
                                         <tr>
+                                            <th>Id da oferta</th>
                                             <th>Id do título</th>
                                             <th>Beneficiários</th>
                                             <th>Número do processo</th>
@@ -115,6 +120,7 @@
                                             <th>Categoria</th>
                                             <th>Titular da oferta</th>
                                             <th>Data da oferta</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -156,6 +162,9 @@
                     type: 'GET'
                 },
                 "columns": [
+                {
+                    "data": "id"
+                }, 
                 {
                     "data": "asset.due_diligence.crt.id"
                 },
@@ -205,6 +214,22 @@
                 {
                     "data": "created_at"
                 },
+                {
+                    "data": "id",
+                    "render": function(data, type, row, meta) {
+                        // Renderização personalizada para a segunda coluna, se necessário
+                        return `
+                        <div class="btn-list">
+                            <a
+                                href="/dashboard/assets/${row.id}">
+                                <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
+                                    type="button"><i class="bi bi-pencil-square"></i></button>
+                            </a>
+                            
+                        </div>
+                        `;
+                    }
+                },
             ],
             };
             
@@ -218,6 +243,8 @@
                 },
                 "columns": [
                 {
+                    "data": "id"
+                },{
                     "data": "asset.due_diligence.crt.id"
                 },
                 {
@@ -262,6 +289,24 @@
                 },
                 {
                     "data": "created_at"
+                },
+                {
+                    "data": null,
+                    "render": function(data, type, row, meta) {                       
+
+                        // Renderização personalizada para as ações da coluna
+                        return `
+                        <div class="btn-list">
+                            <!-- Botão para visualizar/editar a oferta -->
+                            <a href="/dashboard/offers/${row.id}">
+                                <button class="btn btn-sm btn-icon btn-info-light rounded-circle" type="button">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            </a>
+                           
+                        </div>
+                        `;
+                    }
                 },
             ],
             };

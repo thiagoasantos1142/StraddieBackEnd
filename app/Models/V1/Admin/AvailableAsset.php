@@ -36,6 +36,8 @@ class AvailableAsset extends Model
         return $this->hasOne(DueDiligence::class, 'id', 'due_diligence_id');
     }
 
+    
+
     public function getCreatedAtAttribute($value)
     {
         return CustomHelpers::formatDate($value);
@@ -49,6 +51,7 @@ class AvailableAsset extends Model
     {
         return $this->belongsTo(DueDiligence::class, 'due_diligence_id');
     }
+    
 
     public function offers()
     {

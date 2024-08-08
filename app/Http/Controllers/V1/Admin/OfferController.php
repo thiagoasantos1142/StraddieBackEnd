@@ -175,12 +175,87 @@ class OfferController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
+        
+          // Obtém o usuário atual
+          $loggedUser = auth()->user();
+        
+          // Verificar se o usuário tem a permissão para visualizar todas as ofertas
+          if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
+               
+                // Se não tiver permissão, lance uma exceção de autorização
+                abort(403, 'Você não tem permissão para visualizar ofertas.');  
+   
+           }
+        
+           $offer = Offer::where('id', $id)->first();
+           
+           if($offer){
 
+                return view('v1.admin.offers.show', compact('offer'));
+
+           }else{
+
+            return redirect()->back()->withErrors('Oferta não encontrado');    
+        }
+   
+    }
     /**
      * Show the form for editing the specified resource.
      */
+
+     public function accept($id)
+     {
+         // Obtém o usuário atual
+         $loggedUser = auth()->user();
+        
+         // Verificar se o usuário tem a permissão para visualizar todas as ofertas
+         if (Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id == 1) {
+              
+               // Se não tiver permissão, lance uma exceção de autorização
+               abort(403, 'Você não tem permissão para aceitar ofertas.');  
+  
+          }
+
+         $offer = Offer::findOrFail($id);
+ 
+        
+ 
+         // Altera o status da oferta para 'aceito'
+         $offer->status = 'accepted';
+         $offer->save();
+ 
+         return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
+     }
+
+     public function counter(Request $request, $id)
+     {
+         $request->validate([
+             'counter_amount' => 'required|numeric|min:0',
+             'counter_description' => 'nullable|string',
+         ]);
+
+          // Obtém o usuário atual
+          $loggedUser = auth()->user();
+
+          // Verificar se o usuário tem a permissão para visualizar todas as ofertas
+          if (Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id == 1) {
+              
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para aceitar ofertas.');  
+
+       }
+ 
+         $offer = Offer::findOrFail($id);
+ 
+          
+         // Lógica para salvar a contraproposta
+         $offer->counter_offer_amount = $request->input('counter_amount');
+         $offer->counter_offer_description = $request->input('counter_description');
+         $offer->status = 'countered'; // Atualiza o status para 'contra proposta'
+         $offer->save();
+ 
+         return redirect()->back()->with('success', 'Contra proposta enviada com sucesso.');
+     }
     public function edit(string $id)
     {
         //

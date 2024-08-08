@@ -33,6 +33,11 @@ class DueDiligence extends Model
         return $this->belongsTo(CreditRightsTitle::class, 'credit_rights_title_id');
     }
 
+    public function availableAsset()
+    {
+        return $this->hasOne(AvailableAsset::class, 'due_diligence_id');
+    }
+
     public function crtOriginDebtor()
     {
         return $this->hasOneThrough(
