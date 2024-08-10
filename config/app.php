@@ -57,7 +57,7 @@ return [
 
     'url' => env('APP_URL', 'https://straddie.com.br'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL', 'https://straddie.com.br'),
 
     /*
     |--------------------------------------------------------------------------
