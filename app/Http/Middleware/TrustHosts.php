@@ -14,6 +14,8 @@ class TrustHosts extends Middleware
     public function hosts(): array
     {
         return [
+            'https://straddie.com.br',
+            'https://www.straddie.com.br',
             $this->allSubdomainsOfApplicationUrl(),
         ];
     }

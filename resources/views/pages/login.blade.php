@@ -12,7 +12,7 @@
                 <!-- CONTAINER OPEN -->
                 <div class="">
                     <div class="text-center">
-                        <a href="{{url('index')}}"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="header-brand-img" alt=""></a>
+                        <a href="{{secure_url('index')}}"><img src="{{asset('build/assets/images/brand/straddie-logo.png')}}" class="header-brand-img" alt=""></a>
                     </div>
                 </div>
                 <div class="container-lg">
@@ -48,15 +48,15 @@
                                                     </label>
                                                 </div>
                                                 <div class="ms-auto">
-                                                    <a href="{{url('forgot-password')}}" class="tx-primary ms-1 tx-13">Forgot Password?</a>
+                                                    <a href="{{secure_url('forgot-password')}}" class="tx-primary ms-1 tx-13">Forgot Password?</a>
                                                 </div>
                                             </div>
                                             <div class="d-grid mb-3">
-                                                <a href="{{url('index')}}" class="btn btn-primary"> Login</a>
+                                                <a href="{{secure_url('index')}}" class="btn btn-primary"> Login</a>
                                             </div>
                                             <div class="text-center">
                                                 <p class="mb-0 tx-14">Don't have an account yet?
-                                                    <a href="{{url('register')}}" class="tx-primary ms-1 text-decoration-underline">Sign Up</a>
+                                                    <a href="{{secure_url('register')}}" class="tx-primary ms-1 text-decoration-underline">Sign Up</a>
                                                 </p>
                                             </div>
                                         </div>

@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://straddie.com.br',
+        'https://www.straddie.com.br',
+    ],
 
     'allowed_origins_patterns' => [],
 
