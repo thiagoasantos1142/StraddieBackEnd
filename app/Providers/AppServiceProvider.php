@@ -23,10 +23,10 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         if(env('APP_ENV') === 'prod') { 
-            URL::forceRootUrl(Config::get('app.url'));
-            if (str_contains(Config::get('app.url'), 'https://')) {
+            //URL::forceRootUrl(Config::get('app.url'));
+            //if (str_contains(Config::get('app.url'), 'https://')) {
                 URL::forceScheme('https');
-            }
+            //}
         }
     }
 }

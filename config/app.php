@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Straddie'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,9 +55,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://straddie.com.br'),
+    'url' => env('APP_URL', 'https://www.straddie.com.br'),
 
-    'asset_url' => env('ASSET_URL', 'https://straddie.com.br'),
+    'asset_url' => env('ASSET_URL', 'https://www.straddie.com.br'),
 
     /*
     |--------------------------------------------------------------------------
