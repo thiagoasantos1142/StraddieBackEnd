@@ -281,7 +281,7 @@ let headerToggleBtn, WindowPreSize;
   function rtlFn() {
     let html = document.querySelector('html');
     html.setAttribute("dir", "rtl");
-    document.querySelector("#style")?.setAttribute("href", "http://127.0.0.1:8000/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
+    document.querySelector("#style")?.setAttribute("href", "https://www.straddie.com.br/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
     //RTL
     if (localStorage.getItem('vexelrtl')) {
       document.querySelector('#switcher-rtl').checked = true;

@@ -8,8 +8,9 @@
     if (localStorage.vexelrtl) {
         let html = document.querySelector('html');
         html.setAttribute("dir", "rtl");
-        document.querySelector("#style")?.setAttribute("href", "http://127.0.0.1:8000/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
-    }
+        const baseUrl = "{{ env('APP_URL') }}";
+        document.querySelector("#style")?.setAttribute("href", baseUrl + "/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
+      }
     if (localStorage.getItem("vexellayout") == "horizontal") {
         document.querySelector("html").setAttribute("data-nav-layout", "horizontal")
     }

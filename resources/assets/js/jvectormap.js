@@ -127,11 +127,11 @@
                 attribute: 'image',
                 scale: {
                     marker1title: {
-                        url: 'http://127.0.0.1:8000/build/assets/images/flags-svg/in.svg',
+                        url: 'https://www.straddie.com.br/build/assets/images/flags-svg/in.svg',
                         offset: [10, 0]
                     },
                     marker2title: {
-                        url: 'http://127.0.0.1:8000/build/assets/images/flags-svg/in.svg',
+                        url: 'https://www.straddie.com.br/build/assets/images/flags-svg/in.svg',
                         offset: [10, 0]
                     }
                 },

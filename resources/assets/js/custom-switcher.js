@@ -737,7 +737,7 @@ function ltrFn() {
   if (!document.querySelector("#style").href.includes("bootstrap.min.css")) {
     document
       .querySelector("#style")
-      ?.setAttribute("href", "http://127.0.0.1:8000/build/assets/libs/bootstrap/css/bootstrap.min.css");
+      ?.setAttribute("href", "https://www.straddie.com.br/build/assets/libs/bootstrap/css/bootstrap.min.css");
   }
   html.setAttribute("dir", "ltr");
   document.querySelector("#switcher-ltr").checked = true;
@@ -751,7 +751,7 @@ function rtlFn() {
     .querySelector("#style")
     ?.setAttribute(
       "href",
-      "http://127.0.0.1:8000/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css"
+      "https://www.straddie.com.br/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css"
     );
   checkOptions();
 }
