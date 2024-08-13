@@ -78,8 +78,8 @@ class RegisterController extends Controller
             'cnpj' => 'required|string|max:255|unique:organizations',
             'organization_email' => 'required|string|email|max:255|unique:organizations,email',
            // 'organization_phone' => 'required|string|max:20|unique:contacts,phone',
-            'street_address' => 'required|string|max:255',
-            'number_address' => 'required|string|max:255',
+            //'street_address' => 'required|string|max:255',
+            //'number_address' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -103,11 +103,11 @@ class RegisterController extends Controller
         ]);
 
         // Create address for organization
-        Address::create([
-            'organization_id' => $organization->id,
-            'street' => $request->street_address,
-            'number' => $request->number_address,
-        ]);
+        // Address::create([
+        //     'organization_id' => $organization->id,
+        //     'street' => $request->street_address,
+        //     'number' => $request->number_address,
+        // ]);
 
         // Create user
         $user = User::create([

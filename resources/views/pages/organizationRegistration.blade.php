@@ -78,15 +78,7 @@
                 <x-label for="organization_phone" value="{{ __('Telefone de contato da empresa') }}" />
                 <x-input id="organization_phone" class="block mt-1 w-full" type="text" name="organization_phone" :value="old('organization_phone')" required />
             </div><br>
-            <div>
-                <x-label for="street_address" value="{{ __('Endereço da empresa') }}" />
-                <x-input id="street_address" class="block mt-1 w-full" type="text" name="street_address" :value="old('street_address')" required />
-            </div>
-            <div>
-                <x-label for="number_address" value="{{ __('Endereço da empresa') }}" />
-                <x-input id="number_address" class="block mt-1 w-full" type="text" name="number_address" :value="old('number_address')" required />
-            </div>
-
+           
             <div class="flex items-center justify-center mt-4">
                 <x-button class="ml-4">
                     {{ __('Cadastrar Empresa') }}
