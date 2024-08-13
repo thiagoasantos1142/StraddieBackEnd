@@ -46,6 +46,7 @@ Route::get('register', [AuthenticationController::class, 'register']);
 Route::post('registerOriginador', [RegisterController::class, 'storeOriginador'])->name('register.originador');
 
 
+Route::get('cadastro', [AuthenticationController::class, 'organizationRegistration']);
 Route::get('organizationRegistration', [AuthenticationController::class, 'organizationRegistration']);
 Route::post('organizationRegistration', [RegisterController::class, 'storeOrganization'])->name('register.organization');
 
