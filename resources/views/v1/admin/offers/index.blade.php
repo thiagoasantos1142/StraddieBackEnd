@@ -221,7 +221,7 @@
                         return `
                         <div class="btn-list">
                             <a
-                                href="/dashboard/assets/${row.id}">
+                                href="/dashboard/offers/${row.id}">
                                 <button class="btn btn-sm btn-icon btn-info-light rounded-circle"
                                     type="button"><i class="bi bi-pencil-square"></i></button>
                             </a>
