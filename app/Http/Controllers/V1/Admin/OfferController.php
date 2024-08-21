@@ -223,6 +223,10 @@ class OfferController extends Controller
          // Altera o status da oferta para 'aceito'
          $offer->status_id = 3;
          $offer->save();
+
+         $availableAsset = AvailableAsset::where('id', $offer->avilable_asset_id)->first();
+         $availableAsset->status_id = 2;
+         $availableAsset->save();
  
          return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
      }
