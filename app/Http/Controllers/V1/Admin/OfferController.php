@@ -225,7 +225,7 @@ class OfferController extends Controller
          $offer->save();
 
          $availableAsset = AvailableAsset::where('id', $offer->avilable_asset_id)->first();
-         $availableAsset->status_id = 2;
+         dd($availableAsset->status_id) ;//= 2;
          $availableAsset->save();
  
          return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
