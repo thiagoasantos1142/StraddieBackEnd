@@ -43,7 +43,7 @@ class AssetsController extends Controller
         $crtOriginDebitors = $request->has('crtOriginDebitorsId') ? explode(",", $request->crtOriginDebitorsId) : null;
 
         if($loggedUser->user_type_id == 1 || $loggedUser->user_type_id == 5) { // Admin ou Corporativo
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'staus', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
                 ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
                     return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
                         $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
@@ -54,7 +54,7 @@ class AssetsController extends Controller
                     });
                 })->get();
         } elseif($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 4) {
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'staus', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
                 ->whereHas('due_diligence.crt', function ($query) use ($loggedUser) {
                     $query->whereHas('users_titles', function ($query) use ($loggedUser) {
                         $query->where('user_id', $loggedUser->id);

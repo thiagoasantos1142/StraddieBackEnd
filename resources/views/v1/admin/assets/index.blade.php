@@ -62,7 +62,7 @@
                                         <th>Natureza da obrigação</th>
                                         <th>Beneficiários</th>
                                         <th>número do processo</th>                                      
-                                       
+                                        <th>Status</th>  
                                         <th>Principal a venda</th>
                                         <th>Valor negociado</th>
                                         <th>Honorários a venda</th>           
@@ -146,10 +146,12 @@
                     }
                 },
                  // Campo "nome" do JSON
-                 {
+                {
                     "data": "due_diligence.crt.process_number"
                 }, 
-               
+                {
+                    "data": "status.title"
+                }, 
                 
                // Campo "nome" do JSON
                 {
