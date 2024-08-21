@@ -221,7 +221,7 @@ class OfferController extends Controller
         
  
          // Altera o status da oferta para 'aceito'
-         $offer->status = 'accepted';
+         $offer->status_id = 3;
          $offer->save();
  
          return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
