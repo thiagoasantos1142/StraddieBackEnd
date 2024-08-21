@@ -73,7 +73,7 @@ class AssetsController extends Controller
                         $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                     });
                 })
-                //->where('status_id', 1) //Status Aceitando ofertas
+                ->where('status_id', 1) //Status Aceitando ofertas
                 ->get();
         } else {
             return redirect()->back()->withErrors('Você não tem permissão para acessar os Ativos');
