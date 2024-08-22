@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $loggedUser = auth()->user();
        
         // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-        if (Gate::allows($loggedUser->user_type_id == 1)) {
+        if (Gate::allows($loggedUser->user_type_id != 1)) {
              
             return redirect()->back();
  
