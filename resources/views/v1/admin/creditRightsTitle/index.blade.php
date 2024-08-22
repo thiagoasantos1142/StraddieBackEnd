@@ -76,7 +76,7 @@
                                         <th>Id</th>
                                         <th>Assunto / Sobre </th>
                                         <th>Corte</th>
-                                        <th>BENEFICIÁRIOS</th>
+                                        <th>Beneficiários</th>
                                         <th>Órgão Devedor</th>
                                         <th>Natureza do Crédito</th>
                                         <th>Valor Principal</th>
