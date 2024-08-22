@@ -61,14 +61,14 @@
                                         <th>Origiem do Débito</th> 
                                         <th>Natureza da obrigação</th>
                                         <th>Beneficiários</th>
-                                        <th>número do processo</th>                                      
+                                        <th>Número do processo</th>                                      
                                         <th>Status</th>  
                                         <th>Principal a venda</th>
                                         <th>Valor negociado</th>
                                         <th>Honorários a venda</th>           
-                                        <th>Valor negociado (fee)</th>
+                                        <th>Valor negociado</th>
                                         <th>Ofertas</th>
-                                        <th>Criada em</th>
+                                        <th>Criado em</th>
                                         <th>Açoes</th>
                                     </tr>
                                 </thead>

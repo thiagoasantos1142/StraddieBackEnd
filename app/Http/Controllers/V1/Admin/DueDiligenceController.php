@@ -25,7 +25,7 @@ class DueDiligenceController extends Controller
         
         // Verificar se o usuário tem a permissão para visualizar títulos ou se é administrador
 
-        if (Gate::allows('view-dueDilligence', auth()) || $loggedUser->user_type_id == 1) {        
+        if (Gate::allows('view-dueDilligences', auth()) || $loggedUser->user_type_id == 1) {        
             // Administradores veem todas as Due Diligences
             $dueDiligences = DueDiligence::all();
 
@@ -49,7 +49,7 @@ class DueDiligenceController extends Controller
         $loggedUser = auth()->user();         
       
          // Verificar se o usuário tem a permissão para visualizar outros usuários
-       if (!Gate::allows('create-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+       if (!Gate::allows('create-dueDiligences', auth()) && $loggedUser->user_type_id != 1) {
            // Se não tiver permissão, lance uma exceção de autorização
            abort(403, 'Você não tem permissão para criar Due Diligence.');
        }
@@ -90,7 +90,7 @@ class DueDiligenceController extends Controller
          $loggedUser = auth()->user();         
       
          // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('create-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+        if (!Gate::allows('create-dueDiligences', auth()) && $loggedUser->user_type_id != 1) {
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para criar Due Diligence.');
         }
@@ -229,7 +229,7 @@ class DueDiligenceController extends Controller
         $loggedUser = auth()->user();         
       
         // Verificar se o usuário tem a permissão para visualizar outros usuários
-        if (!Gate::allows('aprove-dueDiligence', auth()) && $loggedUser->user_type_id != 1) {
+        if (!Gate::allows('aprove-dueDiligences', auth()) && $loggedUser->user_type_id != 1) {
              // Se não tiver permissão, lance uma exceção de autorização
              abort(403, 'Você não tem permissão para aprovar Due Diligence.');
         }
