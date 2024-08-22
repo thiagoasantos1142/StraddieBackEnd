@@ -24,7 +24,7 @@ class DashboardController extends Controller
         // Verificar se o usuário tem a permissão para visualizar todas as ofertas
         if (Gate::allows($loggedUser->user_type_id == 1)) {
              
-            return redirect()->back() ;
+            return redirect()->back();
  
          }
        
@@ -103,7 +103,7 @@ class DashboardController extends Controller
          $totalNegotiatedValue = AvailableAsset::getTotalNegotiatedValue([1,2]);
          $availableAssets = AvailableAsset::whereIn('status_id', [1,2])->get();
         
-        return view('pages.index', ['user'                                  =>      $user, 
+        return view('pages.index', ['user'                                  =>      $loggedUser, 
                                     'totalUsers'                            =>      User::all()->count(), 
                                     'percentageGrowthUsers'                 =>      $percentageGrowthUsers,
                                     'totalLawyers'                          =>      $totalLawyers,
