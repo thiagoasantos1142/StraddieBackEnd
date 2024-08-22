@@ -12,12 +12,21 @@ use App\Models\V1\Admin\Payment;
 //use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
+    { 
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
+       
+        // Verificar se o usuário tem a permissão para visualizar todas as ofertas
+        if (Gate::allows($loggedUser->user_type_id == 1)) {
+             
+            return redirect()->back() ;
+ 
+         }
        
         $totalUsersThisMonth = User::whereMonth('created_at', now()->month)->count();
         $totalUsersLastMonth = User::whereMonth('created_at', now()->subMonth()->month)->count();
