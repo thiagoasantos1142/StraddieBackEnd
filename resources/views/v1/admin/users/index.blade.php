@@ -44,12 +44,12 @@
                             <table id="file-export" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Nome</th>
                                         <th>Email</th>
-                                        <th>Cpf</th>                                        
+                                        <th>CPF</th>                                        
                                         <th>Tipo usuário</th>
-                                        <th>created at</th>
-                                        <th>ação</th>
+                                        <th>Criado em</th>
+                                        <th>Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
