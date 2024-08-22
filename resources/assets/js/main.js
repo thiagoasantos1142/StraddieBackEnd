@@ -10,7 +10,7 @@
   if (localStorage.vexelrtl) {
     let html = document.querySelector("html");
     html.setAttribute("dir", "rtl");
-    document.querySelector("#style")?.setAttribute("href","http://127.0.0.1:8000/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
+    document.querySelector("#style")?.setAttribute("href","https://straddie.com.br/build/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
   }
    if (localStorage.vexellayout) {
     let html = document.querySelector('html');

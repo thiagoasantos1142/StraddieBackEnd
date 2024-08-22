@@ -23,7 +23,7 @@
         if (!state.id) {
             return state.text;
         }
-        var baseUrl = "http://127.0.0.1:8000/build/assets/images/users/select2";
+        var baseUrl = "https://straddie.com.br/build/assets/images/users/select2";
         var $state = $(
             '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="img-flag" /> ' + state.text + '</span>'
         );
@@ -38,7 +38,7 @@
     function selectClient(client) {
         if (!client.id) { return client.text; }
         var $client = $(
-            '<span><img src="http://127.0.0.1:8000/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
+            '<span><img src="https://straddie.com.br/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
             + client.text + '</span>'
         );
         return $client;
@@ -107,7 +107,7 @@
         if (!state.id) {
             return state.text;
         }
-        var baseUrl = "http://127.0.0.1:8000/build/assets/images/users/select2";
+        var baseUrl = "https://straddie.com.br/build/assets/images/users/select2";
         var $state = $(
             '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="img-flag" /> ' + state.text + '</span>'
         );
@@ -123,7 +123,7 @@
     function selectClient(client) {
         if (!client.id) { return client.text; }
         var $client = $(
-            '<span><img src="http://127.0.0.1:8000/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
+            '<span><img src="https://straddie.com.br/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
             + client.text + '</span>'
         );
         return $client;
@@ -200,7 +200,7 @@
         if (!state.id) {
             return state.text;
         }
-        var baseUrl = "http://127.0.0.1:8000/build/assets/images/users/select2";
+        var baseUrl = "https://straddie.com.br/build/assets/images/users/select2";
         var $state = $(
             '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="img-flag"> ' + state.text + '</span>'
         );
@@ -216,7 +216,7 @@
     function selectClient(client) {
         if (!client.id) { return client.text; }
         var $client = $(
-            '<span><img src="http://127.0.0.1:8000/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" > '
+            '<span><img src="https://straddie.com.br/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" > '
             + client.text + '</span>'
         );
         return $client;
@@ -292,7 +292,7 @@
         if (!state.id) {
             return state.text;
         }
-        var baseUrl = "http://127.0.0.1:8000/build/assets/images/users/select2";
+        var baseUrl = "https://straddie.com.br/build/assets/images/users/select2";
         var $state = $(
             '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="img-flag"> ' + state.text + '</span>'
         );
@@ -308,7 +308,7 @@
     function selectClient(client) {
         if (!client.id) { return client.text; }
         var $client = $(
-            '<span><img src="http://127.0.0.1:8000/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" > '
+            '<span><img src="https://straddie.com.br/build/assets/images/users/select2/' + client.element.value.toLowerCase() + '.jpg" > '
             + client.text + '</span>'
         );
         return $client;

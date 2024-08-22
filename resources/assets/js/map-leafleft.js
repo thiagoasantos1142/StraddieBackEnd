@@ -66,7 +66,7 @@
         attribution: '© OpenStreetMap'
     }).addTo(customicon);
     var greenIcon = L.icon({
-        iconUrl: 'http://127.0.0.1:8000/build/assets/images/brand/desktop-logo.png',
+        iconUrl: 'https://straddie.com.br/build/assets/images/brand/desktop-logo.png',
         iconSize: [80, 25], // size of the icon
         iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
         popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
