@@ -20,13 +20,12 @@ class DashboardController extends Controller
     { 
         // Obtém o usuário atual
         $loggedUser = auth()->user();
-       
-        // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-        if (Gate::allows($loggedUser->user_type_id != 1)) {
-             
-            return redirect()->back(); 
-  
-         }
+        
+          // Verifica se o usuário tem a permissão 'access-admin'
+        if (!Gate::allows('access-admin')) {
+            // Se o usuário não for admin, redirecione-o para outra página (por exemplo, a página inicial)
+            return redirect()->route('profile')->with('error', 'Você não tem permissão para acessar esta página.');
+        }
        
         $totalUsersThisMonth = User::whereMonth('created_at', now()->month)->count();
         $totalUsersLastMonth = User::whereMonth('created_at', now()->subMonth()->month)->count();
