@@ -28,7 +28,7 @@
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
-                 
+                @can('access-admin')
                     <li class="slide">
                         <a href="{{ secure_url('index') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
@@ -39,7 +39,7 @@
                             <span class="side-menu__label">Dashboard</span>
                         </a>
                     </li>
-                    
+                @endcan
                     <li class="slide">
                         <a href="{{ secure_url('dashboard/users') }}" class="side-menu__item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px"
