@@ -84,10 +84,12 @@
                                                     <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
                                                     href="#contracts-settings" aria-selected="true">Contratos</a>
                                                 </li>
-                                                <li class="nav-item m-1">
-                                                    <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
-                                                    href="#highlights" aria-selected="true">Parametros para a Geração do Ativo</a>
-                                                </li>
+                                                @if($dueDiligence->status_id == 1)
+                                                    <li class="nav-item m-1">
+                                                        <a class="nav-link" data-bs-toggle="tab" role="tab" aria-current="page"
+                                                        href="#highlights" aria-selected="true">Parametros para a Geração do Ativo</a>
+                                                    </li>
+                                                @endif
                                                 </li>
                                             </ul>
                                         </div>
@@ -394,131 +396,134 @@
                                                         </div>                                                          
                                                     </div>
                                                 </div>
-                                              
-                                                <div class="tab-pane fs-13 p-0" id="highlights"
-                                                    role="tabpanel">
-                                                    <ul class="list-group list-group-flush list-unstyled">
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Parametros do Ativo disponível</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Configuração para configuração e geração do Ativo disponível.</p>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
-                                                                        <div class="mail-security-settings">
-                                                                            <p class="fs-14 mb-1 fw-semibold">Disponibilidade do valor Principal</p>
-                                                                            <p class="fs-12 mb-0 text-muted">Informe se o valor Principal do título está disponivel para receber ofertas?</p>
-                                                                        </div>
+                                                @if($dueDiligence->status_id == 1)
+                                                    <div class="tab-pane fs-13 p-0" id="highlights"
+                                                        role="tabpanel">
+                                                        <ul class="list-group list-group-flush list-unstyled">
+                                                            <li class="list-group-item">
+                                                                <div class="row gx-5">
+                                                                    <div class="col-xl-4">
+                                                                        <p class="fs-16 mb-1 fw-semibold">Parametros do Ativo disponível</p>
+                                                                        <p class="fs-12 mb-0 text-muted">Configuração para configuração e geração do Ativo disponível.</p>
                                                                     </div>
-                                                                    <div class="mt-3 mt-sm-0">
-                                                                        <div class="custom-toggle-switch float-sm-end">
-                                                                            <input id="main_credit_for_sale" name="main_credit_for_sale" type="checkbox">
-                                                                            <label for="main_credit_for_sale" class="label-primary mb-1"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- Campos adicionais a serem exibidos/ocultados -->
-                                                                    <div id="campos-adicionais" style="display: none;">
-                                                                        <!-- Coloque os campos adicionais aqui -->
-                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                            <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao Beneficiário:</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado do titulo?</p>
-                                                                            </div>
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="main_value" name="main_value" class="form-control" placeholder="Informe o valor atualizado do titulo">
-                                                                               
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>                                                                    
-                                                                </div>                                                               
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="row gx-5">
-                                                                <div class="col-xl-4">
-                                                                    <p class="fs-16 mb-1 fw-semibold">Honorários</p>
-                                                                    <p class="fs-12 mb-0 text-muted">Informações sobre os vaores de Honorários.</p>
-                                                                </div>
-                                                                <div class="col-xl-6">
-                                                                    <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
-                                                                            <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Disponíveis para receber ofertas</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Os valores de Honorários estão disponíveis para receber ofertas?</p>
-                                                                            </div>                                                                                                                                                  
-                                                                    </div>
-                                                                   
-                                                                    <div class="mt-3 mt-sm-0">
-                                                                        <div class="custom-toggle-switch float-sm-end">
-                                                                            <input id="contractual_fees_for_sale" name="contractual_fees_for_sale" type="checkbox">
-                                                                            <label for="contractual_fees_for_sale" class="label-primary mb-1"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                      <!-- Campos adicionais a serem exibidos/ocultados -->
-                                                                    <div id="fields-fee_value" style="display: none;">
+                                                                    <div class="col-xl-6">
                                                                         <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
                                                                             <div class="mail-security-settings">
-                                                                                <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Informe se os honorários estão destacados na Ação Judicial</p>
+                                                                                <p class="fs-14 mb-1 fw-semibold">Disponibilidade do valor Principal</p>
+                                                                                <p class="fs-12 mb-0 text-muted">Informe se o valor Principal do título está disponivel para receber ofertas?</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="mt-3 mt-sm-0">
                                                                             <div class="custom-toggle-switch float-sm-end">
-                                                                                <input id="highlighted_contractual_fee" name="highlighted_contractual_fee" type="checkbox">
-                                                                                <label for="highlighted_contractual_fee" class="label-primary mb-1"></label>
-                                                                            </div>
-                                                                        </div>                                                                        
-                                                                    </div>
-                                                                    <div id="fields-fee_value2" style="display: none;">
-                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                            <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem dos Honorários</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Qual o percentual dos honorários Advocatícios?</p>
-                                                                            </div>
-                                                                            <div class="input-group">
-                                                                                <input type="number" id="percentage_fee" name="percentage_fee" class="form-control" placeholder="Informe o percentual" min="0" max="100">
-                                                                                <span class="input-group-text">%</span>
+                                                                                <input id="main_credit_for_sale" name="main_credit_for_sale" type="checkbox">
+                                                                                <label for="main_credit_for_sale" class="label-primary mb-1"></label>
                                                                             </div>
                                                                         </div>
-
-                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
-                                                                            <div>
-                                                                                <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao cliente:</p>
-                                                                                <p class="fs-12 mb-0 text-muted">Qual o valor atualizado dos honorários?</p>
+                                                                        <!-- Campos adicionais a serem exibidos/ocultados -->
+                                                                        <div id="campos-adicionais" style="display: none;">
+                                                                            <!-- Coloque os campos adicionais aqui -->
+                                                                            <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                                <div>
+                                                                                    <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao Beneficiário:</p>
+                                                                                    <p class="fs-12 mb-0 text-muted">Qual o valor atualizado do titulo?</p>
+                                                                                </div>
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-text">R$</span>
+                                                                                    <input type="number" id="main_value" name="main_value" class="form-control" placeholder="Informe o valor atualizado do titulo">
+                                                                                
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="input-group">
-                                                                                <span class="input-group-text">R$</span>
-                                                                                <input type="number" id="fee_value" name="fee_value" class="form-control" placeholder="Informe o valor atualizado dos honorários">
-                                                                               
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    
+                                                                        </div>                                                                    
+                                                                    </div>                                                               
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <div class="row gx-5">
+                                                                    <div class="col-xl-4">
+                                                                        <p class="fs-16 mb-1 fw-semibold">Honorários</p>
+                                                                        <p class="fs-12 mb-0 text-muted">Informações sobre os vaores de Honorários.</p>
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <div class="d-sm-flex d-block align-items-top justify-content-between mt-3">
+                                                                                <div>
+                                                                                    <p class="fs-14 mb-1 fw-semibold">Disponíveis para receber ofertas</p>
+                                                                                    <p class="fs-12 mb-0 text-muted">Os valores de Honorários estão disponíveis para receber ofertas?</p>
+                                                                                </div>                                                                                                                                                  
+                                                                        </div>
+                                                                    
+                                                                        <div class="mt-3 mt-sm-0">
+                                                                            <div class="custom-toggle-switch float-sm-end">
+                                                                                <input id="contractual_fees_for_sale" name="contractual_fees_for_sale" type="checkbox">
+                                                                                <label for="contractual_fees_for_sale" class="label-primary mb-1"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Campos adicionais a serem exibidos/ocultados -->
+                                                                        <div id="fields-fee_value" style="display: none;">
+                                                                            <div class="d-sm-flex d-block align-items-top justify-content-between mt-sm-0 mt-3 flex-wrap">
+                                                                                <div class="mail-security-settings">
+                                                                                    <p class="fs-14 mb-1 fw-semibold">Os honorários estão destacados no Título?</p>
+                                                                                    <p class="fs-12 mb-0 text-muted">Informe se os honorários estão destacados na Ação Judicial</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="mt-3 mt-sm-0">
+                                                                                <div class="custom-toggle-switch float-sm-end">
+                                                                                    <input id="highlighted_contractual_fee" name="highlighted_contractual_fee" type="checkbox">
+                                                                                    <label for="highlighted_contractual_fee" class="label-primary mb-1"></label>
+                                                                                </div>
+                                                                            </div>                                                                        
+                                                                        </div>
+                                                                        <div id="fields-fee_value2" style="display: none;">
+                                                                            <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                                <div>
+                                                                                    <p class="fs-14 mb-1 fw-semibold">Informe a porcentagem dos Honorários</p>
+                                                                                    <p class="fs-12 mb-0 text-muted">Qual o percentual dos honorários Advocatícios?</p>
+                                                                                </div>
+                                                                                <div class="input-group">
+                                                                                    <input type="number" id="percentage_fee" name="percentage_fee" class="form-control" placeholder="Informe o percentual" min="0" max="100">
+                                                                                    <span class="input-group-text">%</span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="d-sm-flex d-block align-items-top justify-content-between mt-3 flex-wrap">
+                                                                                <div>
+                                                                                    <p class="fs-14 mb-1 fw-semibold">Informe o valor atualizado informado ao cliente:</p>
+                                                                                    <p class="fs-12 mb-0 text-muted">Qual o valor atualizado dos honorários?</p>
+                                                                                </div>
+                                                                                <div class="input-group">
+                                                                                    <span class="input-group-text">R$</span>
+                                                                                    <input type="number" id="fee_value" name="fee_value" class="form-control" placeholder="Informe o valor atualizado dos honorários">
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                @endif
                                             </div>
                                     </div>
-                                        <div class="card-footer">
-                                            <div class="float-end">
-                                               <!-- Botão de cancelar a due diligence -->
-                                               <button type="button" " class="btn btn-danger" onclick="confirmCancellation({{ $dueDiligence->id }})">Cancelar Due Diligence</button>
+                                        @if($dueDiligence->status_id == 1)
+                                            <div class="card-footer">
+                                                <div class="float-end">
+                                                <!-- Botão de cancelar a due diligence -->
+                                                <button type="button" " class="btn btn-danger" onclick="confirmCancellation({{ $dueDiligence->id }})">Cancelar Due Diligence</button>
 
 
-                                                <!-- Botão de salvar -->
-                                                <button type="submit" onclick="return verifyFields();" class="btn btn-primary">
-                                                    Avançar
-                                                </button>
+                                                    <!-- Botão de salvar -->
+                                                    <button type="submit" onclick="return verifyFields();" class="btn btn-primary">
+                                                        Avançar
+                                                    </button>
 
 
-                                                    
-                                                </button>
+                                                        
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </form>
                             </div>

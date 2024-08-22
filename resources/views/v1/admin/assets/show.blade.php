@@ -288,6 +288,10 @@
 @endsection
 
 @section('scripts')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
     <!-- Filepond JS -->
     <script src="{{ asset('build/assets/libs/filepond/filepond.min.js') }}"></script>
     <script src="{{ asset('build/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
@@ -357,5 +361,30 @@
         var modal = new bootstrap.Modal(document.getElementById('offerModal'));
         modal.hide();
     }
+
+    <script>
+    $(document).ready(function(){
+        $('#offer_main_value').mask('#.##0,00', {reverse: true});
+        $('#feeValue').mask('#.##0,00', {reverse: true});
+
+        // Mostrar ou esconder os campos quando os checkboxes forem clicados
+        $('#offerMainValue').change(function() {
+            if(this.checked) {
+                $('#mainValueFields').show();
+            } else {
+                $('#mainValueFields').hide();
+            }
+        });
+
+        $('#offerFeeValue').change(function() {
+            if(this.checked) {
+                $('#feeValueFields').show();
+            } else {
+                $('#feeValueFields').hide();
+            }
+        });
+    });
+</script>
+
 </script>
 @endsection
