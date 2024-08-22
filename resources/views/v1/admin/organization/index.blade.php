@@ -31,7 +31,7 @@
             <div class="col-xl-12">
                 <div class="card custom-card">
                     <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">File Export Datatable</div>
+                        <div class="card-title">Exportar dados</div>
                         <div class="d-flex">
                             <a href="{{ route('organization.create') }}" class="btn btn-primary btn-block float-end my-2"><i
                                     class="fa fa-plus-square me-2"></i>Adicionar empresa</a>
@@ -42,12 +42,12 @@
                             <table id="file-export" class="table text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Nome</th>
                                         <th>Razão social</th>
-                                        <th>cnpj</th>
-                                        <th>email</th>
-                                        <th>created at</th>
-                                        <th>ação</th>
+                                        <th>CNPJ</th>
+                                        <th>Email</th>
+                                        <th>Criado em </th>
+                                        <th>Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
