@@ -24,8 +24,8 @@ class DashboardController extends Controller
         // Verificar se o usuário tem a permissão para visualizar todas as ofertas
         if (Gate::allows($loggedUser->user_type_id != 1)) {
              
-            return redirect()->back();
- 
+            return redirect()->back(); 
+  
          }
        
         $totalUsersThisMonth = User::whereMonth('created_at', now()->month)->count();
