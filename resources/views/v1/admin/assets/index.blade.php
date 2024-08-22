@@ -69,7 +69,7 @@
                                         <th>Valor negociado</th>
                                         <th>Ofertas</th>
                                         <th>Criado em</th>
-                                        <th>Açoes</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
