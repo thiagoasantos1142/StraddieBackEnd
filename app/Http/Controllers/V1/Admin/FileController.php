@@ -78,7 +78,7 @@ class FileController extends Controller
 
         }
 
-        return redirect()->back()->withErrors('Você não possui altorização para aprovar arquivo')->withInput();        
+        return redirect()->back()->withErrors('Você não possui autorização para aprovar arquivo')->withInput();        
 
     }
     public function reject($id)
@@ -103,7 +103,7 @@ class FileController extends Controller
 
         }
 
-        return redirect()->back()->withErrors('Você não possui altorização para rejeitar arquivo')->withInput();        
+        return redirect()->back()->withErrors('Você não possui autorização para rejeitar arquivo')->withInput();        
 
     }
     public function upload(Request $request)
