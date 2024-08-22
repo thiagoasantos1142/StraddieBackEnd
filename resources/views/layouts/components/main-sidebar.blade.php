@@ -72,7 +72,7 @@
                                 <path
                                     d="M16 20c0-2.18-4-3.01-4-5V10c0-2.42 1.57-4 4-4s4 1.58 4 4v5c0 1.99-4 2.82-4 5zm-4-10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.11 0-2 .89-2 2s.89 2 2 2 2-.89 2-2-.89-2-2-2z" />
                             </svg>
-                            <span class="side-menu__label">Titulos</span>
+                            <span class="side-menu__label">Títulos</span>
                         </a>
                     </li>
                 
