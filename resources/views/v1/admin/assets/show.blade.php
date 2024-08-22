@@ -363,26 +363,30 @@
     }
 
     $(document).ready(function(){
-        $('#offer_main_value').mask('#.##0,00', {reverse: true});
-        $('#feeValue').mask('#.##0,00', {reverse: true});
+    // Aplica a máscara de valor monetário
+    $('#offer_main_value').mask('#.##0,00', {reverse: true});
+    $('#feeValue').mask('#.##0,00', {reverse: true});
 
-        // Mostrar ou esconder os campos quando os checkboxes forem clicados
-        $('#offerMainValue').change(function() {
-            if(this.checked) {
-                $('#mainValueFields').show();
-            } else {
-                $('#mainValueFields').hide();
-            }
-        });
-
-        $('#offerFeeValue').change(function() {
-            if(this.checked) {
-                $('#feeValueFields').show();
-            } else {
-                $('#feeValueFields').hide();
-            }
-        });
+    // Mostrar ou esconder os campos quando os checkboxes forem clicados
+    $('#offerMainValue').change(function() {
+        if(this.checked) {
+            $('#mainValueFields').show();
+            $('#offer_main_value').focus();  // Garante que a máscara seja aplicada quando o campo estiver visível
+        } else {
+            $('#mainValueFields').hide();
+        }
     });
+
+    $('#offerFeeValue').change(function() {
+        if(this.checked) {
+            $('#feeValueFields').show();
+            $('#feeValue').focus();  // Garante que a máscara seja aplicada quando o campo estiver visível
+        } else {
+            $('#feeValueFields').hide();
+        }
+    });
+});
+
 
 </script>
 @endsection
