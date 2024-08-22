@@ -235,51 +235,49 @@
                 
         <!-- Modal -->
         @can('make-offer')
-            <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="offerModalLabel">Fazer Oferta</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                @if($availableAsset->main_credit_for_sale == 1)
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" name='offerMainValue' id="offerMainValue">
-                                        <label class="form-check-label"  for="offerMainValue">Fazer oferta para o valor principal?</label>
-                                    </div>
-                                    <div id="mainValueFields" style="display: none;">
-                                        <div class="mb-3">
-                                            <label for="offer_main_value">Valor da Oferta</label>
-                                            <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
-                                        </div>
-                                       
-                                    </div>
-                                @endif
-                                @if($availableAsset->contractual_fees_for_sale == 1)
-                                    <div class="mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" name='offerFeeValue' id="offerFeeValue">
-                                        <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
-                                    </div>
-                                    <div id="feeValueFields" style="display: none;">
-                                        <div class="mb-3">
-                                            <label for="feeValue">Valor da Oferta</label>
-                                            <input type="text" class="form-control" name="feeValue" id="feeValue">
-                                        </div>
-                                       
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary" onclick="makeOffer()">Fazer Oferta</button>
-                            </div>
+        <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form method="POST" action="{{ route('assets.makeOffer', ['assetId' => $availableAsset->id]) }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="offerModalLabel">Fazer Oferta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </form>
-                </div>
+                        <div class="modal-body">
+                            @if($availableAsset->main_credit_for_sale == 1)
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" name='offerMainValue' id="offerMainValue">
+                                    <label class="form-check-label" for="offerMainValue">Fazer oferta para o valor principal?</label>
+                                </div>
+                                <div id="mainValueFields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="offer_main_value">Valor da Oferta</label>
+                                        <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
+                                    </div>
+                                </div>
+                            @endif
+                            @if($availableAsset->contractual_fees_for_sale == 1)
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" name='offerFeeValue' id="offerFeeValue">
+                                    <label class="form-check-label" for="offerFeeValue">Fazer oferta para os valores dos honorários?</label>
+                                </div>
+                                <div id="feeValueFields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="feeValue">Valor da Oferta</label>
+                                        <input type="text" class="form-control" name="feeValue" id="feeValue">
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Fazer Oferta</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
         @endcan
     
     </div>
@@ -362,26 +360,18 @@
         modal.hide();
     }
 
-    <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
+        // Aplicar máscara de moeda
         $('#offer_main_value').mask('#.##0,00', {reverse: true});
         $('#feeValue').mask('#.##0,00', {reverse: true});
 
         // Mostrar ou esconder os campos quando os checkboxes forem clicados
         $('#offerMainValue').change(function() {
-            if(this.checked) {
-                $('#mainValueFields').show();
-            } else {
-                $('#mainValueFields').hide();
-            }
+            $('#mainValueFields').toggle(this.checked);
         });
 
         $('#offerFeeValue').change(function() {
-            if(this.checked) {
-                $('#feeValueFields').show();
-            } else {
-                $('#feeValueFields').hide();
-            }
+            $('#feeValueFields').toggle(this.checked);
         });
     });
 </script>
