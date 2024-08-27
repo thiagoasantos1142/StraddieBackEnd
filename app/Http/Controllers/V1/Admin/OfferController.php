@@ -111,22 +111,23 @@ class OfferController extends Controller
 
        if($asset){
 
-            if($request->offerMainValue){
+        if ($request->offerMainValue) {
+            $offer = new Offer;
 
-                $offer = New Offer;
+            $offer->available_asset_id = $asset->id;
+            $offer->offer_date = Carbon::now();
+            $offer->offer_deadline = Carbon::now()->addDays(10);
+            $offer->status_id = 1;
 
-                $offer->available_asset_id = $asset->id;
-                $offer->offer_date = Carbon::now();
-                $offer->offer_deadline = Carbon::now()->addDays(10);
-                $offer->status_id = 1;
-                $offer->value = $this->convertToDecimal($request->input('offer_main_value'));
-                $offer->user_id = $loggedUser->id;            
-                $offer->organization_id = $loggedUser->organization_id;
-                $offer->category_id = 1;
+            // Converte o valor para o formato decimal
+            $offer->value = $this->convertToDecimal($request->input('offer_main_value'));
 
-                $offer->save();
+            $offer->user_id = $loggedUser->id;
+            $offer->organization_id = $loggedUser->organization_id;
+            $offer->category_id = 1;
 
-            }
+            $offer->save();
+        }
 
             if($request->offerFeeValue){
 
@@ -154,6 +155,17 @@ class OfferController extends Controller
         }
 
     }
+
+      // Função para converter o valor
+      private function convertToDecimal($value)
+      {
+          // Remove pontos e substitui vírgula por ponto
+          $value = str_replace('.', '', $value);
+          $value = str_replace(',', '.', $value);
+  
+          return $value;
+      }
+      
     /**
      * Show the form for creating a new resource.
      */
