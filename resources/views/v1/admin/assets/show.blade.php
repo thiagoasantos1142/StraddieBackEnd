@@ -229,7 +229,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>R$ {{ number_format($offer->main_value, 2, ',', '.') }}</td>
                                                 <td>R$ {{ number_format($offer->fee_value, 2, ',', '.') }}</td>
-                                                <td>{{ $offer->created_at->format('d/m/Y') }}</td>
+                                                <td>{{ $offer->created_at }}</td>
                                                 <td>{{ $offer->status->description }}</td>
                                                 <td>
                                                     <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
