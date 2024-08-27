@@ -217,7 +217,7 @@ class OfferController extends Controller
         // Verificar se o usuário tem permissão para visualizar todas as ofertas ou se é um admin
         if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
             // Usuário com permissão ou admin pode visualizar a oferta
-            return view('v1.admin.offers.show', compact('offer', 'userIsAssociatedWithTitle'));
+            return view('v1.admin.offers.show', compact('offer'));
         }
     
         if ($userIsAssociatedWithTitle) {
