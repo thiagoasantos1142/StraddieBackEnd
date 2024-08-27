@@ -103,20 +103,21 @@
     </div>
 
     <div class="action-buttons">
-        @if(isset($userIsAssociatedWithTitle))
+        @if(isset($userIsAssociatedWithTitle) && $userIsAssociatedWithTitle)
             <form action="{{ route('offers.accept', $offer->id) }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-success">Aceitar Oferta</button>
             </form>
 
             <button class="btn btn-warning" data-toggle="modal" data-target="#counterOfferModal">Enviar Contra Proposta</button>
-        @elseif(isset($isOwner))
+        @elseif(isset($isOwner) && $isOwner)
             <form action="{{ route('offers.cancelOffer', $offer->id) }}" method="POST" class="d-inline">
                 @csrf
                 <button class="btn btn-warning" data-toggle="modal" data-target="#cancelOfferModal">Cancelar Proposta</button>
-            </form>            
+            </form>
         @endif
     </div>
+
 
     <!-- Modal para Contra Proposta -->
     <div class="modal fade" id="counterOfferModal" tabindex="-1" role="dialog" aria-labelledby="counterOfferModalLabel" aria-hidden="true">

@@ -40,6 +40,7 @@ class OfferController extends Controller
     
         }
         
+        
         if ($request->ajax()) {
             $offers = Offer::query()
                 ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')             
@@ -123,31 +124,33 @@ class OfferController extends Controller
             $offer->value = $this->convertToDecimal($request->input('offer_main_value'));
 
             $offer->user_id = $loggedUser->id;
+            $offer->created_by = $loggedUser->id;
             $offer->organization_id = $loggedUser->organization_id;
             $offer->category_id = 1;
 
             $offer->save();
         }
 
-            if($request->offerFeeValue){
+        if($request->offerFeeValue){
 
-                $offer = New Offer;
+            $offer = New Offer;
 
-                $offer->available_asset_id = $asset->id;
-                $offer->offer_date = Carbon::now();
-                $offer->offer_deadline = Carbon::now()->addDays(10);
-                $offer->status_id = 1;
-                $offer->value = $this->convertToDecimal($request->input('feeValue'));
-                $offer->user_id = $loggedUser->id;            
-                $offer->organization_id = $loggedUser->organization_id;
-                $offer->category_id = 2;
+            $offer->available_asset_id = $asset->id;
+            $offer->offer_date = Carbon::now();
+            $offer->offer_deadline = Carbon::now()->addDays(10);
+            $offer->status_id = 1;
+            $offer->value = $this->convertToDecimal($request->input('feeValue'));
+            $offer->user_id = $loggedUser->id;  
+            $offer->created_by = $loggedUser->id;            
+            $offer->organization_id = $loggedUser->organization_id;
+            $offer->category_id = 2;
 
-                $offer->save();
+            $offer->save();
 
-            }
+        }
             
 
-            return redirect()->back()->withMessage('Oferta realizada com sucesso.');  
+        return redirect()->back()->withMessage('Oferta realizada com sucesso.');  
 
         }else{
 
@@ -208,32 +211,38 @@ class OfferController extends Controller
         if (!$offer) {
             return redirect()->back()->withErrors('Oferta não encontrada');
         }
-    
+        
         // Verificar se o usuário tem permissão para visualizar todas as ofertas ou se é um admin
         if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
             // Usuário com permissão ou admin pode visualizar a oferta
-            return view('v1.admin.offers.show', compact('offer'));
+            return view('v1.admin.offers.show', [
+                'offer' => $offer,
+                'userIsAssociatedWithTitle' => false, // Admins não precisam dessa verificação
+                'isOwner' => false // Admins não precisam dessa verificação
+            ]);
         }
         
         // Verificar se o usuário está associado à oferta
         $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
                         $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
-    
-        if ($isAssociated) {
-            return view('v1.admin.offers.show', compact('offer'));
-        }
-    
+        
+        // Verificar se o usuário é o dono da oferta
         $isOwner = $offer->created_by == $loggedUser->id || 
-                  $offer->organization_id == $loggedUser->organization_id;
-
-        if ($isOwner) {
-            return view('v1.admin.offers.show', compact('offer'));
+                $offer->organization_id == $loggedUser->organization_id;
+        
+        // Verificar se o usuário está associado ou é o dono
+        if ($isAssociated || $isOwner) {
+            return view('v1.admin.offers.show', [
+                'offer' => $offer,
+                'userIsAssociatedWithTitle' => $isAssociated,
+                'isOwner' => $isOwner
+            ]);
         }
-
+        
         // Se não tiver permissão, lança uma exceção de autorização
         abort(403, 'Você não tem permissão para visualizar esta oferta.');
-
     }
+
     
     /**
      * Show the form for editing the specified resource.
