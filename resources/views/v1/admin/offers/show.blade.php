@@ -113,7 +113,7 @@
         @elseif(isset($isOwner) && $isOwner)
             <form action="{{ route('offers.cancel', $offer->id) }}" method="POST" class="d-inline">
                 @csrf
-                <button class="btn btn-warning" data-toggle="modal" data-target="#cancelOfferModal">Cancelar Proposta</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#cancelOfferModal">Cancelar Proposta</button>
             </form>
         @endif
     </div>
