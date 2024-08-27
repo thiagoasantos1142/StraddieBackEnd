@@ -103,12 +103,16 @@
     </div>
 
     <div class="action-buttons">
-        <form action="{{ route('offers.accept', $offer->id) }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" class="btn btn-success">Aceitar Oferta</button>
-        </form>
+        @if ($userIsAssociatedWithTitle)
+            <form action="{{ route('offers.accept', $offer->id) }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-success">Aceitar Oferta</button>
+            </form>
 
-        <button class="btn btn-warning" data-toggle="modal" data-target="#counterOfferModal">Enviar Contra Proposta</button>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#counterOfferModal">Enviar Contra Proposta</button>
+        @else
+            <p>Você não tem permissão para aceitar esta oferta ou enviar uma contraproposta.</p>
+        @endif
     </div>
 
     <!-- Modal para Contra Proposta -->

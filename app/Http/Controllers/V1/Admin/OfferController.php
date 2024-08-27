@@ -156,6 +156,19 @@ class OfferController extends Controller
 
     }
 
+    // Função auxiliar para verificar se o usuário está associado ao título
+    private function userIsAssociatedWithTitle($user, $offer)
+    {
+        $crt = $offer->asset->due_diligence->crt;
+
+        // Verifica se o usuário é o criador do título, advogado associado ou beneficiário
+        return $offer->created_by == $user->id || 
+                        $offer->organization_id == $user->organization_id ||
+                        $offer->asset->due_diligence->crt->users_titles->contains('user_id', $user->id) ||
+                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $user->id);       
+        
+    }
+
       // Função para converter o valor
       private function convertToDecimal($value)
       {
@@ -192,7 +205,10 @@ class OfferController extends Controller
         
         // Busca a oferta pelo ID
         $offer = Offer::find($id);
-        
+
+        // Verificar se o usuário está associado à oferta
+        $userIsAssociatedWithTitle = $this->userIsAssociatedWithTitle(auth()->user(), $offer);
+
         // Se a oferta não for encontrada, retorna com erro
         if (!$offer) {
             return redirect()->back()->withErrors('Oferta não encontrada');
@@ -201,17 +217,11 @@ class OfferController extends Controller
         // Verificar se o usuário tem permissão para visualizar todas as ofertas ou se é um admin
         if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
             // Usuário com permissão ou admin pode visualizar a oferta
-            return view('v1.admin.offers.show', compact('offer'));
+            return view('v1.admin.offers.show', compact('offer', 'userIsAssociatedWithTitle'));
         }
     
-        // Verificar se o usuário está associado à oferta
-        $isAssociated = $offer->created_by == $loggedUser->id || 
-                        $offer->organization_id == $loggedUser->organization_id ||
-                        $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
-                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
-    
-        if ($isAssociated) {
-            return view('v1.admin.offers.show', compact('offer'));
+        if ($userIsAssociatedWithTitle) {
+            return view('v1.admin.offers.show', compact('offer', 'userIsAssociatedWithTitle'));
         }
     
         // Se não tiver permissão, lança uma exceção de autorização
@@ -246,16 +256,23 @@ class OfferController extends Controller
             $offer->save();
 
             $availableAsset = AvailableAsset::where('id', $offer->available_asset_id)->first();
+
             if($availableAsset){
+
                 $availableAsset->status_id = 2;
                 $availableAsset->save();
+
             }else{
+
                 return redirect()->back()->withErrors('Ativo não encontrado');
             }
 
             return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
+
          }else{
+
             return redirect()->back()->withErrors('Oferta não encontrada');
+
          }
      }
 
@@ -288,6 +305,7 @@ class OfferController extends Controller
  
          return redirect()->back()->with('success', 'Contra proposta enviada com sucesso.');
      }
+
     public function edit(string $id)
     {
         //
