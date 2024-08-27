@@ -165,7 +165,7 @@ class OfferController extends Controller
   
           return $value;
       }
-      
+
     /**
      * Show the form for creating a new resource.
      */
@@ -192,7 +192,7 @@ class OfferController extends Controller
           $loggedUser = auth()->user();
         
           // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-          if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
+          if (!Gate::allows('view-offers-made', auth()) || !$loggedUser->user_type_id == 1) {
                
                 // Se não tiver permissão, lance uma exceção de autorização
                 abort(403, 'Você não tem permissão para visualizar ofertas.');  
