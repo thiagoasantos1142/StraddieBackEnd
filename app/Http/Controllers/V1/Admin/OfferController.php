@@ -187,32 +187,37 @@ class OfferController extends Controller
      */
     public function show(string $id)
     {
+        // Obtém o usuário atual
+        $loggedUser = auth()->user();
         
-          // Obtém o usuário atual
-          $loggedUser = auth()->user();
+        // Busca a oferta pelo ID
+        $offer = Offer::find($id);
         
-          // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-        if (!Gate::allows('view-offers-made', auth()) || !$loggedUser->user_type_id == 1) {
-               
-            $offer = Offer::where('id', $id)->first();
-           
-            if($offer){
- 
-                 return view('v1.admin.offers.show', compact('offer'));
- 
-            }           
-   
-        }elseif(){
-            
-
-            return redirect()->back()->withErrors('Oferta não encontrado');   
-
-        }else{
-             // Se não tiver permissão, lance uma exceção de autorização
-             abort(403, 'Você não tem permissão para visualizar ofertas.');  
+        // Se a oferta não for encontrada, retorna com erro
+        if (!$offer) {
+            return redirect()->back()->withErrors('Oferta não encontrada');
         }
-   
+    
+        // Verificar se o usuário tem permissão para visualizar todas as ofertas ou se é um admin
+        if (Gate::allows('view-offers-made', auth()) || $loggedUser->user_type_id == 1) {
+            // Usuário com permissão ou admin pode visualizar a oferta
+            return view('v1.admin.offers.show', compact('offer'));
+        }
+    
+        // Verificar se o usuário está associado à oferta
+        $isAssociated = $offer->created_by == $loggedUser->id || 
+                        $offer->organization_id == $loggedUser->organization_id ||
+                        $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
+    
+        if ($isAssociated) {
+            return view('v1.admin.offers.show', compact('offer'));
+        }
+    
+        // Se não tiver permissão, lança uma exceção de autorização
+        abort(403, 'Você não tem permissão para visualizar esta oferta.');
     }
+    
     /**
      * Show the form for editing the specified resource.
      */
