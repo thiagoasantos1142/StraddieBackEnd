@@ -68,7 +68,7 @@
                     <h5>Titulo #{{ $offer->asset->due_diligence->crt->id }}</h5>
                     <p><strong>Título:</strong> {{ $offer->asset->due_diligence->crt->title ?? 'Não especificado' }}</p>
                     <p><strong>Categoria:</strong> {{ $offer->category->title ?? 'Não especificado' }}</p>
-                    <p><strong>Valor principal do Titulo:</strong> {{ $offer->asset->due_diligence->availableAsset  ->negotiated_main_value ?? 'Não especificado' }}</p>
+                    <p><strong>Valor principal do Titulo:</strong> {{ $offer->asset->due_diligence->availableAsset->value ?? 'Não especificado' }}</p>
                     <p><strong>Numero do processo:</strong> {{ $offer->asset->due_diligence->crt->process_number ?? 'Não especificado' }}</p>
                     
                     
