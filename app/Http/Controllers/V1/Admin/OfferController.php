@@ -162,11 +162,9 @@ class OfferController extends Controller
         $crt = $offer->asset->due_diligence->crt;
 
         // Verifica se o usuário é o criador do título, advogado associado ou beneficiário
-        return $offer->created_by == $user->id || 
-                        $offer->organization_id == $user->organization_id ||
-                        $offer->asset->due_diligence->crt->users_titles->contains('user_id', $user->id) ||
-                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $user->id);       
-        
+        return $crt->user_id == $user->id ||
+            $crt->crtLawyers()->where('lawyer_id', $user->id)->exists() ||
+            $crt->users_titles()->where('user_id', $user->id)->exists();
     }
 
       // Função para converter o valor
@@ -205,10 +203,7 @@ class OfferController extends Controller
         
         // Busca a oferta pelo ID
         $offer = Offer::find($id);
-
-        // Verificar se o usuário está associado à oferta
-        $userIsAssociatedWithTitle = $this->userIsAssociatedWithTitle(auth()->user(), $offer);
-
+        
         // Se a oferta não for encontrada, retorna com erro
         if (!$offer) {
             return redirect()->back()->withErrors('Oferta não encontrada');
@@ -219,13 +214,25 @@ class OfferController extends Controller
             // Usuário com permissão ou admin pode visualizar a oferta
             return view('v1.admin.offers.show', compact('offer'));
         }
+        
+        // Verificar se o usuário está associado à oferta
+        $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
     
-        if ($userIsAssociatedWithTitle) {
-            return view('v1.admin.offers.show', compact('offer', 'userIsAssociatedWithTitle'));
+        if ($isAssociated) {
+            return view('v1.admin.offers.show', compact('offer'));
         }
     
+        $isOwner = $offer->created_by == $loggedUser->id || 
+                  $offer->organization_id == $loggedUser->organization_id;
+
+        if ($isOwner) {
+            return view('v1.admin.offers.show', compact('offer'));
+        }
+
         // Se não tiver permissão, lança uma exceção de autorização
         abort(403, 'Você não tem permissão para visualizar esta oferta.');
+
     }
     
     /**
@@ -276,6 +283,7 @@ class OfferController extends Controller
          }
      }
 
+
      public function counter(Request $request, $id)
      {
          $request->validate([
@@ -287,7 +295,7 @@ class OfferController extends Controller
           $loggedUser = auth()->user();
 
           // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-          if (Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id == 1) {
+          if (!Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id != 1) {
               
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para aceitar ofertas.');  
@@ -296,16 +304,56 @@ class OfferController extends Controller
  
          $offer = Offer::findOrFail($id);
  
-          
-         // Lógica para salvar a contraproposta
-         $offer->counter_offer_amount = $request->input('counter_amount');
-         $offer->counter_offer_description = $request->input('counter_description');
-         $offer->status = 'countered'; // Atualiza o status para 'contra proposta'
-         $offer->save();
- 
-         return redirect()->back()->with('success', 'Contra proposta enviada com sucesso.');
+        // Verificar se o usuário está associado à oferta
+        $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
+
+        if( $isAssociated ){
+            // Lógica para salvar a contraproposta
+            $offer->counter_offer_amount = $request->input('counter_amount');
+            $offer->counter_offer_description = $request->input('counter_description');
+            $offer->status = 'countered'; // Atualiza o status para 'contra proposta'
+            $offer->save();
+    
+            return redirect()->back()->with('success', 'Contra proposta enviada com sucesso.');
+
+        }else{
+
+            return redirect()->back()->with('error', 'Você não tem permissçao para enviar contra-proposta.');
+        }
      }
 
+     public function cancelMadeOffers($id){
+
+          // Obtém o usuário atual
+          $loggedUser = auth()->user();
+
+          // Verificar se o usuário tem a permissão para cancelar oferta
+        if (Gate::allows('cancel-offers', auth()) || $loggedUser->user_type_id == 1) {
+              
+            // Se não tiver permissão, lance uma exceção de autorização
+            abort(403, 'Você não tem permissão para aceitar ofertas.');  
+
+        }
+
+        $offer = Offer::findOrFail($id);
+
+        $isOwner = $offer->created_by == $loggedUser->id || 
+        $offer->organization_id == $loggedUser->organization_id;
+
+        if ($isOwner) {
+            
+            $offer = Offer::findOrFail($id);
+            $offer->status_id = 5;
+            $offer->save();
+
+            return redirect()->back()->with('success', 'Oferta cancelada com sucesso.');
+
+        }else{
+
+            return redirect()->back()->with('error', 'Você não tem permissçao para cancelar oferta.');
+        }
+     }
     public function edit(string $id)
     {
         //

@@ -88,6 +88,8 @@ Route::middleware([
         Route::get('/offers/received', [OfferController::class, 'getReceivedOffers'])->name('offers.received');
         Route::get('/offers/made', [OfferController::class, 'getMadeOffers'])->name('offers.made');
         
+        Route::get('/offers/cancel', [OfferController::class, 'cancelMadeOffers'])->name('offers.cancel');
+        
         Route::get('/offers/{id}', [OfferController::class, 'show'])->name('offers.show');        
         Route::post('/offers/{offer}/accept', [OfferController::class, 'accept'])->name('offers.accept');
         Route::post('/offers/{offer}/counter', [OfferController::class, 'counter'])->name('offers.counter');
