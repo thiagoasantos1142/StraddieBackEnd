@@ -111,7 +111,7 @@
 
             <button class="btn btn-warning" data-toggle="modal" data-target="#counterOfferModal">Enviar Contra Proposta</button>
         @elseif(isset($isOwner) && $isOwner)
-            <form action="{{ route('offers.cancelOffer', $offer->id) }}" method="POST" class="d-inline">
+            <form action="{{ route('offers.cancel', $offer->id) }}" method="POST" class="d-inline">
                 @csrf
                 <button class="btn btn-warning" data-toggle="modal" data-target="#cancelOfferModal">Cancelar Proposta</button>
             </form>
