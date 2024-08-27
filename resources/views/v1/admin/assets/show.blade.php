@@ -254,7 +254,7 @@
     <!-- Offer Modal -->
     <div class="modal fade" id="offerModal" tabindex="-1" aria-labelledby="offerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form method="POST" action="{{ route('offers.store') }}" id="offerForm">
+            <form method="POST" action="{{ route('offers.makeOffer') }}" id="offerForm">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
