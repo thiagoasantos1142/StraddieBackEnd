@@ -269,7 +269,7 @@
                         <div id="mainValueFields" style="display: none;">
                             <div class="form-group">
                                 <label for="offer_main_value" class="form-label">Valor Principal:</label>
-                                <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
+                                R$ <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
                             </div>
                         </div>
 
@@ -280,7 +280,7 @@
                         <div id="feeValueFields" style="display: none;">
                             <div class="form-group">
                                 <label for="feeValue" class="form-label">Valor dos Honorários:</label>
-                                <input type="text" class="form-control" id="feeValue" name="feeValue">
+                                R$ <input type="text" class="form-control" id="feeValue" name="feeValue">
                             </div>
                         </div>
                     </div>
