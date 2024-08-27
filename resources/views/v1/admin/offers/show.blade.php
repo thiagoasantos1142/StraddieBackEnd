@@ -68,20 +68,26 @@
                     <h5>Titulo #{{ $offer->asset->due_diligence->crt->id }}</h5>
                     <p><strong>Título:</strong> {{ $offer->asset->due_diligence->crt->title ?? 'Não especificado' }}</p>
                     <p><strong>Categoria:</strong> {{ $offer->category->title ?? 'Não especificado' }}</p>
-                    <p><strong>Valor principal do Titulo:</strong> {{ $offer->asset->due_diligence->availableAsset->value ?? 'Não especificado' }}</p>
+                    <p><strong>Valor principal do Titulo:</strong> {{ $offer->asset->due_diligence->availableAsset->negotiated_main_value ?? 'Não especificado' }}</p>
                     <p><strong>Numero do processo:</strong> {{ $offer->asset->due_diligence->crt->process_number ?? 'Não especificado' }}</p>
                     
                     
                 </div>
                 <div class="col-md-6">
                     <h5>Oferta #{{ $offer->id }}</h5>
-                    <p><strong>Valor da Oferta:</strong> {{ $offer->value }}</p>                    
+                    <p>
+                        <strong>Valor da Oferta:</strong> 
+                        <span class="text-primary font-weight-bold bg-light p-2 rounded">
+                            {{ $offer->value }}
+                        </span>
+                    </p>                    
                     <p><strong>Data da Oferta:</strong> {{ \Carbon\Carbon::parse($offer->offer_date)->format('d/m/Y') }}</p>
                     <p><strong>Descrição:</strong> {{ $offer->description }}</p>
                     <p><strong>Titular da Oferta:</strong> 'Confidencial'</p>
                     <p><strong>Status:</strong> {{ $offer->status->title ?? 'Não especificado' }}</p>
                     <!-- Adicione mais detalhes conforme necessário -->
                 </div>
+
             </div>
         </div>
     </div>
