@@ -1,5 +1,15 @@
 @extends('layouts.master')
-
+<style>
+    .offer-value {
+        font-size: 1.5rem;
+        color: #007bff;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+</style>
 @section('styles')
     <link rel="stylesheet" href="{{ asset('build/assets/libs/filepond/filepond.min.css') }}">
     <link rel="stylesheet"
@@ -77,7 +87,7 @@
                     <h5>Oferta #{{ $offer->id }}</h5>
                     <p>
                         <strong>Valor da Oferta:</strong> 
-                        <span class="text-primary font-weight-bold bg-light p-2 rounded">
+                        <span class="offer-value">
                             {{ $offer->value }}
                         </span>
                     </p>                    
