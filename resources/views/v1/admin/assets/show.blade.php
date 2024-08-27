@@ -269,7 +269,10 @@
                         <div id="mainValueFields" style="display: none;">
                             <div class="form-group">
                                 <label for="offer_main_value" class="form-label">Valor Principal:</label>
-                                R$ <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" class="form-control" id="offer_main_value" name="offer_main_value">
+                                </div>
                             </div>
                         </div>
 
@@ -280,7 +283,10 @@
                         <div id="feeValueFields" style="display: none;">
                             <div class="form-group">
                                 <label for="feeValue" class="form-label">Valor dos Honorários:</label>
-                                R$ <input type="text" class="form-control" id="feeValue" name="feeValue">
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" class="form-control" id="feeValue" name="feeValue">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -320,7 +326,7 @@
             $('#offerMainValue').change(function () {
                 if (this.checked) {
                     $('#mainValueFields').show();
-                    $('#offer_main_value').focus().mask('R$ #.##0,00', { reverse: true });
+                    $('#offer_main_value').focus().mask('#.##0,00', { reverse: true });
                 } else {
                     $('#mainValueFields').hide();
                 }
@@ -330,7 +336,7 @@
             $('#offerFeeValue').change(function () {
                 if (this.checked) {
                     $('#feeValueFields').show();
-                    $('#feeValue').focus().mask('R$ #.##0,00', { reverse: true });
+                    $('#feeValue').focus().mask('#.##0,00', { reverse: true });
                 } else {
                     $('#feeValueFields').hide();
                 }
