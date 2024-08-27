@@ -320,7 +320,7 @@
             $('#offerMainValue').change(function () {
                 if (this.checked) {
                     $('#mainValueFields').show();
-                    $('#offer_main_value').focus().mask('#.##0,00', { reverse: true });
+                    $('#offer_main_value').focus().mask('R$ #.##0,00', { reverse: true });
                 } else {
                     $('#mainValueFields').hide();
                 }
@@ -330,7 +330,7 @@
             $('#offerFeeValue').change(function () {
                 if (this.checked) {
                     $('#feeValueFields').show();
-                    $('#feeValue').focus().mask('#.##0,00', { reverse: true });
+                    $('#feeValue').focus().mask('R$ #.##0,00', { reverse: true });
                 } else {
                     $('#feeValueFields').hide();
                 }
