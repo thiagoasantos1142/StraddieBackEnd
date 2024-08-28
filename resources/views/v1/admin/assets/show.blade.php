@@ -231,6 +231,7 @@
                                                         Valor Principal
                                                     @else  
                                                         Honorários
+                                                    @endif
                                                 </td>
                                                 <td>R$ {{ number_format($offer->value, 2, ',', '.') }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
