@@ -228,16 +228,16 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>                                              
                                                
-                                                @if($offer->offer_category_id == 1)
+                                                @if($offer->category_id == 1)
                                                     <td>Valor Principal</td>
-                                                @elseif($offer->offer_category_id == 2)  
+                                                @elseif($offer->category_id == 2)  
                                                     <td>Honorários</td>
                                                 @else
                                                   <td>Sem Classificação</td>
                                                 @endif
                                                 <td>{{ $offer->value }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
-                                                <td>{{ $offer->status->description }}</td>
+                                                <td>{{ $offer->status->title }}</td>
                                                 <td>
                                                     <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
                                                 </td>
