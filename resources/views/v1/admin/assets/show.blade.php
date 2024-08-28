@@ -217,9 +217,9 @@
                                         <tr>
                                             <th>Número</th>
                                             <th>Oferta para</th>
-                                            <th>Valor Principal</th>
+                                            <th>Valor Principal</th>   
+                                            <th>Status</th>                                         
                                             <th>Data da Oferta</th>
-                                            <th>Status</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
@@ -235,9 +235,10 @@
                                                 @else
                                                   <td>Sem Classificação</td>
                                                 @endif
-                                                <td>{{ $offer->value }}</td>                                                
+                                                <td>{{ $offer->value }}</td>  
+                                                <td>{{ $offer->status->title }}</td>                                             
                                                 <td>{{ $offer->created_at }}</td>
-                                                <td>{{ $offer->status->title }}</td>
+                                               
                                                 <td>
                                                     <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
                                                 </td>
