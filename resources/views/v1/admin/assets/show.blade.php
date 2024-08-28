@@ -233,7 +233,7 @@
                                                 @else  
                                                     </td>Honorários</td>
                                                 @endif
-                                                <td>R$ {{ $offer->value }}</td>                                                
+                                                <td>{{ $offer->value }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
                                                 <td>{{ $offer->status->description }}</td>
                                                 <td>
