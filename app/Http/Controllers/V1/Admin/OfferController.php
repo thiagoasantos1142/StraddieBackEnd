@@ -221,9 +221,10 @@ class OfferController extends Controller
             ]);
         }
         
-        // Verificar se o usuário está associado à oferta
-        $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
-                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
+         // Verificar se o usuário está associado à oferta
+         $isAssociated =    $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                            $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
+                            $offer->asset->due_diligence->crt->created_by = $loggedUser->id;
         
         // Verificar se o usuário é o dono da oferta
         $isOwner = $offer->created_by == $loggedUser->id || 
@@ -253,42 +254,60 @@ class OfferController extends Controller
          $loggedUser = auth()->user();
         
          // Verificar se o usuário tem a permissão para visualizar todas as ofertas
-         if (Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id == 1) {
-              
-               // Se não tiver permissão, lance uma exceção de autorização
-               abort(403, 'Você não tem permissão para aceitar ofertas.');  
-  
-          }
+         if (Gate::allows('accept-offers', auth()) || $loggedUser->user_type_id == 1) {              
 
-         $offer = Offer::where('id', $id)->first();
-         if($offer){ 
-            if($offer->status_id != 1){
-                return redirect()->back()->withErrors('Oferta não está mais disponível');
-            }                  
-    
-            // Altera o status da oferta para 'aceito'
-            $offer->status_id = 3;
-            $offer->save();
+            $offer = Offer::where('id', $id)->first();
 
-            $availableAsset = AvailableAsset::where('id', $offer->available_asset_id)->first();
+            if($offer){ 
 
-            if($availableAsset){
+                if($offer->status_id != 1){
 
-                $availableAsset->status_id = 2;
-                $availableAsset->save();
+                    return redirect()->back()->withErrors('Oferta não está mais disponível');
+                }
+
+                // Verificar se o usuário está associado à oferta
+                $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                                $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
+                                $offer->asset->due_diligence->crt->created_by = $loggedUser->id;
+
+                if( $isAssociated ) {                    
+
+                    //Busca o Ativo ao qual é a oferta
+                    $availableAsset = AvailableAsset::where('id', $offer->available_asset_id)->first();
+
+                    if($availableAsset){//Ativop encontrado
+
+                        //Altera o status do ativo para em negociação
+                        $availableAsset->status_id = 2;
+                        $availableAsset->save();
+
+                        // Altera o status da oferta para 'aceito'
+                        $offer->status_id = 3;
+                        $offer->save();
+
+                    }else{
+
+                        return redirect()->back()->withErrors('Ativo não encontrado');
+                    }
+
+                    return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
+                
+                }else{
+
+                    return redirect()->back()->withErrors('Você não pode aceitar essa oferta');
+                }
 
             }else{
 
-                return redirect()->back()->withErrors('Ativo não encontrado');
+                return redirect()->back()->withErrors('Oferta não encontrada');
+
             }
+        
+  
+        }
 
-            return redirect()->back()->with('success', 'Oferta aceita com sucesso.');
-
-         }else{
-
-            return redirect()->back()->withErrors('Oferta não encontrada');
-
-         }
+         // Se não tiver permissão, lance uma exceção de autorização
+         abort(403, 'Você não tem permissão para aceitar ofertas.');  
      }
 
 
@@ -312,9 +331,10 @@ class OfferController extends Controller
  
          $offer = Offer::findOrFail($id);
  
-        // Verificar se o usuário está associado à oferta
-        $isAssociated = $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
-                        $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id);
+         // Verificar se o usuário está associado à oferta
+         $isAssociated =    $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                            $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
+                            $offer->asset->due_diligence->crt->created_by = $loggedUser->id;
 
         if( $isAssociated ){
             // Lógica para salvar a contraproposta
