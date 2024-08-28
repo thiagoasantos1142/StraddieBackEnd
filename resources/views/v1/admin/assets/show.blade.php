@@ -227,8 +227,13 @@
                                         @foreach($availableAsset->offers as $offer)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>                                              
-                                                <td>{{ $offer->type_id }}</td>
-                                                <td>R$ {{ number_format($offer->value, 2, ',', '.') }}</td>                                                
+                                               
+                                                @if($offer->type_id == 1)
+                                                    <td>Valor Principal</td>
+                                                @else  
+                                                    </td>Honorários</td>
+                                                @endif
+                                                <td>R$ {{ $offer->value }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
                                                 <td>{{ $offer->status->description }}</td>
                                                 <td>
