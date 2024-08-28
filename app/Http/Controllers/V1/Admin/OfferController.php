@@ -38,8 +38,7 @@ class OfferController extends Controller
                 return response()->json(['data' => $offers]);
             }
     
-        }
-        
+        }        
         
         if ($request->ajax()) {
             $offers = Offer::query()

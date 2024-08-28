@@ -216,8 +216,8 @@
                                     <thead>
                                         <tr>
                                             <th>Número</th>
+                                            <th>Oferta para</th>
                                             <th>Valor Principal</th>
-                                            <th>Honorários</th>
                                             <th>Data da Oferta</th>
                                             <th>Status</th>
                                             <th>Ação</th>
@@ -226,11 +226,15 @@
                                     <tbody>
                                         @foreach($availableAsset->offers as $offer)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>R$ {{ number_format($offer->main_value, 2, ',', '.') }}</td>
-                                                <td>R$ {{ number_format($offer->fee_value, 2, ',', '.') }}</td>
+                                                <td>{{ $loop->iteration }}</td>                                              
+                                                <td>@if($offer->type_id == 1)
+                                                        Valor Principal
+                                                    @else  
+                                                        Honorários
+                                                </td>
+                                                <td>R$ {{ number_format($offer->value, 2, ',', '.') }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
-                                                <td>{{ $offer->status->description }}</td>
+                                                <td>{{ $offer->status->title }}</td>
                                                 <td>
                                                     <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
                                                 </td>
