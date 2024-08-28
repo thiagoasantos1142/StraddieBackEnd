@@ -231,7 +231,7 @@
                                                 @if($offer->type_id == 1)
                                                     <td>Valor Principal</td>
                                                 @else  
-                                                    </td>Honorários</td>
+                                                    <td>Honorários</td>
                                                 @endif
                                                 <td>{{ $offer->value }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
