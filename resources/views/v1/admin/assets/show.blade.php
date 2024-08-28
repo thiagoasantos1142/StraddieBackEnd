@@ -203,60 +203,63 @@
         </div>
 
         <!-- Section Offers -->
-        <div id="section-offers" class="row">
-            <div class="col-md-12">
-                @if($availableAsset->offers->count() > 0)
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Ofertas</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered text-nowrap border-bottom" id="offers-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Número</th>
-                                            <th>Oferta para</th>
-                                            <th>Valor Principal</th>   
-                                            <th>Status</th>                                         
-                                            <th>Data da Oferta</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($availableAsset->offers as $offer)
+        @if(isset($userIsAssociatedWithTitle) && $userIsAssociatedWithTitle)
+            <div id="section-offers" class="row">
+                <div class="col-md-12">
+                    @if($availableAsset->offers->count() > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Ofertas</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap border-bottom" id="offers-table">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>                                              
-                                               
-                                                @if($offer->category_id == 1)
-                                                    <td>Valor Principal</td>
-                                                @elseif($offer->category_id == 2)  
-                                                    <td>Honorários</td>
-                                                @else
-                                                  <td>Sem Classificação</td>
-                                                @endif
-                                                <td>{{ $offer->value }}</td>  
-                                                <td>{{ $offer->status->title }}</td>                                             
-                                                <td>{{ $offer->created_at }}</td>
-                                               
-                                                <td>
-                                                    <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
-                                                </td>
+                                                <th>Número</th>
+                                                <th>Oferta para</th>
+                                                <th>Valor Principal</th>   
+                                                <th>Status</th>                                         
+                                                <th>Data da Oferta</th>
+                                                <th>Ação</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($availableAsset->offers as $offer)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>                                              
+                                               
+                                                    @if($offer->category_id == 1)
+                                                        <td>Valor Principal</td>
+                                                    @elseif($offer->category_id == 2)  
+                                                        <td>Honorários</td>
+                                                    @else
+                                                    <td>Sem Classificação</td>
+                                                    @endif
+                                                    <td>{{ $offer->value }}</td>  
+                                                    <td>{{ $offer->status->title }}</td>                                             
+                                                    <td>{{ $offer->created_at }}</td>
+                                                
+                                                    <td>
+                                                        <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @else
-                    <div class="alert alert-warning">
-                        Nenhuma oferta disponível para este ativo.
-                    </div>
-                @endif
+                    @else
+                        <div class="alert alert-warning">
+                            Nenhuma oferta disponível para este ativo.
+                        </div>
+                    @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
+    
     <!-- CONTAINER CLOSED -->
 
     <!-- Offer Modal -->
