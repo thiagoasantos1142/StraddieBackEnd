@@ -227,15 +227,10 @@
                                         @foreach($availableAsset->offers as $offer)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>                                              
-                                                @if($offer->type_id == 1)
-                                                    <td>Valor Principal</td>
-                                                @else  
-                                                    </td>Honorários</td>
-                                                @endif
-                                                </td>
-                                                <td>R$ {{ number_format($offer->value ? $offer->value : 0, 2, ',', '.') }}</td>                                                
+                                                <td>{{ $offer->type_id }}</td>
+                                                <td>R$ {{ number_format($offer->value, 2, ',', '.') }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
-                                                <td>{{ $offer->status->title }}</td>
+                                                <td>{{ $offer->status->description }}</td>
                                                 <td>
                                                     <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-info btn-sm">Visualizar</a>
                                                 </td>
