@@ -228,10 +228,12 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>                                              
                                                
-                                                @if($offer->type_id == 1)
+                                                @if($offer->offer_category_id == 1)
                                                     <td>Valor Principal</td>
-                                                @else  
+                                                @elseif($offer->offer_category_id == 2)  
                                                     <td>Honorários</td>
+                                                @else
+                                                  <td>Sem Classificação</td>
                                                 @endif
                                                 <td>{{ $offer->value }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
