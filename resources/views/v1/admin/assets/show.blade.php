@@ -233,7 +233,7 @@
                                                     </td>Honorários</td>
                                                 @endif
                                                 </td>
-                                                <td>R$ {{ number_format($offer->value, 2, ',', '.') }}</td>                                                
+                                                <td>R$ {{ number_format($offer->value ? $offer->value : 0, 2, ',', '.') }}</td>                                                
                                                 <td>{{ $offer->created_at }}</td>
                                                 <td>{{ $offer->status->title }}</td>
                                                 <td>
