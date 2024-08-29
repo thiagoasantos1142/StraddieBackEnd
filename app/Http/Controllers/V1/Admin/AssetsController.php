@@ -54,11 +54,11 @@ class AssetsController extends Controller
                                     // Beneficiários do título
                                     $query->where('user_id', $loggedUser->id);
                                 })
-                                ->orWhereHas('due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
+                                ->whereHas('due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
                                     // Advogados associados ao título
                                     $query->where('lawyer_id', $loggedUser->id);
                                 })
-                                ->orWhereHas('due_diligence.crt', function ($query) use ($loggedUser) {
+                                ->whereHas('due_diligence.crt', function ($query) use ($loggedUser) {
                                     // Advogados associados ao título
                                     $query->where('created_by', $loggedUser->id);
                                 })
