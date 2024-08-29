@@ -58,7 +58,7 @@ class AssetsController extends Controller
                                     // Advogados associados ao título
                                     $query->where('lawyer_id', $loggedUser->id);
                                 })
-                                ->orderBy('offers.created_at', 'desc')
+                                ->orderBy('created_at', 'desc')
                                 ->get();
 
         if($assets) {
