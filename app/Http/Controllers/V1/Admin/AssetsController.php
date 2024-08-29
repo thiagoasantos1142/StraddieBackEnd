@@ -243,7 +243,7 @@ class AssetsController extends Controller
             $users = User::get();
 
             // Verificar se o usuário tem permissão para visualizar o asset
-            if (Gate::allows('view-assets', $loggedUser) && Gate::allows('access-admin', $loggedUser)) {
+            if (Gate::allows('access-admin', $loggedUser)) {
 
                 $isAdmin = true;
                 $dataForm = $this->formCreateUpdate($availableAsset); // Método para preparar os dados do formulário
@@ -251,6 +251,12 @@ class AssetsController extends Controller
                 return view('v1.admin.assets.show', compact('isAdmin', 'availableAsset', 'dataForm'));
 
             }  
+            if(Gate::allows('view-assets', $loggedUser)){
+
+                $dataForm = $this->formCreateUpdate($availableAsset); // Método para preparar os dados do formulário
+        
+                return view('v1.admin.assets.show', compact('availableAsset', 'dataForm'));
+            }
             
             if($isAssociated) {
 
