@@ -46,24 +46,26 @@ class AssetsController extends Controller
                                             'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
                                     ->get();
              
-        }
+        }else{
 
-        // $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 
-        //                                'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
-        //                         ->whereHas('due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
-        //                             // Beneficiários do título
-        //                             $query->where('user_id', $loggedUser->id);
-        //                         })
-        //                         ->orWhereHas('due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
-        //                             // Advogados associados ao título
-        //                             $query->where('lawyer_id', $loggedUser->id);
-        //                         })
-        //                         ->orWhereHas('due_diligence.crt', function ($query) use ($loggedUser) {
-        //                             // Advogados associados ao título
-        //                             $query->where('created_by', $loggedUser->id);
-        //                         })
-        //                         ->orderBy('created_at', 'desc')
-        //                         ->get();
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 
+                                            'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
+                                    ->whereHas('due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
+                                        // Beneficiários do título
+                                        $query->where('user_id', $loggedUser->id);
+                                    })
+                                    ->orWhereHas('due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
+                                        // Advogados associados ao título
+                                        $query->where('lawyer_id', $loggedUser->id);
+                                    })
+                                    ->orWhereHas('due_diligence.crt', function ($query) use ($loggedUser) {
+                                        // Advogados associados ao título
+                                        $query->where('created_by', $loggedUser->id);
+                                    })
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+
+        }
 
         if($assets) {
 
