@@ -39,55 +39,44 @@ class AssetsController extends Controller
         // Obtém o usuário atual
         $loggedUser = auth()->user();
 
-        $filterAssetsCtrTypes = $request->has('ctrTypesId') ? explode(",", $request->ctrTypesId) : null;
-        $crtOriginDebitors = $request->has('crtOriginDebitorsId') ? explode(",", $request->crtOriginDebitorsId) : null;
+        // Verificar se o usuário tem a permissão para visualizar títulos ou se é administrador
+        if (Gate::allows('view-crt', auth()) || Gate::allows('admin-access', auth())) {
 
-        if($loggedUser->user_type_id == 1 || $loggedUser->user_type_id == 5) { // Admin ou Corporativo
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
-                ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
-                        $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
-                    });
-                })->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
-                        $query->whereIn('origin_debtor_id', $crtOriginDebitors);
-                    });
-                })->get();
-
-        }elseif($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 4) {
-
-            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
-                ->whereHas('due_diligence.crt', function ($query) use ($loggedUser) {
-                    $query->whereHas('users_titles', function ($query) use ($loggedUser) {
-                        $query->where('user_id', $loggedUser->id);
-                    })
-                    ->orWhereHas('crtLawyers', function ($query) use ($loggedUser) {
-                        $query->where('lawyer_id', $loggedUser->id);
-                    });
-                })
-                ->when($filterAssetsCtrTypes, function ($query, $filterAssetsCtrTypes) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($filterAssetsCtrTypes) {
-                        $query->whereIn('crt_type_id', $filterAssetsCtrTypes);
-                    });
-                })
-                ->when($crtOriginDebitors, function ($query, $crtOriginDebitors) {
-                    return $query->whereHas('due_diligence.crt', function ($query) use ($crtOriginDebitors) {
-                        $query->whereIn('origin_debtor_id', $crtOriginDebitors);
-                    });
-                })
-                ->where('status_id', 1) //Status Aceitando ofertas
-                ->get();
-
-        } else {
-            return redirect()->back()->withErrors('Você não tem permissão para acessar os Ativos');
+            $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 
+                                            'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
+                                    ->get();
+             
         }
 
-        if ($request->ajax()) {
-            return response()->json(['data' => $assets]);
+         $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 
+                                       'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
+                                ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
+                                    // Beneficiários do título
+                                    $query->where('user_id', $loggedUser->id);
+                                })
+                                ->orWhereHas('asset.due_diligence.crt.crtLawyers', function ($query) use ($loggedUser) {
+                                    // Advogados associados ao título
+                                    $query->where('lawyer_id', $loggedUser->id);
+                                })
+                                ->orderBy('offers.created_at', 'desc')
+                                ->get();
+
+        if($assets) {
+
+            if ($request->ajax()) {
+                return response()->json(['data' => $assets]);
+            }
+
+        } else {
+
+            return redirect()->back()->withErrors('Você não tem permissão para acessar os Ativos');
+
         }
 
         $crtTypes = CrtType::get();
+
         $crtOriginDebitors = CrtOriginDebtor::get();
+
         return view('v1.admin.assets.index', compact('assets', 'crtTypes', 'crtOriginDebitors'));
     }
 

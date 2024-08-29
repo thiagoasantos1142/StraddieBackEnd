@@ -75,6 +75,7 @@ class OfferController extends Controller
         }
 
         if ($request->ajax()) {
+            
             $offers = Offer::query()
                 ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
                 ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
