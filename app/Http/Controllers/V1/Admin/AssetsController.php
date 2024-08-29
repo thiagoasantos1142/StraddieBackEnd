@@ -40,7 +40,7 @@ class AssetsController extends Controller
         $loggedUser = auth()->user();
 
         // Verificar se o usuário tem a permissão para visualizar títulos ou se é administrador
-        if (Gate::allows('view-crt', auth()) || Gate::allows('admin-access', auth())) {
+        if (Gate::allows('view-assets', auth()) || Gate::allows('admin-access', auth())) {
 
             $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 
                                             'due_diligence.crt.crtOriginDebtor', 'due_diligence.crt.crtNatureCredit')
