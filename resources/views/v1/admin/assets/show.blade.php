@@ -203,7 +203,7 @@
         </div>
 
         <!-- Section Offers -->
-        @if(isset($userIsAssociatedWithTitle) && $userIsAssociatedWithTitle)
+        @if(isset($isAssociated) && $isAssociated)
             <div id="section-offers" class="row">
                 <div class="col-md-12">
                     @if($availableAsset->offers->count() > 0)

@@ -53,7 +53,9 @@ class AssetsController extends Controller
                         $query->whereIn('origin_debtor_id', $crtOriginDebitors);
                     });
                 })->get();
-        } elseif($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 4) {
+
+        }elseif($loggedUser->user_type_id == 3 || $loggedUser->user_type_id == 4) {
+
             $assets = AvailableAsset::with('due_diligence.crt.users_titles', 'status', 'due_diligence.crt.crtLawyers', 'due_diligence.crt.crtOriginDebtor','due_diligence.crt.crtNatureCredit')
                 ->whereHas('due_diligence.crt', function ($query) use ($loggedUser) {
                     $query->whereHas('users_titles', function ($query) use ($loggedUser) {
@@ -75,6 +77,7 @@ class AssetsController extends Controller
                 })
                 ->where('status_id', 1) //Status Aceitando ofertas
                 ->get();
+
         } else {
             return redirect()->back()->withErrors('Você não tem permissão para acessar os Ativos');
         }
@@ -226,29 +229,44 @@ class AssetsController extends Controller
         $loggedUser = auth()->user();
     
         // Obtém o asset pelo ID, com as relações necessárias
-        $asset = AvailableAsset::with(['due_diligence.crt.users_titles', 'due_diligence.crt.crtLawyers'])->findOrFail($id);
+        $availableAsset = AvailableAsset::with(['due_diligence.crt.users_titles', 'due_diligence.crt.crtLawyers'])->findOrFail($id);
+
+        if ($availableAsset) {
+
+            // Verificar se o usuário está associado à oferta
+            $isAssociated =     $availableAsset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                                $availableAsset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
+                                $availableAsset->due_diligence->crt->created_by = $loggedUser->id;
+            
+                                
+            
+            $users = User::get();
+
+            // Verificar se o usuário tem permissão para visualizar o asset
+            if (Gate::allows('view-assets', $loggedUser) && Gate::allows('access-admin', $loggedUser)) {
+
+                $isAdmin = true;
+                $dataForm = $this->formCreateUpdate($availableAsset); // Método para preparar os dados do formulário
     
-        /// Verificar se o usuário está associado à oferta
-        $isAssociated =     $asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
-                            $asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
-                            $asset->due_diligence->crt->created_by = $loggedUser->id;
-    
-        // Verificar se o usuário tem permissão para visualizar o asset
-        if (!Gate::allows('view-assets', $loggedUser) && !$isAssociated) {
+                return view('v1.admin.assets.show', compact('isAdmin', 'availableAsset', 'dataForm'));
+
+            }  
+            
+            if($isAssociated) {
+
+                $dataForm = $this->formCreateUpdate($availableAsset); // Método para preparar os dados do formulário
+        
+                return view('v1.admin.assets.show', compact('isAssociated', 'availableAsset', 'dataForm'));
+
+            }
+
             // Se não tiver permissão, lance uma exceção de autorização
             abort(403, 'Você não tem permissão para visualizar esse ativo.');
-        }
-    
-        // Form controller - ajuste a lógica se necessário
-        $users = User::get();
-        $availableAsset = $asset;
-    
-        if ($availableAsset) {
-            $dataForm = $this->formCreateUpdate($availableAsset); // Método para preparar os dados do formulário
-    
-            return view('v1.admin.assets.show', compact('isAssociated', 'availableAsset', 'dataForm'));
+
         } else {
+
             return redirect()->back()->withErrors('Ativo não encontrado');
+            
         }
     }
     
