@@ -103,7 +103,7 @@
     </div>
 
     <div class="action-buttons">
-        @if(isset($isAssociated))
+        @if(isset($isAssociated) && $isAssociated)
             <form action="{{ route('offers.accept', $offer->id) }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-success">Aceitar Oferta</button>
