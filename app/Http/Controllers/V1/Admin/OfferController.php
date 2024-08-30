@@ -221,8 +221,8 @@ class OfferController extends Controller
                 'isOwner' => false // Admins não precisam dessa verificação
             ]);
         }
-        dd($offer->asset->due_diligence->crt->created_by);
-         // Verificar se o usuário está associado à oferta
+       
+        // Verificar se o usuário está associado à oferta
          $isAssociated =    $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
                             $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
                             $offer->asset->due_diligence->crt->created_by = $loggedUser->id;
@@ -235,7 +235,7 @@ class OfferController extends Controller
         if ($isAssociated || $isOwner) {
             return view('v1.admin.offers.show', [
                 'offer' => $offer,
-                'userIsAssociatedWithTitle' => $isAssociated,
+                'isAssociated' => $isAssociated,
                 'isOwner' => $isOwner
             ]);
         }
