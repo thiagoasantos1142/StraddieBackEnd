@@ -223,8 +223,8 @@ class OfferController extends Controller
         }
         
          // Verificar se o usuário está associado à oferta
-         $isAssociated =    $offer->asset->due_diligence->crt->users_titles->user_id == $loggedUser->id ||
-                            $offer->asset->due_diligence->crt->crtLawyers->clawyer_id == $loggedUser->id ||
+         $isAssociated =    $offer->asset->due_diligence->crt->users_titles->contains('user_id', $loggedUser->id) ||
+                            $offer->asset->due_diligence->crt->crtLawyers->contains('lawyer_id', $loggedUser->id) ||
                             $offer->asset->due_diligence->crt->created_by = $loggedUser->id;
         
         // Verificar se o usuário é o dono da oferta
