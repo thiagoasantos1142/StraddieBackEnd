@@ -43,8 +43,8 @@ class OfferController extends Controller
         if ($request->ajax()) {
             $offers = Offer::query()
                 ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')             
-                ->where('organization_id', $loggedUser->organization_id)
-                ->where('offers.created_by', $loggedUser->id)
+                ->orWhere('organization_id', $loggedUser->organization_id)
+                ->orWhere('offers.created_by', $loggedUser->id)
                 ->orderBy('offers.created_at', 'desc');
             
             $table = DataTables::of($offers);
@@ -86,6 +86,7 @@ class OfferController extends Controller
                     // Advogados associados ao título
                     $query->where('lawyer_id', $loggedUser->id);
                 })
+                ->orWhere('offers.created_by', $loggedUser->id)
                 ->orderBy('offers.created_at', 'desc');
             
             $table = DataTables::of($offers);
