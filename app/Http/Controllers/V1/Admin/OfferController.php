@@ -75,7 +75,7 @@ class OfferController extends Controller
         }
 
         if ($request->ajax()) {
-            
+
             $offers = Offer::query()
                 ->with('asset.due_diligence.crt.users_titles', 'status', 'organization', 'user', 'category')
                 ->whereHas('asset.due_diligence.crt.users_titles', function ($query) use ($loggedUser) {
@@ -217,7 +217,7 @@ class OfferController extends Controller
             // Usuário com permissão ou admin pode visualizar a oferta
             return view('v1.admin.offers.show', [
                 'offer' => $offer,
-                'userIsAssociatedWithTitle' => false, // Admins não precisam dessa verificação
+                'isAssociated' => false, // Admins não precisam dessa verificação
                 'isOwner' => false // Admins não precisam dessa verificação
             ]);
         }
