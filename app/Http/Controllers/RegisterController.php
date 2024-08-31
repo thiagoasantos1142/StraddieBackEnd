@@ -9,6 +9,7 @@ use App\Models\V1\Admin\Organization;
 use App\Models\V1\Admin\UserRole;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class RegisterController extends Controller
@@ -77,75 +78,70 @@ class RegisterController extends Controller
             'razao_social' => 'required|string|max:255',
             'cnpj' => 'required|string|max:255|unique:organizations',
             'organization_email' => 'required|string|email|max:255|unique:organizations,email',
-           // 'organization_phone' => 'required|string|max:20|unique:contacts,phone',
-            //'street_address' => 'required|string|max:255',
-            //'number_address' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-         // Create organization
-         $organization = Organization::create([
-            
-            'nome_fantasia' => $request->nome_fantasia,
-            'razao_social' => $request->razao_social,            
-            'email' => $request->organization_email,
-            'cnpj' => $request->cnpj
-        ]);
+        DB::beginTransaction(); // Inicia uma transação
 
-       
-        // Create contact for organization phone
-        Contact::create([
-            'organization_id' => $organization->id,
-            'phone' => $request->organization_phone,
-        ]);
+        try {
+            // Create organization
+            $organization = Organization::create([
+                'nome_fantasia' => $request->nome_fantasia,
+                'razao_social' => $request->razao_social,
+                'email' => $request->organization_email,
+                'cnpj' => $request->cnpj
+            ]);
 
-        // Create address for organization
-        // Address::create([
-        //     'organization_id' => $organization->id,
-        //     'street' => $request->street_address,
-        //     'number' => $request->number_address,
-        // ]);
+            // Create contact for organization phone
+            Contact::create([
+                'organization_id' => $organization->id,
+                'phone' => $request->organization_phone,
+            ]);
 
-        // Create user
-        $user = User::create([
-            'name' => $request->name,
-            'cpf' => $request->cpf,
-            'email' => $request->email,
-            'organization_id' => $organization->id,
-            'password' => Hash::make($request->password),
-        ]);
+            // Create user
+            $user = User::create([
+                'name' => $request->name,
+                'cpf' => $request->cpf,
+                'email' => $request->email,
+                'organization_id' => $organization->id,
+                'password' => Hash::make($request->password),
+            ]);
 
-        
-        $formatedPhone = $this->cleanAndValidatePhoneNumber($request->phone);
+            $formatedPhone = $this->cleanAndValidatePhoneNumber($request->phone);
 
-        if($formatedPhone === NULL){
+            if($formatedPhone === NULL){
+                throw new \Exception('Formato telefone invalido');
+            }
 
-            return redirect()->back()->withErrors('Formato telefone invalido');
+            $contact = new Contact;
+            $contact->user_id = $user->id;
+            $contact->phone = $formatedPhone;
+            $contact->save();
+
+            $user->user_type_id = 5; // Define o tipo de usuário "Cliente Empresa" como 5
+            $user->save();
+
+            $roles = [7,10,14];
+
+            $userRoles = new UserRole();
+            $userRoles->assignRole($user, $roles);
+
+            DB::commit(); // Se tudo foi bem, comita a transação
+
+            // Autentique o usuário imediatamente após o registro
+            auth()->login($user);
+
+            return redirect()->route('profile'); // Redirecione para a página inicial ou outra página desejada
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Se algo deu errado, reverte todas as operações
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
         }
-
-        $contact = new Contact;
-        $contact->user_id = $user->id;
-        $contact->phone = $formatedPhone;
-        $contact->save();
-
-
-        $user->user_type_id = 5; // Define o tipo de usuário "Cliente Empresa" como 5
-        $user->save();
-        
-        $roles = [7,10,14];
-
-        $userRoles = new UserRole();
-        $userRoles->assignRole($user, $roles);
-
-        // Autentique o usuário imediatamente após o registro
-        auth()->login($user);
-       
-
-        return redirect()->route('profile'); // Redirecione para a página inicial ou outra página desejada
     }
+
 
     private function cleanAndValidatePhoneNumber($phone)
     {
