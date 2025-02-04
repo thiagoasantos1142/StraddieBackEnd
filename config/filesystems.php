@@ -60,7 +60,6 @@ return [
             'driver' => 'gcs',
             'project_id' => env('GOOGLE_CLOUD_PROJECT_ID', 'clin-technologies'),
             'bucket' => env('GOOGLE_CLOUD_BUCKET', 'clin-technologies-bucket'),
-            'path_prefix' => 'straddie',
             'key_file' => [
                 "type" => "service_account",
                 "project_id" => "clin-technologies",
