@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\V1\Lead;
 use App\Rules\NameAndSurname;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class StradieSiteController extends Controller
@@ -96,5 +97,10 @@ class StradieSiteController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function saveText(){
+        Storage::disk('gcs')->put('example.txt', 'Contentsasdasdas');
+        return 'Hello';
     }
 }

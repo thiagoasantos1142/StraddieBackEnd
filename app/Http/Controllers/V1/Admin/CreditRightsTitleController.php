@@ -174,7 +174,7 @@ class CreditRightsTitleController extends Controller
             $fileName = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
 
             // Faz o upload do arquivo para o Amazon S3
-            Storage::disk('s3')->put($path, file_get_contents($file));
+            Storage::disk('gcs')->put($path, file_get_contents($file));
 
             // Salva os dados do título apenas se o upload do arquivo for bem-sucedido
             $creditRightsTitle = CreditRightsTitle::create($request->all());

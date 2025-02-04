@@ -38,6 +38,7 @@ use App\Http\Controllers\V1\Sites\StradieSiteController;
 */
 
 Route::resource('/', StradieSiteController::class);
+Route::get('savetxt', [StradieSiteController::class, 'saveText']);
 Route::get('index', [DashboardController::class, 'index']);
 Route::get('landing-page', [LandingpageController::class, 'landing_page']);
 Route::resource('/form-documents', FormDocuments::class);
