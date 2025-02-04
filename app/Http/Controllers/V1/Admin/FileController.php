@@ -31,7 +31,7 @@ class FileController extends Controller
                 }
 
                 // Faz o upload do arquivo para o Amazon S3
-                Storage::disk('gcs')->put($path, file_get_contents($file));
+                Storage::disk('gcs')->put('straddie/'.$path, file_get_contents($file));
 
                 
 
@@ -120,7 +120,7 @@ class FileController extends Controller
             }
 
           // Faz o upload do arquivo para o Amazon S3
-           Storage::disk('gcs')->put($path, file_get_contents($file));
+           Storage::disk('gcs')->put('straddie/'.$path, file_get_contents($file));
 
             $document = new File;
 
@@ -156,7 +156,7 @@ class FileController extends Controller
             // Obtém o caminho completo do arquivo
       
             // Gera a URL temporária de download do arquivo         
-            $temporaryUrl = Storage::disk('gcs')->temporaryUrl($file->path, now()->addHour()); // Temporário por 1 hora
+            $temporaryUrl = Storage::disk('gcs')->temporaryUrl("straddie/".$file->path, now()->addHour()); // Temporário por 1 hora
             
             // Redireciona para a URL temporária de download
             return redirect($temporaryUrl);
@@ -175,8 +175,8 @@ class FileController extends Controller
         if ($document) {            
 
             // Remove o arquivo do armazenamento S3
-            if (Storage::disk('gcs')->exists($document->path)) {
-                Storage::disk('gcs')->delete($document->path);
+            if (Storage::disk('gcs')->exists('straddie/'.$document->path)) {
+                Storage::disk('gcs')->delete('straddie/'.$document->path);
             }
             
             // Remove o documento do banco de dados

@@ -100,7 +100,7 @@ class StradieSiteController extends Controller
     }
 
     public function saveText(){
-        Storage::disk('gcs')->put('example.txt', 'Contentsasdasdas');
+        Storage::disk('gcs')->put('straddie/'.'example.txt', 'Contentsasdasdas');
         return 'Hello';
     }
 }
